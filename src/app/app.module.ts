@@ -7,6 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PagesModule
+    PagesModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
