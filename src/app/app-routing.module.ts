@@ -1,24 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
+import { PagesRoutingModule } from './pages/pages.routing';
 
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
-import { PagesComponent } from './pages/pages.component';
+import { LoginComponent } from './auth/login/login.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 const routes: Routes = [
-  {
-    path: '', component: PagesComponent,
-    children: [
-      //put system routes 
-      { path: 'dashboard', component: DashboardComponent },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-    ]
-
-  },
-  // put lonely routes 
+  
+  // put general routes here
   { path: 'login', component: LoginComponent },
-
+  // path:'pages'
   //not found route
   { path: '**', component: NopagefoundComponent },
 ];
@@ -26,7 +17,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    PagesRoutingModule
   ],
   exports: [RouterModule]
 })

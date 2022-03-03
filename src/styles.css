@@ -9,3 +9,13 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
+.main-content{
+    height: 100%;
+    width: 100%;
+}
+.action-content{
+    margin: 0;
+}
+.body-content{
+    margin: 0;
+}
