@@ -38,8 +38,14 @@ export class CrearUsuarioDialogComponent implements OnInit {
   carga: boolean = false;
 
   //poner el tipado correcto
-  listadoSociedades: any[] = [];
-  listadoPerfiles: any[] = [];
+  listadoSociedades: any[] = [
+    { id: 1, nombre: 'sociedad 1'},
+    { id: 2, nombre: 'sociedad 2'},
+  ];
+  listadoPerfiles: any[] = [
+    { id: 1, nombre: 'perfil 1'},
+    { id: 2, nombre: 'perfil 2'},
+  ];
 
   constructor(
     public dialogRef: MatDialogRef<CrearUsuarioDialogComponent>,
