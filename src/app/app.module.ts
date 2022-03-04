@@ -10,12 +10,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NopagefoundComponent,
-    
     
   ],
   imports: [
@@ -25,6 +26,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     PagesModule,
     ConfiguracionModule,
   ],
+ 
   providers: [],
   bootstrap: [AppComponent]
 })

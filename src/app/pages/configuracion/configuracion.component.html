@@ -1,13 +1,20 @@
 <div class="main-content" >
-    <!-- breadcumbs-->
+   
   <app-header></app-header>
-  <app-sidebar></app-sidebar>  
+
+  <!-- por hacer -->
+
+  <div class="action-content col-xl-1 col-l-1">
+    <app-sidebar></app-sidebar>  
+
+  </div>
   
-  <div class="action-content">
-    <div class="breadcumbs">
-        <app-breadcumbs></app-breadcumbs>
-    </div>  
-    <div class="body-content">
+
+  <div class="body-content col-xl-11 col-l-11">
+     <!-- breadcumbs-->
+        <app-breadcrumbs></app-breadcrumbs>
+    
+    <div class="content">
         <!-- Sistema de Rutas-->
         <router-outlet></router-outlet>
         
