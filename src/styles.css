@@ -16,21 +16,22 @@ body {
     font-family: 'Poppins medium' ; 
     /* font-weight: 'regular'; */
     font-size: 10pt;
+    display: inline-block;
+    position: relative;
 }
 
 
 .action-content{
     margin: 0;
     font-family: 'Poppins regular' ; 
-    position: relative;
     display: inline-block;
+    position: relative;
     font-size:9pt;
 }
 .body-content{
     margin: 0;
-    position: relative;
     display: inline-block;
-        
+    position: relative;
 }
 .content{
   margin: 0;

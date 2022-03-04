@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Usuario } from 'src/app/models/usuario.interface';
+import { CrearUsuarioDialogComponent } from 'src/app/shared/crear-usuario-dialog/crear-usuario-dialog.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -12,14 +14,26 @@ export class UsuariosComponent implements OnInit {
   listadoUsuarios: Usuario[] = [];
 
 
-  constructor() { }
+  constructor(
+    private matDialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
   }
 
-  openAgregarUsuario(){
+  openAgregarUsuario(): void {
+    //console.log("usuario enviado a editar =" + JSON.stringify(usuario));
+     const dialogRef = this.matDialog.open(CrearUsuarioDialogComponent, {
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
+
 
   }
+
   toggleUsuarioEstado(element:any){
 
   }

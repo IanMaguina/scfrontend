@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -13,6 +14,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -24,11 +30,16 @@ import { MatDividerModule } from '@angular/material/divider';
     CommonModule,
     SharedModule,
     RouterModule,
+    FormsModule,
+    MatInputModule,
     MatTableModule,
-    MatButtonModule,
-    MatDialogModule,
+    ReactiveFormsModule,
     MatSlideToggleModule,
+    MatDialogModule,
+    MatButtonModule,
     MatDividerModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   exports: [
     TipoDocumentosValoradosComponent,
