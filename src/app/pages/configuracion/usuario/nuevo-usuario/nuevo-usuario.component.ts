@@ -6,11 +6,11 @@ import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
-  selector: 'app-crear-usuario-dialog',
-  templateUrl: './crear-usuario-dialog.component.html',
-  styleUrls: ['./crear-usuario-dialog.component.css']
+  selector: 'app-nuevo-usuario',
+  templateUrl: './nuevo-usuario.component.html',
+  styleUrls: ['./nuevo-usuario.component.css']
 })
-export class CrearUsuarioDialogComponent implements OnInit {
+export class NuevoUsuarioComponent implements OnInit {
   usuariodata: any;
   crearFormDialog: any;
   formErrors = {
@@ -48,7 +48,7 @@ export class CrearUsuarioDialogComponent implements OnInit {
   ];
 
   constructor(
-    public dialogRef: MatDialogRef<CrearUsuarioDialogComponent>,
+    public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Usuario,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService

@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { UsuariosComponent } from './usuarios/usuarios.component';
 import { TipoDocumentosValoradosComponent } from './tipo-documentos-valorados/tipo-documentos-valorados.component';
 import { ConfiguracionComponent } from './configuracion.component';
 
@@ -19,12 +18,17 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatSelectModule } from '@angular/material/select';
+import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
+import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.component';
+import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 
 @NgModule({
   declarations: [
     TipoDocumentosValoradosComponent,
-    UsuariosComponent,
     ConfiguracionComponent,
+    ListarUsuarioComponent,
+    NuevoUsuarioComponent,
+    EditarUsuarioComponent,
   ],
   imports: [
     CommonModule,
@@ -42,8 +46,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule
   ],
   exports: [
-    TipoDocumentosValoradosComponent,
-    UsuariosComponent
+    TipoDocumentosValoradosComponent
+    
   ]
 })
 export class ConfiguracionModule { }

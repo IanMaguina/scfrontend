@@ -13,15 +13,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
-import { CrearUsuarioDialogComponent } from './crear-usuario-dialog/crear-usuario-dialog.component';
-
 
 @NgModule({
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
-    CrearUsuarioDialogComponent
   ],
   imports: [
     CommonModule,
