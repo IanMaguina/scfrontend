@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { UsuariosComponent } from './usuarios/usuarios.component';
 import { TipoDocumentosValoradosComponent } from './tipo-documentos-valorados/tipo-documentos-valorados.component';
 import { ConfiguracionComponent } from './configuracion.component';
 
@@ -19,18 +17,29 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatSelectModule } from '@angular/material/select';
+
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
 import { CrearEstrategiaTipoPlanComponent } from './estrategias/crear-estrategia-tipo-plan/crear-estrategia-tipo-plan.component';
 
+import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
+import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
+import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
+
+
 @NgModule({
   declarations: [
     TipoDocumentosValoradosComponent,
-    UsuariosComponent,
     ConfiguracionComponent,
+
     EstrategiasComponent,
     CrearEstrategiaSociedadComponent,
     CrearEstrategiaTipoPlanComponent,
+
+    ListarUsuarioComponent,
+    EditarUsuarioComponent,
+    CrearUsuarioComponent,
+
   ],
   imports: [
     CommonModule,
@@ -48,8 +57,8 @@ import { CrearEstrategiaTipoPlanComponent } from './estrategias/crear-estrategia
     MatFormFieldModule
   ],
   exports: [
-    TipoDocumentosValoradosComponent,
-    UsuariosComponent
+    TipoDocumentosValoradosComponent
+    
   ]
 })
 export class ConfiguracionModule { }
