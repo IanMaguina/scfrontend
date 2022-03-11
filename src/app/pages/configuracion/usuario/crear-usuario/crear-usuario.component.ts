@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Usuario } from 'src/app/models/usuario.interface';
@@ -70,14 +70,14 @@ export class CrearUsuarioComponent implements OnInit {
     this.listarSociedades();
   }
   async listarPerfiles() {
-    
+    console.log("listarPerfiles");
   }
   async listarSociedades() {
-    
+    console.log("listarSociedades");
   }
 
   crearUsuario(form: Usuario){
-
+    console.log("crearUsuario");
   }
 
 
