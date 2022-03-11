@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Usuario } from 'src/app/models/usuario.interface';
-import { NuevoUsuarioComponent } from './../nuevo-usuario/nuevo-usuario.component';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 @Component({
   selector: 'app-listar-usuario',
   templateUrl: './listar-usuario.component.html',
@@ -30,19 +30,19 @@ export class ListarUsuarioComponent implements OnInit {
   }
   openAgregarUsuario(): void {
     //console.log("usuario enviado a editar =" + JSON.stringify(usuario));
-    const dialogRef = this.matDialog.open(NuevoUsuarioComponent, {
+    const dialogRef = this.matDialog.open(CrearUsuarioComponent, {
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      console.log("return function process");
     });
 
 
   }
 
   toggleUsuarioEstado(element: any) {
-
+    console.log("action");
   }
 
 
