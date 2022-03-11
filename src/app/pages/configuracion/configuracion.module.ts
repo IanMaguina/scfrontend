@@ -19,12 +19,18 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatSelectModule } from '@angular/material/select';
+import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
+import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
+import { CrearEstrategiaTipoPlanComponent } from './estrategias/crear-estrategia-tipo-plan/crear-estrategia-tipo-plan.component';
 
 @NgModule({
   declarations: [
     TipoDocumentosValoradosComponent,
     UsuariosComponent,
     ConfiguracionComponent,
+    EstrategiasComponent,
+    CrearEstrategiaSociedadComponent,
+    CrearEstrategiaTipoPlanComponent,
   ],
   imports: [
     CommonModule,
