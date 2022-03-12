@@ -1,1 +1,54 @@
-<p>crear-estrategia-tipo-plan works!</p>
+<h3>Nueva Estrategia por Sociedad</h3>
+<div class="contenidoForm">
+    <form [formGroup]="crearFormDialog" (ngSubmit)="crearEstrategiaTipoPlan(crearFormDialog.value)">
+        <div class="col-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Plan</mat-label>
+                <mat-select formControlName="plan" required>
+                    <mat-option *ngFor="let plan of listadoPlanes" [value]="plan.codigo_sap">{{ plan.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>    
+        <div class="col-12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <input matInput placeholder="Tipo" formControlName="tipoplan" required>
+                    <mat-hint>
+                        <mat-error [hidden]="!(formErrors.tipoplan)">
+                            {{formErrors.tipoplan}}
+                        </mat-error>
+                    </mat-hint>
+
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <mat-select formControlName="usuario" required>
+                        <mat-option *ngFor="let usuario of listadoUsuarios" [value]="usuario.id">{{ usuario.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Orden</mat-label>
+                    <input matInput placeholder="Orden" formControlName="orden" required>
+                    <mat-hint>
+                        <mat-error [hidden]="!(formErrors.orden)">
+                            {{formErrors.orden}}
+                        </mat-error>
+                    </mat-hint>
+
+                </mat-form-field>
+            </div>
+            
+
+            
+           
+        <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
+        <button mat-raised-button class="boton-principal-light" type="submit" >Agregar</button>
+    </form>
+</div>

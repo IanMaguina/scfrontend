@@ -15,8 +15,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
@@ -54,11 +54,12 @@ import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.com
     MatButtonModule,
     MatDividerModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTabsModule,
   ],
   exports: [
     TipoDocumentosValoradosComponent
-    
+
   ]
 })
 export class ConfiguracionModule { }

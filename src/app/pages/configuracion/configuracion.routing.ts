@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { TipoDocumentosValoradosComponent } from './tipo-documentos-valorados/tipo-documentos-valorados.component';
 import { ConfiguracionComponent } from './configuracion.component';
+import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 
 
 
@@ -13,6 +14,7 @@ const routes: Routes = [
         component: ConfiguracionComponent,
         children: [
             { path: 'usuarios', component: ListarUsuarioComponent },
+            { path: 'estrategias', component: EstrategiasComponent },
             { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
             { path: 'documentosvalorados', component: TipoDocumentosValoradosComponent },
         ]
