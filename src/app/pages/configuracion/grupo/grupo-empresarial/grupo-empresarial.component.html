@@ -1,0 +1,46 @@
+<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
+    Grupos Empresariales
+    <br><br>
+    <mat-divider></mat-divider>
+</div>
+
+<br>
+<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+    <button mat-flat-button class="boton-principal-light" (click)="openAgregarGrupo()">Agregar</button>
+</div>
+<br>
+<div class="content-table col-s-11 col- col-m-11 col-xl-11">
+    <table mat-table [dataSource]="listadoGrupos" class="mat-elevation-z8" >
+        <!-- Table estrategias - por sociedad -->
+
+        
+        
+        <!-- Column -->
+        <ng-container matColumnDef="grupo">
+            <th mat-header-cell *matHeaderCellDef>Nombre de grupo </th>
+            <td mat-cell *matCellDef="let element"> {{element.grupo}} </td>
+        </ng-container>
+
+      
+        <!-- Column -->
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-flat-button class="boton-secundario" (click)="openAsignarIntegrantesGrupo(element)">Integrantes</button>
+            </td>
+        </ng-container>
+        
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
+
+    

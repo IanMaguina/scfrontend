@@ -25,6 +25,12 @@ import { CrearEstrategiaTipoPlanComponent } from './estrategias/crear-estrategia
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
+import { GrupoEmpresarialComponent } from './grupo/grupo-empresarial/grupo-empresarial.component';
+import { ConsorcioComponent } from './consorcio/consorcio/consorcio.component';
+import { CrearConsorcioComponent } from './consorcio/crear-consorcio/crear-consorcio.component';
+import { CrearGrupoEmpresarialComponent } from './grupo/crear-grupo-empresarial/crear-grupo-empresarial.component';
+import { AsignarIntegrantesComponent } from './consorcio/asignar-integrantes/asignar-integrantes.component';
+import { AsignarIntegrantesGrupoComponent } from './grupo/asignar-integrantes-grupo/asignar-integrantes-grupo.component';
 
 
 @NgModule({
@@ -39,6 +45,12 @@ import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.com
     ListarUsuarioComponent,
     EditarUsuarioComponent,
     CrearUsuarioComponent,
+    GrupoEmpresarialComponent,
+    ConsorcioComponent,
+    CrearConsorcioComponent,
+    CrearGrupoEmpresarialComponent,
+    AsignarIntegrantesComponent,
+    AsignarIntegrantesGrupoComponent,
 
   ],
   imports: [

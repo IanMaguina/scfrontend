@@ -19,6 +19,7 @@ export class EstrategiasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("ngInit");
   }
 
   openAgregarEstrategiaSociedad(){
@@ -48,7 +49,11 @@ export class EstrategiasComponent implements OnInit {
 
 
 
-  toggleEstrategiaEstadoPorSociedad(){}
-  toggleEstrategiaEstadoPorTipoPlan(){}
+  toggleEstrategiaEstadoPorSociedad(){
+    console.log("toggleEstrategiaEstadoPorSociedad");
+  }
+  toggleEstrategiaEstadoPorTipoPlan(){
+    console.log("toggleEstrategiaEstadoPorTipoPlan");
+  }
 
 }
