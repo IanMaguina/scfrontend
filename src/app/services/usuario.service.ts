@@ -12,14 +12,12 @@ export class UsuarioService {
   }
 
   getUsuarioPorCorreo(email: any): Promise<any> {
-    let datosUsuario: any;
     return new Promise(
       (resolve, reject) => {
 
         this.resourceService.getResource("/usuario/buscarDatosDeEstrategiaDeUsuario?correo=" + email).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
-            datosUsuario = data;
-            resolve(datosUsuario);
+            resolve(data);
           } else {
             console.log("no hay datos Usuario encontrado...");
             resolve([]);
@@ -38,15 +36,11 @@ export class UsuarioService {
   }
 
   listarUsuarios(): Promise<any> {
-    let usuarios: Usuario[] = [];
-
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/usuario").toPromise().then((data) => {
-          //console.log("sociedad data=" + JSON.stringify(data));
-          if (data && Object.keys(data).length !== 0) {
-            usuarios = data;
-            resolve(usuarios);
+          if (data.exito) {
+            resolve(data.payload);
           } else {
             console.log("no hay usuarios encontrados...");
             resolve([]);
@@ -64,18 +58,12 @@ export class UsuarioService {
   }
 
   crearUsuario(usuario: Usuario): Promise<any> {
-
     console.log("adding Usuario..." + JSON.stringify(usuario));
     let respuesta: UserResponse;
-
-
     console.log("sending Usuario..." + JSON.stringify(usuario));
-
     return new Promise(
       (resolve, reject) => {
-
         this.resourceService.postResource("/api/usuario", usuario).toPromise().then((data) => {
-
           console.log("response data=" + JSON.stringify(data));
           respuesta = data;
           resolve(respuesta);
@@ -90,23 +78,19 @@ export class UsuarioService {
 
   actualizarUsuario(usuario: Usuario): Promise<any> {
 
-    //console.log("update Usuario..." + JSON.stringify(usuario));
     let respuesta: UserResponse;
     console.log("sending Usuario..." + JSON.stringify(usuario));
 
     return new Promise(
       (resolve, reject) => {
-
         this.resourceService.postResource("/api/usuario/" + usuario.id, usuario).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           respuesta = data;
           resolve(respuesta);
-
         }).catch((error) => {
           console.log("error status=" + error.status + ", msg=" + error.message);
           reject(error);
         });
-
       });
   }
 
@@ -142,18 +126,9 @@ export class UsuarioService {
 
     console.log("supervisor data" + JSON.stringify(item));
     let respuesta: UserResponse;
-    /* let item = {
-    "idUsuario":132,
-    "idEstrategiaRol":8,
-    "idRolAsignado":2,
-    "idUsuarioAsignado":132
-} */
-
     return new Promise(
       (resolve, reject) => {
-
         this.resourceService.postResource("/estrategia/asignarUsuarioSupervisor", item).toPromise().then((data) => {
-
           console.log("response data=" + JSON.stringify(data));
           respuesta = data;
           resolve(respuesta);
@@ -174,9 +149,7 @@ export class UsuarioService {
 
     return new Promise(
       (resolve, reject) => {
-
         this.resourceService.postResource("/estrategia/eliminarSupervisor/", item).toPromise().then((data) => {
-
           console.log("response data=" + JSON.stringify(data));
           respuesta = data;
           resolve(respuesta);
