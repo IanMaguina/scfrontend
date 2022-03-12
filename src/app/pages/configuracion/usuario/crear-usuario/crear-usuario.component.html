@@ -30,7 +30,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Sociedad</mat-label>
                     <mat-select formControlName="sociedad" required>
-                        <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.id">{{ sociedad.nombre }}
+                        <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">{{ sociedad.nombre }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

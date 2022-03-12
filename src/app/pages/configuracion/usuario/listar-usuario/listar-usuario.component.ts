@@ -23,8 +23,8 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   listarUsuarios(){
-    this.usuarioService.listarUsuarios().then(list=>{
-      this.listadoUsuarios=list.payload;
+    this.usuarioService.listarUsuarios().then(data=>{
+      this.listadoUsuarios=data;
       console.log(JSON.stringify(this.listadoUsuarios));
     })
   }
@@ -35,6 +35,7 @@ export class ListarUsuarioComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.listarUsuarios();
       console.log("return function process");
     });
 

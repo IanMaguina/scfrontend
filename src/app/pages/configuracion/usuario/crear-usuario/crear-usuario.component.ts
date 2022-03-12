@@ -1,9 +1,14 @@
+import { UsuarioService } from './../../../../services/usuario.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Usuario } from 'src/app/models/usuario.interface';
+import { Sociedad } from 'src/app/models/sociedad.interface';
+import { Perfil } from 'src/app/models/perfil.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SociedadService } from './../../../../services/sociedad.service';
+import { PerfilService } from 'src/app/services/perfil.service';
 @Component({
   selector: 'app-crear-usuario',
   templateUrl: './crear-usuario.component.html',
@@ -38,22 +43,19 @@ export class CrearUsuarioComponent implements OnInit {
   carga: boolean = false;
 
   //poner el tipado correcto
-  listadoSociedades: any[] = [
-    { id: 1, nombre: 'sociedad 1'},
-    { id: 2, nombre: 'sociedad 2'},
-  ];
-  listadoPerfiles: any[] = [
-    { id: 1, nombre: 'perfil 1'},
-    { id: 2, nombre: 'perfil 2'},
-  ];
+  listadoSociedades: Sociedad[] = [];
+  listadoPerfiles: Perfil[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<CrearUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Usuario,
     private formBuilder: FormBuilder,
-    private formValidatorService: FormValidatorService
+    private formValidatorService: FormValidatorService,
+    private sociedadService: SociedadService,
+    private perfilService: PerfilService,
+    private usuarioService: UsuarioService
   ) {
-  
+
     this.crearFormDialog = this.formBuilder.group({
       nombre: ['', Validators.required],
       correo: ['', Validators.required],
@@ -63,25 +65,46 @@ export class CrearUsuarioComponent implements OnInit {
     this.crearFormDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.crearFormDialog, this.formErrors, this.validationMessages, this.submitted);
     })
-   }
+  }
 
   ngOnInit(): void {
     this.listarPerfiles();
     this.listarSociedades();
   }
   async listarPerfiles() {
-    console.log("listarPerfiles");
+    this.perfilService.listarPerfiles().then(data => {
+      console.log("listarPerfiles:" + JSON.stringify(data));
+      this.listadoPerfiles = data;
+    })
+
   }
   async listarSociedades() {
-    console.log("listarSociedades");
+    this.sociedadService.listarSociedades().then(data => {
+      console.log("listarSociedad:" + JSON.stringify(data));
+      this.listadoSociedades = data;
+    })
+
   }
 
-  crearUsuario(form: Usuario){
-    console.log("crearUsuario");
+  async crearUsuario(form: any) {
+    console.log("crearUsuario:" + JSON.stringify(form));
+    let usuario = await this.mapeoUsuario(form)
+    this.usuarioService.crearUsuario(usuario).then();
+    this.onNoClick();
   }
 
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  async mapeoUsuario(form: any) {
+    let usuario: Usuario = {
+      nombre: form.nombre,
+      correo: form.correo,
+      id_perfil: form.perfil,
+      sociedad_codigo_sap: form.sociedad
+    }
+    return usuario;
   }
 }
