@@ -3,53 +3,63 @@
     <form [formGroup]="crearFormDialog" (ngSubmit)="crearEstrategiaSociedad(crearFormDialog.value)">
         <div class="col-12">
             <mat-form-field appearance="outline">
-                <mat-label>Sociedad</mat-label>
-                <mat-select formControlName="plan" required>
-                    <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">{{ sociedad.nombre }}
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado" (selectionChange)="listarRoles()" required>
+                    <mat-option *ngFor="let estado of listadoEstados" [value]="estado">{{ estado.nombre }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>    
+        </div>
+
         <div class="col-12">
-                <mat-form-field appearance="outline">
-                    <mat-label>Usuario</mat-label>
-                    <input matInput placeholder="Usuario" formControlName="usuario" required>
-                    <mat-hint>
-                        <mat-error [hidden]="!(formErrors.usuario)">
-                            {{formErrors.usuario}}
-                        </mat-error>
-                    </mat-hint>
+            <mat-form-field appearance="outline">
+                <mat-label>Rol</mat-label>
+                <mat-select formControlName="rol" required>
+                    <mat-option *ngFor="let rol of listadoRoles" [value]="rol">{{ rol.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Usuario</mat-label>
+                <input type="text" matInput placeholder="Usuario" [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="selectedUsuario" required>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredUsuario | async" [value]="option">
+                        {{option.nombre}}
+                    </mat-option>
+                </mat-autocomplete>                
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.usuario)">
+                        {{formErrors.usuario}}
+                    </mat-error>
+                </mat-hint>
 
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline">
-                    <mat-label>Rol</mat-label>
-                    <mat-select formControlName="rol" required>
-                        <mat-option *ngFor="let rol of listadoRoles" [value]="rol.id">{{ rol.nombre }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            
-            <div class="col-12">
-                <mat-form-field appearance="outline">
-                    <mat-label>Revisor</mat-label>
-                    <input matInput placeholder="Revisor" formControlName="revisor" required>
-                    <mat-hint>
-                        <mat-error [hidden]="!(formErrors.revisor)">
-                            {{formErrors.revisor}}
-                        </mat-error>
-                    </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Revisor</mat-label>
+                <input type="text" matInput placeholder="Revisor" [formControl]="myControlRevisor" [matAutocomplete]="autoRevisor" [(ngModel)]="selectedUsuarioRevisor" required>
+                <mat-autocomplete #autoRevisor="matAutocomplete" [displayWith]="displayFnRevisor">
+                    <mat-option *ngFor="let option of filteredUsuarioRevisor | async" [value]="option">
+                        {{option.nombre}}
+                    </mat-option>
+                </mat-autocomplete>                
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.revisor)">
+                        {{formErrors.revisor}}
+                    </mat-error>
+                </mat-hint>
 
-                </mat-form-field>
-            </div>
-            
+            </mat-form-field>
+        </div>
 
-            
-            
+
+
+
 
         <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
-        <button mat-raised-button class="boton-principal-light" type="submit" >Agregar</button>
+        <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
     </form>
 </div>

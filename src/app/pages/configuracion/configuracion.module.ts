@@ -31,7 +31,7 @@ import { CrearConsorcioComponent } from './consorcio/crear-consorcio/crear-conso
 import { CrearGrupoEmpresarialComponent } from './grupo/crear-grupo-empresarial/crear-grupo-empresarial.component';
 import { AsignarIntegrantesComponent } from './consorcio/asignar-integrantes/asignar-integrantes.component';
 import { AsignarIntegrantesGrupoComponent } from './grupo/asignar-integrantes-grupo/asignar-integrantes-grupo.component';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -68,6 +68,7 @@ import { AsignarIntegrantesGrupoComponent } from './grupo/asignar-integrantes-gr
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatAutocompleteModule,
   ],
   exports: [
     TipoDocumentosValoradosComponent
