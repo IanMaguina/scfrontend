@@ -32,6 +32,8 @@ import { CrearGrupoEmpresarialComponent } from './grupo/crear-grupo-empresarial/
 import { AsignarIntegrantesComponent } from './consorcio/asignar-integrantes/asignar-integrantes.component';
 import { AsignarIntegrantesGrupoComponent } from './grupo/asignar-integrantes-grupo/asignar-integrantes-grupo.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { EditarEstrategiaSociedadComponent } from './estrategias/editar-estrategia-sociedad/editar-estrategia-sociedad.component';
+import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrategia-tipo-plan/editar-estrategia-tipo-plan.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CrearGrupoEmpresarialComponent,
     AsignarIntegrantesComponent,
     AsignarIntegrantesGrupoComponent,
+    EditarEstrategiaSociedadComponent,
+    EditarEstrategiaTipoPlanComponent,
 
   ],
   imports: [

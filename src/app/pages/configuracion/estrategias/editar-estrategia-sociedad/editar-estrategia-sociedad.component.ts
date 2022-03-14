@@ -17,15 +17,15 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
 @Component({
-  selector: 'app-crear-estrategia-sociedad',
-  templateUrl: './crear-estrategia-sociedad.component.html',
-  styles: ['./crear-estrategia-sociedad.component.css']
+  selector: 'app-editar-estrategia-sociedad',
+  templateUrl: './editar-estrategia-sociedad.component.html',
+  styleUrls: ['./editar-estrategia-sociedad.component.css']
 })
-export class CrearEstrategiaSociedadComponent implements OnInit {
+export class EditarEstrategiaSociedadComponent implements OnInit {
 
   estrategiaData: any;
 
-  crearFormDialog: any;
+  formDialog: any;
   formErrors = {
     'usuario': '',
     'estado': '',
@@ -78,9 +78,9 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   filteredUsuarioRevisor!: Observable<Usuario[]>;
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
-
+  estrategia:any;
   constructor(
-    public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
+    public dialogRef: MatDialogRef<EditarEstrategiaSociedadComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
@@ -89,27 +89,47 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     private estadoService: EstadoService,
     private estrategiaService: EstrategiaService
   ) {
-    this.crearFormDialog = this.formBuilder.group({
+    this.estrategia=data.estrategia;
+    this.formDialog = this.formBuilder.group({
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
       revisor: ['', Validators.required],
     })
-    this.crearFormDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.crearFormDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formDialog.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
     })
-  }
-
-  ngOnInit(): void {
     this.listarEstados();
     this.listarUsuariosNoAgregados();
     this.listarUsuarios();
   }
 
+  ngOnInit(): void {
+
+    this.editarEstrategia();
+  }
+
+  editarEstrategia(){
+    this.estrategiaService.editarEstrategia(this.estrategia.id).then(data => {
+      console.log("estado--->"+JSON.stringify(data.payload));
+      let reg=data.payload;
+      this.formDialog.get('estado').setValue({id:reg.estadoRol.id_estado});
+      this.listarRoles();
+
+      this.formDialog.get('rol').setValue({id:reg.id_estado_rol});
+      this.formDialog.get('usuario').setValue({id:reg.id_usuario, nombre:reg.usuario.nombre});
+      if(reg.revisor){
+        this.formDialog.get('revisor').setValue({id:reg.id_usuario_revisor, nombre:reg.revisor.nombre});
+      }
+      
+
+    })
+  }
+
   async listarUsuariosNoAgregados() {
     let listado = await this.estrategiaService.listarUsuariosNoAgregados(1).then();
     this.comboListadoUsuario = listado;
-    console.log(JSON.stringify(listado));
+    //console.log(JSON.stringify(listado));
     this.filteredUsuario = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -154,7 +174,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   }
 
   async listarRoles() {
-    let estado: Estado = this.crearFormDialog.get('estado').value;
+    let estado: Estado = this.formDialog.get('estado').value;
     this.id_estado=estado.id;
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
@@ -164,8 +184,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   }
 
-  async crearEstrategiaSociedad(form: any) {
-    console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
+  async actualizarEstrategiaSociedad(form: any) {
+    console.log("Actualizar EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
     this.estrategiaService.crearEstrategia(estadoRolUsuario).then();
     this.onNoClick();
@@ -184,5 +204,18 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     return estadoRolUsuario;
   }
 
+  compareEstado(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
 
+  compareEstadoRol(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
+
+  compareUsuario(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
 }

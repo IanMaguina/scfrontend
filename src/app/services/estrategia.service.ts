@@ -17,7 +17,7 @@ export class EstrategiaService {
       (resolve, reject) => {
         this.resourceService.getResource("/api/estrategia").toPromise().then((data) => {
           if (data.exito) {
-            resolve(data.payload);
+            resolve(data);
           } else {
             console.log("no hay usuarios encontrados...");
             resolve([]);

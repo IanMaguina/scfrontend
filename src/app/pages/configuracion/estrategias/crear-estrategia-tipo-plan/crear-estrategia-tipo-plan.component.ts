@@ -46,19 +46,13 @@ submitted = false;
 carga: boolean = false;
 
 //poner el tipado correcto => es data dummy
-listadoPlanes: any[] = [
-  { codigo_sap:'0011', nombre: 'plan 1'},
-  { codigo_sap: '0012', nombre: 'plan 2'},
-];
+listadoTipoPlanes: any[] = [];
 
 listadoTipoTipoFlujoAprobacion:any[]=[];
 
  /* poner el tipo del modelo Rol */
 
- listadoUsuarios: any[] = [
-  { id: 1, nombre: 'rol 1'},
-  { id: 2, nombre: 'rol 2'},
-];
+ listadoUsuarios: any[] = [];
 
 myControl = new FormControl();
 filteredUsuario!: Observable<Usuario[]>;
@@ -87,7 +81,7 @@ selectedUsuario: any;
   }
 
   ngOnInit(): void {
-    this.listarPlanes();
+    this.listarTipoPlanes();
     this.listarUsuarios();
   }
 
@@ -112,9 +106,9 @@ selectedUsuario: any;
     return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  async listarPlanes() {
+  async listarTipoPlanes() {
     this.tipoPlanService.listarTipoPlanes().then(data => {
-      this.listadoPlanes = data.payload;
+      this.listadoTipoPlanes = data.payload;
     })
   }
 
