@@ -109,4 +109,20 @@ export class EstrategiaService {
       });
   }
 
+  actualizarEstrategia(id_estado_rol_usuario:number,estadoRolUsuario: EstadoRolUsuario): Promise<any> {
+    console.log("enviando-->"+id_estado_rol_usuario+"-----"+JSON.stringify(estadoRolUsuario))
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/estrategia/"+id_estado_rol_usuario, estadoRolUsuario).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
 }
