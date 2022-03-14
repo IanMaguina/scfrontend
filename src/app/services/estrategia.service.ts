@@ -10,6 +10,28 @@ export class EstrategiaService {
     
   }
 
+  listarEstrategias(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/estrategia").toPromise().then((data) => {
+          if (data.exito) {
+            resolve(data.payload);
+          } else {
+            console.log("no hay usuarios encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
   listarUsuariosNoAgregados(id_estado_rol:number): Promise<any> {
     return new Promise(
       (resolve, reject) => {

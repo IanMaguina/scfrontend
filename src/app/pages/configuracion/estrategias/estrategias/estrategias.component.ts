@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CrearEstrategiaSociedadComponent } from '../crear-estrategia-sociedad/crear-estrategia-sociedad.component';
 import { CrearEstrategiaTipoPlanComponent } from '../crear-estrategia-tipo-plan/crear-estrategia-tipo-plan.component';
-
+import {EstrategiaService} from '../../../../services/estrategia.service';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -10,19 +10,26 @@ import { CrearEstrategiaTipoPlanComponent } from '../crear-estrategia-tipo-plan/
   ]
 })
 export class EstrategiasComponent implements OnInit {
-  listadoEstrategiasPorSociedad:any[] = [];
-  listadoEstrategiasPorTipoPlan:any[] = [];
+  listadoEstrategiasPorSociedad: any[] = [];
+  listadoEstrategiasPorTipoPlan: any[] = [];
   displayedColumnsSociedad: string[] = ['sociedad', 'rol', 'usuario', 'revisor', 'id'];
   displayedColumnsPlan: string[] = ['nombre', 'plan', 'tipo', 'usuario', 'id'];
   constructor(
     private matDialog: MatDialog,
+    private estrategiaService:EstrategiaService
   ) { }
 
   ngOnInit(): void {
     console.log("ngInit");
   }
 
-  openAgregarEstrategiaSociedad(){
+  async listarEstrategias() {
+    this.estrategiaService.listarEstrategias().then(data => {
+      this.listadoEstrategiasPorSociedad = data.payload;
+    })
+  }
+
+  openAgregarEstrategiaSociedad() {
     const dialogRef = this.matDialog.open(CrearEstrategiaSociedadComponent, {
       disableClose: true
     });
@@ -33,26 +40,21 @@ export class EstrategiasComponent implements OnInit {
 
 
 
-   }
-  openAgregarEstrategiaTipoPlan(){ 
-    const dialogRef2 = this.matDialog.open(CrearEstrategiaTipoPlanComponent, { 
+  }
+  openAgregarEstrategiaTipoPlan() {
+    const dialogRef2 = this.matDialog.open(CrearEstrategiaTipoPlanComponent, {
       disableClose: true
     });
 
     dialogRef2.afterClosed().subscribe(result => {
       console.log("return function process");
     });
-
-
-
   }
 
-
-
-  toggleEstrategiaEstadoPorSociedad(){
+  toggleEstrategiaEstadoPorSociedad() {
     console.log("toggleEstrategiaEstadoPorSociedad");
   }
-  toggleEstrategiaEstadoPorTipoPlan(){
+  toggleEstrategiaEstadoPorTipoPlan() {
     console.log("toggleEstrategiaEstadoPorTipoPlan");
   }
 

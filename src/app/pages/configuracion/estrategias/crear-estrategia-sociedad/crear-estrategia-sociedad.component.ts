@@ -65,6 +65,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     { id: 2, nombre: 'Estado 2' },
   ];
 
+  id_estado:number=0;
+  id_estado_rol:number=0;
   myControl = new FormControl();
   filteredUsuario!: Observable<Usuario[]>;
   comboListadoUsuario: Usuario[] = [];
@@ -147,20 +149,22 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     this.estadoService.listarParaEstrategia().then(data => {
       this.listadoEstados = data.payload;
     })
-
   }
 
   async listarRoles() {
     let estado: Estado = this.crearFormDialog.get('estado').value;
+    this.id_estado=estado.id;
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
-      console.log(JSON.stringify(data.payload.length !== 0));
+      this.id_estado_rol=data.payload.length !== 0 ? data.payload[0].id : null;
+      console.log(JSON.stringify(this.id_estado_rol));
     })
 
   }
 
   crearEstrategiaSociedad(form: any) {
-    /* crear la estrategia */
+    console.log(JSON.stringify(form));
+
   }
 
   onNoClick(): void {

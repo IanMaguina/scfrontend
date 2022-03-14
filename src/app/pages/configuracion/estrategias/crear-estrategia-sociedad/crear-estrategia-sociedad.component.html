@@ -37,7 +37,7 @@
 
             </mat-form-field>
         </div>
-        <div class="col-12">
+        <div class="col-12" *ngIf="id_estado == 1">
             <mat-form-field appearance="outline">
                 <mat-label>Revisor</mat-label>
                 <input type="text" matInput placeholder="Revisor" [formControl]="myControlRevisor" [matAutocomplete]="autoRevisor" [(ngModel)]="selectedUsuarioRevisor" required>
@@ -54,11 +54,6 @@
 
             </mat-form-field>
         </div>
-
-
-
-
-
         <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
         <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
     </form>
