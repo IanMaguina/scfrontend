@@ -17,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
@@ -73,6 +74,7 @@ import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrateg
     MatFormFieldModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatIconModule,
   ],
   exports: [
     TipoDocumentosValoradosComponent

@@ -40,29 +40,29 @@ export class UsuarioService {
     let nombre = null;
     let sociedad_codigo_sap = null;
     let correo = null;
-    let query="";
+    let query = "";
     if (filtros['id_perfil']) {
       id_perfil = filtros['id_perfil'];
-      query="id_perfil="+id_perfil;
+      query = "id_perfil=" + id_perfil;
 
     }
     if (filtros['nombre']) {
       nombre = filtros['nombre'];
-      query=query !=""?"&nombre="+nombre:"nombre="+nombre;
+      query = query != "" ? "&nombre=" + nombre : "nombre=" + nombre;
     }
     if (filtros['sociedad_codigo_sap']) {
       sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
-      query=query !=""?"&sociedad_codigo_sap="+sociedad_codigo_sap:"sociedad_codigo_sap="+sociedad_codigo_sap;
+      query = query != "" ? "&sociedad_codigo_sap=" + sociedad_codigo_sap : "sociedad_codigo_sap=" + sociedad_codigo_sap;
     }
 
     if (filtros['correo']) {
       correo = filtros['correo'];
-      query=query !=""?"&correo="+correo:"correo="+correo;
+      query = query != "" ? "&correo=" + correo : "correo=" + correo;
     }
 
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/usuario/buscar?"+query).toPromise().then((data) => {
+        this.resourceService.getResource("/api/usuario/buscar?" + query).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
             resolve(data);
           } else {
@@ -130,6 +130,7 @@ export class UsuarioService {
 
     let respuesta: UserResponse;
     console.log("sending Usuario..." + JSON.stringify(usuario));
+    
 
     return new Promise(
       (resolve, reject) => {
@@ -144,6 +145,8 @@ export class UsuarioService {
       });
   }
 
+
+  /* Funciona como eliminar usuario ya que es "delete" */
   activarUsuario(usuario: Usuario): Promise<any> {
 
     console.log("activar/desactivar Usuario..." + JSON.stringify(usuario));

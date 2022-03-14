@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
+import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
 @Component({
   selector: 'app-listar-usuario',
   templateUrl: './listar-usuario.component.html',
@@ -22,14 +23,15 @@ export class ListarUsuarioComponent implements OnInit {
     this.listarUsuarios();
   }
 
+ 
   listarUsuarios(){
     this.usuarioService.listarUsuarios().then(data=>{
       this.listadoUsuarios=data;
       console.log(JSON.stringify(this.listadoUsuarios));
+    
     })
   }
-  openAgregarUsuario(): void {
-    //console.log("usuario enviado a editar =" + JSON.stringify(usuario));
+  openAgregarUsuario(): void { 
     const dialogRef = this.matDialog.open(CrearUsuarioComponent, {
       disableClose: true
     });
@@ -42,8 +44,26 @@ export class ListarUsuarioComponent implements OnInit {
 
   }
 
-  toggleUsuarioEstado(element: any) {
-    console.log("action");
+  async toggleUsuarioEstado(element: Usuario) {
+    console.log("objeto a inactivar"+JSON.stringify(element));
+    
+    this.usuarioService.actualizarUsuario(element).then( data =>{
+      console.log("cuando actualiza esto pasa: "+ JSON.stringify(data));
+      this.listarUsuarios();
+    })
+  }
+
+  async openEditarUsuario(form: any) {
+    console.log("al editar usuario: "+JSON.stringify(form));
+    const dialogRef2 = this.matDialog.open(EditarUsuarioComponent, {
+      disableClose: true,
+      data:form
+    });
+
+    dialogRef2.afterClosed().subscribe(result => {
+      this.listarUsuarios();
+    });
+
   }
 
 
