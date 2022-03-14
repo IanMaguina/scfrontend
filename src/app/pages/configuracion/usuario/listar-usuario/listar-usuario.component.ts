@@ -49,8 +49,9 @@ export class ListarUsuarioComponent implements OnInit {
     
     this.usuarioService.actualizarUsuario(element).then( data =>{
       console.log("cuando actualiza esto pasa: "+ JSON.stringify(data));
-      this.listarUsuarios();
-    })
+      (data.exito) ? this.listarUsuarios(): console.log("hubo un error");;
+    });
+
   }
 
   async openEditarUsuario(form: any) {

@@ -19,7 +19,7 @@ import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asig
 @Component({
   selector: 'app-editar-estrategia-sociedad',
   templateUrl: './editar-estrategia-sociedad.component.html',
-  styleUrls: ['./editar-estrategia-sociedad.component.css']
+  styleUrls: []
 })
 export class EditarEstrategiaSociedadComponent implements OnInit {
 
@@ -95,7 +95,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
-      revisor: ['', Validators.required],
+      revisor: [''],
     })
     this.formDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
