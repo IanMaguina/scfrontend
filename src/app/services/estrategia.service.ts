@@ -35,6 +35,7 @@ export class EstrategiaService {
   }
 
   listarUsuariosNoAgregados(id_estado_rol:number): Promise<any> {
+    console.log("enviando id_estado_rol-->"+id_estado_rol);
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/estrategia/listar-usuarios-no-agregados?id_estado_rol="+id_estado_rol).toPromise().then((data) => {

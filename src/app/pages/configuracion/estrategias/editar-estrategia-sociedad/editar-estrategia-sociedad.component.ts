@@ -1,7 +1,7 @@
 import { EstrategiaService } from './../../../../services/estrategia.service';
 import { EstadoService } from './../../../../services/estado.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EstadoRol } from 'src/app/models/estado-rol.interface';
 import { Estado } from 'src/app/models/estado.interface';
@@ -25,7 +25,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
 
   estrategiaData: any;
 
-  formDialog: any;
+  formDialog!: FormGroup;
   formErrors = {
     'usuario': '',
     'estado': '',
@@ -100,7 +100,6 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
     })
     this.listarEstados();
-    this.listarUsuariosNoAgregados();
     this.listarUsuarios();
   }
 
@@ -127,10 +126,10 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   }
 
   async listarUsuariosNoAgregados() {
-    let listado = await this.estrategiaService.listarUsuariosNoAgregados(1).then();
+    let listado = await this.estrategiaService.listarUsuariosNoAgregados(this.id_estado_rol).then();
     this.comboListadoUsuario = listado;
     //console.log(JSON.stringify(listado));
-    this.filteredUsuario = this.myControl.valueChanges
+    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -150,7 +149,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuarioRevisor = listado;
-    this.filteredUsuarioRevisor = this.myControlRevisor.valueChanges
+    this.filteredUsuarioRevisor = this.formDialog.get('revisor')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -181,6 +180,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
       this.id_estado_rol=data.payload.length !== 0 ? Number(data.payload[0].id) : null;
       console.log("roles--->"+JSON.stringify(data));
+      this.listarUsuariosNoAgregados();
     })
 
   }

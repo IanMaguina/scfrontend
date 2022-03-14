@@ -27,6 +27,7 @@ export class EstrategiasComponent implements OnInit {
 
   async listarEstrategias() {
     this.estrategiaService.listarEstrategias().then(data => {
+      console.log(JSON.stringify(data.payload));
       this.listadoEstrategiasPorSociedad = data.payload;
     })
   }

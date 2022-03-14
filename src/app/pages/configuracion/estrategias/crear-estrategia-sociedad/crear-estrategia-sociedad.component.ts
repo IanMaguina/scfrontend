@@ -1,7 +1,7 @@
 import { EstrategiaService } from './../../../../services/estrategia.service';
 import { EstadoService } from './../../../../services/estado.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EstadoRol } from 'src/app/models/estado-rol.interface';
 import { Estado } from 'src/app/models/estado.interface';
@@ -25,7 +25,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   estrategiaData: any;
 
-  crearFormDialog: any;
+  formDialog: FormGroup;
   formErrors = {
     'usuario': '',
     'estado': '',
@@ -89,28 +89,27 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     private estadoService: EstadoService,
     private estrategiaService: EstrategiaService
   ) {
-    this.crearFormDialog = this.formBuilder.group({
+    this.formDialog = this.formBuilder.group({
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
       revisor: ['', Validators.required],
     })
-    this.crearFormDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.crearFormDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formDialog.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
   ngOnInit(): void {
     this.listarEstados();
-    this.listarUsuariosNoAgregados();
     this.listarUsuarios();
   }
 
   async listarUsuariosNoAgregados() {
-    let listado = await this.estrategiaService.listarUsuariosNoAgregados(1).then();
+    let listado = await this.estrategiaService.listarUsuariosNoAgregados(this.id_estado_rol).then();
     this.comboListadoUsuario = listado;
     console.log(JSON.stringify(listado));
-    this.filteredUsuario = this.myControl.valueChanges
+    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -130,7 +129,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuarioRevisor = listado;
-    this.filteredUsuarioRevisor = this.myControlRevisor.valueChanges
+    this.filteredUsuarioRevisor = this.formDialog.get('revisor')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -154,11 +153,12 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   }
 
   async listarRoles() {
-    let estado: Estado = this.crearFormDialog.get('estado').value;
+    let estado: Estado = this.formDialog.get('estado').value;
     this.id_estado=estado.id;
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
       this.id_estado_rol=data.payload.length !== 0 ? data.payload[0].id : null;
+      this.listarUsuariosNoAgregados();      
       console.log(JSON.stringify(this.id_estado_rol));
     })
 
