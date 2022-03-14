@@ -65,8 +65,12 @@ export class EstrategiasComponent implements OnInit {
     });
   }
 
-  toggleEstrategiaEstadoPorSociedad() {
-    console.log("toggleEstrategiaEstadoPorSociedad");
+  async toggleEstrategiaEstadoPorSociedad(element:any) {
+    console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
+    await this.estrategiaService.inactivarEstrategia(element.id).then( (_) =>{
+      this.listarEstrategias();
+    });
+
   }
   toggleEstrategiaEstadoPorTipoPlan() {
     console.log("toggleEstrategiaEstadoPorTipoPlan");
