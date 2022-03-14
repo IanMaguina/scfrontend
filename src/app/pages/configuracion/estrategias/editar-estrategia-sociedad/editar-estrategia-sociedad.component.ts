@@ -67,7 +67,8 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     { id: 2, nombre: 'Estado 2' },
   ];
 
-  id_estado:number=0;
+  id_estado:number=null;
+  id_rol:number=null;
   id_estado_rol:number=null;
   myControl = new FormControl();
   filteredUsuario!: Observable<Usuario[]>;
@@ -108,13 +109,13 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     this.editarEstrategia();
   }
 
-  editarEstrategia(){
-    this.estrategiaService.editarEstrategia(this.estrategia.id).then(data => {
+  async editarEstrategia(){
+    this.estrategiaService.editarEstrategia(this.estrategia.id).then(async data => {
       let reg=data.payload;
       this.formDialog.get('estado').setValue({id:data.payload.estadoRol.estado.id});
-      this.listarRoles();
+      await this.listarRoles();
 
-      this.formDialog.get('rol').setValue({id:reg.id_estado_rol});
+      this.formDialog.get('rol').setValue({id:this.id_rol});
       this.formDialog.get('usuario').setValue({id:reg.id_usuario, nombre:reg.usuario.nombre});
       if(reg.revisor){
         console.log(reg.id_usuario_revisor+"-"+reg.revisor.nombre)
@@ -178,7 +179,8 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     this.id_estado=estado.id;
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
-      this.id_estado_rol=data.payload.length !== 0 ? Number(data.payload[0].id) : null;
+      this.id_estado_rol=data.payload.length !== 0 ? data.payload[0].id : null;
+      this.id_rol=data.payload.length !== 0 ? data.payload[0].rol.id : null;
       console.log("roles--->"+JSON.stringify(data));
       this.listarUsuariosNoAgregados();
     })
