@@ -42,9 +42,14 @@ body {
 .color-principal{
   color: #1D8F3A;
 }
-.color-principal-light{
-  color: #05C65D;
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #05C65D !important;
 }
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(5, 198, 93, 0.40);
+}
+
 .boton-principal-light{
   background-color: #05C65D;
   color: #FFFFFF;
@@ -90,12 +95,9 @@ mat-header-cell{
 .breadcrumb li {
   padding: 10px;
 }
-.breadcrumb li:first-child {
-  padding: 0px 10px 0px 10px;
-  
-}
+
 .breadcrumb mat-icon{
-  padding-top:10px !important;
+  font-size: 12pt;
 
   margin:0 !important;
 }
@@ -153,6 +155,14 @@ table {
 
 .file-input-insivible {
   display: none !important;
+}
+
+.label-info {
+  color: skyblue;
+  font-size: 9pt;
+}
+.label-info mat-icon{
+  font-size: 8pt !important;
 }
 
 
