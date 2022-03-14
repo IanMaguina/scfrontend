@@ -14,6 +14,8 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
+import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
 @Component({
   selector: 'app-crear-estrategia-sociedad',
   templateUrl: './crear-estrategia-sociedad.component.html',
@@ -162,13 +164,33 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   }
 
-  crearEstrategiaSociedad(form: any) {
-    console.log(JSON.stringify(form));
+  async crearEstrategiaSociedad(form: any) {
+    console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
+    let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
+    this.estrategiaService.crearEstrategia(estadoRolUsuario).then();
+    let id_estado_rol_usuario=1;
+    this.estrategiaService.crearRevisor(id_estado_rol_usuario,estadoRolUsuario).then();
 
+    this.onNoClick();
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  async mapeoEstadoRolUsuario(form: any) {
+    let estadoRolUsuario: EstadoRolUsuario = {
+      id_estado_rol:this.id_estado_rol,
+      id_usuario:form.usuario.id
+    }
+    return estadoRolUsuario;
+  }
+
+  async mapeoEstadoRolUsuarioAsignado(form: any) {
+    let estadoRolUsuario: EstadoRolUsuarioAsignado = {
+      id_estado_rol_asignado:2,  //CAMBIAR a SETTINGS
+      id_usuario_asignado:form.revisor.id
+    }
+    return estadoRolUsuario;
+  }  
 }

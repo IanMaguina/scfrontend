@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { EstadoRolUsuarioAsignado } from '../models/estado-rol-usuario-asignado.interface';
+import { EstadoRolUsuario } from '../models/estado-rol-usuario.interface';
 import { ResourceService } from './resource.service'
 
 @Injectable({
@@ -52,6 +54,39 @@ export class EstrategiaService {
 
       }
     );
+  }
+
+  crearEstrategia(estadoRolUsuario: EstadoRolUsuario): Promise<any> {
+    console.log("sending Usuario..." + JSON.stringify(estadoRolUsuario));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/estrategia", estadoRolUsuario).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+
+  crearRevisor(id_estado_rol_usuario:number,estadoRolUsuarioAsignado: EstadoRolUsuarioAsignado): Promise<any> {
+    console.log("sending estadoRolUsuarioAsignado..." + JSON.stringify(estadoRolUsuarioAsignado));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/estrategia/"+id_estado_rol_usuario+"/agregar-revisor", estadoRolUsuarioAsignado).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
   }
 
 }
