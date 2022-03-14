@@ -1,8 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder,FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { Usuario } from 'src/app/models/usuario.interface';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { TipoDocumentoValoradoService } from 'src/app/services/tipo-documento-valorado.service';
+import { TipoPlanService } from 'src/app/services/tipo-plan.service';
+import { TipoPlanCredito } from 'src/app/models/tipo-plan-credito.interface';
+import { PlanRangoService } from 'src/app/services/plan-rango.service';
 @Component({
   selector: 'app-crear-estrategia-tipo-plan',
   templateUrl: './crear-estrategia-tipo-plan.component.html',
@@ -11,8 +18,6 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 })
 export class CrearEstrategiaTipoPlanComponent implements OnInit {
 
- 
- 
   estrategiaData:any;
 
   crearFormDialog: any;
@@ -45,6 +50,9 @@ listadoPlanes: any[] = [
   { codigo_sap:'0011', nombre: 'plan 1'},
   { codigo_sap: '0012', nombre: 'plan 2'},
 ];
+
+listadoTipoTipoFlujoAprobacion:any[]=[];
+
  /* poner el tipo del modelo Rol */
 
  listadoUsuarios: any[] = [
@@ -52,12 +60,20 @@ listadoPlanes: any[] = [
   { id: 2, nombre: 'rol 2'},
 ];
 
+myControl = new FormControl();
+filteredUsuario!: Observable<Usuario[]>;
+comboListadoUsuario: Usuario[] = [];
+selectedUsuario: any;
+
   constructor(
     public dialogRef: MatDialogRef<CrearEstrategiaTipoPlanComponent>,
-    /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private formValidatorService: FormValidatorService
+    private formValidatorService: FormValidatorService,
+    private usuarioService:UsuarioService,
+    private tipoDocumentoValoradoService:TipoDocumentoValoradoService,
+    private tipoPlanService:TipoPlanService,
+    private planRangoService:PlanRangoService
   ) { 
     this.crearFormDialog = this.formBuilder.group({
       plan: ['', Validators.required],
@@ -74,11 +90,55 @@ listadoPlanes: any[] = [
     this.listarPlanes();
     this.listarUsuarios();
   }
-  async listarPlanes() {
-    console.log("listarPlanes");
-  }
+
   async listarUsuarios() {
-    console.log("listarUsuarios");
+    let listado = await this.usuarioService.listarUsuarios().then();
+    this.comboListadoUsuario = listado;
+    console.log(JSON.stringify(listado));
+    this.filteredUsuario = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.nombre),
+        map(nombre => nombre ? this._filter(nombre) : this.comboListadoUsuario.slice())
+      );
+  }
+
+  displayFn(user: Usuario): string {
+    return user && user.nombre ? user.nombre : '';
+  }
+
+  private _filter(nombre: string): Usuario[] {
+    let filterValue = nombre.toLowerCase();
+    return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  async listarPlanes() {
+    this.tipoPlanService.listarTipoPlanes().then(data => {
+      this.listadoPlanes = data.payload;
+    })
+  }
+
+  async filtrarFlujoAprobacion() {
+    let tipoPlanCredito: TipoPlanCredito = this.crearFormDialog.get('plan').value;
+    this.listadoTipoTipoFlujoAprobacion=[];
+    if (tipoPlanCredito.id_tipo_flujo_aprobacion === 1){
+      this.listarTipoDocumentosValorados();
+    }else{
+      this.listarPlanRango();
+    }
+
+  }
+
+  async listarTipoDocumentosValorados() {
+    this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
+      this.listadoTipoTipoFlujoAprobacion = data.payload;
+    })
+  }
+
+  async listarPlanRango() {
+    this.planRangoService.listarPlanRango().then(data => {
+      this.listadoTipoTipoFlujoAprobacion = data.payload;
+    })
   }
   crearEstrategiaTipoPlan(form:any){
     /* crear la estrategia */

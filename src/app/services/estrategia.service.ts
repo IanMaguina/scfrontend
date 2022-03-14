@@ -72,6 +72,26 @@ export class EstrategiaService {
       });
   }
 
+  editarEstrategia(id: number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/estrategia/" + id).toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            resolve(data);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+
 
   crearRevisor(id_estado_rol_usuario:number,estadoRolUsuarioAsignado: EstadoRolUsuarioAsignado): Promise<any> {
     console.log("sending estadoRolUsuarioAsignado..." + JSON.stringify(estadoRolUsuarioAsignado));
