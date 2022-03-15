@@ -44,24 +44,24 @@ export class EstrategiasComponent implements OnInit {
   }
 
   openEditarEstrategiaSociedad(element:any) {
-    const dialogRef = this.matDialog.open(EditarEstrategiaSociedadComponent, {
+    const dialogRef2 = this.matDialog.open(EditarEstrategiaSociedadComponent, {
       disableClose: true,
       data: { estrategia: element }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef2.afterClosed().subscribe(result => {
       this.listarEstrategias();
       console.log("return function process");
     });
   }
     
   openAgregarEstrategiaTipoPlan() {
-    const dialogRef2 = this.matDialog.open(CrearEstrategiaTipoPlanComponent, {
+    const dialogRef3 = this.matDialog.open(CrearEstrategiaTipoPlanComponent, {
       disableClose: true
     });
 
-    dialogRef2.afterClosed().subscribe(result => {
-      console.log("return function process");
+    dialogRef3.afterClosed().subscribe(result => {
+      this.listarEstrategias();
     });
   }
 
