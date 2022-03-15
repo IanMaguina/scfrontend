@@ -93,7 +93,7 @@
         
                 <div class="col-12">
                     <input type="file" class="file-input-insivible" formControlName="files" (change)="onFileSelected($event)"
-                            #fileUpload>
+                            #fileUpload required>
                         <div class="file-upload">
                             <button mat-raised-button class="boton-secundario" type="button" (click)="fileUpload.click()" >
                                 Seleccionar adjunto
@@ -118,7 +118,7 @@
                 <br>
         
         
-                <button mat-raised-button class="boton-principal-light" type="submit">guardar adjunto</button>
+                <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="participacionFormDialog.invalid">guardar adjunto</button>
                 
             </form>
         
