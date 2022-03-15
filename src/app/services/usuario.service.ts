@@ -127,11 +127,8 @@ export class UsuarioService {
   }
 
   actualizarUsuario(usuario: Usuario): Promise<any> {
-
     let respuesta: UserResponse;
     console.log("sending Usuario..." + JSON.stringify(usuario));
-    
-
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/usuario/" + usuario.id, usuario).toPromise().then((data) => {

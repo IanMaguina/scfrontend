@@ -1,3 +1,4 @@
+import { GrupoEmpresarialService } from './../../../../services/grupo-Empresarial.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AsignarIntegrantesGrupoComponent } from '../asignar-integrantes-grupo/asignar-integrantes-grupo.component';
@@ -21,11 +22,21 @@ export class GrupoEmpresarialComponent implements OnInit {
   
   constructor(
     private matDialog: MatDialog,
+    private clienteAgrupacion:GrupoEmpresarialService
     ) { }
 
   ngOnInit(): void {
     console.log("ngInit");
+    this.listarGruposEmpresariales();
   }
+
+  async listarGruposEmpresariales() {
+    this.clienteAgrupacion.listarGruposEmpresariales().then(data => {
+      console.log(JSON.stringify(data.payload));
+      this.listadoGrupos = data.payload;
+    })
+  }
+
   openAgregarGrupo(){
     const dialogRef = this.matDialog.open(CrearGrupoEmpresarialComponent, {
       disableClose: true
@@ -46,6 +57,5 @@ export class GrupoEmpresarialComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("return function process");
     });
-
   }
 }

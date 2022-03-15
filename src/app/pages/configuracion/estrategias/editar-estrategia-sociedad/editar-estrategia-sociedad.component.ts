@@ -67,9 +67,9 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     { id: 2, nombre: 'Estado 2' },
   ];
 
-  id_estado:number=null;
-  id_rol:number=null;
-  id_estado_rol:number=null;
+  id_estado: number = null;
+  id_rol: number = null;
+  id_estado_rol: number = null;
   myControl = new FormControl();
   filteredUsuario!: Observable<Usuario[]>;
   comboListadoUsuario: Usuario[] = [];
@@ -79,7 +79,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   filteredUsuarioRevisor!: Observable<Usuario[]>;
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
-  estrategia:any;
+  estrategia: any;
   constructor(
     public dialogRef: MatDialogRef<EditarEstrategiaSociedadComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
@@ -90,7 +90,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     private estadoService: EstadoService,
     private estrategiaService: EstrategiaService
   ) {
-    this.estrategia=data.estrategia;
+    this.estrategia = data.estrategia;
     this.formDialog = this.formBuilder.group({
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
@@ -109,20 +109,18 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     this.editarEstrategia();
   }
 
-  async editarEstrategia(){
+  async editarEstrategia() {
     this.estrategiaService.editarEstrategia(this.estrategia.id).then(async data => {
-      let reg=data.payload;
-      this.formDialog.get('estado').setValue({id:data.payload.estadoRol.estado.id});
+      let reg = data.payload;
+      this.formDialog.get('estado').setValue({ id: data.payload.estadoRol.estado.id });
       await this.listarRoles();
 
-      this.formDialog.get('rol').setValue({id:this.id_rol});
-      this.formDialog.get('usuario').setValue({id:reg.id_usuario, nombre:reg.usuario.nombre});
-      if(reg.revisor){
-        console.log(reg.id_usuario_revisor+"-"+reg.revisor.nombre)
-        this.formDialog.get('revisor').setValue({id:reg.id_usuario_revisor, nombre:reg.revisor.nombre});
+      this.formDialog.get('rol').setValue({ id: this.id_rol });
+      this.formDialog.get('usuario').setValue({ id: reg.id_usuario, nombre: reg.usuario.nombre });
+      if (reg.revisor) {
+        console.log(reg.id_usuario_revisor + "-" + reg.revisor.nombre)
+        this.formDialog.get('revisor').setValue({ id: reg.id_usuario_revisor, nombre: reg.revisor.nombre });
       }
-      
-
     })
   }
 
@@ -169,19 +167,19 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
 
   async listarEstados() {
     this.estadoService.listarParaEstrategia().then(data => {
-      console.log("estados-->"+JSON.stringify(data.payload))
+      console.log("estados-->" + JSON.stringify(data.payload))
       this.listadoEstados = data.payload;
     })
   }
 
   async listarRoles() {
     let estado: Estado = this.formDialog.get('estado').value;
-    this.id_estado=estado.id;
+    this.id_estado = estado.id;
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
-      this.id_estado_rol=data.payload.length !== 0 ? data.payload[0].id : null;
-      this.id_rol=data.payload.length !== 0 ? data.payload[0].rol.id : null;
-      console.log("roles--->"+JSON.stringify(data));
+      this.id_estado_rol = data.payload.length !== 0 ? data.payload[0].id : null;
+      this.id_rol = data.payload.length !== 0 ? data.payload[0].rol.id : null;
+      console.log("roles--->" + JSON.stringify(data));
       this.listarUsuariosNoAgregados();
     })
 
@@ -190,7 +188,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async actualizarEstrategiaSociedad(form: any) {
     console.log("Actualizar EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    this.estrategiaService.actualizarEstrategia(this.estrategia.id,estadoRolUsuario).then();
+    this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then();
     this.onNoClick();
   }
 
@@ -200,11 +198,11 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
 
   async mapeoEstadoRolUsuario(form: any) {
     let estadoRolUsuario: EstadoRolUsuario = {
-      id_estado_rol:this.id_estado_rol,
-      id_usuario:form.usuario.id,
-      id_usuario_revisor: form.revisor?form.revisor.id:null
+      id_estado_rol: this.id_estado_rol,
+      id_usuario: form.usuario.id,
+      id_usuario_revisor: form.revisor ? form.revisor.id : null
     }
-    console.log("mapeo--->"+JSON.stringify(estadoRolUsuario));
+    console.log("mapeo--->" + JSON.stringify(estadoRolUsuario));
     return estadoRolUsuario;
   }
 
