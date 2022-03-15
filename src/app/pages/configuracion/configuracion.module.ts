@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
@@ -35,6 +36,9 @@ import { AsignarIntegrantesGrupoComponent } from './grupo/asignar-integrantes-gr
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditarEstrategiaSociedadComponent } from './estrategias/editar-estrategia-sociedad/editar-estrategia-sociedad.component';
 import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrategia-tipo-plan/editar-estrategia-tipo-plan.component';
+import { PlanesComponent } from './planes/planes/planes.component';
+import { CrearPlanComponent } from './planes/crear-plan/crear-plan.component';
+import { ConfigurarPlanComponent } from './planes/configurar-plan/configurar-plan.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +60,9 @@ import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrateg
     AsignarIntegrantesGrupoComponent,
     EditarEstrategiaSociedadComponent,
     EditarEstrategiaTipoPlanComponent,
+    PlanesComponent,
+    CrearPlanComponent,
+    ConfigurarPlanComponent,
 
   ],
   imports: [
@@ -75,6 +82,7 @@ import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrateg
     MatTabsModule,
     MatAutocompleteModule,
     MatIconModule,
+    MatCheckboxModule,
   ],
   exports: [
     TipoDocumentosValoradosComponent

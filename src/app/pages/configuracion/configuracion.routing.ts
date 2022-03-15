@@ -6,6 +6,7 @@ import { ConfiguracionComponent } from './configuracion.component';
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { ConsorcioComponent } from './consorcio/consorcio/consorcio.component';
 import { GrupoEmpresarialComponent } from './grupo/grupo-empresarial/grupo-empresarial.component';
+import { PlanesComponent } from './planes/planes/planes.component';
 
 
 
@@ -19,6 +20,7 @@ const routes: Routes = [
             { path: 'estrategias', component: EstrategiasComponent },
             { path: 'consorcios', component: ConsorcioComponent },
             { path: 'grupos', component: GrupoEmpresarialComponent },
+            { path: 'planes', component: PlanesComponent },
             { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
             { path: 'documentosvalorados', component: TipoDocumentosValoradosComponent },
         ]
