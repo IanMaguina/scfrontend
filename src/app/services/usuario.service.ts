@@ -148,17 +148,16 @@ export class UsuarioService {
 
     console.log("activar/desactivar Usuario..." + JSON.stringify(usuario));
     let respuesta: UserResponse;
-    let item = {
+   /*  let item = {
       "id_usuario": usuario.id,
       "activo": usuario.activo,
-    }
+    } */
 
-    console.log("sending Usuario..." + JSON.stringify(item));
 
     return new Promise(
       (resolve, reject) => {
 
-        this.resourceService.deleteResource("/api/usuario/" + usuario.id, item).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/usuario/" + usuario.id).toPromise().then((data) => {
 
           console.log("response data=" + JSON.stringify(data));
           respuesta = data;

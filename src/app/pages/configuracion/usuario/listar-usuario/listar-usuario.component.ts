@@ -24,7 +24,7 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
  
-  listarUsuarios(){
+  async listarUsuarios(){
     this.usuarioService.listarUsuarios().then(data=>{
       this.listadoUsuarios=data;
       console.log(JSON.stringify(this.listadoUsuarios));
@@ -47,10 +47,10 @@ export class ListarUsuarioComponent implements OnInit {
   async toggleUsuarioEstado(element: Usuario) {
     console.log("objeto a inactivar"+JSON.stringify(element));
     
-    this.usuarioService.actualizarUsuario(element).then( data =>{
+    this.usuarioService.activarUsuario(element).then( data =>{
       console.log("cuando actualiza esto pasa: "+ JSON.stringify(data));
-      this.listarUsuarios();
-    })
+    });
+
   }
 
   async openEditarUsuario(form: any) {
@@ -61,9 +61,10 @@ export class ListarUsuarioComponent implements OnInit {
     });
 
     dialogRef2.afterClosed().subscribe(result => {
+
       this.listarUsuarios();
     });
-
+    
   }
 
 

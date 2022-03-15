@@ -14,12 +14,13 @@
         </div>
         <br>
         <div class="content-table col-s-11 col- col-m-11 col-xl-11">
+            <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el registro dar doble clic en la sociedad.</span>
             <table mat-table [dataSource]="listadoEstrategiasPorSociedad" class="mat-elevation-z8" >
                 <!-- Table estrategias - por sociedad -->
                 <!-- Column -->
                 <ng-container matColumnDef="sociedad">
                     <th mat-header-cell *matHeaderCellDef> Sociedad </th>
-                    <td mat-cell *matCellDef="let element"> {{element.usuario.sociedad_codigo_sap}} </td>
+                    <td mat-cell *matCellDef="let element" (dblclick)="openEditarEstrategiaSociedad(element)"> {{element.usuario.sociedad_codigo_sap}} </td>
                 </ng-container>
         
                 <!-- Column -->
@@ -40,9 +41,6 @@
                 <ng-container matColumnDef="activo">
                     <th mat-header-cell *matHeaderCellDef> Activo </th>
                     <td mat-cell *matCellDef="let element">
-                        <button  mat-flat-button color="accent" (click)="openEditarEstrategiaSociedad(element)">
-                            Editar
-                        </button>                        
                         <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleEstrategiaEstadoPorSociedad(element)"></mat-slide-toggle>
                     </td>
                 </ng-container>

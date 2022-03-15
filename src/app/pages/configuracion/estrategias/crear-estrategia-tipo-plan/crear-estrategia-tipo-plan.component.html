@@ -54,6 +54,6 @@
             
            
         <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
-        <button mat-raised-button class="boton-principal-light" type="submit" >Agregar</button>
+        <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="crearFormDialog.invalid" >Agregar</button>
     </form>
 </div>

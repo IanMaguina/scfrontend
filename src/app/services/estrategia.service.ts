@@ -125,5 +125,20 @@ export class EstrategiaService {
 
       });
   }
+  inactivarEstrategia(id_estado_rol_usuario:number): Promise<any> {
+    console.log("enviando-->"+id_estado_rol_usuario+"-----");
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource2("/api/estrategia/"+id_estado_rol_usuario).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
 
 }

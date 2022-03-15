@@ -93,7 +93,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
-      revisor: ['', Validators.required],
+      revisor: [''],
     })
     this.formDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);

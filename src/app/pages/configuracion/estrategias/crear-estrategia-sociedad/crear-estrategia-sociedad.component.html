@@ -40,7 +40,7 @@
         <div class="col-12" *ngIf="id_estado == 1">
             <mat-form-field appearance="outline">
                 <mat-label>Revisor</mat-label>
-                <input type="text" matInput placeholder="Revisor" formControlName="revisor" [matAutocomplete]="autoRevisor" required>
+                <input type="text" matInput placeholder="Revisor" formControlName="revisor" [matAutocomplete]="autoRevisor" >
                 <mat-autocomplete #autoRevisor="matAutocomplete" [displayWith]="displayFnRevisor">
                     <mat-option *ngFor="let option of filteredUsuarioRevisor | async" [value]="option">
                         {{option.nombre}}
@@ -55,6 +55,6 @@
             </mat-form-field>
         </div>
         <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
-        <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
+        <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="formDialog.invalid"  >Agregar</button>
     </form>
 </div>
