@@ -80,7 +80,7 @@ mat-header-cell{
   background: #FFFFFF; 
 }
 
-/* Breadcrumbs */
+/* ini Breadcrumbs */
 .breadcrumb{
   list-style: none;
   padding: 0;
@@ -114,13 +114,29 @@ mat-header-cell{
   content: none;
 }
 
-/* Breadcrumbs */
+/* fin  Breadcrumbs */
 
 .titlesection{
   margin-top:25px;
   font-size: 20pt;
   color: #B4B4B4;
 }
+.titledialog{
+  margin-top:0px;
+  font-size: 16pt;
+  font-weight: bold;
+  color: #B4B4B4;
+  width: 100%;
+}
+.titledialog mat-icon{
+  font-size: 20pt;
+}
+.contentDialog{
+  font-size: 13pt;
+  margin-top:10px;
+  text-align:center;
+}
+
 
 .content-table{
   position: relative;

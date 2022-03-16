@@ -1,0 +1,18 @@
+
+<div class="titledialog">
+    <mat-icon>warning</mat-icon> &nbsp; Confirmación
+</div>
+<br>
+<div class="contentDialog">
+   
+            <div class="col-12">
+                <div class="mensaje">{{mensaje}}</div>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+<br>
+
+        <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button> &nbsp;
+        <button mat-raised-button class="boton-principal-light" type="button" (click)="onNoClick('CONFIRM_DLG_YES')"  >Aceptar</button>
+    
+</div>

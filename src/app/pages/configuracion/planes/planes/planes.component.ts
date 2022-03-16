@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfigurarPlanComponent } from '../configurar-plan/configurar-plan.component';
 import { CrearPlanComponent } from '../crear-plan/crear-plan.component';
 
@@ -11,12 +12,12 @@ import { CrearPlanComponent } from '../crear-plan/crear-plan.component';
 })
 export class PlanesComponent implements OnInit {
   listadoPlanes: any[] = [
-    {id:1, nombre:"PLan 1"},
-    {id:2, nombre:"PLan 2"},
-    {id:3, nombre:"PLan 3"},
-    {id:4, nombre:"PLan 4"},
+    {id:1, nombre:"PLan 1", activo:true},
+    {id:3, nombre:"PLan 3", activo:true},
+    {id:2, nombre:"PLan 2", activo:true},
+    {id:4, nombre:"PLan 4", activo:true},
   ];
-  displayedColumnsSociedad: string[] = ['id', 'plan'];
+  displayedColumnsSociedad: string[] = ['id', 'plan', 'activo'];
   constructor(
     private matDialog: MatDialog,
 
@@ -48,6 +49,30 @@ export class PlanesComponent implements OnInit {
     dialogRef2.afterClosed().subscribe(result => {
       this.listarPlanes();
       console.log("return function process");
+    });
+  }
+
+  onchangeEstado(form:any){
+    let mensaje:string;
+    
+    if(form.activo){
+      mensaje = "¿Desea habilitar el plan?";
+    }else{
+      mensaje = "¿Desea inhabilitar el plan?";
+    }
+    form.mensaje = mensaje;
+
+    const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
+      disableClose: true,
+      width:"400px",
+      data:form
+    });
+
+    dialogRef3.afterClosed().subscribe(result => {
+      if(result==='CONFIRM_DLG_YES'){
+        console.log("return function process");
+      }
+      this.listarPlanes();
     });
   }
 

@@ -9,7 +9,7 @@
 </div>
 <br>
 <div class="content-table col-s-11 col- col-m-11 col-xl-11">
-    <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el registro dar doble clic en el nombre.</span>
+    <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para configurar el plan dar doble clic en el nombre.</span>
     <table mat-table [dataSource]="listadoPlanes" class="mat-elevation-z8" >
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
@@ -25,12 +25,12 @@
         </ng-container>
 
        
-    <!--     <ng-container matColumnDef="activo">
+        <ng-container matColumnDef="activo">
             <th mat-header-cell *matHeaderCellDef> Activo </th>
             <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleEstrategiaEstadoPorSociedad(element)"></mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="onchangeEstado(element)"></mat-slide-toggle>
             </td>
-        </ng-container> -->
+        </ng-container> 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsSociedad"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsSociedad;"></tr>

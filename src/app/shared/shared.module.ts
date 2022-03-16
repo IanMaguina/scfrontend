@@ -9,16 +9,19 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -31,12 +34,13 @@ import { HeaderComponent } from './header/header.component';
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
+    MatDividerModule
   ],
   exports: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
-
+    ConfirmDialogComponent,
     //MatToolbarModule
   ]
 })
