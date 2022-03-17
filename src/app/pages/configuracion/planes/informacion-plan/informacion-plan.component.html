@@ -1,4 +1,4 @@
-<br>
+<div class="content-section">
             <div class="contenidoForm">
 
                 <form [formGroup]="informacionForm" (ngSubmit)="guardarSeccionInformacion(informacionForm.value)">
@@ -90,7 +90,7 @@
                     <div class="objeto col-12 col-l-12">
                     <div class="objeto col-4 col-l-4">
                         <mat-form-field appearance="outline">
-                            <mat-label>Grupo Cliente</mat-label>
+                            <mat-label>Documentos Valorados</mat-label>
                             <mat-select formControlName="documentovalorado" required>
                                 <mat-option *ngFor="let grupocliente of listadoDocumentoValorado" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
@@ -104,7 +104,7 @@
                     <div class="objeto col-12 col-l-12">
                     <div class="objeto col-4 col-l-4">
                         <mat-form-field appearance="outline">
-                            <mat-label>Grupo Cliente</mat-label>
+                            <mat-label>Lineas de Producto</mat-label>
                             <mat-select formControlName="lineasproducto"  required>
                                 <mat-option *ngFor="let grupocliente of listadoLineaProducto" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
@@ -118,7 +118,7 @@
                     <div class="objeto col-12 col-l-12">
                     <div class="objeto col-4 col-l-4">
                         <mat-form-field appearance="outline">
-                            <mat-label>Grupo Cliente</mat-label>
+                            <mat-label>Moneda Bolsa</mat-label>
                             <mat-select formControlName="moneda" required>
                                 <mat-option *ngFor="let grupocliente of listadoMonedaBolsa" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
@@ -173,3 +173,5 @@
                 
                 </form>
             </div>
+
+        </div>

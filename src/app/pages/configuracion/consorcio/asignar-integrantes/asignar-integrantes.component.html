@@ -1,15 +1,16 @@
-<h2>Asignar Integrantes</h2> 
-<br>
-<div class="contenidoForm col-s-11 col- col-m-11 col-xl-11">
-<br>
+<div class="ontent-dialog">
+    <br>
+    <div class="titledialog">Asignar Integrantes</div>
+    <br>
+    <div class="body-dialog">
 <!-- tabs to make styles to support responsive... -->
 <mat-tab-group mat-align-tabs="start">
-    <mat-tab label="Integrantes" class="content-section">
-        <br>
-        
+    <mat-tab label="Integrantes" >
+       
+            <div class="objeto content-section col-s-12 col- col-m-12 col-xl-12">
             <form [formGroup]="asignarEmpresaFormDialog" (ngSubmit)="asignarEmpresaConsorcio(asignarEmpresaFormDialog.value)">
         
-                <div class="col-3 col-xl-3">
+                <div class="objeto col-3 col-xl-3">
                     <mat-form-field appearance="outline">
                         <mat-label>Sociedad</mat-label>
                         <mat-select formControlName="sociedad" required>
@@ -21,7 +22,7 @@
                 </div>
         
         
-                <div class="col-3 col-xl-3">
+                <div class="objeto col-3 col-xl-3">
                     <mat-form-field appearance="outline">
                         <mat-label>Ruc</mat-label>
                         <input matInput placeholder="ingrese el RUC" formControlName="ruc" required>
@@ -42,7 +43,7 @@
             </form>
         
         <br>
-        <div class="content-table col-s-11 col- col-m-11 col-xl-11">
+        <div class="objeto content-table col-s-11 col- col-m-11 col-xl-11">
             <!-- Table listadoIntegrantes  -->
             <table mat-table [dataSource]="listadoIntegrantes" class="mat-elevation-z8">
 
@@ -81,7 +82,7 @@
 
         </div>
 
-
+    </div>
     </mat-tab>
     <mat-tab label="Participación">
         <br>
@@ -130,5 +131,7 @@
 <br>
 <mat-divider></mat-divider>
 <br>
-<button mat-raised-button class="boton-secundario" type="button" (click)="onNoClick()">Cancelar</button>
+<div class="botonera">
+<button mat-raised-button class="objeto boton-secundario" type="button" (click)="onNoClick()">Cancelar</button>
+</div>
 </div>

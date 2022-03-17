@@ -3,25 +3,29 @@
     <br>
     <div class="titledialog"><b>Nombre:</b> {{nombreplan}}</div>
     <br>
+    <div class="body-dialog">
     <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Información del Plan">
+        <mat-tab class="content-section" label="Información del Plan">
             <!-- formulario 1: Información del plan -->
             <app-informacion-plan></app-informacion-plan>
         </mat-tab>
-        <mat-tab label="Cruce de Planes">
+        <mat-tab class="content-section" label="Cruce de Planes">
             <app-cruce-planes></app-cruce-planes>
         </mat-tab>
-        <mat-tab label="Flujo de Aprobación">
+        <mat-tab class="content-section" label="Flujo de Aprobación">
             <app-flujo-aprobacion></app-flujo-aprobacion>
         </mat-tab>
-        <mat-tab label="Máximo Línea de Crédito">
+        <mat-tab class="content-section" label="Máximo Línea de Crédito">
             <app-maximo-linea-credito></app-maximo-linea-credito>
         </mat-tab>
 
     </mat-tab-group>
+    </div>
+
+    <div class="botonera">
+        <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
+    </div>
+    
 </div>
 
-<div class="botonera">
-    <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
-</div>
 

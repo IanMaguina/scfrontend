@@ -17,7 +17,7 @@ export class PlanesComponent implements OnInit {
     {id:2, nombre:"PLan 2", activo:true},
     {id:4, nombre:"PLan 4", activo:true},
   ];
-  displayedColumnsSociedad: string[] = ['id', 'plan', 'activo'];
+  displayedColumnsSociedad: string[] = ['plan', 'activo'];
   constructor(
     private matDialog: MatDialog,
 
