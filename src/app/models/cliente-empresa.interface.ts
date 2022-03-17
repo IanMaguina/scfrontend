@@ -1,7 +1,8 @@
 import { TipoCliente } from "./tipo-cliente.interface";
-import { TipoDocumentoIdentidad } from "./tipo-documento-identidad.interface";
+import { ClienteAgrupacion } from "./cliente-agrupacion.interface";
 
-export interface ClienteAgrupacion{
+
+export interface ClienteEmpresa{
     id?: number,
     id_tipo_cliente?:number,
     tipo_cliente?:TipoCliente,

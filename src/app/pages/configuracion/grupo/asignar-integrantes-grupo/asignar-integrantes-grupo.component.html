@@ -1,87 +1,84 @@
-<h2>Asignar Empresas</h2> 
+<h2>Asignar Empresas</h2>
 <br>
 
 
 <div class="contenidoForm col-s-11 col- col-m-11 col-xl-11">
-<br>
+    <br>
+    <form [formGroup]="asignarEmpresaFormDialog" (ngSubmit)="asignarEmpresaGrupo(asignarEmpresaFormDialog.value)">
 
+        <div class="objeto col-6 col-s-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Sociedad</mat-label>
+                <mat-select formControlName="sociedad" required>
+                    <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
+                        {{ sociedad.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="objeto col-6 col-s-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Ruc</mat-label>
+                <input matInput placeholder="Ingrese el RUC" formControlName="ruc" required>
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.ruc)">
+                        {{formErrors.ruc}}
+                    </mat-error>
+                </mat-hint>
 
-  
-            <form [formGroup]="asignarEmpresaFormDialog" (ngSubmit)="asignarEmpresaGrupo(asignarEmpresaFormDialog.value)">
-        
-                <div class="objeto col-6 col-s-6">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Sociedad</mat-label>
-                        <mat-select formControlName="sociedad" required>
-                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
-                                {{ sociedad.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>         
-                <div class="objeto col-6 col-s-6">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ruc</mat-label>
-                        <input matInput placeholder="ingrese el RUC" formControlName="ruc" required>
-                        <mat-hint>
-                            <mat-error [hidden]="!(formErrors.ruc)">
-                                {{formErrors.ruc}}
-                            </mat-error>
-                        </mat-hint>
-        
-                    </mat-form-field>
-                </div>
-        
-        
-        
-        
-                <br>
-                <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
-            </form>
-        
-        <br>
-        <div class="content-table col-s-11 col- col-m-11 col-xl-11">
-            <!-- Table listadoIntegrantes  -->
-            <table mat-table [dataSource]="listadoIntegrantes" class="mat-elevation-z8">
-
-
-
-                <!-- Column -->
-                <ng-container matColumnDef="codigocliente">
-                    <th mat-header-cell *matHeaderCellDef> Código de cliente </th>
-                    <td mat-cell *matCellDef="let element"> {{element.codigocliente}} </td>
-                </ng-container>
-
-                <!-- Column -->
-                <ng-container matColumnDef="razonsocial">
-                    <th mat-header-cell *matHeaderCellDef> Razón Social </th>
-                    <td mat-cell *matCellDef="let element"> {{element.razonsocial}} </td>
-                </ng-container>
-                <!-- Column -->
-                <ng-container matColumnDef="ruc">
-                    <th mat-header-cell *matHeaderCellDef> RUC </th>
-                    <td mat-cell *matCellDef="let element"> {{element.ruc}} </td>
-                </ng-container>
-
-
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                    <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="accent" (click)="QuitarEmpresa(element)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-
+            </mat-form-field>
         </div>
 
 
-<br>
-<mat-divider></mat-divider>
-<br>
-<button mat-raised-button class="boton-secundario" type="button" (click)="onNoClick()">Cancelar</button>
+
+
+        <br>
+        <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
+    </form>
+
+    <br>
+    <div class="content-table col-s-11 col- col-m-11 col-xl-11">
+        <!-- Table listadoIntegrantes  -->
+        <table mat-table [dataSource]="listadoIntegrantes" class="mat-elevation-z8">
+
+
+
+            <!-- Column -->
+            <ng-container matColumnDef="codigocliente">
+                <th mat-header-cell *matHeaderCellDef> Código de cliente </th>
+                <td mat-cell *matCellDef="let element"> {{element.codigocliente}} </td>
+            </ng-container>
+
+            <!-- Column -->
+            <ng-container matColumnDef="razonsocial">
+                <th mat-header-cell *matHeaderCellDef> Razón Social </th>
+                <td mat-cell *matCellDef="let element"> {{element.razonsocial}} </td>
+            </ng-container>
+            <!-- Column -->
+            <ng-container matColumnDef="ruc">
+                <th mat-header-cell *matHeaderCellDef> RUC </th>
+                <td mat-cell *matCellDef="let element"> {{element.ruc}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="accent" (click)="QuitarEmpresa(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+
+
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <button mat-raised-button class="boton-secundario" type="button" (click)="onNoClick()">Cancelar</button>
 </div>

@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SociedadService } from 'src/app/services/sociedad.service';
 
 
 @Component({
@@ -22,10 +23,10 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
   validationMessages = {
     'sociedad': {
-      'required': 'el nombre es requerido.'
+      'required': 'Nombre es requerido.'
     },
     'ruc': {
-      'required': 'el correo es requerido.',
+      'required': 'RUC es requerido.',
     }
   };
  
@@ -37,10 +38,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
 
   //poner el tipado correcto => es data dummy
-  listadoSociedades: Sociedad[] = [
-    { codigo_sap: '0011', nombre: 'sociedad 1' },
-    { codigo_sap: '0012', nombre: 'sociedad 2' },
-  ];
+  listadoSociedades: Sociedad[] = [];
 
   listadoIntegrantes: any[] = [];
 
@@ -57,7 +55,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private formValidatorService: FormValidatorService
+    private formValidatorService: FormValidatorService,
+    private sociedadService:SociedadService
   ) {
     this.grupoData = data;
     /*  */
@@ -73,10 +72,18 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit");
+    this.listarSociedades();
   }
 
+  async listarSociedades() {
+    this.sociedadService.listarSociedades().then(data => {
+      console.log("listarSociedad:" + JSON.stringify(data));
+      this.listadoSociedades = data;
+    })
+
+  }  
   asignarEmpresaGrupo(form:any){
-    console.log("asignarEmpresaGrupo");
+    console.log("asignarEmpresaGrupo-->"+JSON.stringify(form));
   }
  
   QuitarEmpresa(item:any){
