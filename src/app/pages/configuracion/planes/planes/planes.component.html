@@ -8,9 +8,9 @@
     <button mat-flat-button class="boton-principal-light" (click)="openAgregarPlan()">Agregar</button>
 </div>
 <br>
-<div class="content-table col-s-11 col- col-m-11 col-xl-11">
+<div class="content-table col-s-11 col- col-m-8 col-xl-6 col-l-6">
     <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para configurar el plan dar doble clic en el nombre.</span>
-    <table mat-table [dataSource]="listadoPlanes" class="mat-elevation-z8" >
+    <table mat-table [dataSource]="listadoPlanes" class="mat-elevation-z8 " >
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
         <ng-container matColumnDef="id">

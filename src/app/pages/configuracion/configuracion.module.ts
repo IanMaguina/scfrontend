@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
@@ -39,6 +40,10 @@ import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrateg
 import { PlanesComponent } from './planes/planes/planes.component';
 import { CrearPlanComponent } from './planes/crear-plan/crear-plan.component';
 import { ConfigurarPlanComponent } from './planes/configurar-plan/configurar-plan.component';
+import { InformacionPlanComponent } from './planes/informacion-plan/informacion-plan.component';
+import { CrucePlanesComponent } from './planes/cruce-planes/cruce-planes.component';
+import { FlujoAprobacionComponent } from './planes/flujo-aprobacion/flujo-aprobacion.component';
+import { MaximoLineaCreditoComponent } from './planes/maximo-linea-credito/maximo-linea-credito.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,10 @@ import { ConfigurarPlanComponent } from './planes/configurar-plan/configurar-pla
     PlanesComponent,
     CrearPlanComponent,
     ConfigurarPlanComponent,
+    InformacionPlanComponent,
+    CrucePlanesComponent,
+    FlujoAprobacionComponent,
+    MaximoLineaCreditoComponent,
 
   ],
   imports: [
@@ -83,6 +92,7 @@ import { ConfigurarPlanComponent } from './planes/configurar-plan/configurar-pla
     MatAutocompleteModule,
     MatIconModule,
     MatCheckboxModule,
+    MatRadioModule,
   ],
   exports: [
     TipoDocumentosValoradosComponent
