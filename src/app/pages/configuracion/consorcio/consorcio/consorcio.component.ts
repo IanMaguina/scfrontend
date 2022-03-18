@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { AsignarIntegrantesComponent } from '../asignar-integrantes/asignar-integrantes.component';
 import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.component';
 
@@ -28,6 +29,9 @@ export class ConsorcioComponent implements OnInit {
   ngOnInit(): void {
     console.log("ngInit");
   }
+  listarConsorcios(){
+    console.log("listarConsorcios");
+  }
   openAgregarConsorcio(){
     const dialogRef = this.matDialog.open(CrearConsorcioComponent, {
       disableClose: true
@@ -39,15 +43,43 @@ export class ConsorcioComponent implements OnInit {
 
   }
   openAsignarIntegrantes(id:any){
-    const dialogRef = this.matDialog.open(AsignarIntegrantesComponent, {
+    const dialogRef2 = this.matDialog.open(AsignarIntegrantesComponent, {
       disableClose: true,
-      width: '60%',
+      width: '80%',
       data:id
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef2.afterClosed().subscribe(result => {
       console.log("return function process");
     });
 
+  }
+
+  toggleConsorcioActivo(element:any){
+    let mensaje:string;
+    
+    if(element.activo){
+      mensaje = "¿Desea habilitar el plan?";
+    }else{
+      mensaje = "¿Desea inhabilitar el plan?";
+    }
+    element.mensaje = mensaje;
+
+    const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
+      disableClose: true,
+      width:"400px",
+      data:element
+    });
+
+    dialogRef3.afterClosed().subscribe(result => {
+      if(result==='CONFIRM_DLG_YES'){
+        console.log("return function process");
+      }
+      this.listarConsorcios();
+    });
+  }
+
+  editarConsorcio(element:any){
+    console.log("editarConsorcio");
   }
 }

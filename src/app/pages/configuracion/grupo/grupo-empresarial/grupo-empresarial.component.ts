@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AsignarIntegrantesGrupoComponent } from '../asignar-integrantes-grupo/asignar-integrantes-grupo.component';
 import { CrearGrupoEmpresarialComponent } from '../crear-grupo-empresarial/crear-grupo-empresarial.component';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-grupo-empresarial',
@@ -49,15 +50,41 @@ export class GrupoEmpresarialComponent implements OnInit {
 
   }
   openAsignarIntegrantesGrupo(id:any){
-    const dialogRef = this.matDialog.open(AsignarIntegrantesGrupoComponent, {
+    const dialogRef2 = this.matDialog.open(AsignarIntegrantesGrupoComponent, {
       disableClose: true,
-      width: '60%',
+      width: '80%',
       data:id
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef2.afterClosed().subscribe(result => {
       console.log("return function process");
       this.listarGruposEmpresariales();
     });
+  }
+  toggleGrupoActivo(element:any){
+    let mensaje:string;
+    
+    if(element.activo){
+      mensaje = "¿Desea habilitar el plan?";
+    }else{
+      mensaje = "¿Desea inhabilitar el plan?";
+    }
+    element.mensaje = mensaje;
+
+    const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
+      disableClose: true,
+      width:"400px",
+      data:element
+    });
+
+    dialogRef3.afterClosed().subscribe(result => {
+      if(result==='CONFIRM_DLG_YES'){
+        console.log("return function process");
+      }
+      this.listarGruposEmpresariales();
+    });
+  }
+  editarGrupo(element){
+    console.log("editarGrupo");
   }
 }

@@ -10,6 +10,7 @@
 </div>
 <br>
 <div class="content-table col-s-11 col- col-m-11 col-xl-11">
+    <!-- <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el registro dar doble clic en el nombre del grupo.</span> -->
     <table mat-table [dataSource]="listadoGrupos" class="mat-elevation-z8" >
         <!-- Table estrategias - por sociedad -->
 
@@ -18,14 +19,17 @@
         <!-- Column -->
         <ng-container matColumnDef="grupo">
             <th mat-header-cell *matHeaderCellDef>Nombre de grupo </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            <td mat-cell *matCellDef="let element" (dblclick)="editarGrupo(element)"> {{element.nombre}} </td>
         </ng-container>
 
       
         <!-- Column -->
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Estado </th>
-            <td mat-cell *matCellDef="let element"> {{element.activo}} </td>
+            <td mat-cell *matCellDef="let element"> 
+                <mat-slide-toggle [(ngModel)]="element.estado" (ngModelChange)="toggleGrupoActivo(element)"></mat-slide-toggle>
+            
+            </td>
         </ng-container>
 
         <!-- Column -->
@@ -33,6 +37,7 @@
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
                 <button mat-flat-button class="boton-secundario" (click)="openAsignarIntegrantesGrupo(element)">Integrantes</button>
+                
             </td>
         </ng-container>
         
