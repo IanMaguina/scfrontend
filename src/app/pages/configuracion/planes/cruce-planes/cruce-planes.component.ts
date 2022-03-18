@@ -21,7 +21,9 @@ export class CrucePlanesComponent implements OnInit {
     console.log("ngInit");
   }
 
-
+  guardarCrucePlanes(){
+    console.log("guardarCrucePlanes");
+  }
 
 
   onChangeCruce(element:any){

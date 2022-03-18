@@ -1,28 +1,34 @@
-<br>
-<div class="content-table col-s-11 col- col-m-11 col-xl-11">
-    <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el importe dar doble clic en él</span>
-    <table mat-table [dataSource]="listadoImporteMaximo" class="mat-elevation-z8 tabla-sm" >
-        <!-- Table estrategias - por sociedad -->
-        <!-- Column -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Seleccionar </th>
-            <td mat-cell *matCellDef="let element" >
-                <mat-checkbox class="example-margin" (change)="onChangeCruce(element)"></mat-checkbox>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="grupocliente">
-            <th mat-header-cell *matHeaderCellDef> Grupo Cliente</th>
-            <td mat-cell *matCellDef="let element" > {{element.grupocliente}} </td>
-        </ng-container>
-        <ng-container matColumnDef="morosidad">
-            <th mat-header-cell *matHeaderCellDef> Morosidad</th>
-            <td mat-cell *matCellDef="let element" > {{element.morosidad}} </td>
-        </ng-container>
-        <ng-container matColumnDef="importemax">
-            <th mat-header-cell *matHeaderCellDef> Importe Máximo </th>
-            <td mat-cell *matCellDef="let element" (dblclick)="openEditarImporte(element)"> {{element.importemax}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+<div class="content-section">
+    <div class="content-table col-xs-12 col-s-8 col-m-8 col-l-6 col-xl-6">
+        <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el importe dar doble clic en él</span>
+        <table mat-table [dataSource]="listadoImporteMaximo" class="mat-elevation-z8 tabla-sm" >
+            <!-- Table estrategias - por sociedad -->
+            <!-- Column -->
+            
+            <ng-container matColumnDef="grupocliente">
+                <th mat-header-cell *matHeaderCellDef> Grupo Cliente</th>
+                <td mat-cell *matCellDef="let element" > {{element.grupocliente}} </td>
+            </ng-container>
+            <ng-container matColumnDef="morosidad">
+                <th mat-header-cell *matHeaderCellDef> Morosidad</th>
+                <td mat-cell *matCellDef="let element" > {{element.morosidad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="importemax">
+                <th mat-header-cell *matHeaderCellDef> Importe Máximo </th>
+                <td mat-cell *matCellDef="let element" class="tdEditable" >
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="importemax"  required [value]="element.importemax">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        </div>
+        <br>
+        <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+        <div class="botonera-form">
+            <button mat-raised-button class="boton-principal-light col-xl-2" type="guardarCrucePlanes()" >Guardar</button>
+        </div>
+        </div>

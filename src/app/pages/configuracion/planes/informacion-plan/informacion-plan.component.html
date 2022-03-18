@@ -5,7 +5,7 @@
                     
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                         <mat-radio-group formControlName="radioConfig" aria-label="Elige-una-opcion" [(ngModel)]="tipoConfiguracion">
                             &nbsp;
                             <mat-radio-button value="grupo" checked="true">Por Grupo Cliente</mat-radio-button>
@@ -16,37 +16,37 @@
                     <br><br>
                     
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4" *ngIf="tipoConfiguracion == 'grupo' ">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion == 'grupo' ">
                         <mat-form-field appearance="outline">
                             <mat-label>Grupo Cliente</mat-label>
-                            <mat-select formControlName="grupocliente"  >
+                            <mat-select formControlName="grupocliente"  multiple  >
                                 <mat-option *ngFor="let grupocliente of listadoGrupoCliente" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8" *ngIf="tipoConfiguracion == 'grupo' ">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion == 'grupo' ">
                         {{listadoGrupoCliente}}  Aqui irá la informacion
                     </div>
                     </div>
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4" *ngIf="tipoConfiguracion != 'grupo' ">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion != 'grupo' ">
                         <mat-form-field appearance="outline">
                             <mat-label>Clientes</mat-label>
-                            <mat-select formControlName="cliente"  >
+                            <mat-select formControlName="cliente"  multiple  >
                                 <mat-option *ngFor="let cliente of listadoClientes" [value]="cliente">{{ cliente.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8" *ngIf="tipoConfiguracion != 'grupo'">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion != 'grupo'">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>cartafianza</mat-label>
                             <mat-select formControlName="cartafianza" required>
@@ -55,81 +55,86 @@
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                   
+
                         <mat-form-field appearance="outline">
-                            <mat-label>nivelmora</mat-label>
-                            <mat-select formControlName="nivelmora"  required>
-                                <mat-option *ngFor="let nivelmora of listadoNivelesMora" [value]="nivelmora">{{ nivelmora.nombre }}
+                            <mat-label> nivelmora </mat-label>
+                            <mat-select #nivemora formControlName="nivelmora" multiple required>
+                                <mat-option *ngFor="let nivelmora of listadoNivelesMora" [value]="nivelmora">
+                                    {{nivelmora.nombre}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+
+
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>central Riesgo</mat-label>
-                            <mat-select formControlName="centralRiesgo"  required>
+                            <mat-select formControlName="centralRiesgo"   multiple required>
                                 <mat-option *ngFor="let centralRiesgo of listadoCentralRiesgo" [value]="centralRiesgo">{{ centralRiesgo.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>Documentos Valorados</mat-label>
-                            <mat-select formControlName="documentovalorado" required>
+                            <mat-select formControlName="documentovalorado" required multiple >
                                 <mat-option *ngFor="let grupocliente of listadoDocumentoValorado" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>Lineas de Producto</mat-label>
-                            <mat-select formControlName="lineasproducto"  required>
+                            <mat-select formControlName="lineasproducto"  required multiple >
                                 <mat-option *ngFor="let grupocliente of listadoLineaProducto" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>Moneda Bolsa</mat-label>
-                            <mat-select formControlName="moneda" required>
+                            <mat-select formControlName="moneda" required multiple >
                                 <mat-option *ngFor="let grupocliente of listadoMonedaBolsa" [value]="grupocliente">{{ grupocliente.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>Bolsa</mat-label>
                             <mat-select formControlName="bolsa" required>
@@ -138,11 +143,11 @@
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                        <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>Camiones</mat-label>
                                 <mat-select formControlName="camiones" required>
@@ -151,12 +156,12 @@
                                 </mat-select>
                             </mat-form-field>
                         </div> 
-                        <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
-                    <div class="objeto col-12 col-l-12">
-                    <div class="objeto col-4 col-l-4">
+                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                         <mat-form-field appearance="outline">
                             <mat-label>Revisión mensual ?</mat-label>
                             <mat-select formControlName="revisionmensual" required>
@@ -165,12 +170,13 @@
                             </mat-select>
                         </mat-form-field>
                     </div>  
-                    <div class="objeto col-8 col-l-8">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
                     <br>
-                    <mat-divider class="objetoSimple col-12 col-xl-12"></mat-divider>
-                    <button mat-raised-button class="boton-principal-light col-12 col-s-6 col-m-3 col-l-3 col-xl-3" type="submit" [disabled]="informacionForm.invalid" >Guardar</button>
-                
+                    <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+                    <div class="botonera-form">
+                    <button mat-raised-button class="boton-principal-light col-xl-2" type="submit" [disabled]="informacionForm.invalid" >Guardar</button>
+                    </div>
                 </form>
             </div>
 

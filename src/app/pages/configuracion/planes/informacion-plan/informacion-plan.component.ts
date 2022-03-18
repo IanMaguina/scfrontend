@@ -71,7 +71,12 @@ export class InformacionPlanComponent implements OnInit {
   /* listados */
   listadoGrupoCliente:any[] = [];
   listadoClientes:any[] = [];
-  listadoNivelesMora:any[] = [];
+  listadoNivelesMora:any[] = [
+    {id:1,nombre:'A'},
+    {id:1,nombre:'B'},
+    {id:1,nombre:'C'},
+    {id:1,nombre:'D'},
+  ];
   listadoCentralRiesgo:any[] = [];
   listadoDocumentoValorado:any[] = [];
   listadoLineaProducto:any[] = [];
@@ -121,5 +126,10 @@ export class InformacionPlanComponent implements OnInit {
   guardarSeccionInformacion(form:any){
     console.log("guardarSeccionInformacion");
     console.log("marcado: "+this.tipoConfiguracion);
+  }
+
+  listarMora(event:any){
+    console.log(JSON.stringify(event));
+
   }
 }

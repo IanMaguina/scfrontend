@@ -16,11 +16,14 @@ export class MaximoLineaCreditoComponent implements OnInit {
     {grupocliente:"zafiro", morosidad:"D", importemax:"0%"},
  
   ];
-  displayedColumns: string[] = ['id', 'grupocliente', 'morosidad', 'importemax'];
+  displayedColumns: string[] = ['grupocliente', 'morosidad', 'importemax'];
 
-  constructor() { }
+  constructor() {
+    console.log("constructor");
+   }
 
   ngOnInit(): void {
+    console.log("ngOnInit");
   }
 
   openEditarImporte(){

@@ -44,6 +44,7 @@ import { InformacionPlanComponent } from './planes/informacion-plan/informacion-
 import { CrucePlanesComponent } from './planes/cruce-planes/cruce-planes.component';
 import { FlujoAprobacionComponent } from './planes/flujo-aprobacion/flujo-aprobacion.component';
 import { MaximoLineaCreditoComponent } from './planes/maximo-linea-credito/maximo-linea-credito.component';
+import { AsignarAprobadoresComponent } from './planes/asignar-aprobadores/asignar-aprobadores.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { MaximoLineaCreditoComponent } from './planes/maximo-linea-credito/maxim
     CrucePlanesComponent,
     FlujoAprobacionComponent,
     MaximoLineaCreditoComponent,
+    AsignarAprobadoresComponent,
 
   ],
   imports: [

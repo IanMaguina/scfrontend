@@ -1,0 +1,90 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { moveItemInArray } from '@angular/cdk/drag-drop/';
+import { CdkDragDrop } from '@angular/cdk/drag-drop/drag-events';
+
+import { Usuario } from 'src/app/models/usuario.interface';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+@Component({
+  selector: 'app-asignar-aprobadores',
+  templateUrl: './asignar-aprobadores.component.html',
+  styles: [
+  ]
+})
+export class AsignarAprobadoresComponent implements OnInit {
+  listadoAprobadoresPlan:any[]=[];
+
+  filteredUsuarioAprobador!: Observable<Usuario[]>;
+  comboListadoUsuarioAprobador: Usuario[] = [];
+  selectedUsuarioAprobador: any;
+  aprobadorForm:FormGroup;
+  formErrors = {
+    'usuario': '',
+  }
+  validationMessages = {
+    'usuario': {
+      'required': 'el correo es requerido.',
+    },
+  };
+  //Submitted form
+  submitted = false;
+  carga: boolean = false;
+
+  dataPlanes:any;
+
+  constructor(
+    public dialogRef: MatDialogRef<AsignarAprobadoresComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder,
+    private formValidatorService: FormValidatorService,
+    private usuarioService: UsuarioService,
+    ) { 
+      this.dataPlanes = data;
+      this.aprobadorForm = this.formBuilder.group({
+        usuario: ['', Validators.required],
+      })
+      this.aprobadorForm.valueChanges.subscribe(() => {
+        this.formErrors = this.formValidatorService.handleFormChanges(this.aprobadorForm, this.formErrors, this.validationMessages, this.submitted);
+      })
+
+    }
+
+  ngOnInit(): void {
+    this.listarUsuarios();
+  }
+
+  async listarUsuarios() {
+    let listado = await this.usuarioService.listarUsuarios().then();
+    this.comboListadoUsuarioAprobador = listado;
+    this.filteredUsuarioAprobador = this.aprobadorForm.get('usuario')?.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.nombre),
+        map(nombre => nombre ? this._filterAprobador(nombre) : this.comboListadoUsuarioAprobador.slice())
+      );
+  }
+
+  private _filterAprobador(nombre: string): Usuario[] {
+    let filterValue = nombre.toLowerCase();
+    return this.comboListadoUsuarioAprobador.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  asignarAprobador(form:any){
+    console.log("asignarAprobador");
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.listadoAprobadoresPlan, event.previousIndex, event.currentIndex);
+  }
+  displayFn(user: Usuario): string {
+    return user && user.nombre ? user.nombre : '';
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}

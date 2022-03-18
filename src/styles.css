@@ -142,12 +142,13 @@ mat-header-cell{
   padding-top:10px;
   
 }
-.body-dialog{
-  
-
+.botonera{
+  padding-top:10px;
 }
 
-
+.botonera-form{
+text-align: center;
+}
 .content-table{
   position: relative;
     display: block;
@@ -163,11 +164,9 @@ mat-header-cell{
   max-height:500px !important;
 }
 .contenidoForm{
-  width: 99%;
-  display: flex;
-  flex-flow: row wrap;
-  
+  width: 99%;  
 }
+
 .objeto{
     float:left;
      height: auto; 
@@ -184,6 +183,19 @@ mat-header-cell{
 
 table {
   min-width: 100%;
+}
+
+
+.file-input-insivible {
+  display: none !important;
+}
+
+.label-info {
+  color: skyblue;
+  font-size: 9pt;
+}
+.label-info mat-icon{
+  font-size: 8pt !important;
 }
 
 /* Para componentes corrección defaults. */
@@ -204,26 +216,44 @@ th.mat-header-cell{
   color: #fff;
 }
 
-
-.file-input-insivible {
-  display: none !important;
+.tdEditable .mat-form-field-appearance-outline .mat-form-field-infix{
+  padding: 3px 0 3px 0 !important;
+}
+.tdEditable .mat-form-field-appearance-outline .mat-form-field-flex{
+  margin-top: 4px;
+}
+.tdEditable .mat-form-field-wrapper {
+  padding-bottom: 7px;
+}
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate{
+  background-color: #1D8F3A;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple{
+  background-color: #1D8F3A;
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #1D8F3A;
 }
 
-.label-info {
-  color: skyblue;
-  font-size: 9pt;
-}
-.label-info mat-icon{
-  font-size: 8pt !important;
-}
 
 
 
 /* INIT - Grid responsive */
 
   /* Extra small devices (phones, 600px and down) */
-[class*="col-"] {
-    width: 100%;
+  @media only screen and (max-width: 599px) {
+    .col-xs-1 {width: 8.33%;}
+    .col-xs-2 {width: 16.66%;}
+    .col-xs-3 {width: 25%;}
+    .col-xs-4 {width: 33.33%;}
+    .col-xs-5 {width: 41.66%;}
+    .col-xs-6 {width: 50%;}
+    .col-xs-7 {width: 58.33%;}
+    .col-xs-8 {width: 66.66%;}
+    .col-xs-9 {width: 75%;}
+    .col-xs-10 {width: 83.33%;}
+    .col-xs-11 {width: 91.66%;}
+    .col-xs-12 {width: 100%;}
   }
   /* Small devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (min-width: 600px) {
