@@ -190,7 +190,11 @@ text-align: center;
 table {
   min-width: 100%;
 }
-
+.mensaje{
+  font-size: 13pt;
+  text-align: center;
+  padding:5px 10px 20px 10px;
+}
 
 .file-input-insivible {
   display: none !important;
@@ -203,6 +207,8 @@ table {
 .label-info mat-icon{
   font-size: 8pt !important;
 }
+
+
 
 /* Para componentes corrección defaults. */
 .example-spacer {

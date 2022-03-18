@@ -10,6 +10,7 @@
 </div>
 <br>
 <div class="content-table col-s-11 col- col-m-11 col-xl-11">
+    <!-- <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el registro dar doble clic en la razón social.</span> -->
     <table mat-table [dataSource]="listadoConsorcios" class="mat-elevation-z8" >
         <!-- Table estrategias - por sociedad -->
 
@@ -18,7 +19,7 @@
         <!-- Column -->
         <ng-container matColumnDef="razonsocial">
             <th mat-header-cell *matHeaderCellDef>Razón Social </th>
-            <td mat-cell *matCellDef="let element"> {{element.razonsocial}} </td>
+            <td mat-cell *matCellDef="let element" (dblclick)="editarConsorcio(element)"> {{element.razonsocial}} </td>
         </ng-container>
 
         <!-- Column -->
