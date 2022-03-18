@@ -93,11 +93,6 @@ export class CrearUsuarioComponent implements OnInit {
     this.onNoClick();
   }
 
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   async mapeoUsuario(form: any) {
     let usuario: Usuario = {
       nombre: form.nombre,
@@ -107,4 +102,9 @@ export class CrearUsuarioComponent implements OnInit {
     }
     return usuario;
   }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

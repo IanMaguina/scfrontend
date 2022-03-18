@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { ClienteAgrupacion } from '../models/cliente-agrupacion.interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class GrupoEmpresarialService {
+export class ClienteEmpresaService {
   constructor(
     private resourceService: ResourceService
   ) {
@@ -82,4 +83,5 @@ export class GrupoEmpresarialService {
       });
   }
 
+  
 }

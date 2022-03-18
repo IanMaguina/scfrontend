@@ -44,6 +44,7 @@ export class GrupoEmpresarialComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("return function process");
+      this.listarGruposEmpresariales();
     });
 
   }
@@ -56,6 +57,7 @@ export class GrupoEmpresarialComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("return function process");
+      this.listarGruposEmpresariales();
     });
   }
 }
