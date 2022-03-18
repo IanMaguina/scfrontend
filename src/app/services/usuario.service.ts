@@ -108,15 +108,12 @@ export class UsuarioService {
   }
 
   crearUsuario(usuario: Usuario): Promise<any> {
-    console.log("adding Usuario..." + JSON.stringify(usuario));
-    let respuesta: UserResponse;
     console.log("sending Usuario..." + JSON.stringify(usuario));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.postResource("/api/usuario", usuario).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
-          respuesta = data;
-          resolve(respuesta);
+          resolve(data);
 
         }).catch((error) => {
           console.log("error status=" + error.status + ", msg=" + error.message);

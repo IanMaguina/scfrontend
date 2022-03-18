@@ -87,8 +87,8 @@ export class CrearUsuarioComponent implements OnInit {
   }
 
   async crearUsuario(form: any) {
-    console.log("crearUsuario:" + JSON.stringify(form));
     let usuario = await this.mapeoUsuario(form)
+    console.log("crearUsuario:" + JSON.stringify(usuario));
     this.usuarioService.crearUsuario(usuario).then();
     this.onNoClick();
   }
