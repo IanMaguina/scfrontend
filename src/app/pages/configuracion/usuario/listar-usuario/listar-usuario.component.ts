@@ -23,16 +23,16 @@ export class ListarUsuarioComponent implements OnInit {
     this.listarUsuarios();
   }
 
- 
-  async listarUsuarios(){
-    this.usuarioService.listarUsuarios().then(data=>{
-      this.listadoUsuarios=data;
+
+  async listarUsuarios() {
+    this.usuarioService.listarUsuarios().then(data => {
+      this.listadoUsuarios = data;
       console.log(JSON.stringify(this.listadoUsuarios));
-    
+
     })
   }
-  openAgregarUsuario(): void { 
-    const dialogRef = this.matDialog.open(CrearUsuarioComponent, {
+  openAgregarUsuario(): void {
+    let dialogRef = this.matDialog.open(CrearUsuarioComponent, {
       disableClose: true
     });
 
@@ -45,26 +45,26 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   async toggleUsuarioEstado(element: Usuario) {
-    console.log("objeto a inactivar"+JSON.stringify(element));
-    
-    this.usuarioService.activarUsuario(element).then( data =>{
-      console.log("cuando actualiza esto pasa: "+ JSON.stringify(data));
+    console.log("objeto a inactivar" + JSON.stringify(element));
+
+    this.usuarioService.activarUsuario(element).then(data => {
+      console.log("cuando actualiza esto pasa: " + JSON.stringify(data));
     });
 
   }
 
   async openEditarUsuario(form: any) {
-    console.log("al editar usuario: "+JSON.stringify(form));
-    const dialogRef2 = this.matDialog.open(EditarUsuarioComponent, {
+    console.log("al editar usuario: " + JSON.stringify(form));
+    let dialogRef = this.matDialog.open(EditarUsuarioComponent, {
       disableClose: true,
-      data:form
+      data: form
     });
 
-    dialogRef2.afterClosed().subscribe(result => {
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("ACTUALIZOOOOOO");
       this.listarUsuarios();
     });
-    
+
   }
 
 
