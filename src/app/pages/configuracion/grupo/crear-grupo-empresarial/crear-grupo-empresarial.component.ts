@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { GrupoEmpresarialService} from '../../../../services/grupo-Empresarial.service';
+import { GrupoEmpresarialService} from '../../../../services/grupo-empresarial.service';
 @Component({
   selector: 'app-crear-grupo-empresarial',
   templateUrl: './crear-grupo-empresarial.component.html',

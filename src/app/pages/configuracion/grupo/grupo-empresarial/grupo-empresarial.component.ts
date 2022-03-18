@@ -1,4 +1,4 @@
-import { GrupoEmpresarialService } from './../../../../services/grupo-Empresarial.service';
+import { GrupoEmpresarialService } from '../../../../services/grupo-empresarial.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AsignarIntegrantesGrupoComponent } from '../asignar-integrantes-grupo/asignar-integrantes-grupo.component';
