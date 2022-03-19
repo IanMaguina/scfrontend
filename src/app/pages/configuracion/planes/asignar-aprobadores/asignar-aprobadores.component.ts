@@ -16,7 +16,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   ]
 })
 export class AsignarAprobadoresComponent implements OnInit {
-  listadoAprobadoresPlan:any[]=[];
+  listadoAprobadoresPlan:any[]=[
+    {id:1, orden:1,nombre:'Mariano Melgar'},
+    {id:2, orden:2,nombre:'Francisco Bolognesi'},
+    {id:3, orden:3,nombre:'Tupac Amaru'},
+    {id:4, orden:4,nombre:'Andres Caceres'},
+  ];
 
   filteredUsuarioAprobador!: Observable<Usuario[]>;
   comboListadoUsuarioAprobador: Usuario[] = [];
