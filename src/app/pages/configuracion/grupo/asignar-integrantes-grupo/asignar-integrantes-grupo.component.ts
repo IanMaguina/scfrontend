@@ -116,9 +116,12 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         }
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
       } else {
-        
-        let mensaje:string = "No se encontró EMPRESA";
+        let mensaje:string = "Empresa no registrada";
+        if (data.payload.tiene_cliente ){
+          let gc=data.payload.cliente.cliente_agrupacion.nombre
+          mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
 
+        }
         const dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
           disableClose: true,
           width:"400px",
@@ -129,7 +132,6 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
           if(result==='CONFIRM_DLG_YES'){
             console.log("return function process");
           }
-          
         });
       }
 
