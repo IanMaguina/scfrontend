@@ -2,11 +2,12 @@ import { ClienteEmpresaService } from './../../../../services/cliente-empresa.se
 import { EmpresaService } from './../../../../services/empresa.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 
 @Component({
@@ -65,7 +66,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private sociedadService: SociedadService,
     private empresaService: EmpresaService,
-    private clienteEmpresaService: ClienteEmpresaService
+    private clienteEmpresaService: ClienteEmpresaService,
+    private matDialog: MatDialog,
   ) {
     this.grupoData = data;
     console.log("trayendo del listado--->" + JSON.stringify(this.grupoData));
@@ -114,7 +116,21 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         }
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
       } else {
-        console.log("No se encontró EMPRESA");
+        
+        let mensaje:string = "No se encontró EMPRESA";
+
+        const dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
+          disableClose: true,
+          width:"400px",
+          data:mensaje
+        });
+        /* en realidad no habria return, pero por si acaso, borrar si es necesario */
+        dialogRef3.afterClosed().subscribe(result => {
+          if(result==='CONFIRM_DLG_YES'){
+            console.log("return function process");
+          }
+          
+        });
       }
 
     })
