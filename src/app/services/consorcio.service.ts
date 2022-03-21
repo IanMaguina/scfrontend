@@ -87,7 +87,7 @@ export class ConsorcioService {
     console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/cliente-agrupacion/" + clienteAgrupacion.id).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -96,5 +96,6 @@ export class ConsorcioService {
         });
       });
   }
+
 
 }
