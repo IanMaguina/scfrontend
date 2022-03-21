@@ -15,6 +15,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     SidebarComponent,
     HeaderComponent,
     ConfirmDialogComponent,
+    ErrorDialogComponent,
+    SuccessDialogComponent,
   ],
   imports: [
     CommonModule,

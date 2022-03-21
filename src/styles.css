@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+/* colores letras*/
+.color-principal{
+  color: #1D8F3A;
+}
+.color-secundario{
+  color:#707070;
+}
+.color-error{
+  color:#D05445;
+}
+.color-warning{
+  color:#DFCA52;
+}
+.color-notify{
+  color:#3482A1;
+}
+.color-title{
+  color: #B4B4B4;
+}
+
 
 html,
 body {
@@ -38,11 +58,6 @@ body {
 }
 
 
-/* colores  */
-.color-principal{
-  color: #1D8F3A;
-}
-
 
 
 .boton-principal-light{
@@ -57,10 +72,6 @@ mat-header-cell{
   background-color: #05C65D !important;
   color: #FFFFFF !important;
 }
-.color-secundario{
-  color:#707070;
-}
-
 
 
 .header {
@@ -121,11 +132,12 @@ mat-header-cell{
   font-size: 20pt;
   color: #B4B4B4;
 }
+
+
 .titledialog{
   margin-top:0px;
-  font-size: 16pt;
+  font-size: 18pt;
   font-weight: bold;
-  color: #B4B4B4;
   width: 100%;
 }
 .titledialog mat-icon{
