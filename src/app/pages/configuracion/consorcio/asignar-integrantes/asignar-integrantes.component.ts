@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { ClienteEmpresaService } from 'src/app/services/cliente-empresa.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-asignar-integrantes',
@@ -83,7 +84,8 @@ export class AsignarIntegrantesComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private sociedadService: SociedadService,
     private empresaService: EmpresaService,
-    private clienteEmpresaService: ClienteEmpresaService    
+    private clienteEmpresaService: ClienteEmpresaService,
+    private matDialog: MatDialog, 
   ) {
     this.consorcioData = data;
     console.log("trayendo del listado--->" + JSON.stringify(this.consorcioData));
@@ -137,9 +139,46 @@ export class AsignarIntegrantesComponent implements OnInit {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
           "id_empresa": data.payload.id
         }
-        this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
+        let mensaje:string = "";
+        if (data.payload.tiene_cliente ){
+          let gc=data.payload.cliente.cliente_agrupacion.nombre
+          mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
+          let dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
+            disableClose: true,
+            width:"400px",
+            data:mensaje
+          });
+          /* en realidad no habria return, pero por si acaso, borrar si es necesario */
+          dialogRef3.afterClosed().subscribe(result => {
+            if(result==='CONFIRM_DLG_YES'){
+              console.log("return function process");
+            }
+          });        
+  
+        }else{
+          
+          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);          
+        }
+        
       } else {
-        console.log("No se encontró EMPRESA");
+        let mensaje:string = "Empresa no registrada";
+        if (data.payload.tiene_cliente ){
+          let gc=data.payload.cliente.cliente_agrupacion.nombre
+          mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
+
+        }
+        let dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
+          disableClose: true,
+          width:"400px",
+          data:mensaje
+        });
+        /* en realidad no habria return, pero por si acaso, borrar si es necesario */
+        dialogRef3.afterClosed().subscribe(result => {
+          if(result==='CONFIRM_DLG_YES'){
+            console.log("return function process");
+          }
+        });
+
       }
 
     })

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { Usuario } from '../models/usuario.interface';
+import { TipoDocumentoValorado } from '../models/tipo-documento-valorado.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -33,17 +34,14 @@ export class TipoDocumentoValoradoService {
     );
   }
 
-  editarDocumentoValorado(email: any): Promise<any> {
-    let datosUsuario: any;
+  editarDocumentoValorado(id_documentovalorado: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-
-        this.resourceService.getResource("/usuario/buscarDatosDeEstrategiaDeUsuario?correo=" + email).toPromise().then((data) => {
+        this.resourceService.getResource("/api/tipo-documento-valorado/" + id_documentovalorado).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
-            datosUsuario = data;
-            resolve(datosUsuario);
+            resolve(data);
           } else {
-            console.log("no hay datos Usuario encontrado...");
+            console.log("no hay datos DV encontrado...");
             resolve([]);
           }
         }
@@ -59,11 +57,11 @@ export class TipoDocumentoValoradoService {
 
   }
 
-  crearUsuario(usuario: Usuario): Promise<any> {
-    console.log("adding Usuario..." + JSON.stringify(usuario));
+  crearDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
+    console.log("adding tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/usuario", usuario).toPromise().then((data) => {
+        this.resourceService.postResource("/api/tipo-documento-valorado", tipoDocumentoValorado).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
@@ -75,12 +73,27 @@ export class TipoDocumentoValoradoService {
       });
   }
 
-  actualizarUsuario(usuario: Usuario): Promise<any> {
-    console.log("sending Usuario..." + JSON.stringify(usuario));
+  actualizarUsuario(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
+    console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
 
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/usuario/" + usuario.id, usuario).toPromise().then((data) => {
+        this.resourceService.putResource("/api/tipo-documento-valorado/" + tipoDocumentoValorado.id, tipoDocumentoValorado).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+
+  eliminarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
+    console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
+
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource2("/api/tipo-documento-valorado/" + tipoDocumentoValorado.id).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {

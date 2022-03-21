@@ -14,7 +14,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Sociedad</mat-label>
                         <mat-select formControlName="sociedad" required>
-                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
+                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
                                 {{ sociedad.nombre }}
                             </mat-option>
                         </mat-select>
@@ -56,7 +56,7 @@
                  <!-- Column -->
                  <ng-container matColumnDef="sociedad">
                     <th mat-header-cell *matHeaderCellDef> Sociedad </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.sociedad.sociedad_codigo_sap}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.empresa.sociedad.nombre}} </td>
                 </ng-container>
 
                 <!-- Column -->
