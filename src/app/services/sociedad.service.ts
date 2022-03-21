@@ -14,7 +14,7 @@ export class SociedadService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/sociedad").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data.payload);
           } else {
             console.log("no perfiles encontradas...");

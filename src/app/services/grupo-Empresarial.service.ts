@@ -15,7 +15,7 @@ export class GrupoEmpresarialService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=1").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay usuarios encontrados...");
@@ -82,5 +82,18 @@ export class GrupoEmpresarialService {
       });
   }
 
+  eliminarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource2("/api/cliente-agrupacion/" + clienteAgrupacion.id).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
   
 }

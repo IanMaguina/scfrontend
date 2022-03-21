@@ -14,7 +14,7 @@ export class PlanRangoService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/plan-rango").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay plan-rango encontrados...");

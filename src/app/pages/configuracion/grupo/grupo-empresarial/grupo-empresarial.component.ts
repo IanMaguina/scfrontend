@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AsignarIntegrantesGrupoComponent } from '../asignar-integrantes-grupo/asignar-integrantes-grupo.component';
 import { CrearGrupoEmpresarialComponent } from '../crear-grupo-empresarial/crear-grupo-empresarial.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 
 @Component({
   selector: 'app-grupo-empresarial',
@@ -23,7 +24,7 @@ export class GrupoEmpresarialComponent implements OnInit {
   
   constructor(
     private matDialog: MatDialog,
-    private clienteAgrupacion:GrupoEmpresarialService
+    private grupoEmpresarialService:GrupoEmpresarialService
     ) { }
 
   ngOnInit(): void {
@@ -32,7 +33,7 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   async listarGruposEmpresariales() {
-    this.clienteAgrupacion.listarGruposEmpresariales().then(data => {
+    this.grupoEmpresarialService.listarGruposEmpresariales().then(data => {
       console.log(JSON.stringify(data.payload));
       this.listadoGrupos = data.payload;
     })
@@ -65,9 +66,9 @@ export class GrupoEmpresarialComponent implements OnInit {
     let mensaje:string;
     
     if(element.activo){
-      mensaje = "¿Desea habilitar el plan?";
+      mensaje = "¿Desea habilitar el Grupo Empresarial?";
     }else{
-      mensaje = "¿Desea inhabilitar el plan?";
+      mensaje = "¿Desea inhabilitar el Grupo Empresarial?";
     }
     element.mensaje = mensaje;
 
@@ -79,7 +80,10 @@ export class GrupoEmpresarialComponent implements OnInit {
 
     dialogRef3.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
-        console.log("return function process");
+        let clienteAgrupacion:ClienteAgrupacion=element;
+        console.log("return function process-->"+JSON.stringify(clienteAgrupacion));
+        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion);
+        
       }
       this.listarGruposEmpresariales();
     });

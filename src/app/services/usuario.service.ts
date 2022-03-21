@@ -15,7 +15,7 @@ export class UsuarioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/usuario").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data.payload);
           } else {
             console.log("no hay usuarios encontrados...");

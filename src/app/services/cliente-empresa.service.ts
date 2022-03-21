@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { ClienteAgrupacion } from '../models/cliente-agrupacion.interface';
-
+import { ClienteEmpresa } from '../models/cliente-empresa.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +12,14 @@ export class ClienteEmpresaService {
   ) {
   }
 
-  listarGruposEmpresariales(): Promise<any> {
+  listarEmpresas(id_cliente_agrupacion:number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=1").toPromise().then((data) => {
-          if (data.exito) {
+        this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa").toPromise().then((data) => {
+          if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no hay usuarios encontrados...");
+            console.log("no hay empresas encontrados...");
             resolve([]);
           }
         }
@@ -33,11 +33,12 @@ export class ClienteEmpresaService {
       }
     );
   }
-  crearGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
-    console.log("sending Grupo Empresarial..." + JSON.stringify(clienteAgrupacion));
+  
+  crearClienteEmpresa(clienteEmpresa: ClienteEmpresa): Promise<any> {
+    console.log("sending clienteEmpresa..." + JSON.stringify(clienteEmpresa));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/cliente-agrupacion", clienteAgrupacion).toPromise().then((data) => {
+        this.resourceService.postResource("/api/cliente-agrupacion/"+clienteEmpresa.id_cliente_agrupacion+"/empresa", clienteEmpresa).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -48,10 +49,10 @@ export class ClienteEmpresaService {
       });
   }
 
-  editarGrupoEmpresarial(id_cliente_agrupacion: number): Promise<any> {
+  eliminarClienteEmpresa(id_cliente_agrupacion: number,id_cliente_empresa:number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/" + id_cliente_agrupacion).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/cliente-agrupacion/" + id_cliente_agrupacion+"/empresa/"+id_cliente_empresa).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
             resolve(data);
           } else {
@@ -69,19 +70,4 @@ export class ClienteEmpresaService {
     );
   }
 
-  actualizarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
-    console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
-    return new Promise(
-      (resolve, reject) => {
-        this.resourceService.putResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
-          console.log("response data=" + JSON.stringify(data));
-          resolve(data);
-        }).catch((error) => {
-          console.log("error status=" + error.status + ", msg=" + error.message);
-          reject(error);
-        });
-      });
-  }
-
-  
 }

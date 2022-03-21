@@ -27,7 +27,7 @@
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Estado </th>
             <td mat-cell *matCellDef="let element"> 
-                <mat-slide-toggle [(ngModel)]="element.estado" (ngModelChange)="toggleGrupoActivo(element)"></mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleGrupoActivo(element)"></mat-slide-toggle>
             
             </td>
         </ng-container>

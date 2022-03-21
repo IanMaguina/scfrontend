@@ -1,6 +1,7 @@
 import { TipoCanal } from "./tipo-canal.interface";
 import { GrupoCliente } from "./grupo-cliente.interface";
 import { Zonal } from "./zonal.interface";
+import { Sociedad } from "./sociedad.interface";
 export interface Empresa{
     id?: number,
     razon_social:string,
@@ -14,5 +15,6 @@ export interface Empresa{
     tipo_canal:TipoCanal,
     grupo_cliente:GrupoCliente,
     zonal:Zonal
+    sociedad:Sociedad
 }
 
