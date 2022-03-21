@@ -45,7 +45,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
   openEditarTipoDV(element:any){
     const dialogRef2 = this.matDialog.open(EditarTipoDocumentoValoradoComponent, {
       disableClose: true,
-      width: '70%',
+      width: '300px',
       data:element.id,
     });
 
