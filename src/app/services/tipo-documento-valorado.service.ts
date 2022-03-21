@@ -15,7 +15,7 @@ export class TipoDocumentoValoradoService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/tipo-documento-valorado").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay usuarios encontrados...");

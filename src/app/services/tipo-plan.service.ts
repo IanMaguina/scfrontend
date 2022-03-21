@@ -13,7 +13,7 @@ export class TipoPlanService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/tipo-plan-credito").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay planes encontrados...");

@@ -16,7 +16,7 @@ export class EstrategiaService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/estrategia").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay usuarios encontrados...");
@@ -39,7 +39,7 @@ export class EstrategiaService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/estrategia/listar-usuarios-no-agregados?id_estado_rol="+id_estado_rol).toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data.payload);
           } else {
             console.log("no hay usuarios encontrados...");

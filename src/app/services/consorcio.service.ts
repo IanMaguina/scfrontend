@@ -15,7 +15,7 @@ export class ConsorcioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=2").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay consorcios encontrados...");
@@ -74,6 +74,20 @@ export class ConsorcioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+
+  eliminarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {

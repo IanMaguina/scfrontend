@@ -14,7 +14,7 @@ export class PerfilService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/perfil").toPromise().then((data) => {
-          if (data.exito) {
+          if (data.header.exito) {
             resolve(data.payload);
           } else {
             console.log("no perfiles encontradas...");

@@ -1,9 +1,12 @@
+import { ClienteEmpresaService } from './../../../../services/cliente-empresa.service';
+import { EmpresaService } from './../../../../services/empresa.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
+import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 
 
 @Component({
@@ -29,8 +32,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       'required': 'RUC es requerido.',
     }
   };
- 
-  
+
+
 
   //Submitted form
   submitted = false;
@@ -49,20 +52,25 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     'ruc',
     'canal',
     'zonal',
-    'correo',
+    'grupo_cliente',
     'id',
   ];
 
-
+  id_cliente_agrupacion: number = null;
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private sociedadService:SociedadService
+    private sociedadService: SociedadService,
+    private empresaService: EmpresaService,
+    private clienteEmpresaService: ClienteEmpresaService
   ) {
     this.grupoData = data;
+    console.log("trayendo del listado--->" + JSON.stringify(this.grupoData));
+    this.id_cliente_agrupacion = this.grupoData.id;
+
     /*  */
     this.asignarEmpresaFormDialog = this.formBuilder.group({
       sociedad: ['', Validators.required],
@@ -71,12 +79,13 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     this.asignarEmpresaFormDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.asignarEmpresaFormDialog, this.formErrors, this.validationMessages, this.submitted);
     })
-   
+
   }
 
   ngOnInit(): void {
     console.log("ngOnInit");
     this.listarSociedades();
+    this.listarClienteEmpresa();
   }
 
   async listarSociedades() {
@@ -84,14 +93,39 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       console.log("listarSociedad:" + JSON.stringify(data));
       this.listadoSociedades = data;
     })
+  }
+
+  async listarClienteEmpresa() {
+    this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
+      console.log("listarClienteEmpresas:" + JSON.stringify(data));
+      this.listadoIntegrantes = data.payload;
+    })
 
   }  
-  asignarEmpresaGrupo(form:any){
-    console.log("asignarEmpresaGrupo-->"+JSON.stringify(form));
+  asignarEmpresaGrupo(form: any) {
+    console.log("asignarEmpresaGrupo-->" + JSON.stringify(form));
+    this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
+      console.log("data--->" + JSON.stringify(data));
+      if (data.header.exito) {
+        console.log("se encontro--->" + JSON.stringify(data.payload));
+        let clienteEmpresa: ClienteEmpresa = {
+          "id_cliente_agrupacion": this.id_cliente_agrupacion,
+          "id_empresa": data.payload.id
+        }
+        this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
+      } else {
+        console.log("No se encontró EMPRESA");
+      }
+
+    })
+
   }
- 
-  QuitarEmpresa(item:any){
-    console.log("QuitarEmpresa");
+
+  QuitarEmpresa(form: any) {
+    console.log("QuitarEmpresa-->"+JSON.stringify(form));
+    let id_cliente_empresa=form.id;
+    this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion,id_cliente_empresa);
+    this.listarClienteEmpresa();
   }
 
   onNoClick(): void {
