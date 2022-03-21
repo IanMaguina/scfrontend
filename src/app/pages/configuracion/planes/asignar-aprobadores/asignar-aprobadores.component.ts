@@ -2,13 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { moveItemInArray } from '@angular/cdk/drag-drop/';
 import { CdkDragDrop } from '@angular/cdk/drag-drop/drag-events';
 
 import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-asignar-aprobadores',
   templateUrl: './asignar-aprobadores.component.html',
