@@ -20,6 +20,13 @@
 }
 
 
+/* fonts sizes */
+.title-add-element{
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 5px 0px 20px 0px;
+}
+
 html,
 body {
     height: 100%;
@@ -104,7 +111,6 @@ mat-header-cell{
 
 .breadcrumb mat-icon{
   font-size: 12pt;
-
   margin:0 !important;
 }
 
@@ -177,6 +183,9 @@ text-align: center;
 }
 .contenidoForm{
   width: 99%;  
+}
+.center{
+  text-align: center;
 }
 
 .objeto{

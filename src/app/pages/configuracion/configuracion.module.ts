@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { TipoDocumentosValoradosComponent } from './tipo-documentos-valorados/tipo-documentos-valorados.component';
 import { ConfiguracionComponent } from './configuracion.component';
 
 //utilitarios
@@ -20,6 +19,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
@@ -45,27 +46,35 @@ import { CrucePlanesComponent } from './planes/cruce-planes/cruce-planes.compone
 import { FlujoAprobacionComponent } from './planes/flujo-aprobacion/flujo-aprobacion.component';
 import { MaximoLineaCreditoComponent } from './planes/maximo-linea-credito/maximo-linea-credito.component';
 import { AsignarAprobadoresComponent } from './planes/asignar-aprobadores/asignar-aprobadores.component';
+import { TipoDocumentoValoradoComponent } from './tipoDocumentoValorado/tipo-documento-valorado/tipo-documento-valorado.component';
+import { SuplenciaComponent } from './suplencia/suplencia/suplencia.component';
+import { CrearSuplenciaComponent } from './suplencia/crear-suplencia/crear-suplencia.component';
+import { EditarSuplenciaComponent } from './suplencia/editar-suplencia/editar-suplencia.component';
+import { EditarTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/editar-tipo-documento-valorado/editar-tipo-documento-valorado.component';
+import { CrearTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/crear-tipo-documento-valorado/crear-tipo-documento-valorado.component';
 
 @NgModule({
   declarations: [
-    TipoDocumentosValoradosComponent,
     ConfiguracionComponent,
 
     EstrategiasComponent,
     CrearEstrategiaSociedadComponent,
     CrearEstrategiaTipoPlanComponent,
+    EditarEstrategiaSociedadComponent,
+    EditarEstrategiaTipoPlanComponent,
 
     ListarUsuarioComponent,
     EditarUsuarioComponent,
     CrearUsuarioComponent,
+
     GrupoEmpresarialComponent,
+    CrearGrupoEmpresarialComponent,
+    AsignarIntegrantesGrupoComponent,
+    
     ConsorcioComponent,
     CrearConsorcioComponent,
-    CrearGrupoEmpresarialComponent,
     AsignarIntegrantesComponent,
-    AsignarIntegrantesGrupoComponent,
-    EditarEstrategiaSociedadComponent,
-    EditarEstrategiaTipoPlanComponent,
+    
     PlanesComponent,
     CrearPlanComponent,
     ConfigurarPlanComponent,
@@ -74,6 +83,14 @@ import { AsignarAprobadoresComponent } from './planes/asignar-aprobadores/asigna
     FlujoAprobacionComponent,
     MaximoLineaCreditoComponent,
     AsignarAprobadoresComponent,
+    
+    SuplenciaComponent,
+    CrearSuplenciaComponent,
+    EditarSuplenciaComponent,
+    
+    TipoDocumentoValoradoComponent,
+    CrearTipoDocumentoValoradoComponent,
+    EditarTipoDocumentoValoradoComponent,
 
   ],
   imports: [
@@ -95,9 +112,11 @@ import { AsignarAprobadoresComponent } from './planes/asignar-aprobadores/asigna
     MatIconModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule,
   ],
   exports: [
-    TipoDocumentosValoradosComponent
 
   ]
 })
