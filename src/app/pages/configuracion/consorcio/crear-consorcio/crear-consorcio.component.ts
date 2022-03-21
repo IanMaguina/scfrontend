@@ -16,11 +16,11 @@ export class CrearConsorcioComponent implements OnInit {
   
   crearConsorcioFormDialog: any;
   formErrors = {
-    'razonsocial': '',
+    'nombre': '',
     'numero_documento': '',
   }
   validationMessages = {
-    'razonsocial': {
+    'nombre': {
       'required': 'el nombre es requerido.'
     },
     'numero_documento': {
@@ -39,7 +39,7 @@ carga: boolean = false;
     private consorcioService:ConsorcioService
   ) { 
     this.crearConsorcioFormDialog = this.formBuilder.group({
-      razonsocial: ['', Validators.required],
+      nombre: ['', Validators.required],
       numero_documento: ['', Validators.required],
     })
     this.crearConsorcioFormDialog.valueChanges.subscribe(() => {
@@ -60,7 +60,7 @@ carga: boolean = false;
 
   async mapeoGrupo(form: any) {
     let clienteAgrupacion: ClienteAgrupacion = {
-      "id_tipo_cliente": 1,
+      "id_tipo_cliente": 2,
       "id_tipo_documento_identidad": 1,
       "numero_documento": form.numero_documento,      
       "nombre": form.nombre,
