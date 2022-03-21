@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
+import { ConsorcioService } from 'src/app/services/consorcio.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { AsignarIntegrantesComponent } from '../asignar-integrantes/asignar-integrantes.component';
 import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.component';
@@ -24,14 +26,20 @@ export class ConsorcioComponent implements OnInit {
   
   constructor(
     private matDialog: MatDialog,
+    private consorcioService:ConsorcioService
     ) { }
 
   ngOnInit(): void {
     console.log("ngInit");
+    this.listarConsorcios();
   }
-  listarConsorcios(){
-    console.log("listarConsorcios");
+  async listarConsorcios() {
+    this.consorcioService.listarConsorcios().then(data => {
+      console.log(JSON.stringify(data.payload));
+      this.listadoConsorcios = data.payload;
+    })
   }
+
   openAgregarConsorcio(){
     const dialogRef = this.matDialog.open(CrearConsorcioComponent, {
       disableClose: true
@@ -39,6 +47,7 @@ export class ConsorcioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("return function process");
+      this.listarConsorcios();
     });
 
   }
@@ -51,6 +60,7 @@ export class ConsorcioComponent implements OnInit {
 
     dialogRef2.afterClosed().subscribe(result => {
       console.log("return function process");
+      this.listarConsorcios();
     });
 
   }
@@ -74,6 +84,10 @@ export class ConsorcioComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
         console.log("return function process");
+        let clienteAgrupacion:ClienteAgrupacion=element;
+        console.log("return function process-->"+JSON.stringify(clienteAgrupacion));
+        this.consorcioService.eliminarConsorcio(clienteAgrupacion);
+
       }
       this.listarConsorcios();
     });
@@ -82,4 +96,6 @@ export class ConsorcioComponent implements OnInit {
   editarConsorcio(element:any){
     console.log("editarConsorcio");
   }
+
+  
 }
