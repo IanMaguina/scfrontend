@@ -8,6 +8,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -60,7 +61,6 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   id_cliente_agrupacion: number = null;
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
-    /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
@@ -122,13 +122,13 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
           mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
 
         }
-        const dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
+        const dialogRef2 = this.matDialog.open( ErrorDialogComponent, {
           disableClose: true,
           width:"400px",
           data:mensaje
         });
         /* en realidad no habria return, pero por si acaso, borrar si es necesario */
-        dialogRef3.afterClosed().subscribe(result => {
+        dialogRef2.afterClosed().subscribe(result => {
           if(result==='CONFIRM_DLG_YES'){
             console.log("return function process");
           }
@@ -140,10 +140,25 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
 
   QuitarEmpresa(form: any) {
-    console.log("QuitarEmpresa-->"+JSON.stringify(form));
-    let id_cliente_empresa=form.id;
-    this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion,id_cliente_empresa);
-    this.listarClienteEmpresa();
+
+    form.mensaje = `¿Desea desasignar la empresa: ${form.empresa.razon_social} de este grupo? `;
+
+    const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: form
+    });
+
+    dialogRef3.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        let id_cliente_empresa = form.id;
+        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa);
+      }
+      this.listarClienteEmpresa();
+    });
+
+
+
   }
 
   onNoClick(): void {

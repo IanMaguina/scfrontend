@@ -8,6 +8,7 @@ import { GrupoEmpresarialComponent } from './grupo/grupo-empresarial/grupo-empre
 import { PlanesComponent } from './planes/planes/planes.component';
 import { TipoDocumentoValoradoComponent } from './tipoDocumentoValorado/tipo-documento-valorado/tipo-documento-valorado.component';
 import { SuplenciaComponent } from './suplencia/suplencia/suplencia.component';
+import { AsistenteFacturacionComponent } from './asistenteFacturacion/asistente-facturacion/asistente-facturacion.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
             { path: 'planes', component: PlanesComponent },
             { path: 'tipodocumentovalorado', component: TipoDocumentoValoradoComponent },
             { path: 'suplencias', component: SuplenciaComponent },
+            { path: 'asistentefacturacion', component: AsistenteFacturacionComponent },
         ]
     },
 ];

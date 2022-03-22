@@ -52,6 +52,8 @@ import { CrearSuplenciaComponent } from './suplencia/crear-suplencia/crear-suple
 import { EditarSuplenciaComponent } from './suplencia/editar-suplencia/editar-suplencia.component';
 import { EditarTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/editar-tipo-documento-valorado/editar-tipo-documento-valorado.component';
 import { CrearTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/crear-tipo-documento-valorado/crear-tipo-documento-valorado.component';
+import { AsistenteFacturacionComponent } from './asistenteFacturacion/asistente-facturacion/asistente-facturacion.component';
+import { CrearAsistenteFacturacionComponent } from './asistenteFacturacion/crear-asistente-facturacion/crear-asistente-facturacion.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { CrearTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/cre
     TipoDocumentoValoradoComponent,
     CrearTipoDocumentoValoradoComponent,
     EditarTipoDocumentoValoradoComponent,
+    AsistenteFacturacionComponent,
+    CrearAsistenteFacturacionComponent,
 
   ],
   imports: [

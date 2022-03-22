@@ -7,6 +7,7 @@ import { ClienteEmpresaService } from 'src/app/services/cliente-empresa.service'
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
@@ -47,7 +48,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     }
   };
 
-  
+
 
   //Submitted form
   submitted = false;
@@ -85,7 +86,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     private sociedadService: SociedadService,
     private empresaService: EmpresaService,
     private clienteEmpresaService: ClienteEmpresaService,
-    private matDialog: MatDialog, 
+    private matDialog: MatDialog,
   ) {
     this.consorcioData = data;
     console.log("trayendo del listado--->" + JSON.stringify(this.consorcioData));
@@ -123,12 +124,24 @@ export class AsignarIntegrantesComponent implements OnInit {
   }
 
   async listarClienteEmpresa() {
-    this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
+    await this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
       console.log("listarClienteEmpresas:" + JSON.stringify(data));
       this.listadoIntegrantes = data.payload;
     })
 
-  }  
+  }
+  async callWarningDialog(mensaje:string){
+
+     this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje
+    });
+
+  }
+
+
+
   asignarEmpresaConsorcio(form: any) {
     console.log("asignarEmpresaGrupo-->" + JSON.stringify(form));
     this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
@@ -139,68 +152,57 @@ export class AsignarIntegrantesComponent implements OnInit {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
           "id_empresa": data.payload.id
         }
-        let mensaje:string = "";
-        if (data.payload.tiene_cliente ){
-          let gc=data.payload.cliente.cliente_agrupacion.nombre
-          mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
-          let dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
-            disableClose: true,
-            width:"400px",
-            data:mensaje
-          });
-          /* en realidad no habria return, pero por si acaso, borrar si es necesario */
-          dialogRef3.afterClosed().subscribe(result => {
-            if(result==='CONFIRM_DLG_YES'){
-              console.log("return function process");
-            }
-          });        
-  
-        }else{
-          
-          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);          
+        let mensaje: string = "";
+        if (data.payload.tiene_cliente) {
+          let gc = data.payload.cliente.cliente_agrupacion.nombre
+          mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
+          this.callWarningDialog(mensaje);
+
+        } else {
+
+          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
         }
-        
+
       } else {
-        let mensaje:string = "Empresa no registrada";
-        if (data.payload.tiene_cliente ){
-          let gc=data.payload.cliente.cliente_agrupacion.nombre
-          mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
-
+        let mensaje: string = "Empresa no registrada";
+        if (data.payload.tiene_cliente) {
+          let gc = data.payload.cliente.cliente_agrupacion.nombre
+          mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
         }
-        let dialogRef3 = this.matDialog.open( ErrorDialogComponent, {
-          disableClose: true,
-          width:"400px",
-          data:mensaje
-        });
-        /* en realidad no habria return, pero por si acaso, borrar si es necesario */
-        dialogRef3.afterClosed().subscribe(result => {
-          if(result==='CONFIRM_DLG_YES'){
-            console.log("return function process");
-          }
-        });
-
+        this.callWarningDialog(mensaje);
       }
-
     })
-
   }
 
   QuitarEmpresa(form: any) {
-    console.log("QuitarEmpresa-->"+JSON.stringify(form));
-    let id_cliente_empresa=form.id;
-    this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion,id_cliente_empresa);
-    this.listarClienteEmpresa();
+    form.mensaje = `¿Desea desasignar la empresa: ${form.empresa.razon_social} de este consorcio? `;
+
+    const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: form
+    });
+
+    dialogRef3.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        let id_cliente_empresa = form.id;
+        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa);
+      }
+      this.listarClienteEmpresa();
+    });
+
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  adjuntarParticipacion(any){
+  adjuntarParticipacion(any) {
     console.log("");
   }
 
-  onFileSelected(any){
+  onFileSelected(any) {
     console.log("");
   }
 }
