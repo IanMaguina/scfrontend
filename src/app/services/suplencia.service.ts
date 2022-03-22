@@ -102,6 +102,21 @@ export class SuplenciaService {
       });
   }
 
+  actualizarActivo(suplencia: Suplencia): Promise<any> {
+    console.log("sending suplencia..." + JSON.stringify(suplencia));
+
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/suplencia/" + suplencia.id+"/actualizar-activo",suplencia).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+
 }
 
 
