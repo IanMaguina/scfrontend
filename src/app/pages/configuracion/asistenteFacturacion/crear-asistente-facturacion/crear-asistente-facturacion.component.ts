@@ -36,16 +36,16 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   
-  comboListadoUsuario: Usuario[] = [];
+  comboListadoUsuario: Usuario[];
   filteredUsuario!: Observable<Usuario[]>;
   selectedUsuario: any;
 
-  listadoZonales:Zonal[] = [
-    {id:1, nombre:'zona 1'},
+  listadoZonales:Zonal[] = [];
+   /*  {id:1, nombre:'zona 1'},
     {id:2, nombre:'zona 2'},
     {id:3, nombre:'zona 3'},
     {id:4, nombre:'zona 4'},
-  ];
+  ]; */
   
   constructor(
     public dialogRef: MatDialogRef<CrearAsistenteFacturacionComponent>,
@@ -81,15 +81,13 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
     })
   }
 
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   /*  auto complete*/
   async listarUsuarios() {
-    let listado = await this.asistenteFacturacionService.ListarUsuariosNoAgregados().then();
+    let listado = await this.asistenteFacturacionService.ListarUsuariosNoAgregados(2).then();
     this.comboListadoUsuario = listado;
     this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
     .pipe(
@@ -98,21 +96,21 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
         map(nombre => nombre ? this._filter(nombre) : this.comboListadoUsuario.slice())
       );
   }
+  
+  displayFn(user: Usuario): string {
+    return user && user.nombre ? user.nombre : '';
+  }
+  
+  private _filter(nombre: string): Usuario[] {
+    let filterValue = nombre.toLowerCase();
+    return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+  }
+  
+  
   async listarZonales(){
     await this.zonalService.listarZonales().then((zonales)=>{
       this.listadoZonales = zonales;
     });
   }
-
-  displayFn(user: Usuario): string {
-    return user && user.nombre ? user.nombre : '';
-  }
-
-  private _filter(nombre: string): Usuario[] {
-    let filterValue = nombre.toLowerCase();
-    return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
-  }
-
- 
 
 }

@@ -32,10 +32,10 @@ export class AsistenteFacturacionService {
       }
     );
   }
-  ListarUsuariosNoAgregados(): Promise<any> {
+  ListarUsuariosNoAgregados(zonal_id:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/asistente-facturacion/2/listar-usuarios-no-agregados").toPromise().then((data) => {
+        this.resourceService.getResource("/api/asistente-facturacion/"+zonal_id+"/listar-usuarios-no-agregados").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

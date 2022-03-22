@@ -12,7 +12,8 @@ import { CrearAsistenteFacturacionComponent } from '../crear-asistente-facturaci
   ]
 })
 export class AsistenteFacturacionComponent implements OnInit {
-  listadoAsistentesFacturacion: AsistenteFacturacion[] = [
+  listadoAsistentesFacturacion: AsistenteFacturacion[] = [];
+    /* 
     {id:1, usuario:{
       id:1,
       nombre: "Asistente 1",
@@ -34,7 +35,7 @@ export class AsistenteFacturacionComponent implements OnInit {
       id_perfil: 1,
       sociedad_codigo_sap: "zzzz",
       },zonal:{id:3, nombre: "zonal 3"}, activo:true},
-  ];
+  ]; */
 
 
   displayedColumnsSociedad: string[] = ['usuario', 'zonal', 'activo'];
