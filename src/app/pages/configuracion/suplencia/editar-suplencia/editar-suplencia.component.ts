@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Suplencia } from 'src/app/models/suplencia.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SuplenciaService } from 'src/app/services/suplencia.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -15,7 +17,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class EditarSuplenciaComponent implements OnInit {
 
-  suplenciaData: any;
+  suplenciaData: Suplencia;
   editarFormDialog: FormGroup;
   
   formErrors = {
@@ -56,9 +58,11 @@ export class EditarSuplenciaComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private suplenciaService:SuplenciaService
   ) {
     this.suplenciaData = data;
+    console.log("data suplencia--->"+JSON.stringify(data));
     this.editarFormDialog = this.formBuilder.group({
       usuario: [this.suplenciaData.usuario, Validators.required],
       usuario_suplente: [this.suplenciaData.usuario_suplente, Validators.required],
@@ -131,8 +135,18 @@ export class EditarSuplenciaComponent implements OnInit {
   }
   /*  */
   async editarSuplencia(form: any) {
-    //call edit suplencia
-    this.onNoClick();
+    console.log("editarSuplencia-->"+JSON.stringify(form));
+    let suplencia:Suplencia={
+      id:this.suplenciaData.id,
+      id_usuario:form.usuario.id,
+      id_usuario_suplente:form.usuario_suplente.id,
+      fecha_inicio:form.fecha_inicio,
+      fecha_fin:form.fecha_fin
+    }
+    this.suplenciaService.actualizarSuplencia(suplencia).then(()=>{
+      this.onNoClick();    
+    })
+
   }
 
 

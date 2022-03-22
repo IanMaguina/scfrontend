@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Suplencia } from 'src/app/models/suplencia.interface';
+import { SuplenciaService } from 'src/app/services/suplencia.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { CrearSuplenciaComponent } from '../crear-suplencia/crear-suplencia.component';
 import { EditarSuplenciaComponent } from '../editar-suplencia/editar-suplencia.component';
@@ -11,15 +13,14 @@ import { EditarSuplenciaComponent } from '../editar-suplencia/editar-suplencia.c
   ]
 })
 export class SuplenciaComponent implements OnInit {
-  listadoSuplencias:any[]=[
-    {id:1, usuario:{ id:1, nombre: 'josé Arantegui' }, usuario_suplente:{ id:3, nombre: 'Nino Bravo' }, fecha_inicio:'10/10/2022', fecha_fin:'12/10/2022' , activo:true},
-    {id:2, usuario:{ id:10, nombre: 'Alexandre Romañon' }, usuario_suplente:{ id:2, nombre: 'Maria Ramirez' }, fecha_inicio:'1/4/2022', fecha_fin:'17/4/2022', activo:true },
-  ];
+  listadoSuplencias:Suplencia[]=[];
+
   displayedColumns: string[] = ['usuario', 'usuario_suplente', 'fecha_inicio', 'fecha_fin', 'activo'];
   
   
   constructor(
     private matDialog: MatDialog,
+    private suplenciaService:SuplenciaService
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +30,13 @@ export class SuplenciaComponent implements OnInit {
 
   async listarSuplencias() {
     console.log("listarSuplencias");
+    this.suplenciaService.listarSuplencia().then(data => {
+      console.log(JSON.stringify(data.payload));
+      this.listadoSuplencias = data.payload;
+    })
+
   }
+
   openAgregarSuplencia(): void {
     let dialogRef = this.matDialog.open(CrearSuplenciaComponent, {
       disableClose: true,
@@ -63,6 +70,8 @@ export class SuplenciaComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
         console.log("ACTUALIZAR EL ACTIVO");
+        let suplencia:Suplencia=element;
+        this.suplenciaService.eliminarSuplencia(suplencia);
        
       }
       this.listarSuplencias();

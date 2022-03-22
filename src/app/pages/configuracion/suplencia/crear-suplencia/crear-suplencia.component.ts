@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Suplencia } from 'src/app/models/suplencia.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SuplenciaService } from 'src/app/services/suplencia.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -56,7 +58,8 @@ export class CrearSuplenciaComponent implements OnInit {
     public dialogRef: MatDialogRef<CrearSuplenciaComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private suplenciaService:SuplenciaService
   ) {
 
     this.crearFormDialog = this.formBuilder.group({
@@ -77,8 +80,17 @@ export class CrearSuplenciaComponent implements OnInit {
 
 
 
-  async crearSuplencia(form: any) {
-    console.log("crearSuplencia");
+  async crearSuplencia(form: Suplencia) {
+    console.log("crearSuplencia-->"+JSON.stringify(form));
+    let suplencia:Suplencia={
+      id_usuario:form.usuario.id,
+      id_usuario_suplente:form.usuario_suplente.id,
+      fecha_inicio:form.fecha_inicio,
+      fecha_fin:form.fecha_fin
+    }
+    this.suplenciaService.crearSuplencia(suplencia).then(()=>{
+      this.onNoClick();    
+    })
   }
 
 
