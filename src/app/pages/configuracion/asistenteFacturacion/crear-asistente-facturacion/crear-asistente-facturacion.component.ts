@@ -17,9 +17,9 @@ import { ZonalService } from 'src/app/services/zonal.service';
   ]
 })
 export class CrearAsistenteFacturacionComponent implements OnInit {
-  
+
   crearFormDialog: FormGroup;
-  
+
   formErrors = {
     'usuario': '',
     'zonal': '',
@@ -35,18 +35,18 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
   //Submitted form
   submitted = false;
   carga: boolean = false;
-  
+
   comboListadoUsuario: Usuario[];
   filteredUsuario!: Observable<Usuario[]>;
   selectedUsuario: any;
 
-  listadoZonales:Zonal[] = [];
-   /*  {id:1, nombre:'zona 1'},
-    {id:2, nombre:'zona 2'},
-    {id:3, nombre:'zona 3'},
-    {id:4, nombre:'zona 4'},
-  ]; */
-  
+  listadoZonales: Zonal[];
+  /*  {id:1, nombre:'zona 1'},
+   {id:2, nombre:'zona 2'},
+   {id:3, nombre:'zona 3'},
+   {id:4, nombre:'zona 4'},
+ ]; */
+
   constructor(
     public dialogRef: MatDialogRef<CrearAsistenteFacturacionComponent>,
     private formBuilder: FormBuilder,
@@ -74,41 +74,44 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
 
 
   async crearAsistenteFacturacion(form: any) {
-    this.asistenteFacturacionService.crearAsistenteFacturacion(form).then( data => {
-      if(data.header.exito){
+    this.asistenteFacturacionService.crearAsistenteFacturacion(form).then(data => {
+      if (data.header.exito) {
         console.log("Se creó el asistente de Facturación");
       }
     })
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
-
+  filtrarUsuarioZonal(event: any){
+    console.log("al cambiar el zonal: " + event.id);
+  }
   /*  auto complete*/
   async listarUsuarios() {
+    
     let listado = await this.asistenteFacturacionService.ListarUsuariosNoAgregados(2).then();
     this.comboListadoUsuario = listado;
     this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
-    .pipe(
+      .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
-        map(nombre => nombre ? this._filter(nombre) : this.comboListadoUsuario.slice())
+        map(nombre => nombre ? this._filter(nombre) : this.comboListadoUsuario.slice() )
       );
   }
-  
+
   displayFn(user: Usuario): string {
     return user && user.nombre ? user.nombre : '';
   }
-  
+
   private _filter(nombre: string): Usuario[] {
     let filterValue = nombre.toLowerCase();
     return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
-  
-  
-  async listarZonales(){
-    await this.zonalService.listarZonales().then((zonales)=>{
+
+
+  async listarZonales() {
+    await this.zonalService.listarZonales().then((zonales) => {
       this.listadoZonales = zonales;
     });
   }

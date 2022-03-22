@@ -12,9 +12,10 @@ import { CrearAsistenteFacturacionComponent } from '../crear-asistente-facturaci
   ]
 })
 export class AsistenteFacturacionComponent implements OnInit {
-  listadoAsistentesFacturacion: AsistenteFacturacion[] = [];
+  listadoAsistentesFacturacion: AsistenteFacturacion[];
     /* 
-    {id:1, usuario:{
+    [
+      {id:1, usuario:{
       id:1,
       nombre: "Asistente 1",
       correo: "asist@gmail.com",
@@ -47,6 +48,7 @@ export class AsistenteFacturacionComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngInit");
+    this.listarAsistentesFacturacion();
   }
   async listarAsistentesFacturacion(){
     await this.asistenteFacturacionService.listarAsistentesFacturacion().then( (data) => {
@@ -61,7 +63,10 @@ export class AsistenteFacturacionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.listarAsistentesFacturacion();
-      console.log("se agregó el asistenteFacturacion correctamente");
+      if(result === 'CONFIRM_DLG_YES'){
+        
+        console.log("se agregó el asistenteFacturacion correctamente");
+      }
     });
   }
   
