@@ -19,7 +19,7 @@ export class TipoDocumentoValoradoService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no hay usuarios encontrados...");
+            console.log("no hay documento valorados encontrados...");
             resolve([]);
           }
         }
