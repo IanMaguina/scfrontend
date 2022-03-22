@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nopagefound',
   templateUrl: './nopagefound.component.html',
-  styles: ['./nopagefound.component.css',
+  styles: [
   ]
 })
 export class NopagefoundComponent {
