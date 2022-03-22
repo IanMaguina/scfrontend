@@ -89,7 +89,7 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
 
   /*  auto complete*/
   async listarUsuarios() {
-    let listado = await this.usuarioService.listarUsuarios().then();
+    let listado = await this.asistenteFacturacionService.ListarUsuariosNoAgregados().then();
     this.comboListadoUsuario = listado;
     this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
     .pipe(
