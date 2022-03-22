@@ -16,9 +16,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatIconModule} from '@angular/material/icon';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
@@ -72,11 +72,11 @@ import { CrearAsistenteFacturacionComponent } from './asistenteFacturacion/crear
     GrupoEmpresarialComponent,
     CrearGrupoEmpresarialComponent,
     AsignarIntegrantesGrupoComponent,
-    
+
     ConsorcioComponent,
     CrearConsorcioComponent,
     AsignarIntegrantesComponent,
-    
+
     PlanesComponent,
     CrearPlanComponent,
     ConfigurarPlanComponent,
@@ -85,11 +85,11 @@ import { CrearAsistenteFacturacionComponent } from './asistenteFacturacion/crear
     FlujoAprobacionComponent,
     MaximoLineaCreditoComponent,
     AsignarAprobadoresComponent,
-    
+
     SuplenciaComponent,
     CrearSuplenciaComponent,
     EditarSuplenciaComponent,
-    
+
     TipoDocumentoValoradoComponent,
     CrearTipoDocumentoValoradoComponent,
     EditarTipoDocumentoValoradoComponent,

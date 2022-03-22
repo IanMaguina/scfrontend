@@ -1,1 +1,43 @@
-<p>crear-asistente-facturacion works!</p>
+<div class="title-add-element color-title">Nuevo Asistente de Facturación </div>
+<div class="contenidoForm">
+    <form [formGroup]="crearFormDialog" (ngSubmit)="crearAsistenteFacturacion(crearFormDialog.value)">
+        
+        
+        <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
+           
+
+            <mat-form-field appearance="outline">
+                <mat-label>Usuario</mat-label>
+                <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto" required>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredUsuario | async" [value]="option">
+                        {{option.nombre}}
+                    </mat-option>
+                </mat-autocomplete>                
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.usuario)">
+                        {{formErrors.usuario}}
+                    </mat-error>
+                </mat-hint>
+
+            </mat-form-field>
+        </div>
+        
+        <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
+            <mat-form-field appearance="outline">
+                <mat-label> Zonal </mat-label>
+                <mat-select #nivemora formControlName="zonal" required>
+                    <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal">
+                        {{zonal.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+       
+
+        <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
+        <button mat-raised-button class="boton-principal-light" type="submit"
+            [disabled]="crearFormDialog.invalid">Agregar</button>
+    </form>
+</div>

@@ -1,1 +1,38 @@
-<p>asistente-facturacion works!</p>
+<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
+    Administración de Asistente de Facturación
+    <br><br>
+    <mat-divider></mat-divider>
+</div>
+<br>
+<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+    <button mat-flat-button class="boton-principal-light" (click)="openAgregarAsistenteFacturacion()">Agregar</button>
+</div>
+<br>
+<div class="content-table col-s-11 col- col-m-8 col-xl-6 col-l-6">
+
+    <table mat-table [dataSource]="listadoAsistentesFacturacion" class="mat-elevation-z8 " >
+        <!-- Table estrategias - por sociedad -->
+        <!-- Column -->
+        <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef> Asistente Facturacion</th>
+            <td mat-cell *matCellDef="let element">  {{element.usuario.nombre}} </td>
+        </ng-container>
+        <!-- Column -->
+        <ng-container matColumnDef="zonal">
+            <th mat-header-cell *matHeaderCellDef> Zonal</th>
+            <td mat-cell *matCellDef="let element"> {{element.zonal.nombre}}  </td>
+        </ng-container>
+
+       <!-- Column -->
+        <ng-container matColumnDef="activo">
+            <th mat-header-cell *matHeaderCellDef> Activo </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="onchangeEstado(element)"></mat-slide-toggle>
+            </td>
+        </ng-container> 
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSociedad"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSociedad;"></tr>
+    </table>
+
+</div> 
