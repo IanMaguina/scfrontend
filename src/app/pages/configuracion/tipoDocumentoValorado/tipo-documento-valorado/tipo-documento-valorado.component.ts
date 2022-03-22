@@ -1,3 +1,4 @@
+import { TipoDocumentoValoradoService } from './../../../../services/tipo-documento-valorado.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -21,16 +22,22 @@ export class TipoDocumentoValoradoComponent implements OnInit {
   displayedColumns: string[] = ['tipo-documento-valorado', 'activo'];
   constructor(
     private matDialog: MatDialog,
+    private tipoDocumentoValoradoService:TipoDocumentoValoradoService
 
   ) { }
 
   ngOnInit(): void {
     console.log("ngInit");
-    this.listarTipoDV();
+    this.listarTipoDocumentoValorado();
   }
-  listarTipoDV(){
-    console.log("listarDV");
+  listarTipoDocumentoValorado(){
+    this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
+      console.log(JSON.stringify(data.payload));
+      this.listadoTipoDV = data.payload;
+    })
+
   }
+
   openAgregarTipoDV(){
     const dialogRef = this.matDialog.open(CrearTipoDocumentoValoradoComponent, {
       disableClose: true,
@@ -38,7 +45,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.listarTipoDV();
+      this.listarTipoDocumentoValorado();
       console.log("return function process");
     });
   }
@@ -50,7 +57,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     });
 
     dialogRef2.afterClosed().subscribe(result => {
-      this.listarTipoDV();
+      this.listarTipoDocumentoValorado();
       console.log("return function process");
     });
   }
@@ -75,7 +82,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       if(result==='CONFIRM_DLG_YES'){
         console.log("realizar la edición");
       }
-      this.listarTipoDV();
+      this.listarTipoDocumentoValorado();
     });
   }
 

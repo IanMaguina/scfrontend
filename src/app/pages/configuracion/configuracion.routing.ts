@@ -23,7 +23,7 @@ const routes: Routes = [
             { path: 'consorcios', component: ConsorcioComponent },
             { path: 'grupos', component: GrupoEmpresarialComponent },
             { path: 'planes', component: PlanesComponent },
-            { path: 'tiposdocumentovalorado', component: TipoDocumentoValoradoComponent },
+            { path: 'tipodocumentovalorado', component: TipoDocumentoValoradoComponent },
             { path: 'suplencias', component: SuplenciaComponent },
         ]
     },
