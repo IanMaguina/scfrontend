@@ -9,6 +9,7 @@ import { PagesModule } from './pages/pages.module';
 import { ConfiguracionModule } from './pages/configuracion/configuracion.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from "@angular/forms";
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -31,6 +32,8 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     MatFormFieldModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
+
   ],
 
   providers: [

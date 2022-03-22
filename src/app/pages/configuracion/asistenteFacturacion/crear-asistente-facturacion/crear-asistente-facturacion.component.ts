@@ -68,7 +68,6 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarZonales();
-    //this.listarUsuarios();
   }
 
 
@@ -76,7 +75,7 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
   async crearAsistenteFacturacion(form: any) {
     this.asistenteFacturacionService.crearAsistenteFacturacion(form).then(data => {
       if (data.header.exito) {
-        console.log("Se creó el asistente de Facturación");
+        this.onNoClick('CONFIRM_DLG_YES');
       }
     })
   }
