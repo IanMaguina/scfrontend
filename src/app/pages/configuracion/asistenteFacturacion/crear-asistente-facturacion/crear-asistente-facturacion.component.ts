@@ -36,7 +36,7 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
 
-  comboListadoUsuario: Usuario[];
+  comboListadoUsuario: Usuario[]=[];
   filteredUsuario!: Observable<Usuario[]>;
   selectedUsuario: any;
 
@@ -68,7 +68,7 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarZonales();
-    this.listarUsuarios();
+    //this.listarUsuarios();
   }
 
 
@@ -84,14 +84,24 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
   onNoClick(msg:string): void {
     this.dialogRef.close(msg);
   }
-  filtrarUsuarioZonal(event: any){
-    console.log("al cambiar el zonal: " + event.id);
+  async filtrarUsuarioZonal(){
+    let zonal=this.crearFormDialog.get("zonal").value;
+    console.log(JSON.stringify(zonal)+"---al cambiar el zonal: " );
+    let listado = await this.asistenteFacturacionService.listarUsuariosNoAgregados(zonal.id).then();
+    this.comboListadoUsuario = listado.payload;
+    this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.nombre),
+        map(nombre => nombre ? this._filter(nombre) : this.comboListadoUsuario.slice() )
+      );
+
   }
   /*  auto complete*/
   async listarUsuarios() {
     
-    let listado = await this.asistenteFacturacionService.ListarUsuariosNoAgregados(2).then();
-    this.comboListadoUsuario = listado;
+    let listado = await this.asistenteFacturacionService.listarUsuariosNoAgregados(2).then();
+    this.comboListadoUsuario = listado.payload;
     this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
