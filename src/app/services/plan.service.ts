@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
-import { TipoDocumentoValorado } from '../models/tipo-documento-valorado.interface';
+import { Plan } from '../models/plan.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TipoDocumentoValoradoService {
+export class PlanService {
   constructor(
     private resourceService: ResourceService
   ) {
   }
 
-  listarDocumentosValorados(): Promise<any> {
+  listarPlan(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/tipo-documento-valorado").toPromise().then((data) => {
+        this.resourceService.getResource("/api/plan").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -28,15 +28,14 @@ export class TipoDocumentoValoradoService {
             reject(error);
           }
         );
-
       }
     );
   }
 
-  editarDocumentoValorado(id_documentovalorado: any): Promise<any> {
+  editarPlan(id_documentovalorado: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/tipo-documento-valorado/" + id_documentovalorado).toPromise().then((data) => {
+        this.resourceService.getResource("/api/plan/" + id_documentovalorado).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
             resolve(data);
           } else {
@@ -50,17 +49,16 @@ export class TipoDocumentoValoradoService {
             reject(error);
           }
         );
-
       }
     );
 
   }
 
-  crearDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
-    console.log("adding tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
+  crearPlan(plan: Plan): Promise<any> {
+    console.log("adding plan..." + JSON.stringify(plan));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/tipo-documento-valorado", tipoDocumentoValorado).toPromise().then((data) => {
+        this.resourceService.postResource("/api/plan", plan).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
@@ -72,12 +70,11 @@ export class TipoDocumentoValoradoService {
       });
   }
 
-  actualizarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
-    console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
-
+  actualizarPlan(plan: Plan): Promise<any> {
+    console.log("sending plan..." + JSON.stringify(plan));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.putResource("/api/tipo-documento-valorado/" + tipoDocumentoValorado.id, tipoDocumentoValorado).toPromise().then((data) => {
+        this.resourceService.putResource("/api/plan/" + plan.id, plan).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -87,12 +84,12 @@ export class TipoDocumentoValoradoService {
       });
   }
 
-  eliminarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
-    console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
+  eliminarPlan(plan: Plan): Promise<any> {
+    console.log("sending plan..." + JSON.stringify(plan));
 
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/tipo-documento-valorado/" + tipoDocumentoValorado.id).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/plan/" + plan.id).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
