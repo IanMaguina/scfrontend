@@ -1,7 +1,9 @@
+import { TipoDocumentoValoradoService } from 'src/app/services/tipo-documento-valorado.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.interface';
 
 @Component({
   selector: 'app-editar-tipo-documento-valorado',
@@ -10,7 +12,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   ]
 })
 export class EditarTipoDocumentoValoradoComponent implements OnInit {
-  tipoDVData: any;
+  tipoDocumentoValoradoData: any;
   editarFormDialog: any;
   formErrors = {
     'nombre': '',
@@ -31,11 +33,12 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
+    private tipoDocumentoValoradoService: TipoDocumentoValoradoService
   ) {
-    this.tipoDVData = data;
-    console.log("info del usuario: "+ JSON.stringify(data));
+    this.tipoDocumentoValoradoData = data;
+    console.log("info del id_tipo_documento_valorado: " + JSON.stringify(data));
     this.editarFormDialog = this.formBuilder.group({
-      nombre: [this.tipoDVData.nombre, Validators.required],
+      nombre: [this.tipoDocumentoValoradoData.nombre, Validators.required],
     })
     this.editarFormDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.editarFormDialog, this.formErrors, this.validationMessages, this.submitted);
@@ -45,17 +48,24 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
   ngOnInit(): void {
     console.log("");
   }
- 
+
 
   async editarTipoDocumentoValorado(form: any) {
-    console.log("editarTipoDocumentoValorado");
+    console.log("editarTipoDocumentoValorado--->" + JSON.stringify(form));
+    let tipoDocumentoValorado: TipoDocumentoValorado = { id: this.tipoDocumentoValoradoData.id, nombre: form.nombre };
+    if (form.nombre != this.tipoDocumentoValoradoData.nombre){
+      this.tipoDocumentoValoradoService.actualizarDocumentoValorado(tipoDocumentoValorado).then(data=>{
+        this.onNoClick();
+      })
+    }
+    
 
-    this.onNoClick();
+    
   }
 
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('OK');
   }
 
 }

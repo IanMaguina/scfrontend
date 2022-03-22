@@ -14,15 +14,15 @@ import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-v
 export class TipoDocumentoValoradoComponent implements OnInit {
 
   listadoTipoDV: any[] = [
-    {id:1, nombre:"Cheque", activo:true},
-    {id:3, nombre:"Carta Fianza", activo:true},
-    {id:2, nombre:"Letra", activo:true},
-    {id:4, nombre:"Pagaré", activo:true},
+    { id: 1, nombre: "Cheque", activo: true },
+    { id: 3, nombre: "Carta Fianza", activo: true },
+    { id: 2, nombre: "Letra", activo: true },
+    { id: 4, nombre: "Pagaré", activo: true },
   ];
   displayedColumns: string[] = ['tipo-documento-valorado', 'activo'];
   constructor(
     private matDialog: MatDialog,
-    private tipoDocumentoValoradoService:TipoDocumentoValoradoService
+    private tipoDocumentoValoradoService: TipoDocumentoValoradoService
 
   ) { }
 
@@ -30,7 +30,8 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     console.log("ngInit");
     this.listarTipoDocumentoValorado();
   }
-  listarTipoDocumentoValorado(){
+
+  async listarTipoDocumentoValorado() {
     this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
       console.log(JSON.stringify(data.payload));
       this.listadoTipoDV = data.payload;
@@ -38,7 +39,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
 
   }
 
-  openAgregarTipoDV(){
+  openAgregarTipoDV() {
     const dialogRef = this.matDialog.open(CrearTipoDocumentoValoradoComponent, {
       disableClose: true,
       width: '20%',
@@ -49,37 +50,43 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       console.log("return function process");
     });
   }
-  openEditarTipoDV(element:any){
-    const dialogRef2 = this.matDialog.open(EditarTipoDocumentoValoradoComponent, {
+
+
+  async openEditarTipoDV(element: any) {
+    let dialogRef = this.matDialog.open(EditarTipoDocumentoValoradoComponent, {
       disableClose: true,
       width: '300px',
-      data:element.id,
+      data: element,
     });
 
-    dialogRef2.afterClosed().subscribe(result => {
-      this.listarTipoDocumentoValorado();
-      console.log("return function process");
+    dialogRef.afterClosed().subscribe(result => {
+      if (result==='OK'){
+        this.listarTipoDocumentoValorado();
+      }
+      
+      console.log("return function process -->" + result);
     });
+
   }
 
-  onchangeEstado(form:any){
-    let mensaje:string;
-    
-    if(form.activo){
+  onchangeEstado(form: any) {
+    let mensaje: string;
+
+    if (form.activo) {
       mensaje = "¿Desea habilitar el documento valorado?";
-    }else{
+    } else {
       mensaje = "¿Desea deshabilitar el documento valorado?";
     }
     form.mensaje = mensaje;
 
-    const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
+    const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      width:"400px",
-      data:form
+      width: "400px",
+      data: form
     });
 
     dialogRef3.afterClosed().subscribe(result => {
-      if(result==='CONFIRM_DLG_YES'){
+      if (result === 'CONFIRM_DLG_YES') {
         console.log("realizar la edición");
       }
       this.listarTipoDocumentoValorado();

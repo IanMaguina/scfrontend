@@ -1,4 +1,4 @@
 export interface TipoDocumentoValorado{
-    id: number,
+    id?: number,
     nombre: string,
 }

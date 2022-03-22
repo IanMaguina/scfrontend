@@ -73,7 +73,7 @@ export class TipoDocumentoValoradoService {
       });
   }
 
-  actualizarUsuario(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
+  actualizarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
     console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
 
     return new Promise(
