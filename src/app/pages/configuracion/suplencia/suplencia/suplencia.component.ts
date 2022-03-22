@@ -71,10 +71,14 @@ export class SuplenciaComponent implements OnInit {
       if(result==='CONFIRM_DLG_YES'){
         console.log("ACTUALIZAR EL ACTIVO");
         let suplencia:Suplencia=element;
-        this.suplenciaService.eliminarSuplencia(suplencia);
-       
+        suplencia.activo=(element.activo?true:false);
+        this.suplenciaService.actualizarActivo(suplencia).then(()=>{
+          this.listarSuplencias();
+        });
+      }else{
+        this.listarSuplencias();
       }
-      this.listarSuplencias();
+      
     });
 
   }
