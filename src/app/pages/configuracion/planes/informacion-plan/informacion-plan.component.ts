@@ -14,7 +14,9 @@ export class InformacionPlanComponent implements OnInit {
   informacionForm: any;
   
    formErrors = {
-    'radioConfig': '',
+    'checkGrupos': '',
+    'checkClientes': '',
+    'checkTodos': '',
     'grupocliente': '',
     'cartafianza': '',
     'nivelmora': '',
@@ -27,7 +29,13 @@ export class InformacionPlanComponent implements OnInit {
     'revisionmensual': '',
   }
   validationMessages = {
-    'radioConfig': {
+    'checkGrupos': {
+      'required': 'el grupocliente es requerido.'
+    },
+    'checkClientes': {
+      'required': 'el grupocliente es requerido.'
+    },
+    'checkTodos': {
       'required': 'el grupocliente es requerido.'
     },
     'grupocliente': {
@@ -66,7 +74,9 @@ export class InformacionPlanComponent implements OnInit {
   carga: boolean = false;
 
   /* validar tipo seleccion grupo o cliente */
-  tipoConfiguracion:string = 'grupo';
+  checkClientes:boolean = false;
+  checkGrupos:boolean = false;
+  checkTodos:boolean = false;
 
   /* listados */
   listadoGrupoCliente:any[] = [];
@@ -94,7 +104,9 @@ export class InformacionPlanComponent implements OnInit {
     private formValidatorService: FormValidatorService,
   ) { 
     this.informacionForm = this.formBuilder.group({
-      radioConfig:[''],
+      checkGrupos: [''],
+      checkClientes: [''],
+      checkTodos: [''],
       grupocliente: [''],
       cliente: [''],
       cartafianza: ['', Validators.required],
@@ -115,7 +127,6 @@ export class InformacionPlanComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit");
-    console.log("marcado: "+this.tipoConfiguracion);
   }
   activarConfiguracion(){
     console.log(JSON.stringify(this.informacionForm['radioConfig']));
@@ -125,7 +136,6 @@ export class InformacionPlanComponent implements OnInit {
 
   guardarSeccionInformacion(form:any){
     console.log("guardarSeccionInformacion");
-    console.log("marcado: "+this.tipoConfiguracion);
   }
 
   listarMora(event:any){

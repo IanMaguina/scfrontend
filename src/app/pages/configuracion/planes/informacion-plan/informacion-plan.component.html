@@ -6,18 +6,20 @@
 
                     <!-- Elemento -->
                     <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                        <mat-radio-group formControlName="radioConfig" aria-label="Elige-una-opcion" [(ngModel)]="tipoConfiguracion">
+                        
                             &nbsp;
-                            <mat-radio-button value="grupo" checked="true">Por Grupo Cliente</mat-radio-button>
+                            <mat-checkbox formControlName="checkGrupos" [(ngModel)]="checkGrupos">Por Grupo Cliente</mat-checkbox>
                              &nbsp;
-                            <mat-radio-button value="cliente" >Por Clientes</mat-radio-button>
-                        </mat-radio-group>
+                            <mat-checkbox formControlName="checkClientes" [(ngModel)]="checkClientes" >Por Clientes</mat-checkbox>
+                             &nbsp;
+                            <mat-checkbox formControlName="checkTodos" [(ngModel)]="checkTodos" >Todos</mat-checkbox>
+                        
                     </div>
                     <br><br>
                     
                     <!-- Elemento -->
                     <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion == 'grupo' ">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
                         <mat-form-field appearance="outline">
                             <mat-label>Grupo Cliente</mat-label>
                             <mat-select formControlName="grupocliente"  multiple  >
@@ -26,13 +28,13 @@
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion == 'grupo' ">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
                         {{listadoGrupoCliente}}  Aqui irá la informacion
                     </div>
                     </div>
                     <!-- Elemento -->
                     <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion != 'grupo' ">
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">
                         <mat-form-field appearance="outline">
                             <mat-label>Clientes</mat-label>
                             <mat-select formControlName="cliente"  multiple  >
@@ -41,7 +43,7 @@
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="tipoConfiguracion != 'grupo'">Aqui irá la informacion</div>
+                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">Aqui irá la informacion</div>
                     </div>
 
                     <!-- Elemento -->
@@ -173,11 +175,13 @@
                     <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
                     </div>
                     <br>
-                    <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-                    <div class="botonera-form">
+                    <div class="botonera-form objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                     <button mat-raised-button class="boton-principal-light col-xl-2" type="submit" [disabled]="informacionForm.invalid" >Guardar</button>
                     </div>
+                    
                 </form>
+                <br>
+                <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
             </div>
 
         </div>
