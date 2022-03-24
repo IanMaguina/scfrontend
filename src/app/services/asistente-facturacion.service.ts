@@ -33,12 +33,12 @@ export class AsistenteFacturacionService {
     );
   }
 
-  listarUsuariosNoAgregados(zonal_id:any): Promise<any> {
+  listarUsuariosNoAgregados(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/asistente-facturacion/"+zonal_id+"/listar-usuarios-no-agregados").toPromise().then((data) => {
+        this.resourceService.getResource("/api/asistente-facturacion/listar-usuarios-no-agregados").toPromise().then((data) => {
           if (data.header.exito) {
-            console.log("listarUsuariosNoAgregados--->"+JSON.stringify(data));
+            console.log("listarUsuariosNoAgregados--->" + JSON.stringify(data));
             resolve(data);
           } else {
             console.log("no hay asistentes de facturación encontrados...");
@@ -75,17 +75,17 @@ export class AsistenteFacturacionService {
       });
   }
 
- 
+
 
   activarDesactivarAsistenteFacturacion(asistenteFacturacion: AsistenteFacturacion): Promise<any> {
-    console.log("sending asistente-facturacion..." + JSON.stringify(asistenteFacturacion));
-    
+
     let item = {
       activo: asistenteFacturacion.activo,
     }
+    console.log("make item..." + JSON.stringify(item));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.putResource("/api/asistente-facturacion/" + asistenteFacturacion.id, item).toPromise().then((data) => {
+        this.resourceService.putResource("/api/asistente-facturacion/" + asistenteFacturacion.id + "/actualizar-activo", item).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -94,11 +94,16 @@ export class AsistenteFacturacionService {
         });
       });
   }
- /*  eliminarLAsistenteFacturacion(asistenteFacturacion: AsistenteFacturacion): Promise<any> {
-    console.log("sending asistente-facturacion..." + JSON.stringify(asistenteFacturacion));
+  actualizarAsistenteFacturacion(asistenteFacturacion: AsistenteFacturacion): Promise<any> {
+    let item = {
+      "id_zonal": asistenteFacturacion.zonal,
+      "id_usuario": asistenteFacturacion.usuario.id,
+      "activo": asistenteFacturacion.activo
+    }
+    console.log("make item..." + JSON.stringify(asistenteFacturacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/asistente-facturacion/" + asistenteFacturacion.id).toPromise().then((data) => {
+        this.resourceService.putResource("/api/asistente-facturacion/"+asistenteFacturacion.id, item).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -106,7 +111,20 @@ export class AsistenteFacturacionService {
           reject(error);
         });
       });
-  } */
+  }
+  /*  eliminarLAsistenteFacturacion(asistenteFacturacion: AsistenteFacturacion): Promise<any> {
+     console.log("sending asistente-facturacion..." + JSON.stringify(asistenteFacturacion));
+     return new Promise(
+       (resolve, reject) => {
+         this.resourceService.deleteResource2("/api/asistente-facturacion/" + asistenteFacturacion.id).toPromise().then((data) => {
+           console.log("response data=" + JSON.stringify(data));
+           resolve(data);
+         }).catch((error) => {
+           console.log("error status=" + error.status + ", msg=" + error.message);
+           reject(error);
+         });
+       });
+   } */
 
 
 }

@@ -68,7 +68,7 @@ export class GrupoEmpresarialComponent implements OnInit {
     if(element.activo){
       mensaje = "¿Desea habilitar el Grupo Empresarial?";
     }else{
-      mensaje = "¿Desea inhabilitar el Grupo Empresarial?";
+      mensaje = "¿Desea deshabilitar el Grupo Empresarial?";
     }
     element.mensaje = mensaje;
 

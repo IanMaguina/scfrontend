@@ -58,7 +58,7 @@ export class PlanesComponent implements OnInit {
     if(form.activo){
       mensaje = "¿Desea habilitar el plan?";
     }else{
-      mensaje = "¿Desea inhabilitar el plan?";
+      mensaje = "¿Desea deshabilitar el plan?";
     }
     form.mensaje = mensaje;
 

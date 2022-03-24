@@ -54,6 +54,9 @@ import { EditarTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/ed
 import { CrearTipoDocumentoValoradoComponent } from './tipoDocumentoValorado/crear-tipo-documento-valorado/crear-tipo-documento-valorado.component';
 import { AsistenteFacturacionComponent } from './asistenteFacturacion/asistente-facturacion/asistente-facturacion.component';
 import { CrearAsistenteFacturacionComponent } from './asistenteFacturacion/crear-asistente-facturacion/crear-asistente-facturacion.component';
+import { EditarAsistenteFacturacionComponent } from './asistenteFacturacion/editar-asistente-facturacion/editar-asistente-facturacion.component';
+import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adicional/aprobador-adicional.component';
+import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-aprobador-adicional/crear-aprobador-adicional.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,9 @@ import { CrearAsistenteFacturacionComponent } from './asistenteFacturacion/crear
     EditarTipoDocumentoValoradoComponent,
     AsistenteFacturacionComponent,
     CrearAsistenteFacturacionComponent,
+    EditarAsistenteFacturacionComponent,
+    AprobadorAdicionalComponent,
+    CrearAprobadorAdicionalComponent,
 
   ],
   imports: [

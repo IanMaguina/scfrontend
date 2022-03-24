@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AsistenteFacturacion } from 'src/app/models/asistente-facturacion.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { Zonal } from 'src/app/models/zonal.interface';
 import { AsistenteFacturacionService } from 'src/app/services/asistente-facturacion.service';
@@ -11,25 +12,24 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ZonalService } from 'src/app/services/zonal.service';
 
 @Component({
-  selector: 'app-crear-asistente-facturacion',
-  templateUrl: './crear-asistente-facturacion.component.html',
+  selector: 'app-editar-asistente-facturacion',
+  templateUrl: './editar-asistente-facturacion.component.html',
   styles: [
   ]
 })
-export class CrearAsistenteFacturacionComponent implements OnInit {
-
-  crearFormDialog: FormGroup;
-
+export class EditarAsistenteFacturacionComponent implements OnInit {
+  formDialog: FormGroup;
+  asistenteData:AsistenteFacturacion;
   formErrors = {
-    'usuario': '',
     'zonal': '',
+    'usuario': '',
   }
   validationMessages = {
-    'usuario': {
-      'required': 'el usuario es requerido.'
-    },
     'zonal': {
       'required': 'el zonal es requerido.',
+    },
+    'usuario': {
+      'required': 'el usuario es requerido.'
     },
   };
   //Submitted form
@@ -41,14 +41,10 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
   selectedUsuario: any;
 
   listadoZonales: Zonal[];
-  /*  {id:1, nombre:'zona 1'},
-   {id:2, nombre:'zona 2'},
-   {id:3, nombre:'zona 3'},
-   {id:4, nombre:'zona 4'},
- ]; */
 
   constructor(
-    public dialogRef: MatDialogRef<CrearAsistenteFacturacionComponent>,
+    public dialogRef: MatDialogRef<EditarAsistenteFacturacionComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AsistenteFacturacion,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
@@ -56,13 +52,14 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
     private asistenteFacturacionService: AsistenteFacturacionService,
 
   ) {
-
-    this.crearFormDialog = this.formBuilder.group({
-      usuario: ['', Validators.required],
-      zonal: ['', Validators.required],
+    this.asistenteData = data;
+    console.log("recibido asistente : "+ JSON.stringify(this.asistenteData.id));
+    this.formDialog = this.formBuilder.group({
+      zonal: [this.asistenteData.zonal.id, Validators.required],
+      usuario: [this.asistenteData.usuario, Validators.required],
     })
-    this.crearFormDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.crearFormDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formDialog.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
@@ -72,8 +69,11 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
 
 
 
-  async crearAsistenteFacturacion(form: any) {
-    this.asistenteFacturacionService.crearAsistenteFacturacion(form).then(data => {
+  async editarAsistenteFacturacion(form: any) {
+    form.id = this.asistenteData.id;
+    form.activo = this.asistenteData.activo;
+    console.log("to send AF: "+JSON.stringify(form));
+    this.asistenteFacturacionService.actualizarAsistenteFacturacion(form).then(data => {
       if (data.header.exito) {
         this.onNoClick('CONFIRM_DLG_YES');
       }
@@ -84,11 +84,11 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
     this.dialogRef.close(msg);
   }
   async filtrarUsuarioZonal(){
-    let zonal=this.crearFormDialog.get("zonal").value;
+    let zonal=this.formDialog.get("zonal").value;
     console.log(JSON.stringify(zonal)+"---al cambiar el zonal: " );
     let listado = await this.asistenteFacturacionService.listarUsuariosNoAgregados().then();
     this.comboListadoUsuario = listado.payload;
-    this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
+    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -101,7 +101,7 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
     
     let listado = await this.asistenteFacturacionService.listarUsuariosNoAgregados().then();
     this.comboListadoUsuario = listado.payload;
-    this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
+    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),

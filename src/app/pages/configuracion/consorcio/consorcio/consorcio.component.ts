@@ -71,7 +71,7 @@ export class ConsorcioComponent implements OnInit {
     if(element.activo){
       mensaje = "¿Desea habilitar el plan?";
     }else{
-      mensaje = "¿Desea inhabilitar el plan?";
+      mensaje = "¿Desea deshabilitar el plan?";
     }
     element.mensaje = mensaje;
 

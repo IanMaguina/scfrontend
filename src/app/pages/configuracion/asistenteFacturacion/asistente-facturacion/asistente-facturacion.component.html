@@ -9,13 +9,13 @@
 </div>
 <br>
 <div class="content-table col-s-11 col- col-m-8 col-xl-6 col-l-6">
-
+    <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el registro dar doble clic en Asistente de Facturación.</span>
     <table mat-table [dataSource]="listadoAsistentesFacturacion" class="mat-elevation-z8 " >
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
         <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef> Asistente Facturacion</th>
-            <td mat-cell *matCellDef="let element">  {{element.usuario.nombre}} </td>
+            <th mat-header-cell *matHeaderCellDef> Asistente Facturacion </th>
+            <td mat-cell *matCellDef="let element" (dblclick)="openEditarAsistenteFacturacion(element)"> <u> {{element.usuario.nombre}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="zonal">

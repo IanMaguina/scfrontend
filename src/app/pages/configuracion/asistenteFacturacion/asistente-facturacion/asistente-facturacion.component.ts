@@ -4,6 +4,7 @@ import { AsistenteFacturacion } from 'src/app/models/asistente-facturacion.inter
 import { AsistenteFacturacionService } from 'src/app/services/asistente-facturacion.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { CrearAsistenteFacturacionComponent } from '../crear-asistente-facturacion/crear-asistente-facturacion.component';
+import { EditarAsistenteFacturacionComponent } from '../editar-asistente-facturacion/editar-asistente-facturacion.component';
 
 @Component({
   selector: 'app-asistente-facturacion',
@@ -13,31 +14,6 @@ import { CrearAsistenteFacturacionComponent } from '../crear-asistente-facturaci
 })
 export class AsistenteFacturacionComponent implements OnInit {
   listadoAsistentesFacturacion: AsistenteFacturacion[];
-    /* 
-    [
-      {id:1, usuario:{
-      id:1,
-      nombre: "Asistente 1",
-      correo: "asist@gmail.com",
-      id_perfil: 1,
-      sociedad_codigo_sap: "xxxx",
-      },zonal:{id:1, nombre: "zonal 1"}, activo:true},
-    {id:2, usuario:{
-      id:2,
-      nombre: "Asistente 2",
-      correo: "asist2@gmail.com",
-      id_perfil: 12,
-      sociedad_codigo_sap: "yyyy",
-      },zonal:{id:1, nombre: "zonal 2"}, activo:true},
-    {id:3, usuario:{
-      id:3,
-      nombre: "Asistente 3",
-      correo: "asist3@gmail.com",
-      id_perfil: 1,
-      sociedad_codigo_sap: "zzzz",
-      },zonal:{id:3, nombre: "zonal 3"}, activo:true},
-  ]; */
-
 
   displayedColumnsSociedad: string[] = ['usuario', 'zonal', 'activo'];
   constructor(
@@ -89,12 +65,31 @@ export class AsistenteFacturacionComponent implements OnInit {
 
     dialogRef3.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
+        console.log("sending.."+JSON.stringify(form));
         this.asistenteFacturacionService.activarDesactivarAsistenteFacturacion(form).then((data)=>{
           if(data.header.exito){
             console.log("Se actualizó la actividad del asistente de facturacion");
             this.listarAsistentesFacturacion();
           }
         });
+      }
+    });
+  }
+
+
+  openEditarAsistenteFacturacion(element:AsistenteFacturacion){
+    console.log("al editar: .. "+JSON.stringify(element));
+    const dialogRef4 = this.matDialog.open(EditarAsistenteFacturacionComponent, {
+      disableClose: true,
+      width:"300px",
+      data:element,
+    });
+
+    dialogRef4.afterClosed().subscribe(result => {
+      this.listarAsistentesFacturacion();
+      if(result === 'CONFIRM_DLG_YES'){
+        
+        console.log("se editó el asistenteFacturacion correctamente");
       }
     });
   }
