@@ -12,9 +12,9 @@ const routes: Routes = [
         path: '', 
         component: PagesComponent,
         children: [
-          { path: 'dashboard', component: DashboardComponent }, 
+          { path: 'dashboard', component: DashboardComponent, data:{titulo: 'Dashboard', ruta: 'Dashboard'} }, 
           { path: '', redirectTo: 'dashboard', pathMatch:'full' }, 
-          { path: 'configuracion', component: ConfiguracionComponent },  
+          { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'}  },  
           /*    { path: 'usuarios',component: UsuariosComponent }, */
         ]
       },
