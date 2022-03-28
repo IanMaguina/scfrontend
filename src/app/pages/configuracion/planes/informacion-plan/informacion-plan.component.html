@@ -68,7 +68,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label> nivelmora </mat-label>
                             <mat-select #nivemora formControlName="nivelmora" multiple required>
-                                <mat-option *ngFor="let nivelmora of listadoNivelesMora" [value]="nivelmora">
+                                <mat-option *ngFor="let nivelmora of listadoNivelMora" [value]="nivelmora">
                                     {{nivelmora.nombre}}
                                 </mat-option>
                             </mat-select>
@@ -85,7 +85,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>central Riesgo</mat-label>
                             <mat-select formControlName="centralRiesgo"   multiple required>
-                                <mat-option *ngFor="let centralRiesgo of listadoCentralRiesgo" [value]="centralRiesgo">{{ centralRiesgo.nombre }}
+                                <mat-option *ngFor="let centralRiesgo of listadoCentroRiesgo" [value]="centralRiesgo">{{ centralRiesgo.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -99,7 +99,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Documentos Valorados</mat-label>
                             <mat-select formControlName="documentovalorado" required multiple >
-                                <mat-option *ngFor="let grupocliente of listadoDocumentoValorado" [value]="grupocliente">{{ grupocliente.nombre }}
+                                <mat-option *ngFor="let tipo of listadoTipoDocumentoValorado" [value]="tipo">{{ tipo.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -113,7 +113,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Lineas de Producto</mat-label>
                             <mat-select formControlName="lineasproducto"  required multiple >
-                                <mat-option *ngFor="let grupocliente of listadoLineaProducto" [value]="grupocliente">{{ grupocliente.nombre }}
+                                <mat-option *ngFor="let linea of listadoLineaProducto" [value]="linea">{{ linea.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -127,7 +127,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Moneda Bolsa</mat-label>
                             <mat-select formControlName="moneda" required multiple >
-                                <mat-option *ngFor="let grupocliente of listadoMonedaBolsa" [value]="grupocliente">{{ grupocliente.nombre }}
+                                <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo">{{tipo.simbolo }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>

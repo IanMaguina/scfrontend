@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CentroRiesgoService } from 'src/app/services/centro-riesgo.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
+import { LineaProductoService } from 'src/app/services/linea-producto.service';
+import { NivelMoraService } from 'src/app/services/nivel-mora.service';
+import { TipoDocumentoValoradoService } from 'src/app/services/tipo-documento-valorado.service';
+import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 
 @Component({
   selector: 'app-informacion-plan',
@@ -81,19 +87,13 @@ export class InformacionPlanComponent implements OnInit {
   /* listados */
   listadoGrupoCliente:any[] = [];
   listadoClientes:any[] = [];
-  listadoNivelesMora:any[] = [
-    {id:1,nombre:'A'},
-    {id:1,nombre:'B'},
-    {id:1,nombre:'C'},
-    {id:1,nombre:'D'},
-  ];
-  listadoCentralRiesgo:any[] = [];
-  listadoDocumentoValorado:any[] = [];
+  listadoNivelMora:any[] = [];
+  listadoCentroRiesgo:any[] = [];
+  listadoTipoDocumentoValorado:any[] = [];
   listadoLineaProducto:any[] = [];
-  listadoMonedaBolsa:any[] = [];
   listadoBolsa:any[] = [];
   listadoCamiones:any[] = [];
-
+  listadoTipoMoneda:any[] = [];
   listadoyesno:any[] = [
     {nombre:'sí'},
     {nombre:'no'},
@@ -102,11 +102,17 @@ export class InformacionPlanComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
+    private grupoClienteService:GrupoClienteService,
+    private centroRiesgoService:CentroRiesgoService,
+    private nivelMoraService:NivelMoraService,
+    private tipoDocumentoValoradoService:TipoDocumentoValoradoService,
+    private lineaProductoService:LineaProductoService,
+    private tipoMonedaService:TipoMonedaService
   ) { 
     this.informacionForm = this.formBuilder.group({
       checkGrupos: [''],
       checkClientes: [''],
-      checkTodos: [''],
+      checkTodos: [''], 
       grupocliente: [''],
       cliente: [''],
       cartafianza: ['', Validators.required],
@@ -127,7 +133,64 @@ export class InformacionPlanComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit");
+    this.listarGrupoCliente();
+    this.listarLineaProducto();
+    this.listarTipoDocumentoValorado();
+    this.listarNivelMora();
+    this.listarCentroRiesgo();
+    this.listarClientes();
+    this.listarTipoMoneda()
   }
+
+  async listarGrupoCliente() {
+    this.grupoClienteService.listar().then(data => {
+      this.listadoGrupoCliente = data.payload;
+      console.log(JSON.stringify(this.listadoGrupoCliente));
+    })
+  }
+
+  async listarClientes() {
+    this.grupoClienteService.listar().then(data => {
+      this.listadoClientes = data.payload;
+      console.log(JSON.stringify(this.listadoClientes));
+    })
+  }
+
+  async listarCentroRiesgo() {
+    this.centroRiesgoService.listar().then(data => {
+      this.listadoCentroRiesgo = data.payload;
+      console.log(JSON.stringify(this.listadoCentroRiesgo));
+    })
+  }
+
+  async listarNivelMora() {
+    this.nivelMoraService.listar().then(data => {
+      this.listadoNivelMora = data.payload;
+      console.log(JSON.stringify(this.listadoNivelMora));
+    })
+  }
+
+  async listarTipoDocumentoValorado() {
+    this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
+      this.listadoTipoDocumentoValorado = data.payload;
+      console.log(JSON.stringify(this.listadoTipoDocumentoValorado));
+    })
+  }
+
+  async listarLineaProducto() {
+    this.lineaProductoService.listar().then(data => {
+      this.listadoLineaProducto = data.payload;
+      console.log(JSON.stringify(this.listadoLineaProducto));
+    })
+  }
+
+  async listarTipoMoneda() {
+    this.tipoMonedaService.listar().then(data => {
+      this.listadoTipoMoneda = data.payload;
+      console.log(JSON.stringify(this.listadoTipoMoneda));
+    })
+  }
+
   activarConfiguracion(){
     console.log(JSON.stringify(this.informacionForm['radioConfig']));
   }
