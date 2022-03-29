@@ -16,6 +16,7 @@ export class SidebarService {
     {
       titulo: 'Configuración',
       icono: 'edit',
+      toolTip:'Configuración',
       submenu:[
         {titulo:'Usuarios', url: '/usuarios'},
         {titulo:'Estrategias', url: '/estrategias'},

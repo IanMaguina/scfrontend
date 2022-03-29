@@ -1,2 +1,4 @@
-<div class="sidebar"> 
+<div mat-menu-item *ngFor="let i of menuItems" [routerLink]="[i.submenu.url]" class="with-icon padded" (click)="$event.stopPropagation()">
+    <mat-icon [matTooltip]="i.toolTip">{{ i.icono }}</mat-icon>&nbsp;
+    <span [(hidden)]="collapse">{{ i.titulo }}</span>
 </div>
