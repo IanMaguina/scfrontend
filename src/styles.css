@@ -42,6 +42,33 @@
   display: flex;
   align-items: center;
 }
+.submenu {
+  color: #FFF;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+mat-tree a{
+  text-decoration: none;
+  color: #707070;
+  cursor: hand;
+}
+mat-tree a:link{
+  color: #707070;
+}
+mat-tree a:visited{
+  color: #707070;
+}
+mat-tree a:focus{
+  color: #707070;
+}
+mat-tree a:hover{
+  color: #B4B4B4;
+}
+mat-tree a:active{
+  color: #707070;
+}
+
+
 
 /* pagina 404 */
 

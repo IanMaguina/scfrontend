@@ -1,5 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { Router } from '@angular/router';
+import { Observer } from 'rxjs';
+import { MenuNode } from 'src/app/models/menu.interface';
 import { SidebarService } from 'src/app/services/sidebar.service';
+
+
+interface ExampleFlatNode {
+  expandable?: boolean;
+  name: string;
+  icono: string;
+  url: string;
+  level?: number;
+}
+
 
 @Component({
   selector: 'app-sidebar',
@@ -7,15 +22,54 @@ import { SidebarService } from 'src/app/services/sidebar.service';
   styles: [
   ]
 })
-export class SidebarComponent {
 
-  menuItems:any[];
-  @Input() collapse:boolean = false;
+export class SidebarComponent implements OnInit {
+  @Input() collapse: Observer<boolean>;
+  private _transformer = (node: MenuNode, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      icono: node.icono,
+      url: node.url,
+      level: level,
+    };
+  };
+
+  // menuItems: MenuNode[];
+
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+
   constructor(
-    private sidebarService: SidebarService
-  ) { 
-    this.menuItems = this.sidebarService.menu;
-    console.log(JSON.stringify(this.menuItems));
+    private sidebarService: SidebarService,
+    private router: Router,
+  ) {
+    this.dataSource.data = this.sidebarService.menu;
+
+    console.log("los datos son: " + JSON.stringify(this.dataSource.data));
+  }
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+  ngOnInit(): void {
+    this.treeControl.collapseAll();
+
+    this.collapse ? this.treeControl.collapseAll() : console.log("nothing to do");
+  }
+  async irUrl(url: any) {
+    console.log(url);
+    await this.router.navigate(['/']);
+    await this.router.navigateByUrl(url);
   }
 
 }

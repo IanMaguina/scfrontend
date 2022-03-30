@@ -1,4 +1,21 @@
-<div mat-menu-item *ngFor="let i of menuItems" [routerLink]="[i.submenu.url]" class="with-icon padded" (click)="$event.stopPropagation()">
-    <mat-icon [matTooltip]="i.toolTip">{{ i.icono }}</mat-icon>&nbsp;
-    <span [(hidden)]="collapse">{{ i.titulo }}</span>
-</div>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="with-icon padded" >
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [(hidden)]="collapse">
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button disabled [(hidden)]="collapse"></button>
+         <p [(hidden)]="collapse" >
+             <a  (click)="irUrl(node.url)">{{node.name}} </a>
+         </p>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle class="color-secundario" [(hidden)]="collapse" 
+                  [attr.aria-label]="'Toggle ' + node.name"> 
+            <mat-icon class="mat-icon-rtl-mirror color-secundario" >
+              {{ node.icono }}
+            </mat-icon>
+          </button>
+          <a [(hidden)]="collapse" [click]="'Toggle ' + node.name" >{{node.name}} </a>
+        </mat-tree-node>
+      </mat-tree>
+
