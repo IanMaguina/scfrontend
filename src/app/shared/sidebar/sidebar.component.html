@@ -4,7 +4,7 @@
           <!-- use a disabled button to provide padding for tree leaf -->
           <button mat-icon-button disabled [(hidden)]="collapse"></button>
          <p [(hidden)]="collapse" >
-             <a  (click)="irUrl(node.url)">{{node.name}} </a>
+             <a [href]="node.url">{{node.name}} </a>
          </p>
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
