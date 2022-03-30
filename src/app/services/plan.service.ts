@@ -99,6 +99,37 @@ export class PlanService {
       });
   }
 
+  guardarInformacion(plan: Plan): Promise<any> {
+    console.log("adding plan informacion..." + JSON.stringify(plan));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/plan/"+plan.id+"/guardar-informacion", plan).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+  guardarCruce(plan: Plan): Promise<any> {
+    console.log("adding plan cruce..." + JSON.stringify(plan));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/plan/"+plan.id+"/guardar-cruce", plan).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }  
 }
 
 

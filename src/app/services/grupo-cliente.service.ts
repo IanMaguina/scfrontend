@@ -11,10 +11,10 @@ export class GrupoClienteService {
   ) {
   }
 
-  listar(): Promise<any> {
+  listar(tipo:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/grupo-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/grupo-cliente?tipo="+tipo).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

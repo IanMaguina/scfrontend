@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-configurar-plan',
@@ -14,9 +14,10 @@ export class ConfigurarPlanComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfigurarPlanComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     
   ) { 
-    
+    console.log("data plan-->"+JSON.stringify(data));
 
   }
 

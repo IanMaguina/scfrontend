@@ -46,7 +46,7 @@ export class PlanesComponent implements OnInit {
     const dialogRef2 = this.matDialog.open(ConfigurarPlanComponent, {
       disableClose: true,
       width: '80%',
-      data:element.id,
+      data:element,
     });
 
     dialogRef2.afterClosed().subscribe(result => {

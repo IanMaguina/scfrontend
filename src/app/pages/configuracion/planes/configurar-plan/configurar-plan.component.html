@@ -7,10 +7,10 @@
     <mat-tab-group mat-align-tabs="start">
         <mat-tab  label="Información del Plan">
             <!-- formulario 1: Información del plan -->
-            <app-informacion-plan></app-informacion-plan>
+            <app-informacion-plan [plan]="data"></app-informacion-plan>
         </mat-tab>
         <mat-tab class="content-section" label="Cruce de Planes">
-            <app-cruce-planes></app-cruce-planes>
+            <app-cruce-planes [plan]="data"></app-cruce-planes>
         </mat-tab>
         <mat-tab class="content-section" label="Flujo de Aprobación">
             <app-flujo-aprobacion></app-flujo-aprobacion>

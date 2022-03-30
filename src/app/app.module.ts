@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     FormsModule,
     HttpClientModule,
     MatButtonModule,
-
+    MatSnackBarModule
   ],
 
   providers: [
