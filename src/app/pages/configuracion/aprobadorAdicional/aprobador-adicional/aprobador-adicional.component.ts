@@ -25,6 +25,7 @@ export class AprobadorAdicionalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit");
+    this.listarAprobadorAdicionales();
   }
 
   async listarAprobadorAdicionales(){
@@ -68,6 +69,7 @@ export class AprobadorAdicionalComponent implements OnInit {
         this.aprobadorAdicionalService.activarDesactivarAprobadorAdicional(element).then( activado =>{
           if(activado.header.exito){
             console.log("se cambió la actividad correctamente");
+            this.listarAprobadorAdicionales();
           }
         })
        
