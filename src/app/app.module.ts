@@ -20,7 +20,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { SharedModule } from './shared/shared.module';
 
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +42,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatSnackBarModule
   ],
 
   providers: [

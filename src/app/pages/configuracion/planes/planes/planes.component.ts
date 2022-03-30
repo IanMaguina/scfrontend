@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfigurarPlanComponent } from '../configurar-plan/configurar-plan.component';
 import { CrearPlanComponent } from '../crear-plan/crear-plan.component';
+import { PlanService } from './../../../../services/plan.service';
 
 @Component({
   selector: 'app-planes',
@@ -11,24 +12,26 @@ import { CrearPlanComponent } from '../crear-plan/crear-plan.component';
   ]
 })
 export class PlanesComponent implements OnInit {
-  listadoPlanes: any[] = [
-    {id:1, nombre:"PLan 1", activo:true},
-    {id:3, nombre:"PLan 3", activo:true},
-    {id:2, nombre:"PLan 2", activo:true},
-    {id:4, nombre:"PLan 4", activo:true},
-  ];
+  listadoPlanes: any[] = [];
   displayedColumnsSociedad: string[] = ['plan', 'activo'];
   constructor(
     private matDialog: MatDialog,
+    private planService: PlanService
 
   ) { }
 
   ngOnInit(): void {
     console.log("ngInit");
+    this.listarPlanes();
   }
-  listarPlanes(){
-    console.log("listarPlanes");
+
+  async listarPlanes() {
+    this.planService.listarPlan().then(data => {
+      this.listadoPlanes = data.payload;
+      console.log(JSON.stringify(this.listadoPlanes));
+    })
   }
+
   openAgregarPlan(){
     const dialogRef = this.matDialog.open(CrearPlanComponent, {
       disableClose: true,
@@ -43,7 +46,7 @@ export class PlanesComponent implements OnInit {
     const dialogRef2 = this.matDialog.open(ConfigurarPlanComponent, {
       disableClose: true,
       width: '80%',
-      data:element.id,
+      data:element,
     });
 
     dialogRef2.afterClosed().subscribe(result => {

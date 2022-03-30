@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Plan } from 'src/app/models/plan.interface';
+import { TipoPlanCredito } from 'src/app/models/tipo-plan-credito.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { TipoPlanService } from 'src/app/services/tipo-plan.service';
+import { PlanService } from './../../../../services/plan.service';
 
 @Component({
   selector: 'app-crear-plan',
@@ -10,12 +14,14 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   ]
 })
 export class CrearPlanComponent implements OnInit {
+
+  listadoTipoPlanes: TipoPlanCredito[] = [];
   crearFormDialog: any;
   formErrors = {
-    'nombre': '',
+    'plan': '',
   }
   validationMessages = {
-    'nombre': {
+    'plan': {
       'required': 'el nombre es requerido.'
     },
   };
@@ -27,22 +33,52 @@ export class CrearPlanComponent implements OnInit {
     public dialogRef: MatDialogRef<CrearPlanComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
+    private planService: PlanService,
+    private tipoPlanService: TipoPlanService
   ) {
     this.crearFormDialog = this.formBuilder.group({
-      nombre: ['', Validators.required],
+      plan: ['', Validators.required],
     })
     this.crearFormDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.crearFormDialog, this.formErrors, this.validationMessages, this.submitted);
     })
-   }
+  }
 
   ngOnInit(): void {
     console.log("ngOnInit");
+    this.listarTipoPlanesNoAgregados();
   }
-  crearPlan(form:any){
-    console.log("crearPlan");
+
+  async listarTipoPlanesNoAgregados() {
+    this.tipoPlanService.listarTipoPlanes().then(data => {
+      this.listadoTipoPlanes = data.payload;
+      console.log(JSON.stringify(this.listadoTipoPlanes));
+    })
+  }
+
+  async crearPlan(form: any) {
+    let plan = await this.mapeoPlan(form)
+    console.log("crearUsuario:" + JSON.stringify(plan));
+    this.planService.crearPlan(plan).then(() => {
+      this.onNoClick();
+    });
+
+
     this.dialogRef.close()
     console.log("plan creado");
+  }
+
+  async mapeoPlan(form: any) {
+    console.log("crearPlan--->" + JSON.stringify(form));
+    let plan: Plan = {
+      "id_tipo_plan_credito": form.plan.id,
+      "carta_fianza": null,
+      "id_tipo_moneda": null,
+      "bolsa": null,
+      "camiones": null,
+      "revision_mensual": null
+    }
+    return plan;
   }
 
   onNoClick(): void {

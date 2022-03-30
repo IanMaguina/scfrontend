@@ -32,14 +32,14 @@ export class PlanService {
     );
   }
 
-  editarPlan(id_documentovalorado: any): Promise<any> {
+  editarPlan(id_plan: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/plan/" + id_documentovalorado).toPromise().then((data) => {
+        this.resourceService.getResource("/api/plan/" + id_plan).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
             resolve(data);
           } else {
-            console.log("no hay datos DV encontrado...");
+            console.log("no hay datos planes encontrado...");
             resolve([]);
           }
         }
@@ -99,6 +99,79 @@ export class PlanService {
       });
   }
 
+  guardarInformacion(plan: Plan): Promise<any> {
+    console.log("adding plan informacion..." + JSON.stringify(plan));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/plan/"+plan.id+"/guardar-informacion", plan).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+  guardarCruce(plan: Plan): Promise<any> {
+    console.log("adding plan cruce..." + JSON.stringify(plan));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/plan/"+plan.id+"/guardar-cruce", plan).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }  
+
+  editarCruce(id_plan: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan/" + id_plan+"/listar-cruce").toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            resolve(data);
+          } else {
+            console.log("no hay datos planes encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
+  editarInformacion(id_plan: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan/" + id_plan+"/listar-informacion").toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            resolve(data);
+          } else {
+            console.log("no hay datos planes encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }  
 }
 
 

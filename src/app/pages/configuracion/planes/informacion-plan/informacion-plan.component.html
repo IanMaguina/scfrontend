@@ -1,187 +1,270 @@
 <div class="content-section">
-            <div class="contenidoForm">
+    <div class="contenidoForm">
+        <form [formGroup]="informacionForm" (ngSubmit)="guardarSeccionInformacion(informacionForm.value)">
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                &nbsp;
+                <mat-checkbox formControlName="checkGrupos" [(ngModel)]="checkGrupos">Por Grupo Cliente</mat-checkbox>
+                &nbsp;
+                <mat-checkbox formControlName="checkClientes" [(ngModel)]="checkClientes">Por Clientes</mat-checkbox>
+                &nbsp;
+                <mat-checkbox formControlName="checkTodos" [(ngModel)]="checkTodos">Todos</mat-checkbox>
 
-                <form [formGroup]="informacionForm" (ngSubmit)="guardarSeccionInformacion(informacionForm.value)">
-                    
+            </div>
+            <br><br>
 
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                        
-                            &nbsp;
-                            <mat-checkbox formControlName="checkGrupos" [(ngModel)]="checkGrupos">Por Grupo Cliente</mat-checkbox>
-                             &nbsp;
-                            <mat-checkbox formControlName="checkClientes" [(ngModel)]="checkClientes" >Por Clientes</mat-checkbox>
-                             &nbsp;
-                            <mat-checkbox formControlName="checkTodos" [(ngModel)]="checkTodos" >Todos</mat-checkbox>
-                        
-                    </div>
-                    <br><br>
-                    
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Grupo Cliente</mat-label>
-                            <mat-select formControlName="grupocliente"  multiple  >
-                                <mat-option *ngFor="let grupocliente of listadoGrupoCliente" [value]="grupocliente">{{ grupocliente.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
-                        {{listadoGrupoCliente}}  Aqui irá la informacion
-                    </div>
-                    </div>
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Clientes</mat-label>
-                            <mat-select formControlName="cliente"  multiple  >
-                                <mat-option *ngFor="let cliente of listadoClientes" [value]="cliente">{{ cliente.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>cartafianza</mat-label>
-                            <mat-select formControlName="cartafianza" required>
-                                <mat-option *ngFor="let dato of listadoyesno" [value]="dato.nombre">{{ dato.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                   
-
-                        <mat-form-field appearance="outline">
-                            <mat-label> nivelmora </mat-label>
-                            <mat-select #nivemora formControlName="nivelmora" multiple required>
-                                <mat-option *ngFor="let nivelmora of listadoNivelesMora" [value]="nivelmora">
-                                    {{nivelmora.nombre}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>central Riesgo</mat-label>
-                            <mat-select formControlName="centralRiesgo"   multiple required>
-                                <mat-option *ngFor="let centralRiesgo of listadoCentralRiesgo" [value]="centralRiesgo">{{ centralRiesgo.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Documentos Valorados</mat-label>
-                            <mat-select formControlName="documentovalorado" required multiple >
-                                <mat-option *ngFor="let grupocliente of listadoDocumentoValorado" [value]="grupocliente">{{ grupocliente.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Lineas de Producto</mat-label>
-                            <mat-select formControlName="lineasproducto"  required multiple >
-                                <mat-option *ngFor="let grupocliente of listadoLineaProducto" [value]="grupocliente">{{ grupocliente.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Moneda Bolsa</mat-label>
-                            <mat-select formControlName="moneda" required multiple >
-                                <mat-option *ngFor="let grupocliente of listadoMonedaBolsa" [value]="grupocliente">{{ grupocliente.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Bolsa</mat-label>
-                            <mat-select formControlName="bolsa" required>
-                                <mat-option *ngFor="let bolsa of listadoBolsa" [value]="bolsa">{{ bolsa.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> 
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Camiones</mat-label>
-                                <mat-select formControlName="camiones" required>
-                                    <mat-option *ngFor="let camiones of listadoCamiones" [value]="grupocliente">{{ camiones.nombre }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div> 
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-
-                    <!-- Elemento -->
-                    <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Revisión mensual ?</mat-label>
-                            <mat-select formControlName="revisionmensual" required>
-                                <mat-option *ngFor="let dato of listadoyesno" [value]="dato.nombre">{{ dato.nombre }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>  
-                    <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">Aqui irá la informacion</div>
-                    </div>
-                    <br>
-                    <div class="botonera-form objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                    <button mat-raised-button class="boton-principal-light col-xl-2" type="submit" [disabled]="informacionForm.invalid" >Guardar</button>
-                    </div>
-                    
-                </form>
-                <br>
-                <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Grupo Cliente</mat-label>
+                        <mat-select formControlName="grupoCliente" multiple (selectionChange)="llenarGrupoCliente()" [compareWith]="compareGrupoCliente">
+                            <mat-option *ngFor="let grupocliente of listadoGrupoCliente" [value]="grupocliente">{{
+                                grupocliente.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
+                    <table>
+                        <caption title="mostrarGrupoCliente"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarGrupoCliente">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Clientes</mat-label>
+                        <mat-select formControlName="cliente" multiple (selectionChange)="llenarClientes()" [compareWith]="compareClientes">
+                            <mat-option *ngFor="let cliente of listadoClientes" [value]="cliente">{{ cliente.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">
+                    <table>
+                        <caption title="mostrarClientes"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarClientes">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
 
-        </div>
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>cartaFianza</mat-label>
+                        <mat-select formControlName="cartaFianza" required>
+                            <mat-option *ngFor="let dato of listadoyesno" [value]="dato.nombre">{{ dato.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
+            </div>
+
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label> nivelMora </mat-label>
+                        <mat-select #nivemora formControlName="nivelMora" multiple required (selectionChange)="llenarNivelMora()" [compareWith]="compareNivelMora">
+                            <mat-option *ngFor="let nivelMora of listadoNivelMora" [value]="nivelMora">
+                                {{nivelMora.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <table>
+                        <caption title="mostrarNivelMora"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarNivelMora">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Centro de Riesgo</mat-label>
+                        <mat-select formControlName="centroRiesgo" multiple required (selectionChange)="llenarCentroRiesgo()" [compareWith]="compareCentroRiesgo">
+                            <mat-option *ngFor="let centroRiesgo of listadoCentroRiesgo" [value]="centroRiesgo">{{
+                                centroRiesgo.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <table>
+                        <caption title="mostrarCentroRiesgo"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarCentroRiesgo">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6" *ngIf="tipoFlujoAprobacion.id===1">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Documentos Valorados</mat-label>
+                        <mat-select formControlName="tipoDocumentoValorado" required multiple (selectionChange)="llenarTipoDocumentoValorado()" [compareWith]="compareTipoDocumentoValorado">
+                            <mat-option *ngFor="let tipo of listadoTipoDocumentoValorado" [value]="tipo">{{ tipo.nombre
+                                }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <table>
+                        <caption title="mostrarTipoDocumentoValorado"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarTipoDocumentoValorado">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6" *ngIf="tipoFlujoAprobacion.id===2">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Rango</mat-label>
+                        <mat-select formControlName="rango" required multiple (selectionChange)="llenarRango()" [compareWith]="compareRango">
+                            <mat-option *ngFor="let tipo of listadoRango" [value]="tipo">{{ tipo.nombre
+                                }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <table>
+                        <caption title="mostrarRango"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarRango">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Lineas de Producto</mat-label>
+                        <mat-select formControlName="lineaProducto" required multiple (selectionChange)="llenarLineaProducto()" [compareWith]="compareLineaProducto">
+                            <mat-option *ngFor="let linea of listadoLineaProducto" [value]="linea">{{ linea.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <table>
+                        <caption title="mostrarLineaProducto"></caption>
+                        <th>&nbsp;</th>
+                        <tr *ngFor="let item of mostrarLineaProducto">
+                            <td>
+                                {{item.nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Moneda</mat-label>
+                        <mat-select formControlName="moneda" required >
+                            <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo.simbolo">{{tipo.simbolo }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
+            </div>
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bolsa</mat-label>
+                        <input matInput placeholder="bolsa" formControlName="bolsa" required>
+                        <mat-hint>
+                            <mat-error [hidden]="!(formErrors.bolsa)">
+                                {{formErrors.bolsa}}
+                            </mat-error>
+                        </mat-hint>
+        
+                    </mat-form-field>                    
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
+            </div>
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Camiones</mat-label>
+                        <input matInput placeholder="Camiones" formControlName="camiones" required>
+                        <mat-hint>
+                            <mat-error [hidden]="!(formErrors.camiones)">
+                                {{formErrors.camiones}}
+                            </mat-error>
+                        </mat-hint>
+        
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
+            </div>
+
+            <!-- Elemento -->
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Revisión mensual ?</mat-label>
+                        <mat-select formControlName="revisionMensual" required>
+                            <mat-option *ngFor="let dato of listadoyesno" [value]="dato.nombre">{{ dato.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
+            </div>
+            <br>
+            <div class="botonera-form objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                <button mat-raised-button class="boton-principal-light col-xl-2" type="submit"
+                    [disabled]="informacionForm.invalid">Guardar</button>
+            </div>
+
+        </form>
+        <br>
+        <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+    </div>
+
+</div>

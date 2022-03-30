@@ -1,4 +1,10 @@
+import { NivelMora } from './nivel-mora.interface';
+import { TipoMoneda } from './tipo-moneda.interface';
+import { LineaProducto } from './linea-producto.interface';
+import { GrupoCliente } from './grupo-cliente.interface';
 import { TipoPlanCredito } from './tipo-plan-credito.interface';
+import { CentroRiesgo } from './centro-riesgo.interface';
+import { TipoDocumentoValorado } from './tipo-documento-valorado.interface';
 export interface Plan{
     id?: number,
     id_tipo_plan_credito?:number,
@@ -8,5 +14,12 @@ export interface Plan{
     camiones?:number,
     revision_mensual?:string,
     activo?:boolean,
-    tipoPlanCredito?:TipoPlanCredito
+    tipo_plancredito?:TipoPlanCredito,
+    grupo_cliente?:GrupoCliente[],
+    documento_valorado?:TipoDocumentoValorado[],
+    linea_producto?:LineaProducto[],
+    lista_cliente?:GrupoCliente[],
+    tipo_moneda?:TipoMoneda,
+    nivel_mora?:NivelMora[],
+    centro_riesgo?:CentroRiesgo[]
 }
