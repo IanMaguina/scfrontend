@@ -19,17 +19,18 @@ export class CrucePlanesComponent implements OnInit {
   listadoPlanesSeleccionados: any[] = [];
   constructor(private planService: PlanService,
     private _snack: MatSnackBar  ) {
-    this.listarPlanes();
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     console.log("ngInit");
+    await this.listarPlanes();
+    await this.listarCrucePlanes()
 
   }
 
   async listarPlanes() {
     this.planService.listarPlan().then(data => {
-      let lista: any[] = [] = data.payload;
+      let lista: any[] = data.payload;
       this.listadoPlanes = [];
       lista.forEach(async item => {
         if (item.id !== this.plan.id) {
@@ -41,7 +42,39 @@ export class CrucePlanesComponent implements OnInit {
           this.listadoPlanes.push(valor);
         }
       })
-      console.log(JSON.stringify(this.listadoPlanes));
+      console.log("antes del cruce de planes-->"+JSON.stringify(this.listadoPlanes));
+    })
+  }
+
+  async listarCrucePlanes() {
+    console.log("XXXXXXXXXXXXXXXXXXXXXXXXX");
+    this.planService.editarCruce(this.plan.id).then(data => {
+      console.log("listado cruce de planes-->"+JSON.stringify(data.payload));
+      let lista: any[] = data.payload.plan_cruce;
+      let auxLista: any[] = this.listadoPlanes;
+      this.listadoPlanes=[];
+      let listadoCrucePlan: any[] = [];
+      lista.forEach(async itemCruce => {
+        auxLista.forEach(itemPlan=>{
+          if (itemCruce.id_plan_cruce === itemPlan.id) {
+            let valor: any = {
+              id: itemPlan.id,
+              nombre: itemPlan.nombre,
+              seleccionar: true
+            }
+            listadoCrucePlan.push(valor);
+          }else{
+            let valor: any = {
+              id: itemPlan.id,
+              nombre: itemPlan.nombre,
+              seleccionar: false
+            }
+            listadoCrucePlan.push(valor);
+          }
+        })
+      })
+      this.listadoPlanes=listadoCrucePlan;
+      console.log("despues del cruce--->"+JSON.stringify(this.listadoPlanes));
     })
   }
 

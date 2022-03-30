@@ -19,7 +19,7 @@ export interface Plan{
     documento_valorado?:TipoDocumentoValorado[],
     linea_producto?:LineaProducto[],
     lista_cliente?:GrupoCliente[],
-    moneda?:TipoMoneda,
+    tipo_moneda?:TipoMoneda,
     nivel_mora?:NivelMora[],
     centro_riesgo?:CentroRiesgo[]
 }

@@ -18,7 +18,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkGrupos">
                     <mat-form-field appearance="outline">
                         <mat-label>Grupo Cliente</mat-label>
-                        <mat-select formControlName="grupoCliente" multiple (selectionChange)="llenarGrupoCliente()">
+                        <mat-select formControlName="grupoCliente" multiple (selectionChange)="llenarGrupoCliente()" [compareWith]="compareGrupoCliente">
                             <mat-option *ngFor="let grupocliente of listadoGrupoCliente" [value]="grupocliente">{{
                                 grupocliente.nombre }}
                             </mat-option>
@@ -42,7 +42,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6" *ngIf="checkClientes">
                     <mat-form-field appearance="outline">
                         <mat-label>Clientes</mat-label>
-                        <mat-select formControlName="cliente" multiple (selectionChange)="llenarClientes()">
+                        <mat-select formControlName="cliente" multiple (selectionChange)="llenarClientes()" [compareWith]="compareClientes">
                             <mat-option *ngFor="let cliente of listadoClientes" [value]="cliente">{{ cliente.nombre }}
                             </mat-option>
                         </mat-select>
@@ -78,11 +78,9 @@
             <!-- Elemento -->
             <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6">
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-
-
                     <mat-form-field appearance="outline">
                         <mat-label> nivelMora </mat-label>
-                        <mat-select #nivemora formControlName="nivelMora" multiple required (selectionChange)="llenarNivelMora()">
+                        <mat-select #nivemora formControlName="nivelMora" multiple required (selectionChange)="llenarNivelMora()" [compareWith]="compareNivelMora">
                             <mat-option *ngFor="let nivelMora of listadoNivelMora" [value]="nivelMora">
                                 {{nivelMora.nombre}}
                             </mat-option>
@@ -107,7 +105,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Centro de Riesgo</mat-label>
-                        <mat-select formControlName="centroRiesgo" multiple required (selectionChange)="llenarCentroRiesgo()">
+                        <mat-select formControlName="centroRiesgo" multiple required (selectionChange)="llenarCentroRiesgo()" [compareWith]="compareCentroRiesgo">
                             <mat-option *ngFor="let centroRiesgo of listadoCentroRiesgo" [value]="centroRiesgo">{{
                                 centroRiesgo.nombre }}
                             </mat-option>
@@ -132,7 +130,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Documentos Valorados</mat-label>
-                        <mat-select formControlName="tipoDocumentoValorado" required multiple (selectionChange)="llenarTipoDocumentoValorado()">
+                        <mat-select formControlName="tipoDocumentoValorado" required multiple (selectionChange)="llenarTipoDocumentoValorado()" [compareWith]="compareTipoDocumentoValorado">
                             <mat-option *ngFor="let tipo of listadoTipoDocumentoValorado" [value]="tipo">{{ tipo.nombre
                                 }}
                             </mat-option>
@@ -155,7 +153,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Rango</mat-label>
-                        <mat-select formControlName="rango" required multiple (selectionChange)="llenarRango()">
+                        <mat-select formControlName="rango" required multiple (selectionChange)="llenarRango()" [compareWith]="compareRango">
                             <mat-option *ngFor="let tipo of listadoRango" [value]="tipo">{{ tipo.nombre
                                 }}
                             </mat-option>
@@ -180,7 +178,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Lineas de Producto</mat-label>
-                        <mat-select formControlName="lineaProducto" required multiple (selectionChange)="llenarLineaProducto()">
+                        <mat-select formControlName="lineaProducto" required multiple (selectionChange)="llenarLineaProducto()" [compareWith]="compareLineaProducto">
                             <mat-option *ngFor="let linea of listadoLineaProducto" [value]="linea">{{ linea.nombre }}
                             </mat-option>
                         </mat-select>
@@ -204,8 +202,8 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Moneda</mat-label>
-                        <mat-select formControlName="moneda" required>
-                            <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo">{{tipo.simbolo }}
+                        <mat-select formControlName="moneda" required >
+                            <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo.simbolo">{{tipo.simbolo }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

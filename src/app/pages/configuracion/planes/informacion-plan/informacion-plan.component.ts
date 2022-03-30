@@ -1,7 +1,7 @@
 import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.interface';
 import { RangoService } from './../../../../services/rango.service';
 import { TipoFlujoAprobacion } from './../../../../models/tipo-flujo-aprobacion.interface';
-import { Component, OnInit, Input,Injector } from '@angular/core';
+import { Component, OnInit, Input, Injector } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Plan } from 'src/app/models/plan.interface';
 import { CentroRiesgoService } from 'src/app/services/centro-riesgo.service';
@@ -25,10 +25,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class InformacionPlanComponent implements OnInit {
   @Input() plan: Plan;
-  nombreplan:string ='plan de prueba';
+  nombreplan: string = 'plan de prueba';
   informacionForm: any;
-  
-   formErrors = {
+
+  formErrors = {
     'checkGrupos': '',
     'checkClientes': '',
     'checkTodos': '',
@@ -84,65 +84,66 @@ export class InformacionPlanComponent implements OnInit {
     'revisionMensual': {
       'required': 'el revisionMensual es requerido.'
     },
-  }; 
+  };
   //Submitted form
   submitted = false;
   carga: boolean = false;
 
   /* validar tipo seleccion grupo o cliente */
-  checkClientes:boolean = false;
-  checkGrupos:boolean = false;
-  checkTodos:boolean = false;
+  checkClientes: boolean = false;
+  checkGrupos: boolean = false;
+  checkTodos: boolean = false;
 
   /* listados */
-  listadoGrupoCliente:any[] = [];
-  mostrarGrupoCliente:any[] = [];
-  listadoClientes:any[] = [];
-  mostrarClientes:any[] = [];
-  listadoNivelMora:any[] = [];
-  mostrarNivelMora:any[] = [];
-  listadoCentroRiesgo:any[] = [];
-  mostrarCentroRiesgo:any[] = [];
-  listadoTipoDocumentoValorado:any[] = [];
-  mostrarTipoDocumentoValorado:any[] = [];
-  listadoRango:any[] = [];
-  mostrarRango:any[] = [];
-  listadoLineaProducto:any[] = [];
-  mostrarLineaProducto:any[] = [];
-  listadoBolsa:any[] = [];
-  listadoCamiones:any[] = [];
-  listadoTipoMoneda:any[] = [];
-  mostrarTipoMoneda:any[] = [];
-  listadoyesno:any[] = [
-    {nombre:'sí'},
-    {nombre:'no'},
+  listadoInformacionPlan: any = {};
+  listadoGrupoCliente: any[] = [];
+  mostrarGrupoCliente: any[] = [];
+  listadoClientes: any[] = [];
+  mostrarClientes: any[] = [];
+  listadoNivelMora: any[] = [];
+  mostrarNivelMora: any[] = [];
+  listadoCentroRiesgo: any[] = [];
+  mostrarCentroRiesgo: any[] = [];
+  listadoTipoDocumentoValorado: any[] = [];
+  mostrarTipoDocumentoValorado: any[] = [];
+  listadoRango: any[] = [];
+  mostrarRango: any[] = [];
+  listadoLineaProducto: any[] = [];
+  mostrarLineaProducto: any[] = [];
+  listadoBolsa: any[] = [];
+  listadoCamiones: any[] = [];
+  listadoTipoMoneda: any[] = [];
+  mostrarTipoMoneda: any[] = [];
+  listadoyesno: any[] = [
+    { nombre: 'S' },
+    { nombre: 'N' },
   ]
 
-  tipoFlujoAprobacion:TipoFlujoAprobacion;
-  grupoClienteService:GrupoClienteService;
-  tipoMonedaService:TipoMonedaService;
-  rangoService:RangoService;
+  tipoFlujoAprobacion: TipoFlujoAprobacion;
+  grupoClienteService: GrupoClienteService;
+  tipoMonedaService: TipoMonedaService;
+  rangoService: RangoService;
   planService: PlanService;
-  lineaProductoService:LineaProductoService;
+  lineaProductoService: LineaProductoService;
   constructor(
-    private injector : Injector,
+    private injector: Injector,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private centroRiesgoService:CentroRiesgoService,
-    private nivelMoraService:NivelMoraService,
-    private tipoDocumentoValoradoService:TipoDocumentoValoradoService,
-    private _snack: MatSnackBar    
-  ) { 
-    this.grupoClienteService=injector.get<GrupoClienteService>(GrupoClienteService);
-    this.tipoMonedaService=injector.get<TipoMonedaService>(TipoMonedaService);
-    this.rangoService=injector.get<RangoService>(RangoService);
-    this.planService=injector.get<PlanService>(PlanService);
-    this.lineaProductoService=injector.get<LineaProductoService>(LineaProductoService);
+    private centroRiesgoService: CentroRiesgoService,
+    private nivelMoraService: NivelMoraService,
+    private tipoDocumentoValoradoService: TipoDocumentoValoradoService,
+    private _snack: MatSnackBar
+  ) {
+    this.grupoClienteService = injector.get<GrupoClienteService>(GrupoClienteService);
+    this.tipoMonedaService = injector.get<TipoMonedaService>(TipoMonedaService);
+    this.rangoService = injector.get<RangoService>(RangoService);
+    this.planService = injector.get<PlanService>(PlanService);
+    this.lineaProductoService = injector.get<LineaProductoService>(LineaProductoService);
 
     this.informacionForm = this.formBuilder.group({
       checkGrupos: [''],
       checkClientes: [''],
-      checkTodos: [''], 
+      checkTodos: [''],
       grupoCliente: [''],
       cliente: [''],
       cartaFianza: ['', Validators.required],
@@ -154,18 +155,19 @@ export class InformacionPlanComponent implements OnInit {
       moneda: ['', Validators.required],
       bolsa: ['', Validators.required],
       camiones: ['', Validators.required],
-      revisionMensual: ['', Validators.required], 
+      revisionMensual: ['', Validators.required],
     })
-     this.informacionForm.valueChanges.subscribe(() => {
+    this.informacionForm.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.informacionForm, this.formErrors, this.validationMessages, this.submitted);
-    }) 
+    })
 
   }
 
   ngOnInit(): void {
     console.log("ngOnInit");
-    console.log("Data del plan en información-->"+JSON.stringify(this.plan.tipo_plancredito.id_tipo_flujo_aprobacion));
-    this.tipoFlujoAprobacion={id:this.plan.tipo_plancredito.id_tipo_flujo_aprobacion, nombre:""};
+    console.log("Data del plan en información-->" + JSON.stringify(this.plan));
+    this.tipoFlujoAprobacion = { id: this.plan.tipo_plancredito.id_tipo_flujo_aprobacion, nombre: "" };
+    this.listarInformacionPlan();
     this.listarGrupoCliente();
     this.listarLineaProducto();
     this.listarTipoDocumentoValorado();
@@ -173,6 +175,28 @@ export class InformacionPlanComponent implements OnInit {
     this.listarCentroRiesgo();
     this.listarClientes();
     this.listarTipoMoneda()
+  }
+
+  async listarInformacionPlan() {
+    console.log("XXXXXXXXXXXXXXXXXXXXXXXXX");
+    this.planService.editarInformacion(this.plan.id).then(data => {
+      console.log("listado informacion de plan-->" + JSON.stringify(data.payload));
+      this.listadoInformacionPlan=data.payload;
+      this.llenarCamposTexto();
+      this.marcarGrupoCiente();
+      this.llenarGrupoCliente();
+      this.marcarClientes();
+      this.llenarClientes();
+      this.marcarNivelMora();
+      this.llenarNivelMora();
+      this.marcarCentroRiesgo();
+      this.llenarCentroRiesgo();
+      this.marcarTipoDocumentoValorado();
+      this.llenarTipoDocumentoValorado();
+      this.marcarLineaProducto();
+      this.llenarLineaProducto();
+      console.log("listado nivelMora-->" + JSON.stringify(this.informacionForm.get("nivelMora")?.value));
+    })
   }
 
   async listarGrupoCliente() {
@@ -199,14 +223,14 @@ export class InformacionPlanComponent implements OnInit {
   async listarNivelMora() {
     this.nivelMoraService.listar().then(data => {
       this.listadoNivelMora = data.payload;
-      console.log(JSON.stringify(this.listadoNivelMora));
+      console.log("nivel mora despues-->"+JSON.stringify(this.listadoNivelMora));
     })
   }
 
   async listarTipoDocumentoValorado() {
     this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoTipoDocumentoValorado = data.payload;
-      console.log(JSON.stringify(this.listadoTipoDocumentoValorado));
+      console.log("Tipo DV--->"+JSON.stringify(this.listadoTipoDocumentoValorado));
     })
   }
 
@@ -231,62 +255,129 @@ export class InformacionPlanComponent implements OnInit {
     })
   }
 
-  activarConfiguracion(){
+  activarConfiguracion() {
     console.log(JSON.stringify(this.informacionForm['radioConfig']));
   }
-  
-  listarMora(event:any){
-    console.log(JSON.stringify(event));
 
-  }
-
-  llenarGrupoCliente(){
-    let grupoCliente=this.informacionForm.get("grupoCliente").value;
-    console.log(JSON.stringify(grupoCliente)+"---al cambiar el grupoCliente " );
-    this.mostrarGrupoCliente=grupoCliente;
-  }
-
-  llenarClientes(){
-    let clientes=this.informacionForm.get("cliente").value;
-    console.log(JSON.stringify(clientes));
-    this.mostrarClientes=clientes;
+  llenarCamposTexto(){
+    this.informacionForm.get("cartaFianza")?.setValue(this.plan.carta_fianza);
+    this.informacionForm.get("bolsa")?.setValue(this.plan.bolsa);
+    this.informacionForm.get("camiones")?.setValue(this.plan.camiones);
+    this.informacionForm.get("revisionMensual")?.setValue(this.plan.revision_mensual);
+    this.informacionForm.get("moneda")?.setValue(this.plan.tipo_moneda.simbolo);
+    
   }  
 
-  llenarNivelMora(){
-    let nivelMora=this.informacionForm.get("nivelMora").value;
+  marcarGrupoCiente() {
+    let campo:any[] = this.listadoInformacionPlan.grupo_cliente
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
+    })
+    this.informacionForm.get("grupoCliente")?.setValue(devuelve);
+  }  
+
+  llenarGrupoCliente() {
+    let grupoCliente = this.informacionForm.get("grupoCliente").value;
+    console.log(JSON.stringify(grupoCliente) + "---al cambiar el grupoCliente ");
+    this.mostrarGrupoCliente = grupoCliente;
+  }
+
+  marcarClientes() {
+    let campo:any[] = this.listadoInformacionPlan.lista_cliente
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.lista_cliente.id, nombre: item.lista_cliente.nombre})
+    })
+    this.informacionForm.get("cliente")?.setValue(devuelve);
+  }  
+
+  llenarClientes() {
+    let clientes = this.informacionForm.get("cliente").value;
+    console.log(JSON.stringify(clientes));
+    this.mostrarClientes = clientes;
+  }
+
+  marcarNivelMora() {
+    let campo:any[] = this.listadoInformacionPlan.nivel_mora
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.nivel_mora.id, nombre: item.nivel_mora.nombre})
+    })
+    this.informacionForm.get("nivelMora")?.setValue(devuelve);
+  }  
+
+  llenarNivelMora() {
+    let nivelMora = this.informacionForm.get("nivelMora").value;
     console.log(JSON.stringify(nivelMora));
-    this.mostrarNivelMora=nivelMora;
+    this.mostrarNivelMora = nivelMora;
   }
 
-  llenarCentroRiesgo(){
-    let centroRiesgo=this.informacionForm.get("centroRiesgo").value;
+  marcarCentroRiesgo() {
+    let campo:any[] = this.listadoInformacionPlan.centro_riesgo;
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.centro_riesgo.id, nombre: item.centro_riesgo.nombre})
+    })
+    this.informacionForm.get("centroRiesgo")?.setValue(devuelve);
+  }  
+
+  llenarCentroRiesgo() {
+    let centroRiesgo = this.informacionForm.get("centroRiesgo").value;
     console.log(JSON.stringify(centroRiesgo));
-    this.mostrarCentroRiesgo=centroRiesgo;
+    this.mostrarCentroRiesgo = centroRiesgo;
   }
 
-  llenarTipoDocumentoValorado(){
-    let tipoDocumentoValorado=this.informacionForm.get("tipoDocumentoValorado").value;
-    console.log(JSON.stringify(tipoDocumentoValorado));
-    this.mostrarTipoDocumentoValorado=tipoDocumentoValorado;
-  }    
+  marcarTipoDocumentoValorado() {
+    let campo:any[] =this.listadoInformacionPlan.documento_valorado;
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.id_tipo_documentovalorado, nombre:""})
+    })
+    this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
+  }  
 
-  llenarRango(){
-    let rango=this.informacionForm.get("rango").value;
+  llenarTipoDocumentoValorado() {
+    let tipoDocumentoValorado = this.informacionForm.get("tipoDocumentoValorado").value;
+    console.log("ARSA-->"+JSON.stringify(tipoDocumentoValorado));
+    this.mostrarTipoDocumentoValorado = tipoDocumentoValorado;
+  }
+
+  marcarRango() {
+    let campo:any[] = this.listadoInformacionPlan.documento_valorado;
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.id_tipo_documentovalorado})
+    })
+    this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
+  }  
+
+  llenarRango() {
+    let rango = this.informacionForm.get("rango").value;
     console.log(JSON.stringify(rango));
-    this.mostrarRango=rango;
-  }    
+    this.mostrarRango = rango;
+  }
 
-  llenarLineaProducto(){
-    let lineaProducto=this.informacionForm.get("lineaProducto").value;
+  marcarLineaProducto() {
+    let campo:any[] = this.listadoInformacionPlan.linea_producto;
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.linea_producto.id,nombre:item.linea_producto.nombre})
+    })
+    this.informacionForm.get("lineaProducto")?.setValue(devuelve);
+  }  
+
+  llenarLineaProducto() {
+    let lineaProducto = this.informacionForm.get("lineaProducto").value;
     console.log(JSON.stringify(lineaProducto));
-    this.mostrarLineaProducto=lineaProducto;
-  }        
+    this.mostrarLineaProducto = lineaProducto;
+  }
 
-  async guardarSeccionInformacion(form:any){
-    console.log("guardarSeccionInformacion--->"+JSON.stringify(form));
+  async guardarSeccionInformacion(form: any) {
+    console.log("guardarSeccionInformacion--->" + JSON.stringify(form));
     let plan = await this.mapeoPlan(form)
     console.log("crear guardarSeccionInformacion:" + JSON.stringify(plan));
-    this.planService.guardarInformacion(plan).then(()=>{
+    this.planService.guardarInformacion(plan).then(() => {
       this._snack.open("Se guardo Información del Plan", 'cerrar', {
         duration: 1800,
         horizontalPosition: "end",
@@ -297,75 +388,112 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   async mapeoPlan(form: any) {
-    let plan: Plan =     {
+    let plan: Plan = {
       id: this.plan.id,
-      id_tipo_moneda:form.moneda.id,
-      bolsa:form.bolsa,
-      camiones:form.camiones,
-      carta_fianza:form.cartaFianza,    
-      revision_mensual:form.revisionMensual,
+      id_tipo_moneda: form.moneda.id,
+      bolsa: form.bolsa,
+      camiones: form.camiones,
+      carta_fianza: form.cartaFianza,
+      revision_mensual: form.revisionMensual,
       grupo_cliente: this.retornarGrupoCliente(),
-      //lista_cliente: this.retornarCliente(),
+      lista_cliente: this.retornarCliente(),
       nivel_mora: this.retornarNivelMora(),
-      centro_riesgo:this.retornarCentroRiesgo(),
+      centro_riesgo: this.retornarCentroRiesgo(),
       documento_valorado: this.retornarTipoDocumentoValorado(),
       linea_producto: this.retornarLineaProducto()
-  }
+    }
     return plan;
   }
 
-  retornarGrupoCliente(){
-    let grupoCliente:GrupoCliente[]=this.informacionForm.get("grupoCliente").value;
-    let valor:any[]=[];
-    grupoCliente.forEach(item=>{
+  retornarGrupoCliente() {
+    let grupoCliente: GrupoCliente[] = this.informacionForm.get("grupoCliente").value;
+    let valor: any[] = [];
+    grupoCliente.forEach(item => {
       valor.push(item.id);
     })
     return valor;
   }
 
-  retornarCliente(){
-    let cliente:GrupoCliente[]=this.informacionForm.get("cliente").value;
-    let valor:any[]=[];
-    cliente.forEach(item=>{
+  retornarCliente() {
+    let cliente: GrupoCliente[] = this.informacionForm.get("cliente").value;
+    let valor: any[] = [];
+    cliente.forEach(item => {
       valor.push(item.id);
     })
     return valor;
+  }
+
+  retornarNivelMora() {
+    let nivelMora: NivelMora[] = this.informacionForm.get("nivelMora").value;
+    let valor: any[] = [];
+    nivelMora.forEach(item => {
+      valor.push(item.id);
+    })
+    return valor;
+  }
+
+  retornarCentroRiesgo() {
+    let centroRiesgo: CentroRiesgo[] = this.informacionForm.get("centroRiesgo").value;
+    let valor: any[] = [];
+    centroRiesgo.forEach(item => {
+      valor.push(item.id);
+    })
+    return valor;
+  }
+
+  retornarTipoDocumentoValorado() {
+    let tipoDocumentoValorado: TipoDocumentoValorado[] = this.informacionForm.get("tipoDocumentoValorado").value;
+    let valor: any[] = [];
+    tipoDocumentoValorado.forEach(item => {
+      valor.push(item.id);
+    })
+    return valor;
+  }
+
+  retornarLineaProducto() {
+    let lineaProducto: LineaProducto[] = this.informacionForm.get("lineaProducto").value;
+    let valor: any[] = [];
+    lineaProducto.forEach(item => {
+      valor.push(item.id);
+    })
+    return valor;
+  }
+
+  compareGrupoCliente(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
+
+  compareClientes(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
+
+
+  compareNivelMora(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
+
+  compareCentroRiesgo(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
+
+  compareTipoDocumentoValorado(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
   }  
 
-  retornarNivelMora(){
-    let nivelMora:NivelMora[]=this.informacionForm.get("nivelMora").value;
-    let valor:any[]=[];
-    nivelMora.forEach(item=>{
-      valor.push(item.id);
-    })
-    return valor;
-  }    
+  compareRango(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
 
-  retornarCentroRiesgo(){
-    let centroRiesgo:CentroRiesgo[]=this.informacionForm.get("centroRiesgo").value;
-    let valor:any[]=[];
-    centroRiesgo.forEach(item=>{
-      valor.push(item.id);
-    })
-    return valor;
-  }    
+  compareLineaProducto(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
 
-  retornarTipoDocumentoValorado(){
-    let tipoDocumentoValorado:TipoDocumentoValorado[]=this.informacionForm.get("tipoDocumentoValorado").value;
-    let valor:any[]=[];
-    tipoDocumentoValorado.forEach(item=>{
-      valor.push(item.id);
-    })
-    return valor;
-  }  
-
-  retornarLineaProducto(){
-    let lineaProducto:LineaProducto[]=this.informacionForm.get("lineaProducto").value;
-    let valor:any[]=[];
-    lineaProducto.forEach(item=>{
-      valor.push(item.id);
-    })
-    return valor;
-  }    
 }
 
