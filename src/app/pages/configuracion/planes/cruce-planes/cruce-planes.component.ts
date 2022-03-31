@@ -30,12 +30,13 @@ export class CrucePlanesComponent implements OnInit {
 
   async listarPlanes() {
     this.planService.listarPlan().then(data => {
+      console.log("listado de planes 1--->"+JSON.stringify(data.payload));
       let lista: any[] = data.payload;
       this.listadoPlanes = [];
       lista.forEach(async item => {
-        if (item.id !== this.plan.id) {
+        if (item.id_tipo_plan_credito !== this.plan.id_tipo_plan_credito) {
           let valor: any = {
-            id: item.id,
+            id: item.tipo_plancredito.id,
             nombre: item.tipo_plancredito.nombre,
             seleccionar: false
           }
@@ -50,10 +51,11 @@ export class CrucePlanesComponent implements OnInit {
     this.planService.editarCruce(this.plan.id_tipo_plan_credito).then(data => {
       console.log(JSON.stringify(this.plan) + "-listado cruce de planes-->" + JSON.stringify(data.payload));
       let listaCruce: any[] = data.payload.plan_cruce;
-      console.log("super lista cruce--->" + JSON.stringify(listaCruce));
       let auxLista: any[] = this.listadoPlanes;
       this.listadoPlanes = [];
       let listadoCrucePlan: any[] = [];
+      console.log("auxLista--->" + JSON.stringify(auxLista));
+      console.log("listaCruce--->" + JSON.stringify(listaCruce));
 
       if (listaCruce.length > 0) {
         auxLista.forEach(itemPlan => {
@@ -105,7 +107,7 @@ export class CrucePlanesComponent implements OnInit {
 
   async mapeoCruce() {
     let cruce: any = {
-      id: this.plan.id,
+      id: this.plan.id_tipo_plan_credito,
       cruce: this.retornarCrucePlanes()
     }
     return cruce;

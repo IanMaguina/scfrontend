@@ -17,8 +17,8 @@ export class ConfigurarPlanComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     
   ) { 
-    console.log("data plan-->"+JSON.stringify(data));
-    this.nombreplan=data.tipo_plancredito.nombre;
+    console.log("configuracion data plan-->"+JSON.stringify(data));
+    this.nombreplan=data.tipo_plancredito.id+"-" +data.tipo_plancredito.nombre;
 
   }
 
