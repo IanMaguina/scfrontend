@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ConfiguracionComponent } from './configuracion.component';
 
 //utilitarios
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -125,6 +126,7 @@ import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-apr
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+    DragDropModule
   ],
   exports: [
 

@@ -194,6 +194,42 @@ export class PlanService {
     );
   }
 
+  listarAprobadoresporDocumentoValorado(id_plan_documentovalorado:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan-documento-valorado/"+id_plan_documentovalorado+"/aprobador").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay documento valorado encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }  
+
+  actualizarOrden(id_plan_documentovalorado:number,aprobadores: any): Promise<any> {
+    console.log("sending aprobadores..." + JSON.stringify(aprobadores));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/plan-documento-valorado-aprobador/"+id_plan_documentovalorado+"/actualizar-orden", aprobadores).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+  
+   
 }
 
 

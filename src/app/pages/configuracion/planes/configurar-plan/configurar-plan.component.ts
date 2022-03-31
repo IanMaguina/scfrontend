@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   ]
 })
 export class ConfigurarPlanComponent implements OnInit {
-  nombreplan:string ='plan de prueba';
+  nombreplan:string ='';
   informacionForm: any;
   
 
@@ -18,6 +18,7 @@ export class ConfigurarPlanComponent implements OnInit {
     
   ) { 
     console.log("data plan-->"+JSON.stringify(data));
+    this.nombreplan=data.tipo_plancredito.nombre;
 
   }
 

@@ -37,14 +37,11 @@
 
         <div class="content-table col-xs-12 col-s-8 col-m-8 col-l-6 col-xl-6">
             <br>
-            <div cdkDropList class="objeto col-xs-12" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
                 <div class="example-box" *ngFor="let item of listadoAprobadoresPlan" cdkDrag>
                     <div class="example-custom-placeholder" *cdkDragPlaceholder>
                     </div>
-                    <div>{{item.orden}}.{{item.nombre}}</div>
-                   
-
-
+                    <div>{{item.orden}}-{{item.usuario.nombre}}</div>
                 </div>
             </div>
             <br>

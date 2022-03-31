@@ -12,58 +12,55 @@ import { AsignarAprobadoresComponent } from '../asignar-aprobadores/asignar-apro
 })
 export class FlujoAprobacionComponent implements OnInit {
   @Input() plan: Plan;
-  listadoTipoFlujoAprobacion: any[] = [];
+  listadoTipoFlujoAprobacion: any[] = [];// [{"id":1,"documentovalorado":"Cheque","aprobadores":",Fernando Barrios,usuario A"},{"id":2,"documentovalorado":"Pagare","aprobadores":""}];
   displayedColumns: string[] = ['documentovalorado', 'aprobadores'];
 
   constructor(
     private matDialog: MatDialog,
     private planService: PlanService
   ) {
-    
   }
 
   async ngOnInit() {
     await this.listarPlanDocumentoValorado();
   }
 
+
   async listarPlanDocumentoValorado() {
-    this.listadoTipoFlujoAprobacion=[];
-    this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id).then(data => {
+    let listado: any[] = [];
+    await this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id).then(data => {
+      console.log("listarPlanDocumentoValoradoAprobador-->" + JSON.stringify(data));
       let aux: any[] = data.payload;
       aux.forEach(item => {
-        
-        let aprobadores: any[] = (item.aprobadores.length>0 ? item.aprobadores:[]);
-        console.log("aprobadoresarsa-->" + JSON.stringify(aprobadores));
+        let aprobadores: any[] = (item.aprobadores.length > 0 ? item.aprobadores : []);
         let usuarios: string = "";
+        let id_plan_documentovalorado: number = null;
         aprobadores.forEach(apro => {
-          console.log("hola111-->"+JSON.stringify(apro.usuario===null?"":apro.usuario.nombre));
-          let nom=(apro.usuario===null?"":apro.usuario.nombre);
-          usuarios=usuarios.concat((nom===""?"":","),nom);
-          console.log("usuarios-->"+usuarios);
-          //usuarios.concat(usuarios,(apro.usuario===null?"":apro.usuario.nombre));
+          let nom = (apro.usuario === null ? "" : apro.usuario.nombre);
+          usuarios = usuarios.concat(nom, (nom === "" ? "" : ","));
+          id_plan_documentovalorado = apro.id_plan_documentovalorado;
+          console.log("usuarios-->" + usuarios);
         })
         let tipoFlujo = {
-          //tipo_documentovalorado:item.tipo_documentovalorado,
           id: item.tipo_documentovalorado.id,
           documentovalorado: item.tipo_documentovalorado.nombre,
-          aprobadores: usuarios
+          aprobadores: usuarios,
+          id_plan_documentovalorado: id_plan_documentovalorado,
+          listado_aprobadores: item.aprobadores
         }
-        this.listadoTipoFlujoAprobacion.push(tipoFlujo);
+        listado.push(tipoFlujo);
       })
-      console.log("listarPlanDocumentoValorado-->" + JSON.stringify(this.listadoTipoFlujoAprobacion));
+      this.listadoTipoFlujoAprobacion = listado;
+      console.log("listadoTipoFlujoAprobacion-->" + JSON.stringify(this.listadoTipoFlujoAprobacion));
     });
   }
 
 
   editarAprobadores(element: any) {
-    let item = {
-      plan: 1,
-      documento: element.id
-    }
     const dialogRef2 = this.matDialog.open(AsignarAprobadoresComponent, {
       disableClose: true,
       width: '60%',
-      data: item,
+      data: element.id_plan_documentovalorado,
     });
 
     dialogRef2.afterClosed().subscribe(result => {

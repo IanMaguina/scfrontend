@@ -15,17 +15,12 @@ import { Plan } from 'src/app/models/plan.interface';
 @Component({
   selector: 'app-asignar-aprobadores',
   templateUrl: './asignar-aprobadores.component.html',
-  styles: [
-  ]
+  styleUrls: ['./asignar-aprobadores.component.css']
 })
 export class AsignarAprobadoresComponent implements OnInit {
   @Input() plan: Plan;
-  listadoAprobadoresPlan:any[]=[
-    {id:1, orden:1,nombre:'Mariano Melgar'},
-    {id:2, orden:2,nombre:'Francisco Bolognesi'},
-    {id:3, orden:3,nombre:'Tupac Amaru'},
-    {id:4, orden:4,nombre:'Andres Caceres'},
-  ];
+  listadoAprobadoresPlan:any[]=[];
+  listadoAuxAprobadoresPlan:any[]=[];
 
   filteredUsuarioAprobador!: Observable<Usuario[]>;
   comboListadoUsuarioAprobador: Usuario[] = [];
@@ -43,7 +38,7 @@ export class AsignarAprobadoresComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
 
-  dataPlanes:any;
+  id_plan_documentovalorado:any;
 
   constructor(
     public dialogRef: MatDialogRef<AsignarAprobadoresComponent>,
@@ -53,7 +48,8 @@ export class AsignarAprobadoresComponent implements OnInit {
     private usuarioService: UsuarioService,
     private planService: PlanService
     ) { 
-      this.dataPlanes = data;
+      this.id_plan_documentovalorado = data;
+      console.log("id_plan_documentovalorado--->"+data);
       this.aprobadorForm = this.formBuilder.group({
         usuario: ['', Validators.required],
       })
@@ -65,12 +61,14 @@ export class AsignarAprobadoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarUsuarios();
+    this.listarAprobadoresporDocumentoValorado();
   }
 
-  async listarPlanDocumentoValorado() {
-    this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id).then(data => {
-      //this.listadoNivelMora = data.payload;
-      //console.log("nivel mora despues-->"+JSON.stringify(this.listadoNivelMora));
+  async listarAprobadoresporDocumentoValorado() {
+    this.planService.listarAprobadoresporDocumentoValorado(this.id_plan_documentovalorado).then(data => {
+      this.listadoAprobadoresPlan = data.payload;
+      this.listadoAuxAprobadoresPlan= data.payload;
+      console.log("listadoAprobadoresPlan-->"+JSON.stringify(this.listadoAprobadoresPlan));
     })
   }
 
@@ -96,7 +94,13 @@ export class AsignarAprobadoresComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.listadoAprobadoresPlan, event.previousIndex, event.currentIndex);
+    //console.log("como se ve-->"+JSON.stringify(this.listadoAprobadoresPlan));
+    console.log(JSON.stringify(this.mapeoAprobadores()));
+    this.planService.actualizarOrden(this.id_plan_documentovalorado, this.mapeoAprobadores()).then(()=>{
+      this.listarAprobadoresporDocumentoValorado();
+    });
   }
+
   displayFn(user: Usuario): string {
     return user && user.nombre ? user.nombre : '';
   }
@@ -104,4 +108,14 @@ export class AsignarAprobadoresComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  mapeoAprobadores(){
+    let conta=0;
+    let listado:any[]=this.listadoAprobadoresPlan;
+    let aprobadores:any[]=[];
+    listado.forEach(item=>{
+      conta++;
+      aprobadores.push({id:item.id,orden:conta})
+    })
+    return aprobadores;
+  }
 }
