@@ -68,7 +68,7 @@ export class AsignarAprobadoresComponent implements OnInit {
   }
 
   async listarPlanDocumentoValorado() {
-    this.planService.listarPlanDocumentoValorado(this.plan.id).then(data => {
+    this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id).then(data => {
       //this.listadoNivelMora = data.payload;
       //console.log("nivel mora despues-->"+JSON.stringify(this.listadoNivelMora));
     })
