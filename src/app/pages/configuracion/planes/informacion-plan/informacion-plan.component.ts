@@ -263,7 +263,7 @@ export class InformacionPlanComponent implements OnInit {
     this.informacionForm.get("bolsa")?.setValue(this.plan.bolsa);
     this.informacionForm.get("camiones")?.setValue(this.plan.camiones);
     this.informacionForm.get("revisionMensual")?.setValue(this.plan.revision_mensual);
-    this.informacionForm.get("moneda")?.setValue(this.plan.tipo_moneda.simbolo);
+    this.informacionForm.get("moneda")?.setValue((this.plan.tipo_moneda?this.plan.tipo_moneda.simbolo:""));
     
   }  
 
@@ -370,6 +370,21 @@ export class InformacionPlanComponent implements OnInit {
     let lineaProducto = this.informacionForm.get("lineaProducto").value;
     console.log(JSON.stringify(lineaProducto));
     this.mostrarLineaProducto = lineaProducto;
+  }
+
+  marcarTipoMoneda() {
+    let campo:any[] = this.listadoInformacionPlan.grupo_cliente
+    let devuelve:any[]=[];
+    campo.forEach(item=>{
+      devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
+    })
+    this.informacionForm.get("grupoCliente")?.setValue(devuelve);
+  }  
+
+  llenarTipoMoneda() {
+    let grupoCliente = this.informacionForm.get("grupoCliente").value;
+    console.log(JSON.stringify(grupoCliente) + "---al cambiar el grupoCliente ");
+    this.mostrarGrupoCliente = grupoCliente;
   }
 
   async guardarSeccionInformacion(form: any) {
