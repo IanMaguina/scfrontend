@@ -19,8 +19,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Grupo Cliente</mat-label>
                         <mat-select formControlName="grupoCliente" multiple (selectionChange)="llenarGrupoCliente()" [compareWith]="compareGrupoCliente">
-                            <mat-option *ngFor="let grupocliente of listadoGrupoCliente" [value]="grupocliente">{{
-                                grupocliente.nombre }}
+                            <mat-option *ngFor="let grupocliente of listadoGrupoCliente" [value]="grupocliente">{{ grupocliente.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -106,8 +105,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Centro de Riesgo</mat-label>
                         <mat-select formControlName="centroRiesgo" multiple required (selectionChange)="llenarCentroRiesgo()" [compareWith]="compareCentroRiesgo">
-                            <mat-option *ngFor="let centroRiesgo of listadoCentroRiesgo" [value]="centroRiesgo">{{
-                                centroRiesgo.nombre }}
+                            <mat-option *ngFor="let centroRiesgo of listadoCentroRiesgo" [value]="centroRiesgo">{{ centroRiesgo.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -131,8 +129,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Documentos Valorados</mat-label>
                         <mat-select formControlName="tipoDocumentoValorado" required multiple (selectionChange)="llenarTipoDocumentoValorado()" [compareWith]="compareTipoDocumentoValorado">
-                            <mat-option *ngFor="let tipo of listadoTipoDocumentoValorado" [value]="tipo">{{ tipo.nombre
-                                }}
+                            <mat-option *ngFor="let tipo of listadoTipoDocumentoValorado" [value]="tipo">{{ tipo.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -154,8 +151,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Rango</mat-label>
                         <mat-select formControlName="rango" required multiple (selectionChange)="llenarRango()" [compareWith]="compareRango">
-                            <mat-option *ngFor="let tipo of listadoRango" [value]="tipo">{{ tipo.nombre
-                                }}
+                            <mat-option *ngFor="let tipo of listadoRango" [value]="tipo">{{ tipo.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -202,7 +198,7 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Moneda</mat-label>
-                        <mat-select formControlName="moneda" required >
+                        <mat-select formControlName="moneda" required>
                             <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo.simbolo">{{tipo.simbolo }}
                             </mat-option>
                         </mat-select>
@@ -221,8 +217,8 @@
                                 {{formErrors.bolsa}}
                             </mat-error>
                         </mat-hint>
-        
-                    </mat-form-field>                    
+
+                    </mat-form-field>
                 </div>
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
             </div>
@@ -237,7 +233,7 @@
                                 {{formErrors.camiones}}
                             </mat-error>
                         </mat-hint>
-        
+
                     </mat-form-field>
                 </div>
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
@@ -257,14 +253,15 @@
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">&nbsp;</div>
             </div>
             <br>
-            <div class="botonera-form objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                <button mat-raised-button class="boton-principal-light col-xl-2" type="submit"
-                    [disabled]="informacionForm.invalid">Guardar</button>
+            <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+
+            <div class="botonera-form">
+                <button mat-raised-button class="boton-principal-light col-xl-2" type="submit" [disabled]="informacionForm.invalid">Guardar</button>
             </div>
 
         </form>
         <br>
-        <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+
     </div>
 
 </div>
