@@ -1,31 +1,33 @@
 import { Injectable } from '@angular/core';
+import { MenuNode } from '../models/menu.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidebarService {
 
-  menu:any[] = [
+  menu: MenuNode[] = [
     {
-      titulo: 'Dashboard',
-      icono: 'edit',
-      submenu:[
-        {titulo:'Principal', url: '/'},
+      name: 'Dashboard',
+      icono: 'dashboard',
+      children: [
+        { name: 'Principal', url: '/' },
       ]
     },
     {
-      titulo: 'Configuración',
-      icono: 'edit',
-      submenu:[
-        {titulo:'Usuarios', url: '/usuarios'},
-        {titulo:'Estrategias', url: '/estrategias'},
-        {titulo:'Consorcios', url: '/consorcios'},
-        {titulo:'Grupos', url: '/grupos'},
-        {titulo:'Planes', url: '/planes'},
-        {titulo:'Tipo de documento valorado', url: '/tipodocumentovalorado'},
-        {titulo:'Suplencias', url: '/suplencias'},
-        {titulo:'Asistente de facturacion', url: '/asistentefacturacion'},
-        {titulo:'Aprobador adicional', url: '/aprobadoradicional'},
+      name: 'Configuración',
+      icono: 'build',
+      toolTip: 'Configuración',
+      children: [
+        { name: 'Usuarios', url: 'configuracion/usuarios' },
+        { name: 'Estrategias', url: 'configuracion/estrategias' },
+        { name: 'Consorcios', url: 'configuracion/consorcios' },
+        { name: 'Grupos', url: 'configuracion/grupos' },
+        { name: 'Planes', url: 'configuracion/planes' },
+        { name: 'Tipo de documento valorado', url: 'configuracion/tipodocumentovalorado' },
+        { name: 'Suplencias', url: 'configuracion/suplencias' },
+        { name: 'Asistente de facturacion', url: 'configuracion/asistentefacturacion' },
+        { name: 'Aprobador adicional', url: 'configuracion/aprobadoradicional' },
       ]
     },
   ];
@@ -33,5 +35,5 @@ export class SidebarService {
 
   constructor() {
     console.log("test menu");
-   }
+  }
 }

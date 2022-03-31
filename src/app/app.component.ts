@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'scfrontend';
+  funcion:boolean = true;
+  hideSidebar() {
+    this.funcion = true;
+  }
+  showSidebar() {
+    this.funcion = false;
+  }
+
+
 }
