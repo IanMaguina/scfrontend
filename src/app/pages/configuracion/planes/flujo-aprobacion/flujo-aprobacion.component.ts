@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Plan } from 'src/app/models/plan.interface';
+import { PlanService } from 'src/app/services/plan.service';
 import { AsignarAprobadoresComponent } from '../asignar-aprobadores/asignar-aprobadores.component';
 
 @Component({
@@ -9,7 +11,8 @@ import { AsignarAprobadoresComponent } from '../asignar-aprobadores/asignar-apro
   ]
 })
 export class FlujoAprobacionComponent implements OnInit {
-  listadoAprobacionxDV:any[]=[
+  @Input() plan: Plan;
+  listadoTipoFlujoAprobacion:any[]=[
     {id:1, documentovalorado:'Cheque', aprobadores:'Rafa, Felipe, Rian'},
     {id:2, documentovalorado:'Carta Fianza', aprobadores:'Rafa, Felipe, Rian'},
     {id:3, documentovalorado:'Letra', aprobadores:'Rafa, Felipe, Rian'},
@@ -20,9 +23,18 @@ export class FlujoAprobacionComponent implements OnInit {
 
   constructor( 
     private matDialog: MatDialog,
+    private planService: PlanService
     ) { }
 
   ngOnInit(): void {
+    //this.listarPlanDocumentoValorado();
+  }
+
+  async listarPlanDocumentoValorado() {
+    this.planService.listarPlanDocumentoValorado(this.plan.id).then(data => {
+      this.listadoTipoFlujoAprobacion = data.payload;
+      console.log("listarPlanDocumentoValorado-->"+JSON.stringify(this.listadoTipoFlujoAprobacion));
+    })
   }
 
 

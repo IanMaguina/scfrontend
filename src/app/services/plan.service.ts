@@ -172,6 +172,28 @@ export class PlanService {
       }
     );
   }  
+
+  listarPlanDocumentoValorado(id:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan/"+id+"/documento-valorado").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay documento valorado encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -10,6 +10,8 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop/drag-events';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { PlanService } from 'src/app/services/plan.service';
+import { Plan } from 'src/app/models/plan.interface';
 @Component({
   selector: 'app-asignar-aprobadores',
   templateUrl: './asignar-aprobadores.component.html',
@@ -17,6 +19,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   ]
 })
 export class AsignarAprobadoresComponent implements OnInit {
+  @Input() plan: Plan;
   listadoAprobadoresPlan:any[]=[
     {id:1, orden:1,nombre:'Mariano Melgar'},
     {id:2, orden:2,nombre:'Francisco Bolognesi'},
@@ -48,6 +51,7 @@ export class AsignarAprobadoresComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
+    private planService: PlanService
     ) { 
       this.dataPlanes = data;
       this.aprobadorForm = this.formBuilder.group({
@@ -61,6 +65,13 @@ export class AsignarAprobadoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarUsuarios();
+  }
+
+  async listarPlanDocumentoValorado() {
+    this.planService.listarPlanDocumentoValorado(this.plan.id).then(data => {
+      //this.listadoNivelMora = data.payload;
+      //console.log("nivel mora despues-->"+JSON.stringify(this.listadoNivelMora));
+    })
   }
 
   async listarUsuarios() {

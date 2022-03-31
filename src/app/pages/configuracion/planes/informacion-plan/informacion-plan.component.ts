@@ -178,7 +178,6 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   async listarInformacionPlan() {
-    console.log("XXXXXXXXXXXXXXXXXXXXXXXXX");
     this.planService.editarInformacion(this.plan.id).then(data => {
       console.log("listado informacion de plan-->" + JSON.stringify(data.payload));
       this.listadoInformacionPlan=data.payload;
@@ -329,10 +328,10 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarTipoDocumentoValorado() {
-    let campo:any[] =this.listadoInformacionPlan.documento_valorado;
+    let campo:any[] =this.listadoInformacionPlan.tipo_documentovalorado;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.id_tipo_documentovalorado, nombre:""})
+      devuelve.push({id:item.tipo_documentovalorado.id, nombre:item.tipo_documentovalorado.nombre})
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
   }  
