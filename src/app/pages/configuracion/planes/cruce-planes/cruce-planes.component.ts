@@ -18,7 +18,7 @@ export class CrucePlanesComponent implements OnInit {
   listadoPlanes: any[] = [];
   listadoPlanesSeleccionados: any[] = [];
   constructor(private planService: PlanService,
-    private _snack: MatSnackBar  ) {
+    private _snack: MatSnackBar) {
   }
 
   async ngOnInit() {
@@ -42,39 +42,51 @@ export class CrucePlanesComponent implements OnInit {
           this.listadoPlanes.push(valor);
         }
       })
-      console.log("antes del cruce de planes-->"+JSON.stringify(this.listadoPlanes));
+      console.log("antes del cruce de planes-->" + JSON.stringify(this.listadoPlanes));
     })
   }
 
   async listarCrucePlanes() {
-    console.log("XXXXXXXXXXXXXXXXXXXXXXXXX");
-    this.planService.editarCruce(this.plan.id).then(data => {
-      console.log("listado cruce de planes-->"+JSON.stringify(data.payload));
-      let lista: any[] = data.payload.plan_cruce;
+    this.planService.editarCruce(this.plan.id_tipo_plan_credito).then(data => {
+      console.log(JSON.stringify(this.plan) + "-listado cruce de planes-->" + JSON.stringify(data.payload));
+      let listaCruce: any[] = data.payload.plan_cruce;
+      console.log("super lista cruce--->" + JSON.stringify(listaCruce));
       let auxLista: any[] = this.listadoPlanes;
-      this.listadoPlanes=[];
+      this.listadoPlanes = [];
       let listadoCrucePlan: any[] = [];
-      lista.forEach(async itemCruce => {
-        auxLista.forEach(itemPlan=>{
-          if (itemCruce.id_plan_cruce === itemPlan.id) {
-            let valor: any = {
-              id: itemPlan.id,
-              nombre: itemPlan.nombre,
-              seleccionar: true
+
+      if (listaCruce.length > 0) {
+        auxLista.forEach(itemPlan => {
+          listaCruce.forEach(async itemCruce => {
+            if (itemCruce.id_plan_cruce === itemPlan.id) {
+              let valor: any = {
+                id: itemPlan.id,
+                nombre: itemPlan.nombre,
+                seleccionar: true
+              }
+              listadoCrucePlan.push(valor);
+            } else {
+              let valor: any = {
+                id: itemPlan.id,
+                nombre: itemPlan.nombre,
+                seleccionar: false
+              }
+              listadoCrucePlan.push(valor);
             }
-            listadoCrucePlan.push(valor);
-          }else{
-            let valor: any = {
-              id: itemPlan.id,
-              nombre: itemPlan.nombre,
-              seleccionar: false
-            }
-            listadoCrucePlan.push(valor);
-          }
+          })
         })
-      })
-      this.listadoPlanes=listadoCrucePlan;
-      console.log("despues del cruce--->"+JSON.stringify(this.listadoPlanes));
+      } else {
+        auxLista.forEach(itemPlan => {
+          let valor: any = {
+            id: itemPlan.id,
+            nombre: itemPlan.nombre,
+            seleccionar: false
+          }
+          listadoCrucePlan.push(valor);
+        })
+      }
+      this.listadoPlanes = listadoCrucePlan;
+      console.log("despues del cruce--->" + JSON.stringify(this.listadoPlanes));
     })
   }
 
@@ -93,7 +105,7 @@ export class CrucePlanesComponent implements OnInit {
 
   async mapeoCruce() {
     let cruce: any = {
-      id:this.plan.id,
+      id: this.plan.id,
       cruce: this.retornarCrucePlanes()
     }
     return cruce;
