@@ -104,6 +104,7 @@ export class AsignarAprobadoresComponent implements OnInit {
   displayFn(user: Usuario): string {
     return user && user.nombre ? user.nombre : '';
   }
+  
   onNoClick(): void {
     this.dialogRef.close();
   }
