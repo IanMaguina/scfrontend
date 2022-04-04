@@ -45,7 +45,7 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   async toggleUsuarioEstado(element: Usuario) {
-    console.log("objeto a inactivar" + JSON.stringify(element));
+    console.log("objeto a inactivar" + JSON.stringify(element.id));
 
     this.usuarioService.activarUsuario(element).then(data => {
       console.log("cuando actualiza esto pasa: " + JSON.stringify(data));

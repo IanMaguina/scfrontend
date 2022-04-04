@@ -142,15 +142,32 @@ export class UsuarioService {
 
   /* Funciona como eliminar usuario ya que es "delete" */
   activarUsuario(usuario: Usuario): Promise<any> {
+    console.log("activar/desactivar Usuario..." + JSON.stringify(usuario));
+    let respuesta: UserResponse;
+    let item = {
+      activo:usuario.activo
+    }
+    return new Promise(
+      (resolve, reject) => {
+
+        this.resourceService.putResource("/api/usuario/" + usuario.id+"/actualizar-activo",item).toPromise().then((data) => {
+
+          console.log("response data=" + JSON.stringify(data));
+          respuesta = data;
+          resolve(respuesta);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+  eliminarUsuario(usuario: Usuario): Promise<any> {
+
 
     console.log("activar/desactivar Usuario..." + JSON.stringify(usuario));
     let respuesta: UserResponse;
-   /*  let item = {
-      "id_usuario": usuario.id,
-      "activo": usuario.activo,
-    } */
-
-
     return new Promise(
       (resolve, reject) => {
 
