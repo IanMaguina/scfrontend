@@ -11,10 +11,32 @@ export class GrupoClienteService {
   ) {
   }
 
-  listar(tipo:any): Promise<any> {
+  listarGrupoCliente(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/grupo-cliente?tipo="+tipo).toPromise().then((data) => {
+        this.resourceService.getResource("/api/grupo-cliente").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no se encontrados datos...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
+  listarClientes(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/lista-cliente").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

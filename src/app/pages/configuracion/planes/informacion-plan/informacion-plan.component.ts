@@ -194,21 +194,23 @@ export class InformacionPlanComponent implements OnInit {
       this.llenarTipoDocumentoValorado();
       this.marcarLineaProducto();
       this.llenarLineaProducto();
+      this.marcarTipoMoneda();
+      this.llenarTipoMoneda();
       console.log("listado nivelMora-->" + JSON.stringify(this.informacionForm.get("nivelMora")?.value));
     })
   }
 
   async listarGrupoCliente() {
-    this.grupoClienteService.listar("G").then(data => {
+    this.grupoClienteService.listarGrupoCliente().then(data => {
       this.listadoGrupoCliente = data.payload;
       console.log(JSON.stringify(this.listadoGrupoCliente));
     })
   }
 
   async listarClientes() {
-    this.grupoClienteService.listar("L").then(data => {
+    this.grupoClienteService.listarClientes().then(data => {
       this.listadoClientes = data.payload;
-      console.log(JSON.stringify(this.listadoClientes));
+      console.log("clientes--->"+JSON.stringify(this.listadoClientes));
     })
   }
 
@@ -250,7 +252,7 @@ export class InformacionPlanComponent implements OnInit {
   async listarTipoMoneda() {
     this.tipoMonedaService.listar().then(data => {
       this.listadoTipoMoneda = data.payload;
-      console.log(JSON.stringify(this.listadoTipoMoneda));
+      console.log("tipo_moneda--->"+JSON.stringify(this.listadoTipoMoneda));
     })
   }
 
@@ -263,7 +265,7 @@ export class InformacionPlanComponent implements OnInit {
     this.informacionForm.get("bolsa")?.setValue(this.plan.bolsa);
     this.informacionForm.get("camiones")?.setValue(this.plan.camiones);
     this.informacionForm.get("revisionMensual")?.setValue(this.plan.revision_mensual);
-    this.informacionForm.get("moneda")?.setValue((this.plan.tipo_moneda?this.plan.tipo_moneda.simbolo:""));
+    //this.informacionForm.get("moneda")?.setValue((this.plan.tipo_moneda?this.plan.tipo_moneda.simbolo:""));
     
   }  
 
@@ -283,10 +285,10 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarClientes() {
-    let campo:any[] = this.listadoInformacionPlan.lista_cliente
+    let campo:any[] = this.listadoInformacionPlan.lista_cliente;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.lista_cliente.id, nombre: item.lista_cliente.nombre})
+      devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
     })
     this.informacionForm.get("cliente")?.setValue(devuelve);
   }  
@@ -373,18 +375,20 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarTipoMoneda() {
-    let campo:any[] = this.listadoInformacionPlan.grupo_cliente
+    let campo:any = this.listadoInformacionPlan.tipo_moneda;
     let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
-    })
-    this.informacionForm.get("grupoCliente")?.setValue(devuelve);
+    devuelve.push(campo);
+    console.log("marcaTipoMoneda--->"+JSON.stringify(campo));
+/*     campo.forEach(item=>{
+      devuelve.push({id:item.id, nombre: item.nombre, simbolo:item.simbolo})
+    }) */
+    this.informacionForm.get("moneda")?.setValue(campo.id);
   }  
 
   llenarTipoMoneda() {
-    let grupoCliente = this.informacionForm.get("grupoCliente").value;
-    console.log(JSON.stringify(grupoCliente) + "---al cambiar el grupoCliente ");
-    this.mostrarGrupoCliente = grupoCliente;
+    let moneda = this.informacionForm.get("moneda").value;
+    console.log(JSON.stringify(moneda) );
+    this.mostrarTipoMoneda = moneda;
   }
 
   async guardarSeccionInformacion(form: any) {

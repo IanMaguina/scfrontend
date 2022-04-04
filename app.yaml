@@ -1,0 +1,16 @@
+# [START runtime]
+runtime: python27
+service: ui
+threadsafe: yes
+# [END runtime]
+handlers:
+- url: /(.*\.(gif|png|jpg|css|js)(|\.map))$
+  static_files: dist/\1
+  upload: dist/(.*)(|\.map)
+  secure: always
+- url: /(.*)
+  static_files: dist/index.html
+  upload: dist/index.html
+  secure: always
+skip_files:
+- ^(?!dist)  # Skip any files not in the dist folder

@@ -219,7 +219,7 @@ export class PlanService {
     console.log("sending aprobadores..." + JSON.stringify(aprobadores));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.putResource("/api/plan-documento-valorado-aprobador/"+id_plan_documentovalorado+"/actualizar-orden", aprobadores).toPromise().then((data) => {
+        this.resourceService.putResource("/api/plan-documento-valorado/"+id_plan_documentovalorado+"/actualizar-orden-aprobadores", aprobadores).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {

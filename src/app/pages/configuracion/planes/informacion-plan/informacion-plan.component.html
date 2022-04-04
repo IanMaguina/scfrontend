@@ -199,7 +199,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Moneda</mat-label>
                         <mat-select formControlName="moneda" required>
-                            <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo.simbolo">{{tipo.simbolo }}
+                            <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo.id">{{tipo.simbolo }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
