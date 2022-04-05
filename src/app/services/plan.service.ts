@@ -177,6 +177,7 @@ export class PlanService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/plan/"+id+"/documento-valorado-aprobador").toPromise().then((data) => {
+          console.log("servicio aprobador dv--->"+JSON.stringify(data));
           if (data.header.exito) {
             resolve(data);
           } else {

@@ -34,9 +34,9 @@ export class CrucePlanesComponent implements OnInit {
       let lista: any[] = data.payload;
       this.listadoPlanes = [];
       lista.forEach(async item => {
-        if (item.id_tipo_plan_credito !== this.plan.id_tipo_plan_credito) {
+        if (item.id !== this.plan.id) {
           let valor: any = {
-            id: item.tipo_plancredito.id,
+            id: item.id,
             nombre: item.tipo_plancredito.nombre,
             seleccionar: false
           }
@@ -48,7 +48,7 @@ export class CrucePlanesComponent implements OnInit {
   }
 
   async listarCrucePlanes() {
-    this.planService.editarCruce(this.plan.id_tipo_plan_credito).then(data => {
+    this.planService.editarCruce(this.plan.id).then(data => {
       console.log(JSON.stringify(this.plan) + "-listado cruce de planes-->" + JSON.stringify(data.payload));
       let listaCruce: any[] = data.payload.plan_cruce;
       let auxLista: any[] = this.listadoPlanes;
@@ -107,24 +107,10 @@ export class CrucePlanesComponent implements OnInit {
 
   async mapeoCruce() {
     let cruce: any = {
-      id: this.plan.id_tipo_plan_credito,
+      id: this.plan.id,
       cruce: this.retornarCrucePlanes()
     }
     return cruce;
-  }
-
-
-  onChangeCruce(element: any, event: any) {
-    element.seleccionar = !element.seleccionar;
-    console.log("element.seleccionar--->" + JSON.stringify(element.seleccionar));
-    if (element.seleccionar) {
-      console.log("element.seleccionar 2--->" + JSON.stringify(element.seleccionar));
-      this.listadoPlanesSeleccionados.push(element);
-    } else {
-      let listado: any[] = this.listadoPlanesSeleccionados;
-      this.listadoPlanesSeleccionados = listado.filter((item) => item.id !== element.id);
-    }
-    console.log("onChangeCruce--->" + JSON.stringify(this.listadoPlanesSeleccionados));
   }
 
   retornarCrucePlanes() {
@@ -135,4 +121,17 @@ export class CrucePlanesComponent implements OnInit {
     })
     return valor;
   }
+
+  onChangeCruce(element: any) {
+    element.seleccionar = !element.seleccionar;
+    if (element.seleccionar) {
+      this.listadoPlanesSeleccionados.push(element);
+    } else {
+      let listado: any[] = this.listadoPlanesSeleccionados;
+      this.listadoPlanesSeleccionados = listado.filter((item) => item.id !== element.id);
+    }
+    console.log("onChangeCruce--->" + JSON.stringify(this.listadoPlanesSeleccionados));
+  }
+
+
 }

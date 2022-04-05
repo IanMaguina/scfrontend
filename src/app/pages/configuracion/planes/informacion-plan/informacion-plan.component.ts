@@ -113,7 +113,7 @@ export class InformacionPlanComponent implements OnInit {
   listadoBolsa: any[] = [];
   listadoCamiones: any[] = [];
   listadoTipoMoneda: any[] = [];
-  mostrarTipoMoneda: any[] = [];
+  mostrarTipoMoneda: any = {};
   listadoyesno: any[] = [
     { nombre: 'S' },
     { nombre: 'N' },
@@ -163,18 +163,18 @@ export class InformacionPlanComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     console.log("ngOnInit");
     console.log("Data del plan en información-->" + JSON.stringify(this.plan));
     this.tipoFlujoAprobacion = { id: this.plan.tipo_plancredito.id_tipo_flujo_aprobacion, nombre: "" };
-    this.listarInformacionPlan();
-    this.listarGrupoCliente();
-    this.listarLineaProducto();
-    this.listarTipoDocumentoValorado();
-    this.listarNivelMora();
-    this.listarCentroRiesgo();
-    this.listarClientes();
-    this.listarTipoMoneda()
+    await this.listarGrupoCliente();
+    await this.listarLineaProducto();
+    await this.listarTipoDocumentoValorado();
+    await this.listarNivelMora();
+    await this.listarCentroRiesgo();
+    await this.listarClientes();
+    await this.listarTipoMoneda()
+    await this.listarInformacionPlan();
   }
 
   async listarInformacionPlan() {
@@ -196,7 +196,6 @@ export class InformacionPlanComponent implements OnInit {
       this.llenarLineaProducto();
       this.marcarTipoMoneda();
       this.llenarTipoMoneda();
-      console.log("listado nivelMora-->" + JSON.stringify(this.informacionForm.get("nivelMora")?.value));
     })
   }
 
@@ -265,16 +264,18 @@ export class InformacionPlanComponent implements OnInit {
     this.informacionForm.get("bolsa")?.setValue(this.plan.bolsa);
     this.informacionForm.get("camiones")?.setValue(this.plan.camiones);
     this.informacionForm.get("revisionMensual")?.setValue(this.plan.revision_mensual);
-    //this.informacionForm.get("moneda")?.setValue((this.plan.tipo_moneda?this.plan.tipo_moneda.simbolo:""));
-    
   }  
 
   marcarGrupoCiente() {
+    this.informacionForm.get("checkGrupos")?.setValue(false);
     let campo:any[] = this.listadoInformacionPlan.grupo_cliente
     let devuelve:any[]=[];
     campo.forEach(item=>{
       devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
     })
+    if (devuelve.length>0){
+      this.informacionForm.get("checkGrupos")?.setValue(true);
+    }
     this.informacionForm.get("grupoCliente")?.setValue(devuelve);
   }  
 
@@ -285,11 +286,15 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarClientes() {
+    this.informacionForm.get("checkClientes")?.setValue(false);
     let campo:any[] = this.listadoInformacionPlan.lista_cliente;
     let devuelve:any[]=[];
     campo.forEach(item=>{
       devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
     })
+    if (devuelve.length>0){
+      this.informacionForm.get("checkClientes")?.setValue(true);
+    }    
     this.informacionForm.get("cliente")?.setValue(devuelve);
   }  
 
@@ -333,7 +338,7 @@ export class InformacionPlanComponent implements OnInit {
     let campo:any[] =this.listadoInformacionPlan.tipo_documentovalorado;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.tipo_documentovalorado.id, nombre:item.tipo_documentovalorado.nombre})
+      devuelve.push({id:item.tipo_documento_valorado.id, nombre:item.tipo_documento_valorado.nombre})
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
   }  
@@ -376,18 +381,13 @@ export class InformacionPlanComponent implements OnInit {
 
   marcarTipoMoneda() {
     let campo:any = this.listadoInformacionPlan.tipo_moneda;
-    let devuelve:any[]=[];
-    devuelve.push(campo);
     console.log("marcaTipoMoneda--->"+JSON.stringify(campo));
-/*     campo.forEach(item=>{
-      devuelve.push({id:item.id, nombre: item.nombre, simbolo:item.simbolo})
-    }) */
     this.informacionForm.get("moneda")?.setValue(campo.id);
   }  
 
   llenarTipoMoneda() {
     let moneda = this.informacionForm.get("moneda").value;
-    console.log(JSON.stringify(moneda) );
+    console.log("llenarTipoMoneda--->"+JSON.stringify(moneda));
     this.mostrarTipoMoneda = moneda;
   }
 
@@ -408,7 +408,7 @@ export class InformacionPlanComponent implements OnInit {
   async mapeoPlan(form: any) {
     let plan: Plan = {
       id: this.plan.id,
-      id_tipo_moneda: form.moneda.id,
+      id_tipo_moneda: form.moneda,
       bolsa: form.bolsa,
       camiones: form.camiones,
       carta_fianza: form.cartaFianza,

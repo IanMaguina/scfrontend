@@ -28,7 +28,7 @@ export class FlujoAprobacionComponent implements OnInit {
 
   async listarPlanDocumentoValorado() {
     let listado: any[] = [];
-    await this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id_tipo_plan_credito).then(data => {
+    await this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id).then(data => {
       console.log("listarPlanDocumentoValoradoAprobador-->" + JSON.stringify(data));
       if (data.header.exito) {
         let aux: any[] = data.payload;
