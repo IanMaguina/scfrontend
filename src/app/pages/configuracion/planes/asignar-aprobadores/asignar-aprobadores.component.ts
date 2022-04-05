@@ -1,3 +1,4 @@
+import { AprobadorDocumentovalorado } from './../../../../models/aprobador-documentovalorado';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -88,8 +89,23 @@ export class AsignarAprobadoresComponent implements OnInit {
     return this.comboListadoUsuarioAprobador.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  asignarAprobador(form:any){
-    console.log("asignarAprobador");
+  async asignarAprobador(form:any){
+    console.log("asignarAprobador-->"+JSON.stringify(form));
+    let aprobador = await this.mapeoAprobador(form)
+    this.planService.asignarAprobador(aprobador).then(()=>{
+      this.listarAprobadoresporDocumentoValorado();
+    })
+  }
+
+  async mapeoAprobador(form:any) {
+    let orden=this.listadoAprobadoresPlan.length+1;
+    let aprobador: AprobadorDocumentovalorado = {
+      id_plan_documentovalorado: this.id_plan_documentovalorado,
+      id_tipo_aprobador:1,
+      id_usuario:form.usuario.id,
+      orden:orden
+    }
+    return aprobador;
   }
 
   drop(event: CdkDragDrop<string[]>) {

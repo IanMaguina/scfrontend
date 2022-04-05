@@ -35,11 +35,11 @@ export class FlujoAprobacionComponent implements OnInit {
         aux.forEach(item => {
           let aprobadores: any[] = (item.aprobadores.length > 0 ? item.aprobadores : []);
           let usuarios: string = "";
-          let id_plan_documentovalorado: number = null;
+          let id_plan_documentovalorado: number = item.id;
           aprobadores.forEach(apro => {
             let nom = (apro.usuario === null ? "" : apro.usuario.nombre);
             usuarios = usuarios.concat(nom, (nom === "" ? "" : ","));
-            id_plan_documentovalorado = apro.id_plan_documentovalorado;
+            id_plan_documentovalorado = id_plan_documentovalorado;
             console.log("usuarios-->" + usuarios);
           })
           let tipoFlujo = {

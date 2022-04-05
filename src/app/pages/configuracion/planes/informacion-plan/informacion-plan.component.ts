@@ -338,7 +338,7 @@ export class InformacionPlanComponent implements OnInit {
     let campo:any[] =this.listadoInformacionPlan.tipo_documentovalorado;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.tipo_documento_valorado.id, nombre:item.tipo_documento_valorado.nombre})
+      devuelve.push({id:item.tipo_documentovalorado.id, nombre:item.tipo_documentovalorado.nombre})
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
   }  

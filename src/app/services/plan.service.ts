@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { Plan } from '../models/plan.interface';
+import { AprobadorDocumentovalorado } from '../models/aprobador-documentovalorado';
 
 @Injectable({
   providedIn: 'root'
@@ -230,7 +231,21 @@ export class PlanService {
       });
   }
   
-   
+  asignarAprobador(aprobador: AprobadorDocumentovalorado): Promise<any> {
+    console.log("adding aprobador..." + JSON.stringify(aprobador));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/plan-documento-valorado/"+aprobador.id_plan_documentovalorado+"/aprobador", aprobador).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }   
 }
 
 
