@@ -33,7 +33,7 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   async listarGruposEmpresariales() {
-    this.grupoEmpresarialService.listarGruposEmpresariales().then(data => {
+    await this.grupoEmpresarialService.listarGruposEmpresariales().then(data => {
       console.log(JSON.stringify(data.payload));
       this.listadoGrupos = data.payload;
     })
@@ -44,9 +44,8 @@ export class GrupoEmpresarialComponent implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("return function process");
-      this.listarGruposEmpresariales();
+    dialogRef.afterClosed().subscribe( (_) => {
+        this.listarGruposEmpresariales();
     });
 
   }
@@ -81,11 +80,10 @@ export class GrupoEmpresarialComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
         let clienteAgrupacion:ClienteAgrupacion=element;
-        console.log("return function process-->"+JSON.stringify(clienteAgrupacion));
-        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion);
+        this.grupoEmpresarialService.actualizarGrupoEmpresarial(clienteAgrupacion);
+        this.listarGruposEmpresariales();
         
       }
-      this.listarGruposEmpresariales();
     });
   }
   editarGrupo(element){

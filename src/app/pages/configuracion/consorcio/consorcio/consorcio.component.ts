@@ -82,14 +82,16 @@ export class ConsorcioComponent implements OnInit {
     });
 
     dialogRef3.afterClosed().subscribe(result => {
-      if(result==='CONFIRM_DLG_YES'){
-        console.log("return function process");
+      console.log("return result: "+result);
+    if(result==='CONFIRM_DLG_YES'){
         let clienteAgrupacion:ClienteAgrupacion=element;
         console.log("return function process-->"+JSON.stringify(clienteAgrupacion));
-        this.consorcioService.eliminarConsorcio(clienteAgrupacion);
-
+        this.consorcioService.activarConsorcio(clienteAgrupacion).then((data) => {
+          if(data.header.exito === true){
+            this.listarConsorcios();
+          }
+        });
       }
-      this.listarConsorcios();
     });
   }
 

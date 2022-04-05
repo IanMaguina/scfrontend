@@ -88,8 +88,8 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         console.log("realizar la edición");
+        this.listarTipoDocumentoValorado();
       }
-      this.listarTipoDocumentoValorado();
     });
   }
 

@@ -74,8 +74,8 @@ export class PlanesComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
         console.log("return function process");
+        this.listarPlanes();
       }
-      this.listarPlanes();
     });
   }
 
