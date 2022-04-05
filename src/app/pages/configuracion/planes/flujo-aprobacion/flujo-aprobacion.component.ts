@@ -28,28 +28,30 @@ export class FlujoAprobacionComponent implements OnInit {
 
   async listarPlanDocumentoValorado() {
     let listado: any[] = [];
-    await this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id).then(data => {
+    await this.planService.listarPlanDocumentoValoradoAprobador(this.plan.id_tipo_plan_credito).then(data => {
       console.log("listarPlanDocumentoValoradoAprobador-->" + JSON.stringify(data));
-      let aux: any[] = data.payload;
-      aux.forEach(item => {
-        let aprobadores: any[] = (item.aprobadores.length > 0 ? item.aprobadores : []);
-        let usuarios: string = "";
-        let id_plan_documentovalorado: number = null;
-        aprobadores.forEach(apro => {
-          let nom = (apro.usuario === null ? "" : apro.usuario.nombre);
-          usuarios = usuarios.concat(nom, (nom === "" ? "" : ","));
-          id_plan_documentovalorado = apro.id_plan_documentovalorado;
-          console.log("usuarios-->" + usuarios);
+      if (data.header.exito) {
+        let aux: any[] = data.payload;
+        aux.forEach(item => {
+          let aprobadores: any[] = (item.aprobadores.length > 0 ? item.aprobadores : []);
+          let usuarios: string = "";
+          let id_plan_documentovalorado: number = null;
+          aprobadores.forEach(apro => {
+            let nom = (apro.usuario === null ? "" : apro.usuario.nombre);
+            usuarios = usuarios.concat(nom, (nom === "" ? "" : ","));
+            id_plan_documentovalorado = apro.id_plan_documentovalorado;
+            console.log("usuarios-->" + usuarios);
+          })
+          let tipoFlujo = {
+            id: item.tipo_documentovalorado.id,
+            documentovalorado: item.tipo_documentovalorado.nombre,
+            aprobadores: usuarios,
+            id_plan_documentovalorado: id_plan_documentovalorado,
+            listado_aprobadores: item.aprobadores
+          }
+          listado.push(tipoFlujo);
         })
-        let tipoFlujo = {
-          id: item.tipo_documentovalorado.id,
-          documentovalorado: item.tipo_documentovalorado.nombre,
-          aprobadores: usuarios,
-          id_plan_documentovalorado: id_plan_documentovalorado,
-          listado_aprobadores: item.aprobadores
-        }
-        listado.push(tipoFlujo);
-      })
+      }
       this.listadoTipoFlujoAprobacion = listado;
       console.log("listadoTipoFlujoAprobacion-->" + JSON.stringify(this.listadoTipoFlujoAprobacion));
     });

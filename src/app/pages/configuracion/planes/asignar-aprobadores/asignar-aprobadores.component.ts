@@ -117,6 +117,6 @@ export class AsignarAprobadoresComponent implements OnInit {
       conta++;
       aprobadores.push({id:item.id,orden:conta})
     })
-    return aprobadores;
+    return ({aprobadores:aprobadores});
   }
 }
