@@ -1,7 +1,7 @@
 export const GlobalSettings = Object.freeze({
 
-    //BASE_API_URL: 'http://localhost:8080',
-    BASE_API_URL: 'https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com',
+    BASE_API_URL: 'http://localhost:8080',
+    //BASE_API_URL: 'https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com',
     N_COLUMNAS_GRID: 4,
 
     clientId: "3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com",

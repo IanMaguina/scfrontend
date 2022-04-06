@@ -11,9 +11,7 @@ import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad
 })
 export class EstrategiasComponent implements OnInit {
   listadoEstrategiasPorSociedad: any[] = [];
-  listadoEstrategiasPorTipoPlan: any[] = [];
   displayedColumnsSociedad: string[] = ['sociedad', 'rol', 'usuario', 'revisor', 'activo'];
-  displayedColumnsPlan: string[] = ['nombre', 'plan', 'tipo', 'usuario', 'id'];
   constructor(
     private matDialog: MatDialog,
     private estrategiaService:EstrategiaService
@@ -57,7 +55,7 @@ export class EstrategiasComponent implements OnInit {
 
   async toggleEstrategiaEstadoPorSociedad(element:any) {
     console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
-    await this.estrategiaService.inactivarEstrategia(element.id).then( (_) =>{
+    await this.estrategiaService.inactivarEstrategia(element).then( (_) =>{
       this.listarEstrategias();
     });
 

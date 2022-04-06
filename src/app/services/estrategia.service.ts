@@ -125,7 +125,26 @@ export class EstrategiaService {
 
       });
   }
-  inactivarEstrategia(id_estado_rol_usuario:number): Promise<any> {
+  inactivarEstrategia(estrategia:any): Promise<any> {
+    console.log("enviando-->"+estrategia+"-----");
+    let item ={
+      activo:estrategia.activo
+    };
+    
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/estrategia/"+estrategia.id+"/actualizar-activo",item).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+  eliminarEstrategia(id_estado_rol_usuario:number): Promise<any> {
     console.log("enviando-->"+id_estado_rol_usuario+"-----");
     return new Promise(
       (resolve, reject) => {

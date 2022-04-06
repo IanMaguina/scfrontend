@@ -36,16 +36,16 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   }
   validationMessages = {
     'usuario': {
-      'required': 'el correo es requerido.',
+      'required': 'el usuario es requerido.',
     },
     'estado': {
-      'required': 'el estado es requerida.',
+      'required': 'el estado es requerido.',
     },
     'rol': {
-      'required': 'la sociedad es requerida.',
+      'required': 'el rol es requerido.',
     },
     'revisor': {
-      'required': 'el perfil es requerido.',
+      'required': 'el revisor es requerido.',
     }
   };
   //Submitted form
@@ -191,11 +191,6 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
           width: "400px",
           data: mensaje
         });
-        dialogRef3.afterClosed().subscribe(result => {
-          if (result === 'CONFIRM_DLG_YES') {
-            console.log("return function process");
-          }
-        });
       }
     } else {
       if (form.usuario && form.usuario.id) {
@@ -208,11 +203,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
           width: "400px",
           data: mensaje
         });
-        dialogRef3.afterClosed().subscribe(result => {
-          if (result === 'CONFIRM_DLG_YES') {
-            console.log("return function process");
-          }
-        });
+        
       }
     }
   }
