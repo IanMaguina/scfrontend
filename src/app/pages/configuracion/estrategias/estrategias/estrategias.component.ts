@@ -55,15 +55,6 @@ export class EstrategiasComponent implements OnInit {
     });
   }
     
-  openAgregarEstrategiaTipoPlan() {
-    const dialogRef3 = this.matDialog.open(CrearEstrategiaTipoPlanComponent, {
-      disableClose: true
-    });
-
-    dialogRef3.afterClosed().subscribe(result => {
-      this.listarEstrategias();
-    });
-  }
 
   async toggleEstrategiaEstadoPorSociedad(element:any) {
     console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
@@ -72,8 +63,6 @@ export class EstrategiasComponent implements OnInit {
     });
 
   }
-  toggleEstrategiaEstadoPorTipoPlan() {
-    console.log("toggleEstrategiaEstadoPorTipoPlan");
-  }
+ 
 
 }
