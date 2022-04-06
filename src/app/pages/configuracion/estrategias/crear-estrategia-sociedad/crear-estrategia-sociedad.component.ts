@@ -2,7 +2,7 @@ import { EstrategiaService } from './../../../../services/estrategia.service';
 import { EstadoService } from './../../../../services/estado.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EstadoRol } from 'src/app/models/estado-rol.interface';
 import { Estado } from 'src/app/models/estado.interface';
 import { Rol } from 'src/app/models/rol.interface';
@@ -16,6 +16,7 @@ import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-crear-estrategia-sociedad',
   templateUrl: './crear-estrategia-sociedad.component.html',
@@ -67,8 +68,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     { id: 2, nombre: 'Estado 2' },
   ];
 
-  id_estado:number=0;
-  id_estado_rol:number=0;
+  id_estado: number = 0;
+  id_estado_rol: number = 0;
   myControl = new FormControl();
   filteredUsuario!: Observable<Usuario[]>;
   comboListadoUsuario: Usuario[] = [];
@@ -83,6 +84,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private matDialog: MatDialog,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
@@ -154,11 +156,19 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   async listarRoles() {
     let estado: Estado = this.formDialog.get('estado').value;
-    this.id_estado=estado.id;
+    this.id_estado = estado.id;
+    if (estado.id === 1) {
+      this.formDialog.get('revisor')?.setValidators([Validators.required]);
+      this.formDialog.get('revisor').setValue("");
+    } else {
+      this.formDialog.get('revisor')?.setValidators([]);
+      this.formDialog.get('revisor').setValue("");
+    }
+    this.formDialog.get("revisor")?.updateValueAndValidity();
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
-      this.id_estado_rol=data.payload.length !== 0 ? data.payload[0].id : null;
-      this.listarUsuariosNoAgregados();      
+      this.id_estado_rol = data.payload.length !== 0 ? data.payload[0].id : null;
+      this.listarUsuariosNoAgregados();
       console.log(JSON.stringify(this.id_estado_rol));
     })
 
@@ -167,8 +177,43 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   async crearEstrategiaSociedad(form: any) {
     console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    this.estrategiaService.crearEstrategia(estadoRolUsuario).then();
-    this.onNoClick();
+    let mensaje = "Nombre de usuario no valido";
+    form.mensaje = mensaje;
+    if (form.estado.id === 1) {
+      if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
+        this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
+          this.onNoClick();
+        });
+      } else {
+        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: form
+        });
+        dialogRef3.afterClosed().subscribe(result => {
+          if (result === 'CONFIRM_DLG_YES') {
+            console.log("return function process");
+          }
+        });
+      }
+    } else {
+      if (form.usuario && form.usuario.id) {
+        this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
+          this.onNoClick();
+        });
+      } else {
+        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: form
+        });
+        dialogRef3.afterClosed().subscribe(result => {
+          if (result === 'CONFIRM_DLG_YES') {
+            console.log("return function process");
+          }
+        });
+      }
+    }
   }
 
   onNoClick(): void {
@@ -177,8 +222,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   async mapeoEstadoRolUsuario(form: any) {
     let estadoRolUsuario: EstadoRolUsuario = {
-      id_estado_rol:this.id_estado_rol,
-      id_usuario:form.usuario.id,
+      id_estado_rol: this.id_estado_rol,
+      id_usuario: form.usuario.id,
       id_usuario_revisor: form.revisor.id
     }
     return estadoRolUsuario;
