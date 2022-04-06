@@ -73,7 +73,7 @@ export class TipoDocumentoValoradoService {
   }
 
   actualizarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
-    console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
+    console.log("sending actualizarDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
 
     return new Promise(
       (resolve, reject) => {
@@ -86,9 +86,25 @@ export class TipoDocumentoValoradoService {
         });
       });
   }
+  activarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
+    console.log("sending activarDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
+    let item = {
+      activo:tipoDocumentoValorado.activo
+    }
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/tipo-documento-valorado/" + tipoDocumentoValorado.id+"/actualizar-activo",item).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
 
   eliminarDocumentoValorado(tipoDocumentoValorado: TipoDocumentoValorado): Promise<any> {
-    console.log("sending tipoDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
+    console.log("sending eliminarDocumentoValorado..." + JSON.stringify(tipoDocumentoValorado));
 
     return new Promise(
       (resolve, reject) => {

@@ -13,12 +13,7 @@ import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-v
 })
 export class TipoDocumentoValoradoComponent implements OnInit {
 
-  listadoTipoDV: any[] = [
-    { id: 1, nombre: "Cheque", activo: true },
-    { id: 3, nombre: "Carta Fianza", activo: true },
-    { id: 2, nombre: "Letra", activo: true },
-    { id: 4, nombre: "Pagaré", activo: true },
-  ];
+  listadoTipoDV: any[]=[];
   displayedColumns: string[] = ['tipo-documento-valorado', 'activo'];
   constructor(
     private matDialog: MatDialog,
@@ -71,7 +66,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
 
   onchangeEstado(form: any) {
     let mensaje: string;
-
+    console.log("al editar activo el form: "+JSON.stringify(form));
     if (form.activo) {
       mensaje = "¿Desea habilitar el documento valorado?";
     } else {
@@ -88,7 +83,9 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         console.log("realizar la edición");
-        this.listarTipoDocumentoValorado();
+        this.tipoDocumentoValoradoService.activarDocumentoValorado(form).then( (_)=>{
+          this.listarTipoDocumentoValorado();
+        })
       }
     });
   }
