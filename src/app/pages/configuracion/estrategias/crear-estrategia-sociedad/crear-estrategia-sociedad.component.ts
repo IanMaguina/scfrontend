@@ -68,8 +68,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     { id: 2, nombre: 'Estado 2' },
   ];
 
-  id_estado:number=0;
-  id_estado_rol:number=0;
+  id_estado: number = 0;
+  id_estado_rol: number = 0;
   myControl = new FormControl();
   filteredUsuario!: Observable<Usuario[]>;
   comboListadoUsuario: Usuario[] = [];
@@ -156,19 +156,19 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   async listarRoles() {
     let estado: Estado = this.formDialog.get('estado').value;
-    this.id_estado=estado.id;
-    if (estado.id===1){
+    this.id_estado = estado.id;
+    if (estado.id === 1) {
       this.formDialog.get('revisor')?.setValidators([Validators.required]);
       this.formDialog.get('revisor').setValue("");
-    }else{
+    } else {
       this.formDialog.get('revisor')?.setValidators([]);
       this.formDialog.get('revisor').setValue("");
     }
     this.formDialog.get("revisor")?.updateValueAndValidity();
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
-      this.id_estado_rol=data.payload.length !== 0 ? data.payload[0].id : null;
-      this.listarUsuariosNoAgregados();      
+      this.id_estado_rol = data.payload.length !== 0 ? data.payload[0].id : null;
+      this.listarUsuariosNoAgregados();
       console.log(JSON.stringify(this.id_estado_rol));
     })
 
@@ -177,14 +177,14 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   async crearEstrategiaSociedad(form: any) {
     console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    let mensaje = "¿Error revisor?";
+    let mensaje = "Nombre de usuario no valido";
     form.mensaje = mensaje;
-    if(form.estado.id===1){
-      if (form.revisor && form.revisor.id) {
+    if (form.estado.id === 1) {
+      if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
         this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
           this.onNoClick();
         });
-      }else{
+      } else {
         const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
           disableClose: true,
           width: "400px",
@@ -196,11 +196,24 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
           }
         });
       }
-    }else{
-      this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
-        this.onNoClick();
-      });
-    }    
+    } else {
+      if (form.usuario && form.usuario.id) {
+        this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
+          this.onNoClick();
+        });
+      } else {
+        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: form
+        });
+        dialogRef3.afterClosed().subscribe(result => {
+          if (result === 'CONFIRM_DLG_YES') {
+            console.log("return function process");
+          }
+        });
+      }
+    }
   }
 
   onNoClick(): void {
@@ -209,8 +222,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   async mapeoEstadoRolUsuario(form: any) {
     let estadoRolUsuario: EstadoRolUsuario = {
-      id_estado_rol:this.id_estado_rol,
-      id_usuario:form.usuario.id,
+      id_estado_rol: this.id_estado_rol,
+      id_usuario: form.usuario.id,
       id_usuario_revisor: form.revisor.id
     }
     return estadoRolUsuario;

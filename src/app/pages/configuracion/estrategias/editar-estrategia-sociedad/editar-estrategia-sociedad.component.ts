@@ -202,12 +202,12 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
     let mensaje = "¿Error revisor?";
     form.mensaje = mensaje;
-    if(form.estado.id===1){
-      if (form.revisor && form.revisor.id) {
+    if (form.estado.id === 1) {
+      if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
         this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
           this.onNoClick();
         });
-      }else{
+      } else {
         const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
           disableClose: true,
           width: "400px",
@@ -219,10 +219,23 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
           }
         });
       }
-    }else{
-      this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
-        this.onNoClick();
-      });
+    } else {
+      if (form.usuario && form.usuario.id) {
+        this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
+          this.onNoClick();
+        });
+      } else {
+        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: form
+        });
+        dialogRef3.afterClosed().subscribe(result => {
+          if (result === 'CONFIRM_DLG_YES') {
+            console.log("return function process");
+          }
+        });
+      }
     }
   }
 
