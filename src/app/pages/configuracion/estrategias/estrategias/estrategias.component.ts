@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CrearEstrategiaSociedadComponent } from '../crear-estrategia-sociedad/crear-estrategia-sociedad.component';
-import { CrearEstrategiaTipoPlanComponent } from '../crear-estrategia-tipo-plan/crear-estrategia-tipo-plan.component';
 import {EstrategiaService} from '../../../../services/estrategia.service';
 import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad/editar-estrategia-sociedad.component';
 @Component({

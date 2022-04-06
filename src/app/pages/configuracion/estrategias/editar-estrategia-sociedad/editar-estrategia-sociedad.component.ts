@@ -3,20 +3,17 @@ import { EstadoService } from './../../../../services/estado.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EstadoRol } from 'src/app/models/estado-rol.interface';
 import { Estado } from 'src/app/models/estado.interface';
 import { Rol } from 'src/app/models/rol.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { SociedadService } from 'src/app/services/sociedad.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
-import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 @Component({
   selector: 'app-editar-estrategia-sociedad',
   templateUrl: './editar-estrategia-sociedad.component.html',
@@ -200,18 +197,17 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async actualizarEstrategiaSociedad(form: any) {
     console.log("Actualizar EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    let mensaje = "¿Error revisor?";
-    form.mensaje = mensaje;
+    let mensaje = "¡Revisor erróneo: Se debe usar un nombre existente!";
     if (form.estado.id === 1) {
       if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
         this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
           disableClose: true,
           width: "400px",
-          data: form
+          data: mensaje
         });
         dialogRef3.afterClosed().subscribe(result => {
           if (result === 'CONFIRM_DLG_YES') {
@@ -225,10 +221,10 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
           disableClose: true,
           width: "400px",
-          data: form
+          data: mensaje
         });
         dialogRef3.afterClosed().subscribe(result => {
           if (result === 'CONFIRM_DLG_YES') {

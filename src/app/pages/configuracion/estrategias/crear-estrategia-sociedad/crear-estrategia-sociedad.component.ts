@@ -17,6 +17,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 @Component({
   selector: 'app-crear-estrategia-sociedad',
   templateUrl: './crear-estrategia-sociedad.component.html',
@@ -178,17 +179,17 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
     let mensaje = "Nombre de usuario no valido";
-    form.mensaje = mensaje;
+
     if (form.estado.id === 1) {
       if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
         this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
           disableClose: true,
           width: "400px",
-          data: form
+          data: mensaje
         });
         dialogRef3.afterClosed().subscribe(result => {
           if (result === 'CONFIRM_DLG_YES') {
@@ -202,10 +203,10 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
           disableClose: true,
           width: "400px",
-          data: form
+          data: mensaje
         });
         dialogRef3.afterClosed().subscribe(result => {
           if (result === 'CONFIRM_DLG_YES') {

@@ -25,8 +25,6 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
-import { CrearEstrategiaTipoPlanComponent } from './estrategias/crear-estrategia-tipo-plan/crear-estrategia-tipo-plan.component';
-
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
@@ -38,7 +36,6 @@ import { AsignarIntegrantesComponent } from './consorcio/asignar-integrantes/asi
 import { AsignarIntegrantesGrupoComponent } from './grupo/asignar-integrantes-grupo/asignar-integrantes-grupo.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditarEstrategiaSociedadComponent } from './estrategias/editar-estrategia-sociedad/editar-estrategia-sociedad.component';
-import { EditarEstrategiaTipoPlanComponent } from './estrategias/editar-estrategia-tipo-plan/editar-estrategia-tipo-plan.component';
 import { PlanesComponent } from './planes/planes/planes.component';
 import { CrearPlanComponent } from './planes/crear-plan/crear-plan.component';
 import { ConfigurarPlanComponent } from './planes/configurar-plan/configurar-plan.component';
@@ -65,9 +62,7 @@ import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-apr
 
     EstrategiasComponent,
     CrearEstrategiaSociedadComponent,
-    CrearEstrategiaTipoPlanComponent,
     EditarEstrategiaSociedadComponent,
-    EditarEstrategiaTipoPlanComponent,
 
     ListarUsuarioComponent,
     EditarUsuarioComponent,
