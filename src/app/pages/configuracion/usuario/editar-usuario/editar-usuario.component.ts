@@ -91,8 +91,9 @@ export class EditarUsuarioComponent implements OnInit {
     let usuario = await this.mapeoUsuario(form);
     this.usuarioService.actualizarUsuario(usuario).then( data =>{
       console.log("avisar que se actualizó"+JSON.stringify(data));
+      this.onNoClick();
     });
-    this.onNoClick();
+    
   }
 
 
