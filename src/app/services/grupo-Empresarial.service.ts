@@ -72,7 +72,7 @@ export class GrupoEmpresarialService {
     console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.putResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
+        this.resourceService.putResource("/api/cliente-agrupacion/borrar/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {

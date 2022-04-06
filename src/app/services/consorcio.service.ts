@@ -82,6 +82,22 @@ export class ConsorcioService {
         });
       });
   }
+  activarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("sending activarConsorcio..." + JSON.stringify(clienteAgrupacion));
+    let item = {
+      activo:clienteAgrupacion.activo
+    }
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/cliente-agrupacion/borrar/" + clienteAgrupacion.id, item).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
 
   eliminarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
     console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
