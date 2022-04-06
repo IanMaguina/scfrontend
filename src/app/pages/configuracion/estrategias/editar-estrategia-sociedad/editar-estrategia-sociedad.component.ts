@@ -2,7 +2,7 @@ import { EstrategiaService } from './../../../../services/estrategia.service';
 import { EstadoService } from './../../../../services/estado.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EstadoRol } from 'src/app/models/estado-rol.interface';
 import { Estado } from 'src/app/models/estado.interface';
 import { Rol } from 'src/app/models/rol.interface';
@@ -16,6 +16,7 @@ import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-editar-estrategia-sociedad',
   templateUrl: './editar-estrategia-sociedad.component.html',
@@ -84,6 +85,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarEstrategiaSociedadComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private matDialog: MatDialog,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
@@ -95,7 +97,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
-      revisor: [''],
+      revisor: ['', Validators.required]
     })
     this.formDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
@@ -157,11 +159,13 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   }
 
   displayFnRevisor(user: Usuario): string {
+    console.log("--displayFnRevisor-->" + JSON.stringify(user));
     return user && user.nombre ? user.nombre : '';
   }
 
   private _filterRevisor(nombre: string): Usuario[] {
     let filterValue = nombre.toLowerCase();
+    console.log("_filterRevisor-->" + nombre + "--");
     return this.comboListadoUsuarioRevisor.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
@@ -175,6 +179,14 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async listarRoles() {
     let estado: Estado = this.formDialog.get('estado').value;
     this.id_estado = estado.id;
+    if (estado.id === 1) {
+      this.formDialog.get('revisor')?.setValidators([Validators.required]);
+      this.formDialog.get('revisor').setValue("");
+    } else {
+      this.formDialog.get('revisor')?.setValidators([]);
+      this.formDialog.get('revisor').setValue("");
+    }
+    this.formDialog.get("revisor")?.updateValueAndValidity();
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
       this.id_estado_rol = data.payload.length !== 0 ? data.payload[0].id : null;
@@ -188,8 +200,30 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async actualizarEstrategiaSociedad(form: any) {
     console.log("Actualizar EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then();
-    this.onNoClick();
+    let mensaje = "¿Error revisor?";
+    form.mensaje = mensaje;
+    if(form.estado.id===1){
+      if (form.revisor && form.revisor.id) {
+        this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
+          this.onNoClick();
+        });
+      }else{
+        const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: form
+        });
+        dialogRef3.afterClosed().subscribe(result => {
+          if (result === 'CONFIRM_DLG_YES') {
+            console.log("return function process");
+          }
+        });
+      }
+    }else{
+      this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
+        this.onNoClick();
+      });
+    }
   }
 
   onNoClick(): void {
