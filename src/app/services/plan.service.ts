@@ -246,6 +246,29 @@ export class PlanService {
 
       });
   }   
+
+  listarDetalleCruce(id_plan: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan/" + id_plan+"/listar-detalle-cruce").toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            resolve(data);
+          } else {
+            console.log("no hay datos planes encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
+
 }
 
 

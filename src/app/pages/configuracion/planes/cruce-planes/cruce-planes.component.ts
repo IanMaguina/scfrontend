@@ -13,7 +13,7 @@ export class CrucePlanesComponent implements OnInit {
   @Input() plan: Plan;
   informacionForm: any;
 
-  displayedColumns: string[] = ['seleccionar', 'nombre'];
+  displayedColumns: string[] = ['seleccionado', 'nombre'];
   //poner el model
   listadoPlanes: any[] = [];
   listadoPlanesSeleccionados: any[] = [];
@@ -23,9 +23,27 @@ export class CrucePlanesComponent implements OnInit {
 
   async ngOnInit() {
     console.log("ngInit");
-    await this.listarPlanes();
-    await this.listarCrucePlanes()
+    await this.listarDetalleCruce();
+    //await this.listarPlanes();
+    //await this.listarCrucePlanes()
 
+  }
+
+  async listarDetalleCruce() {
+    let seleccionado:any[]=[];
+    this.planService.listarDetalleCruce(this.plan.id).then(data => {
+      console.log("listarDetalleCruce--->"+JSON.stringify(data.payload));
+      let listado:any[] = data.payload;
+      listado.forEach(it=>{
+        if(it.seleccionado){
+          seleccionado.push(it);
+        }
+        this.listadoPlanesSeleccionados=seleccionado;
+      })
+      this.listadoPlanes = listado.filter((item) => item.id !== this.plan.id);
+      console.log("listadoPlanes-->" + JSON.stringify(this.listadoPlanes));
+
+    })
   }
 
   async listarPlanes() {
@@ -38,7 +56,7 @@ export class CrucePlanesComponent implements OnInit {
           let valor: any = {
             id: item.id,
             nombre: item.tipo_plancredito.nombre,
-            seleccionar: false
+            seleccionado: false
           }
           this.listadoPlanes.push(valor);
         }
@@ -64,14 +82,14 @@ export class CrucePlanesComponent implements OnInit {
               let valor: any = {
                 id: itemPlan.id,
                 nombre: itemPlan.nombre,
-                seleccionar: true
+                seleccionado: true
               }
               listadoCrucePlan.push(valor);
             } else {
               let valor: any = {
                 id: itemPlan.id,
                 nombre: itemPlan.nombre,
-                seleccionar: false
+                seleccionado: false
               }
               listadoCrucePlan.push(valor);
             }
@@ -82,7 +100,7 @@ export class CrucePlanesComponent implements OnInit {
           let valor: any = {
             id: itemPlan.id,
             nombre: itemPlan.nombre,
-            seleccionar: false
+            seleccionado: false
           }
           listadoCrucePlan.push(valor);
         })
@@ -101,7 +119,7 @@ export class CrucePlanesComponent implements OnInit {
         horizontalPosition: "end",
         verticalPosition: "top"
       });
-
+      this.listarDetalleCruce();
     });
   }
 
@@ -123,8 +141,8 @@ export class CrucePlanesComponent implements OnInit {
   }
 
   onChangeCruce(element: any) {
-    element.seleccionar = !element.seleccionar;
-    if (element.seleccionar) {
+    element.seleccionado = !element.seleccionado;
+    if (element.seleccionado) {
       this.listadoPlanesSeleccionados.push(element);
     } else {
       let listado: any[] = this.listadoPlanesSeleccionados;
