@@ -14,6 +14,7 @@ import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { Estrategia } from 'src/app/models/estrategia.interface';
 @Component({
   selector: 'app-editar-estrategia-sociedad',
   templateUrl: './editar-estrategia-sociedad.component.html',
@@ -77,10 +78,9 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   filteredUsuarioRevisor!: Observable<Usuario[]>;
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
-  estrategia: any;
+  estrategia: Estrategia;
   constructor(
     public dialogRef: MatDialogRef<EditarEstrategiaSociedadComponent>,
-    /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialog: MatDialog,
     private formBuilder: FormBuilder,
@@ -197,23 +197,14 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async actualizarEstrategiaSociedad(form: any) {
     console.log("Actualizar EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    let mensaje = "¡Revisor erróneo: Se debe usar un nombre existente!";
+    let mensaje = "¡Nombre de usuario no válido!";
     if (form.estado.id === 1) {
       if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
         this.estrategiaService.actualizarEstrategia(this.estrategia.id, estadoRolUsuario).then(() => {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
-          disableClose: true,
-          width: "400px",
-          data: mensaje
-        });
-        dialogRef3.afterClosed().subscribe(result => {
-          if (result === 'CONFIRM_DLG_YES') {
-            console.log("return function process");
-          }
-        });
+        this.callErrorDialog(mensaje);
       }
     } else {
       if (form.usuario && form.usuario.id) {
@@ -221,18 +212,16 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
-          disableClose: true,
-          width: "400px",
-          data: mensaje
-        });
-        dialogRef3.afterClosed().subscribe(result => {
-          if (result === 'CONFIRM_DLG_YES') {
-            console.log("return function process");
-          }
-        });
+        this.callErrorDialog(mensaje);
       }
     }
+  }
+  callErrorDialog(mensaje:string){
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje
+    });
   }
 
   onNoClick(): void {

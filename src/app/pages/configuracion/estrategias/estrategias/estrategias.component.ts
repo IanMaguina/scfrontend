@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CrearEstrategiaSociedadComponent } from '../crear-estrategia-sociedad/crear-estrategia-sociedad.component';
 import {EstrategiaService} from '../../../../services/estrategia.service';
 import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad/editar-estrategia-sociedad.component';
+import { Estrategia } from 'src/app/models/estrategia.interface';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -10,13 +11,13 @@ import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad
   ]
 })
 export class EstrategiasComponent implements OnInit {
-  listadoEstrategiasPorSociedad: any[] = [];
+  listadoEstrategiasPorSociedad: Estrategia[] = [];
   displayedColumnsSociedad: string[] = ['sociedad', 'rol', 'usuario', 'revisor', 'activo'];
   constructor(
     private matDialog: MatDialog,
     private estrategiaService:EstrategiaService
   ) { }
-
+g
   ngOnInit(): void {
     console.log("ngInit");
     this.listarEstrategias();
@@ -24,8 +25,9 @@ export class EstrategiasComponent implements OnInit {
 
   async listarEstrategias() {
     this.estrategiaService.listarEstrategias().then(data => {
-      console.log(JSON.stringify(data.payload));
+      console.log("listado estrategias "+JSON.stringify(data.payload));
       this.listadoEstrategiasPorSociedad = data.payload;
+      console.log("ian observa: "+JSON.stringify(data.payload));
     })
   }
 
@@ -36,7 +38,6 @@ export class EstrategiasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.listarEstrategias();
-      console.log("return function process");
     });
   }
 

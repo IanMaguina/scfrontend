@@ -18,6 +18,7 @@ import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+
 @Component({
   selector: 'app-crear-estrategia-sociedad',
   templateUrl: './crear-estrategia-sociedad.component.html',
@@ -25,7 +26,7 @@ import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.c
 })
 export class CrearEstrategiaSociedadComponent implements OnInit {
 
-  estrategiaData: any;
+ 
 
   formDialog: FormGroup;
   formErrors = {
@@ -53,21 +54,21 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   carga: boolean = false;
 
   //poner el tipado correcto => es data dummy
-  listadoSociedades: Sociedad[] = [
-    { codigo_sap: '0011', nombre: 'sociedad 1' },
+  listadoSociedades: Sociedad[] = [];
+/*     { codigo_sap: '0011', nombre: 'sociedad 1' },
     { codigo_sap: '0012', nombre: 'sociedad 2' },
-  ];
+  ]; */
   /* poner el tipo del modelo Rol */
 
-  listadoRoles: Rol[] = [
-    { id: 1, nombre: 'rol 1' },
+  listadoRoles: Rol[] = [];
+ /*    { id: 1, nombre: 'rol 1' },
     { id: 2, nombre: 'rol 2' },
   ];
-
-  listadoEstados: Estado[] = [
-    { id: 1, nombre: 'Estado 1' },
+ */
+  listadoEstados: Estado[] = [];
+/*     { id: 1, nombre: 'Estado 1' },
     { id: 2, nombre: 'Estado 2' },
-  ];
+  ]; */
 
   id_estado: number = 0;
   id_estado_rol: number = 0;
@@ -83,8 +84,6 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
-    /* poner el tipo de la data que esta viniendo, si es necesario */
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialog: MatDialog,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
@@ -178,7 +177,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   async crearEstrategiaSociedad(form: any) {
     console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
     let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    let mensaje = "Nombre de usuario no valido";
+    let mensaje = "¡Nombre de usuario no válido!";
 
     if (form.estado.id === 1) {
       if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
@@ -186,11 +185,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
-          disableClose: true,
-          width: "400px",
-          data: mensaje
-        });
+        this.callErrorDialog(mensaje);
       }
     } else {
       if (form.usuario && form.usuario.id) {
@@ -198,14 +193,18 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
           this.onNoClick();
         });
       } else {
-        const dialogRef3 = this.matDialog.open(ErrorDialogComponent, {
-          disableClose: true,
-          width: "400px",
-          data: mensaje
-        });
+        this.callErrorDialog(mensaje);
         
       }
     }
+  }
+
+  callErrorDialog(mensaje:string){
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje
+    });
   }
 
   onNoClick(): void {

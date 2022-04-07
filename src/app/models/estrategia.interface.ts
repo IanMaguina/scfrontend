@@ -1,11 +1,14 @@
-import { Estado } from "./estado.interface";
-import { Rol } from "./rol.interface";
-export interface EstadoRol{
+import { EstadoRol } from "./estado-rol.interface";
+import { Sociedad } from "./sociedad.interface";
+import { Usuario } from "./usuario.interface";
+export interface Estrategia{
     id?: number,
-    nombre:string,
-    id_estado?:number,
-    estado?:Estado,
-    rol?:Rol
-
+    sociedad?:Sociedad,
+    id_estado_rol?:number,
+    estado_rol?:EstadoRol,
+    usuario?:Usuario,
+    id_usuario?:number,
+    revisor?:Usuario,
+    id_usuario_revisor?:number,
 }
 
