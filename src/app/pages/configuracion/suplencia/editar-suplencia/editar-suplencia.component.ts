@@ -19,7 +19,7 @@ export class EditarSuplenciaComponent implements OnInit {
 
   suplenciaData: Suplencia;
   editarFormDialog: FormGroup;
-  
+
   formErrors = {
     'usuario': '',
     'usuario_suplente': '',
@@ -43,7 +43,7 @@ export class EditarSuplenciaComponent implements OnInit {
   //Submitted form
   submitted = false;
   carga: boolean = false;
-  
+
   comboListadoUsuario: Usuario[] = [];
   filteredUsuario!: Observable<Usuario[]>;
   selectedUsuario: any;
@@ -51,18 +51,18 @@ export class EditarSuplenciaComponent implements OnInit {
   comboListadoUsuarioSuplente: Usuario[] = [];
   filteredUsuarioSuplente!: Observable<Usuario[]>;
   selectedUsuarioSuplente: any;
-  
-  
+
+
   constructor(
     public dialogRef: MatDialogRef<EditarSuplenciaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
-    private suplenciaService:SuplenciaService
+    private suplenciaService: SuplenciaService
   ) {
     this.suplenciaData = data;
-    console.log("data suplencia--->"+JSON.stringify(data));
+    console.log("data suplencia--->" + JSON.stringify(data));
     this.editarFormDialog = this.formBuilder.group({
       usuario: [this.suplenciaData.usuario, Validators.required],
       usuario_suplente: [this.suplenciaData.usuario_suplente, Validators.required],
@@ -77,9 +77,29 @@ export class EditarSuplenciaComponent implements OnInit {
   ngOnInit(): void {
     this.listarUsuarios();
     this.listarUsuariosSuplentes();
+    this.onValueChanges();
   }
+  errorFechaActual = "";
+  errorFechaInicio = "";
+  errorFechaFin = "";
+  onValueChanges(): void {
+    let fechaActual = new Date();
 
-
+    this.editarFormDialog.valueChanges.subscribe(val => {
+      if (val.fecha_inicio < fechaActual.getTime()) {
+        this.errorFechaInicio = "Error en la fecha de inicio";
+      } else {
+        this.errorFechaInicio = "";
+      }
+      if (val.fecha_fin < fechaActual.getTime()
+        || val.fecha_fin < val.fecha_inicio) {
+        this.errorFechaFin = "Error en la fecha Fin";
+      } else {
+        this.errorFechaFin = "";
+      }
+      console.log(val);
+    })
+  }
 
   async crearSuplencia(form: any) {
     console.log("crearSuplencia");
@@ -96,7 +116,7 @@ export class EditarSuplenciaComponent implements OnInit {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuario = listado;
     this.filteredUsuario = this.editarFormDialog.get('usuario')?.valueChanges
-    .pipe(
+      .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
         map(nombre => nombre ? this._filter(nombre) : this.comboListadoUsuario.slice())
@@ -135,16 +155,16 @@ export class EditarSuplenciaComponent implements OnInit {
   }
   /*  */
   async editarSuplencia(form: any) {
-    console.log("editarSuplencia-->"+JSON.stringify(form));
-    let suplencia:Suplencia={
-      id:this.suplenciaData.id,
-      id_usuario:form.usuario.id,
-      id_usuario_suplente:form.usuario_suplente.id,
-      fecha_inicio:form.fecha_inicio,
-      fecha_fin:form.fecha_fin
+    console.log("editarSuplencia-->" + JSON.stringify(form));
+    let suplencia: Suplencia = {
+      id: this.suplenciaData.id,
+      id_usuario: form.usuario.id,
+      id_usuario_suplente: form.usuario_suplente.id,
+      fecha_inicio: form.fecha_inicio,
+      fecha_fin: form.fecha_fin
     }
-    this.suplenciaService.actualizarSuplencia(suplencia).then(()=>{
-      this.onNoClick();    
+    this.suplenciaService.actualizarSuplencia(suplencia).then(() => {
+      this.onNoClick();
     })
 
   }

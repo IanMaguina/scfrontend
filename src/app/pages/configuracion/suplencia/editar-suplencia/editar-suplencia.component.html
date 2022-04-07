@@ -46,6 +46,12 @@
             <input matInput [matDatepicker]="picker1" formControlName="fecha_inicio" >
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1 color="primary"></mat-datepicker>
+            <mat-hint>
+                <mat-error [hidden]="!(formErrors.fecha_inicio)">
+                    {{errorFechaInicio}}
+                </mat-error>
+            </mat-hint>
+
         </mat-form-field>
         </div>
         <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
@@ -54,6 +60,12 @@
                 <input matInput [matDatepicker]="picker2" formControlName="fecha_fin" >
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.fecha_fin)">
+                        {{errorFechaFin}}
+                    </mat-error>
+                </mat-hint>
+
             </mat-form-field>
         </div>
 
