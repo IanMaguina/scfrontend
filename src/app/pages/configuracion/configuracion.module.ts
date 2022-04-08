@@ -23,6 +23,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
+/* componentes */
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { CrearEstrategiaSociedadComponent } from './estrategias/crear-estrategia-sociedad/crear-estrategia-sociedad.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
