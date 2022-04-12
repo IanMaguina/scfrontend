@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/cdk/stepper';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-crear-solicitud-credito',
@@ -13,55 +9,30 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
   ]
 })
 export class CrearSolicitudCreditoComponent {
-/* to settings constantes */
-radioGrupo: number =1;
-radioConsorcio: number =2;
-radioEmpresa: number =3;
-
-/* end */
-
-cliente:number=1;
-
-  firstFormGroup:FormGroup;
-  secondFormGroup:FormGroup;
-  thirdFormGroup:FormGroup;
-  fourthFormGroup:FormGroup;
+  
+  
+  /* datos cliente */
+  firstForm:FormGroup;
+  /* datos planes */
+  secondForm:FormGroup;
+  /* datos obras */
+  thirdForm:FormGroup;
+  /* datos adjuntos */
+  fourthForm:FormGroup;
 
   
-  ClientSelectorControl = new FormControl('auto');
+ constructor(){}
 
-  //stepperOrientation: Observable<StepperOrientation>;
-  constructor(
-    private _formBuilder: FormBuilder, 
-    private formValidatorService: FormValidatorService,
-    /* breakpointObserver: BreakpointObserver */
-    ) {
-      this.firstFormGroup = this._formBuilder.group({
-        clientSelector: [this.cliente,this.ClientSelectorControl, Validators.required],
-        nombreGrupo: [''],
-        rucGrupo: [''],
-        razonSocialEmpresa: [''],
-        rucEmpresa: [''],
-        razonSocialConsorcio: [''],
-        rucConsorcio: [''],
-      });
-      this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required],
-      });
-      this.thirdFormGroup = this._formBuilder.group({
-        thirdCtrl: ['', Validators.required],
-      });
-      this.fourthFormGroup = this._formBuilder.group({
-        fourthCtrl: ['', Validators.required],
-      });
-    /* this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 800px)')
-      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical'))); */
-  }
-  guardarSeccionInformacion(element:any){
-
-  }
-  dosomething(element:any){
-    console.log(JSON.stringify(element));
-  }
+ onFirstFormGroupEvent(_event){
+   this.firstForm = _event;
+ }
+ onSecondFormGroupEvent(_event){
+   this.secondForm = _event;
+ }
+ onThirdFormGroupEvent(_event){
+   this.thirdForm = _event;
+ }
+ onFourthFormGroupEvent(_event){
+   this.fourthForm = _event;
+ }
 }

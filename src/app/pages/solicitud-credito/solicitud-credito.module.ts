@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 /* componentes */
 
@@ -65,7 +66,8 @@ import { DatosClienteScComponent } from './solicitud-credito/datos-cliente-sc/da
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
-    MatStepperModule
+    MatStepperModule,
+    MatExpansionModule,
   ],
   exports: [
     CdkStepperModule,

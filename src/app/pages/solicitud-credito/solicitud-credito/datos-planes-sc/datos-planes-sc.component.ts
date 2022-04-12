@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-datos-planes-sc',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DatosPlanesScComponent implements OnInit {
-
-  constructor() { }
-
+  @Output() onSecondFormGroup: EventEmitter<any> = new EventEmitter();
+  secondFormGroup:FormGroup;
+  constructor(
+    private _formBuilder:FormBuilder
+  ){
+   this.secondFormGroup = this._formBuilder.group({
+     secondCtrl: ['', Validators.required],
+   });
+  }
   ngOnInit(): void {
   }
 

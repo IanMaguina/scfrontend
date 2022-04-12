@@ -1,116 +1,28 @@
 <div class="body-dialog">
-<mat-horizontal-stepper linear #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <div class="content-stepper">
-      <div class="contenidoForm">
-        <form [formGroup]="firstFormGroup" (ngSubmit)="guardarSeccionInformacion(firstFormGroup.value)">
-          <ng-template matStepLabel>Datos del Cliente</ng-template>
-          <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-
-            <mat-radio-group aria-label="Select an option" formControlName="clientSelector"  (change)="dosomething(ClientSelectorControl.value)"
-              [formControl]="ClientSelectorControl" [(ngModel)]="cliente">
-              <mat-radio-button [(value)]="radioGrupo" >Grupo Empresarial</mat-radio-button>
-              &nbsp;
-              <mat-radio-button [(value)]="radioConsorcio" >Consorcio</mat-radio-button>
-              &nbsp;
-              <mat-radio-button [(value)]="radioEmpresa" >Empresa Individual</mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <br><br>
-          <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioGrupo">
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-              <mat-form-field appearance="outline">
-                <mat-label>Grupo</mat-label>
-                <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo" >
-              </mat-form-field>
-
-            </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-              <mat-form-field appearance="outline">
-                <mat-label>RUC</mat-label>
-                <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo" >
-              </mat-form-field>
-
-            </div>
-            <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-              <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light objetoSimple" >
-                <mat-icon>search</mat-icon>
-              </button>
-
-            </div>
-            </div>
-            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6" *ngIf="ClientSelectorControl.value === radioEmpresa">
-            <mat-form-field appearance="outline">
-              <mat-label>Razón Social</mat-label>
-              <input matInput formControlName="razonSocialEmpresa" placeholder="Razón Social del grupo" >
-            </mat-form-field>
-            &nbsp;
-            <mat-form-field appearance="outline">
-              <mat-label>RUC</mat-label>
-              <input matInput formControlName="rucEmpresa" placeholder="RUC de la empresa" >
-            </mat-form-field>
-          </div>
-          <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-6 col-xl-6" *ngIf="ClientSelectorControl.value === radioConsorcio">
-            
-            <mat-form-field appearance="outline">
-              <mat-label>Razón Social</mat-label>
-              <input matInput formControlName="razonSocialConsorcio" placeholder="Razón Social del Consorcio" >
-            </mat-form-field>
-            &nbsp;
-            <mat-form-field appearance="outline">
-              <mat-label>RUC</mat-label>
-              <input matInput formControlName="rucConsorcio" placeholder="RUC del Consorcio" >
-            </mat-form-field>
-          </div>
-          <br>
-          <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-
-          <div class="botonera-form objetoSimple">
-            <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
-          </div>
-        </form>
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="firstForm">
+      <div class="content-stepper">
+        <ng-template matStepLabel>Datos del Cliente</ng-template>
+        <app-datos-cliente-sc (onFirstFormGroup)="onFirstFormGroupEvent($event)"></app-datos-cliente-sc>
       </div>
-    </div>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Planes de Crédito</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step [stepControl]="secondForm">
+      <div class="content-stepper">
+        <ng-template matStepLabel>Planes de Crédito</ng-template>
+        <app-datos-planes-sc (onSecondFormGroup)="onSecondFormGroupEvent($event)"></app-datos-planes-sc>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="thirdFormGroup">
-    <form [formGroup]="thirdFormGroup">
-      <ng-template matStepLabel>Datos de Obra</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step [stepControl]="thirdForm">
+      <div class="content-stepper">
+        <ng-template matStepLabel>Datos de Obra</ng-template>
+        <app-datos-obras-sc (onThirdFormGroup)="onThirdFormGroupEvent($event)"></app-datos-obras-sc>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="fourthFormGroup">
-    <form [formGroup]="fourthFormGroup">
-      <ng-template matStepLabel>Adjuntos y Plantillas</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="fourthCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step [stepControl]="fourthForm">
+      <div class="content-stepper">
+        <ng-template matStepLabel>Adjuntos y Plantillas</ng-template>
+        <app-datos-adjuntos-sc (onFourthFormGroup)="onFourthFormGroupEvent($event)"></app-datos-adjuntos-sc>
       </div>
-    </form>
-  </mat-step>
-
-</mat-horizontal-stepper>
+    </mat-step>
+  </mat-horizontal-stepper>
 </div>
