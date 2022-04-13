@@ -33,6 +33,7 @@ import { DatosPlanesScComponent } from './solicitud-credito/datos-planes-sc/dato
 import { DatosObrasScComponent } from './solicitud-credito/datos-obras-sc/datos-obras-sc.component';
 import { DatosAdjuntosScComponent } from './solicitud-credito/datos-adjuntos-sc/datos-adjuntos-sc.component';
 import { DatosClienteScComponent } from './solicitud-credito/datos-cliente-sc/datos-cliente-sc.component';
+import { DatosEmpresaScComponent } from './solicitud-credito/datos-cliente-sc/datos-empresa-sc/datos-empresa-sc.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { DatosClienteScComponent } from './solicitud-credito/datos-cliente-sc/da
     DatosObrasScComponent,
     DatosAdjuntosScComponent,
     DatosClienteScComponent,
+    DatosEmpresaScComponent,
   ],
   imports: [
     RouterModule,

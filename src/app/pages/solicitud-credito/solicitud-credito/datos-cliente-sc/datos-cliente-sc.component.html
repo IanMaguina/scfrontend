@@ -1,9 +1,7 @@
 <div class="contenidoForm">
     <form [formGroup]="firstFormGroup" (ngSubmit)="guardarSeccionInformacion(firstFormGroup.value)">
         <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-            <mat-radio-group aria-label="Select an option" formControlName="clientSelector"
-                (change)="dosomething(ClientSelectorControl.value)" [formControl]="ClientSelectorControl"
-                [(ngModel)]="cliente">
+            <mat-radio-group aria-label="Select an option" formControlName="clientSelector" (change)="dosomething(ClientSelectorControl.value)" [formControl]="ClientSelectorControl" [(ngModel)]="cliente">
                 <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
                 &nbsp;
                 <mat-radio-button [(value)]="radioConsorcio">Consorcio</mat-radio-button>
@@ -12,8 +10,7 @@
             </mat-radio-group>
         </div>
         <br><br>
-        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-            *ngIf="ClientSelectorControl.value === radioGrupo">
+        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioGrupo">
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Grupo</mat-label>
@@ -33,8 +30,7 @@
                 </button>
             </div>
         </div>
-        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-            *ngIf="ClientSelectorControl.value === radioEmpresa">
+        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioEmpresa">
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Código Cliente SAP</mat-label>
@@ -53,8 +49,7 @@
                 </button>
             </div>
         </div>
-        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-            *ngIf="ClientSelectorControl.value === radioConsorcio">
+        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioConsorcio">
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Código Cliente SAP</mat-label>
@@ -75,93 +70,94 @@
         </div>
         <br>
         <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-        
+
     </form>
 </div>
 <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
     <mat-accordion>
         <!--  Empresa - Datos importantes-->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Datos de la empresa
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-
-          </div>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Datos de la empresa
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-datos-empresa-sc></app-datos-empresa-sc>
 
         </mat-expansion-panel>
         <!-- Grupo - Empresas Integrantes -->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Grupo 1
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Grupo 1
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
 
-          </div>
+            </div>
 
         </mat-expansion-panel>
         <!-- Consorcio - Datos importantes -->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-                Datos importantes Consorcio
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Datos importantes Consorcio
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
 
-          </div>
+                </div>
+
+            </div>
         </mat-expansion-panel>
 
         <!-- Consorcio - Consorciados -->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Consorciados
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Consorciados
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
 
-          </div>
+            </div>
         </mat-expansion-panel>
-        
+
         <!-- Proveedores -->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-                Proveedores
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Referencias Comerciales (Proveedores)
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
 
-          </div>
+            </div>
         </mat-expansion-panel>
 
         <!-- Principales Clientes -->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-                Principales Clientes 
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Principales Clientes
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
 
-          </div>
+            </div>
         </mat-expansion-panel>
 
         <!-- Empresas Relacionadas -->
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-                Empresas Relacionadas
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Empresas Relacionadas
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
 
-          </div>
+            </div>
         </mat-expansion-panel>
 
         <!-- <mat-expansion-panel (opened)="panelOpenState = true"
@@ -176,10 +172,10 @@
           </mat-expansion-panel-header>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel> -->
-      </mat-accordion>
+    </mat-accordion>
 </div>
 
 <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-        <div class="botonera-form objetoBoton">
-            <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
-        </div>
+<div class="botonera-step objetoBoton">
+    <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
+</div>

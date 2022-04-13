@@ -27,7 +27,7 @@ export class DatosClienteScComponent implements OnInit {
 
   //stepperOrientation: Observable<StepperOrientation>;
   constructor(
-    private _formBuilder: FormBuilder, 
+    private _formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     /* breakpointObserver: BreakpointObserver */
     ) {
@@ -45,18 +45,18 @@ export class DatosClienteScComponent implements OnInit {
     ngOnInit(): void {
       console.log("ngOnInit");
     }
-    
-    
+
+
     guardarSeccionInformacion(element:any){
       console.log("guardarSeccionInformacion");
     }
     dosomething(element:any){
       console.log(JSON.stringify(element));
     }
-    
-    
+
+
   }
-  
+
   /* this.stepperOrientation = breakpointObserver
     .observe('(min-width: 800px)')
     .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical'))); */
