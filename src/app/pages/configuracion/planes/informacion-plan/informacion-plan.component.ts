@@ -46,13 +46,13 @@ export class InformacionPlanComponent implements OnInit {
   }
   validationMessages = {
     'checkGrupos': {
-      'required': 'el grupocliente es requerido.'
+      'required': 'el checkGrupos es requerido.'
     },
     'checkClientes': {
-      'required': 'el grupocliente es requerido.'
+      'required': 'el checkClientes es requerido.'
     },
     'checkTodos': {
-      'required': 'el grupocliente es requerido.'
+      'required': 'el checkTodos es requerido.'
     },
     'grupoCliente': {
       'required': 'el grupocliente es requerido.'

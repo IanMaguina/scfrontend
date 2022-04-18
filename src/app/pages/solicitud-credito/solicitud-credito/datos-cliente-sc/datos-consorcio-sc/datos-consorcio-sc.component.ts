@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-datos-consorcio-sc',
@@ -8,7 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatosConsorcioScComponent implements OnInit {
 
-  constructor() { }
+  formulary:FormGroup;
+  constructor(
+    private _formBuilder: FormBuilder
+  ) {
+    this.formulary = this._formBuilder.group({
+      sociedadEmpresa: [''],
+      rucEmpresa: [''],
+      razonSocialEmpresa: [''],
+      codigoCliEmpresa: [''],
+      canalComEmpresa: [''],
+      grupoCliEmpresa: [''],
+      sustentoComercialEmpresa: [''],
+      oficinaVentaEmpresa: [''],
+      telefonoEmpresa: [''],
+      correoEmpresa: [''],
+    });
+  }
 
   ngOnInit(): void {
   }
