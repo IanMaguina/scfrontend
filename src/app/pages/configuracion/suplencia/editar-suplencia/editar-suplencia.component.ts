@@ -51,7 +51,9 @@ export class EditarSuplenciaComponent implements OnInit {
   comboListadoUsuarioSuplente: Usuario[] = [];
   filteredUsuarioSuplente!: Observable<Usuario[]>;
   selectedUsuarioSuplente: any;
-
+  errorFechaActual = "";
+  errorFechaInicio = "";
+  errorFechaFin = "";
 
   constructor(
     public dialogRef: MatDialogRef<EditarSuplenciaComponent>,
@@ -79,12 +81,9 @@ export class EditarSuplenciaComponent implements OnInit {
     this.listarUsuariosSuplentes();
     this.onValueChanges();
   }
-  errorFechaActual = "";
-  errorFechaInicio = "";
-  errorFechaFin = "";
+
   onValueChanges(): void {
     let fechaActual = new Date();
-
     this.editarFormDialog.valueChanges.subscribe(val => {
       if (val.fecha_inicio < fechaActual.getTime()) {
         this.errorFechaInicio = "Error en la fecha de inicio";

@@ -1,19 +1,20 @@
 <div class="title-add-element color-title">Nueva Suplencia </div>
 <div class="contenidoForm">
-    <form [formGroup]="crearFormDialog" (ngSubmit)="crearSuplencia(crearFormDialog.value)">
-        
-        
+    <form [formGroup]="formDialog" (ngSubmit)="crearSuplencia(formDialog.value)">
+
+
         <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
-           
+
 
             <mat-form-field appearance="outline">
                 <mat-label>Usuario</mat-label>
-                <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto" required>
+                <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto"
+                    required>
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                     <mat-option *ngFor="let option of filteredUsuario | async" [value]="option">
                         {{option.nombre}}
                     </mat-option>
-                </mat-autocomplete>                
+                </mat-autocomplete>
                 <mat-hint>
                     <mat-error [hidden]="!(formErrors.usuario)">
                         {{formErrors.usuario}}
@@ -23,15 +24,16 @@
             </mat-form-field>
         </div>
         <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
-            
+
             <mat-form-field appearance="outline">
                 <mat-label>Usuario suplente</mat-label>
-                <input type="text" matInput placeholder="Usuario suplente" formControlName="usuario_suplente" [matAutocomplete]="autoSuplente" required>
+                <input type="text" matInput placeholder="Usuario suplente" formControlName="usuario_suplente"
+                    [matAutocomplete]="autoSuplente" required>
                 <mat-autocomplete #autoSuplente="matAutocomplete" [displayWith]="displayFnSuplente">
                     <mat-option *ngFor="let option of filteredUsuarioSuplente | async" [value]="option">
                         {{option.nombre}}
                     </mat-option>
-                </mat-autocomplete>                
+                </mat-autocomplete>
                 <mat-hint>
                     <mat-error [hidden]="!(formErrors.usuario)">
                         {{formErrors.usuario_suplente}}
@@ -41,25 +43,33 @@
             </mat-form-field>
         </div>
         <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
-        <mat-form-field appearance="outline">
-            <mat-label>Fecha Inicio</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="fecha_inicio" >
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1 color="primary"></mat-datepicker>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="fecha_inicio">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.fecha_inicio)">
+                        {{errorFechaInicio}}
+                    </mat-error>
+                </mat-hint>
+            </mat-form-field>
         </div>
         <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha Fin</mat-label>
-                <input matInput [matDatepicker]="picker2" formControlName="fecha_fin" >
+                <input matInput [matDatepicker]="picker2" formControlName="fecha_fin">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.fecha_fin)">
+                        {{errorFechaFin}}
+                    </mat-error>
+                </mat-hint>
             </mat-form-field>
         </div>
-
-
         <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
         <button mat-raised-button class="boton-principal-light" type="submit"
-            [disabled]="crearFormDialog.invalid">Agregar</button>
+            [disabled]="formDialog.invalid">Agregar</button>
     </form>
 </div>

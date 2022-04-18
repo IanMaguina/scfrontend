@@ -19,7 +19,7 @@ export class CrearSuplenciaComponent implements OnInit {
 
   
   
-  crearFormDialog: FormGroup;
+  formDialog: FormGroup;
   
   formErrors = {
     'usuario': '',
@@ -52,7 +52,9 @@ export class CrearSuplenciaComponent implements OnInit {
   comboListadoUsuarioSuplente: Usuario[] = [];
   filteredUsuarioSuplente!: Observable<Usuario[]>;
   selectedUsuarioSuplente: any;
-  
+  errorFechaActual = "";
+  errorFechaInicio = "";
+  errorFechaFin = "";
   
   constructor(
     public dialogRef: MatDialogRef<CrearSuplenciaComponent>,
@@ -62,23 +64,40 @@ export class CrearSuplenciaComponent implements OnInit {
     private suplenciaService:SuplenciaService
   ) {
 
-    this.crearFormDialog = this.formBuilder.group({
+    this.formDialog = this.formBuilder.group({
       usuario: ['', Validators.required],
       usuario_suplente: ['', Validators.required],
       fecha_inicio: ['', Validators.required],
       fecha_fin: ['', Validators.required],
     })
-    this.crearFormDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.crearFormDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formDialog.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
   ngOnInit(): void {
     this.listarUsuarios();
     this.listarUsuariosSuplentes();
+    this.onValueChanges();
   }
 
-
+  onValueChanges(): void {
+    let fechaActual = new Date();
+    this.formDialog.valueChanges.subscribe(val => {
+      if (val.fecha_inicio < fechaActual.getTime()) {
+        this.errorFechaInicio = "Error en la fecha de inicio";
+      } else {
+        this.errorFechaInicio = "";
+      }
+      if (val.fecha_fin < fechaActual.getTime()
+        || val.fecha_fin < val.fecha_inicio) {
+        this.errorFechaFin = "Error en la fecha Fin";
+      } else {
+        this.errorFechaFin = "";
+      }
+      console.log(val);
+    })
+  }
 
   async crearSuplencia(form: Suplencia) {
     console.log("crearSuplencia-->"+JSON.stringify(form));
@@ -103,7 +122,7 @@ export class CrearSuplenciaComponent implements OnInit {
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuario = listado;
-    this.filteredUsuario = this.crearFormDialog.get('usuario')?.valueChanges
+    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
     .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -125,7 +144,7 @@ export class CrearSuplenciaComponent implements OnInit {
   async listarUsuariosSuplentes() {
     let listadoSuplentes = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuarioSuplente = listadoSuplentes;
-    this.filteredUsuarioSuplente = this.crearFormDialog.get('usuario_suplente')?.valueChanges
+    this.filteredUsuarioSuplente = this.formDialog.get('usuario_suplente')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
