@@ -34,6 +34,9 @@ import { DatosObrasScComponent } from './solicitud-credito/datos-obras-sc/datos-
 import { DatosAdjuntosScComponent } from './solicitud-credito/datos-adjuntos-sc/datos-adjuntos-sc.component';
 import { DatosClienteScComponent } from './solicitud-credito/datos-cliente-sc/datos-cliente-sc.component';
 import { DatosEmpresaScComponent } from './solicitud-credito/datos-cliente-sc/datos-empresa-sc/datos-empresa-sc.component';
+import { DatosGrupoScComponent } from './solicitud-credito/datos-cliente-sc/datos-grupo-sc/datos-grupo-sc.component';
+import { DatosConsorcioScComponent } from './solicitud-credito/datos-cliente-sc/datos-consorcio-sc/datos-consorcio-sc.component';
+import { DatosConsorciadosScComponent } from './solicitud-credito/datos-cliente-sc/datos-consorciados-sc/datos-consorciados-sc.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { DatosEmpresaScComponent } from './solicitud-credito/datos-cliente-sc/da
     DatosAdjuntosScComponent,
     DatosClienteScComponent,
     DatosEmpresaScComponent,
+    DatosGrupoScComponent,
+    DatosConsorcioScComponent,
+    DatosConsorciadosScComponent,
   ],
   imports: [
     RouterModule,
