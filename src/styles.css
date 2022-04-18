@@ -277,6 +277,11 @@ mat-header-cell {
     padding-top: 10px;
 }
 
+.botonera-step {
+    position: absolute;
+    bottom: 10px;
+}
+
 .botonera-form {
     text-align: center;
 }
@@ -295,6 +300,13 @@ mat-header-cell {
     display: block;
     overflow-x: auto;
     max-height: 60vh;
+}
+
+.content-stepper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    height: 68vh;
 }
 
 .contenidoForm {
@@ -405,6 +417,24 @@ th.mat-header-cell {
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #1D8F3A;
+}
+
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: #1D8F3A;
+}
+
+.mat-stepper-horizontal,
+.mat-stepper-vertical {
+    border-radius: 4px;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
     background-color: #1D8F3A;
 }
 

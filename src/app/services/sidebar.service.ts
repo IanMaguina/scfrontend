@@ -30,6 +30,14 @@ export class SidebarService {
         { name: 'Aprobador adicional', url: 'configuracion/aprobadoradicional' },
       ]
     },
+    {
+      name: 'Solicitud de Crédito',
+      icono: 'credit_card',
+      toolTip: 'Solicitud de Crédito',
+      children: [
+        { name: 'Nueva Solicitud de Crédito', url: 'solicitudcredito/nuevasolicitudcredito' },
+      ]
+    },
   ];
 
 

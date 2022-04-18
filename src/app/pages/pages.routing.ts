@@ -1,10 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+
 import { ConfiguracionRoutingModule } from './configuracion/configuracion.routing';
+import { SolicitudCreditoRoutingModule } from './solicitud-credito/solicitud-credito.routing';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { SolicitudCreditoComponent } from './solicitud-credito/solicitud-credito.component';
 
 
 const routes: Routes = [
@@ -15,6 +18,7 @@ const routes: Routes = [
           { path: 'dashboard', component: DashboardComponent, data:{titulo: 'Dashboard', ruta: 'Dashboard'} }, 
           { path: '', redirectTo: 'dashboard', pathMatch:'full' }, 
           { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'}  },  
+          { path: 'solicitudcredito', component: SolicitudCreditoComponent, data:{titulo: 'Solicitud de Crédito', ruta: 'Solicitud de Crédito'}  },  
           /*    { path: 'usuarios',component: UsuariosComponent }, */
         ]
       },
@@ -24,7 +28,8 @@ const routes: Routes = [
 @NgModule({
     imports: [
       RouterModule.forRoot(routes), 
-      ConfiguracionRoutingModule
+      ConfiguracionRoutingModule,
+      SolicitudCreditoRoutingModule,
     ],
     exports: [RouterModule]
 })
