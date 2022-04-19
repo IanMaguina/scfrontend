@@ -4,7 +4,7 @@
     </div>
     <br> <br>
     <div class="body-dialog">
-        <div class="contenidoForm">
+        <div class="contenidoForm" *ngIf="!nodata">
 
             <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                 <mat-accordion>
@@ -18,8 +18,8 @@
                             <mat-panel-description>
 
                                 <button type="button" mat-flat-button class="boton-principal-light" (click)="verConsorcio(obj.id)">
-                              elegir
-                            </button>
+                  elegir
+                </button>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="expansion-body">
@@ -35,6 +35,20 @@
 
 
         </div>
+        <!-- Cuando no se encuentre consorcios similares -->
+        <div class="contenidoForm" *ngIf="nodata">
+
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                <p>No se ha encontrado un Grupo Empresarial coincidente! </p>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="botonera objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+        <button type="button" mat-flat-button class="boton-secundario" (click)="cerrarDialog(0)">
+      Cerrar
+    </button>
     </div>
 
 </div>

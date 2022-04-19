@@ -47,6 +47,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
       ]
     },
   ]
+  nodata:boolean= false;
   constructor(
     public dialogRef: MatDialogRef<GruposCoincidentesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -57,12 +58,12 @@ export class GruposCoincidentesDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  verConsorcio(consorcio:number){
-    this.cerrarDialog(consorcio);
+  verConsorcio(grupo:number){
+    this.cerrarDialog(grupo);
   }
 
-  cerrarDialog(consorcio:number){
-    this.dialogRef.close(consorcio);
+  cerrarDialog(grupo:number){
+    this.dialogRef.close(grupo);
   }
 
 }

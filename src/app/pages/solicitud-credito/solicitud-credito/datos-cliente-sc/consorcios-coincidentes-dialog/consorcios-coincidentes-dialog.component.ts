@@ -45,7 +45,8 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
         },
       ]
     },
-  ]
+  ];
+  nodata:boolean= false;
   constructor(
     public dialogRef: MatDialogRef<ConsorciosCoincidentesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
