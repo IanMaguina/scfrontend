@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { GlobalSettings } from './shared/settings';
 /* utils */
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +14,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+
+import { GoogleLoginProvider,SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 
 /* components */
 import { AppComponent } from './app.component';
@@ -44,13 +47,28 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatExpansionModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    SocialLoginModule
   ],
   exports: [
   ],
 
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    [
+      { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+      {
+        provide: 'SocialAuthServiceConfig',
+        useValue: {
+          autoLogin: false,
+          providers: [
+            {
+              id: GoogleLoginProvider.PROVIDER_ID,
+              provider: new GoogleLoginProvider(GlobalSettings.clientId)
+            }
+          ]
+        } as SocialAuthServiceConfig,
+      }
+    ],
   ],
   bootstrap: [AppComponent]
 })

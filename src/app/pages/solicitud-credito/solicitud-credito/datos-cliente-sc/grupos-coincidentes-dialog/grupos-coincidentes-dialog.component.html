@@ -1,6 +1,6 @@
 <div class="content-dialog">
     <div class="titledialog color-secundario">
-        Consorcios Coincidentes
+        Grupos Empresariales
     </div>
     <br> <br>
     <div class="body-dialog">
@@ -23,7 +23,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="expansion-body">
-                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let empresa of Empresas">
+                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let empresa of obj.empresas">
                                 {{empresa.razon_social}}
                             </div>
                         </div>
