@@ -5,6 +5,8 @@ import { StepperOrientation } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { ConsorciosCoincidentesDialogComponent } from './consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-datos-cliente-sc',
@@ -28,6 +30,7 @@ export class DatosClienteScComponent implements OnInit {
   //stepperOrientation: Observable<StepperOrientation>;
   constructor(
     private _formBuilder: FormBuilder,
+    private matDialog: MatDialog,
     private formValidatorService: FormValidatorService,
     /* breakpointObserver: BreakpointObserver */
     ) {
@@ -54,8 +57,19 @@ export class DatosClienteScComponent implements OnInit {
       console.log(JSON.stringify(element));
     }
 
+    openBuscarCoincidentes(data:any) {
+      console.log(JSON.stringify(data));
+      this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
+        disableClose: true,
+        width:"400px",
+        data:data
+      });
+
+
+    }
 
   }
+
 
   /* this.stepperOrientation = breakpointObserver
     .observe('(min-width: 800px)')
