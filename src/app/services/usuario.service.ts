@@ -280,6 +280,31 @@ export class UsuarioService {
 
   }
 
+  getUsuarioPorCorreo(email: any): Promise<any> {
+    let datosUsuario: any;
+    return new Promise(
+      (resolve, reject) => {
+
+        this.resourceService.getResource("/usuario/buscarDatosDeEstrategiaDeUsuario?correo=" + email).toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            datosUsuario = data;
+            resolve(datosUsuario);
+          } else {
+            console.log("no hay datos Usuario encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
 
 
 

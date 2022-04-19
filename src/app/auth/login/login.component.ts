@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SocialAuthService,SocialUser } from "angularx-social-login";
+import { AutenticacionService } from 'src/app/services/autenticacion.service';
 
 @Component({
   selector: 'app-login',
@@ -7,10 +10,53 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class LoginComponent implements OnInit {
+  usuarioLogueado: any = SocialUser;
+  usuarioSocial: any = SocialUser;
+  user: any = SocialUser;
+  loggedIn: boolean = false;
 
-  constructor() { }
+
+  constructor(
+    private socialAuthService: SocialAuthService,
+    private router: Router,
+    private autenticacionService: AutenticacionService,
+  ) {
+
+  }
 
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+
+      this.usuarioLogueado = user;
+      if (this.usuarioLogueado) {
+       // this.verifyPending();
+        this.router.navigate(['dashboard']);
+      }
+      console.log("super arsa -->" + JSON.stringify(user));
+      this.loggedIn = (user != null);
+    });
+
   }
+
+  signInWithGoogle(): void {
+    this.autenticacionService.signInWithGoogle().then((data) => {
+      //aqui hago el proceso
+      console.log('la data de loggeo : '+JSON.stringify(data));    
+      this.usuarioSocial = data;
+      if (data.id) {
+        this.autenticacionService.loggedIn = true;
+        this.router.navigate(['dashboard']);
+      } else {
+        this.autenticacionService.loggedIn = false;
+      }
+
+    })
+  }
+
+  signOut(): void {
+    this.socialAuthService.signOut();
+
+  }
+
 
 }

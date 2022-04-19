@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="background">
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Sistema de Materiales
+            </mat-card-title>
+            <mat-card-subtitle>
+                ingreso de usuarios
+            </mat-card-subtitle>
+        </mat-card-header>
+        <div *ngIf="loggedIn">
+            <img src="{{ user.photoUrl }}">
+            <div>
+                <h4>{{ user.name }}</h4>
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        <mat-card-content>
+            <!-- <p>Click para iniciar la autenticación</p> -->
+            
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="submit" *ngIf="!loggedIn" mat-raised-button color="accent" (click)="signInWithGoogle()"  > Iniciar Sesión con Google</button>
+    
+            <button mat-raised-button color="warn" (click)="signOut()" *ngIf="loggedIn" >Cerrar Sesión</button>
+        </mat-card-actions>
+    
+    </mat-card>
+    </div>
