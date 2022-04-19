@@ -40,6 +40,8 @@ import { DatosConsorciadosScComponent } from './solicitud-credito/datos-cliente-
 import { ReferenciasComercialesScComponent } from './solicitud-credito/datos-cliente-sc/referencias-comerciales-sc/referencias-comerciales-sc.component';
 import { PrincipalesClientesScComponent } from './solicitud-credito/datos-cliente-sc/principales-clientes-sc/principales-clientes-sc.component';
 import { EmpresasRelacionadasScComponent } from './solicitud-credito/datos-cliente-sc/empresas-relacionadas-sc/empresas-relacionadas-sc.component';
+import { GruposCoincidentesDialogComponent } from './solicitud-credito/datos-cliente-sc/grupos-coincidentes-dialog/grupos-coincidentes-dialog.component';
+import { ConsorciosCoincidentesDialogComponent } from './solicitud-credito/datos-cliente-sc/consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { EmpresasRelacionadasScComponent } from './solicitud-credito/datos-clien
     ReferenciasComercialesScComponent,
     PrincipalesClientesScComponent,
     EmpresasRelacionadasScComponent,
+    GruposCoincidentesDialogComponent,
+    ConsorciosCoincidentesDialogComponent,
   ],
   imports: [
     RouterModule,

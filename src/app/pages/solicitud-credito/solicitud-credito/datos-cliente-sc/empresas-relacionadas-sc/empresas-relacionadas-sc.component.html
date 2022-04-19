@@ -1,35 +1,35 @@
-<div class="contenidoForm" >
+<div class="contenidoForm">
     <form [formGroup]="formulary" (ngSubmit)="agregarEmpresaRelacionada(formulary.value)">
         <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-            
+
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>RUC</mat-label>
-                    <input matInput formControlName="ruc" >
+                    <input matInput formControlName="ruc">
                 </mat-form-field>
             </div>
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Razón Social</mat-label>
-                    <input matInput formControlName="razon_social" >
+                    <input matInput formControlName="razon_social">
                 </mat-form-field>
             </div>
-           
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <button mat-flat-button aria-label="agregarEmpresasRelacionada" class="boton-principal-light objetoButton" type="submit">
+
+            <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+                <button mat-flat-button aria-label="agregarEmpresasRelacionada" class="boton-principal-light " type="submit">
                     Agregar
                 </button>
             </div>
         </div>
     </form>
-    
+
 </div>
 
 <div class="content-table col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-        <table mat-table [dataSource]="listadoEmpresasRelacionadas" class="mat-elevation-z8 " >
+    <table mat-table [dataSource]="listadoEmpresasRelacionadas" class="mat-elevation-z8 ">
         <caption title="tabla Empresas Relacionadas"></caption>
- 
-       
+
+
         <!-- Column -->
         <ng-container matColumnDef="ruc">
             <th mat-header-cell *matHeaderCellDef> Ruc </th>
@@ -40,21 +40,21 @@
             <th mat-header-cell *matHeaderCellDef> Razón Social </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.razon_social}} </u></td>
         </ng-container>
-     
-       
 
-       <!-- Column -->
+
+
+        <!-- Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab  aria-label="Eliminar" class="boton-secundario" (click)="eliminarEmpresaRel(element.id);">
+                <button type="button" mat-icon-button class="color_secundario" (click)="eliminarEmpresaRel(element.id);">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
-        </ng-container> 
+        </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-</div> 
+</div>

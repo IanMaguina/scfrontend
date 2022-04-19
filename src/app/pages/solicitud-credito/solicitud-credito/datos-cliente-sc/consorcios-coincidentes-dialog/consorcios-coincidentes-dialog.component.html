@@ -1,0 +1,40 @@
+<div class="content-dialog">
+    <div class="titledialog color-secundario">
+        Consorcios Coincidentes
+    </div>
+    <br> <br>
+    <div class="body-dialog">
+        <div class="contenidoForm">
+
+            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                <mat-accordion>
+                    <!--  Empresa - Datos importantes-->
+                    <mat-expansion-panel *ngFor="let obj of listaConsorcios">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{obj.razon_social}}
+
+                            </mat-panel-title>
+                            <mat-panel-description>
+
+                                <button type="button" mat-flat-button class="boton-principal-light" (click)="verConsorcio(obj.id)">
+                                elegir
+                              </button>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="expansion-body">
+                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let empresa of Empresas">
+                                {{empresa.razon_social}}
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
