@@ -345,7 +345,7 @@ mat-header-cell {
 .objetoEmpresa {
     padding: 10px;
     border-radius: 5px;
-    border: solid 1px #999;
+    box-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
     margin-bottom: 2px;
 }
 
