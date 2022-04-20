@@ -141,7 +141,7 @@ body {
 }
 
 .main-content {
-    height: 100%;
+    height: auto;
     width: 100%;
     font-family: 'Poppins medium';
     /* font-weight: 'regular'; */
@@ -164,7 +164,6 @@ body {
     display: inline-block;
     position: relative;
 }
-
 
 .content {
     margin: 20px;
@@ -278,8 +277,10 @@ mat-header-cell {
     padding-top: 10px;
 }
 
+
 /* stepper */
-.content-body-step{
+
+.content-body-step {
     overflow: auto;
     height: 65vh;
 }
@@ -340,18 +341,21 @@ mat-header-cell {
     margin-top: 10px;
     padding-bottom: 40px;
 }
-.objetoEmpresa{
+
+.objetoEmpresa {
     padding: 10px;
     border-radius: 5px;
     border: solid 1px #999;
     margin-bottom: 2px;
 }
-.label{
-    font-weight:bold;
+
+.label {
+    font-weight: bold;
     float: left;
 }
-.dato{
-    margin-left:3px;
+
+.dato {
+    margin-left: 3px;
     float: left;
 }
 
