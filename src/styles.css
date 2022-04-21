@@ -286,8 +286,8 @@ mat-header-cell {
 }
 
 .botonera-step {
-    position: absolute;
-    bottom: 10px;
+    float: left;
+    padding: 10px 10px 10px 10px;
 }
 
 .botonera-form {
@@ -310,12 +310,12 @@ mat-header-cell {
     max-height: 60vh;
 }
 
-.content-stepper {
+/* .content-stepper {
     margin-top: 10px;
     margin-bottom: 10px;
     display: block;
     height: 68vh;
-}
+} */
 
 .contenidoForm {
     width: 99%;
