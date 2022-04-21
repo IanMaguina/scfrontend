@@ -1,10 +1,18 @@
-<form [formGroup]="secondFormGroup">
-    <mat-form-field>
-      <mat-label>Address</mat-label>
-      <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-    </mat-form-field>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+<div class="content-step">
+    <div class="content-body-step">
+        <div class="contenidoForm">
+            <form [formGroup]="secondFormGroup">
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                </mat-form-field>
+
+            </form>
+        </div>
+
     </div>
-  </form>
+    <div class="botonera-step ">
+        <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
+        <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
+    </div>
+</div>

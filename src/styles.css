@@ -310,6 +310,7 @@ mat-header-cell {
     max-height: 60vh;
 }
 
+
 /* .content-stepper {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -514,6 +515,50 @@ th.mat-header-cell {
     cursor: move;
     background: white;
     font-size: 14px;
+}
+
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+body::-webkit-scrollbar {
+    width: 3px;
+    /* width of the entire scrollbar */
+}
+
+
+/* body::-webkit-scrollbar-track {
+      background: orange;
+     color of the tracking area
+} */
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(5 198 93 / 10%);
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    /* border: 2px solid orange;  */
+    /* creates padding around scroll thumb */
+}
+
+.mat-drawer-content::-webkit-scrollbar {
+    width: 3px;
+}
+
+.mat-drawer-content::-webkit-scrollbar-thumb {
+    background-color: rgb(5 198 93 / 10%);
+    border-radius: 20px;
+}
+
+
+/* stepper scroll */
+
+.content-body-step::-webkit-scrollbar {
+    width: 3px;
+}
+
+.content-body-step::-webkit-scrollbar-thumb {
+    background-color: rgb(5 198 93 / 70%);
+    border-radius: 20px;
 }
 
 
