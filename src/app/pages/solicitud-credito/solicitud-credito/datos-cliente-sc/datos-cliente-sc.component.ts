@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ConsorciosCoincidentesDialogComponent } from './consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-datos-cliente-sc',
@@ -27,6 +28,8 @@ export class DatosClienteScComponent implements OnInit {
   ClientSelectorControl = new FormControl('auto');
   panelOpenState = false;
 
+  /* toolTip control */
+  positionOption: TooltipPosition =  'above';
   //stepperOrientation: Observable<StepperOrientation>;
   constructor(
     private _formBuilder: FormBuilder,
@@ -43,6 +46,7 @@ export class DatosClienteScComponent implements OnInit {
         razonSocialConsorcio: [''],
         rucConsorcio: [''],
       });
+
 
     }
     ngOnInit(): void {

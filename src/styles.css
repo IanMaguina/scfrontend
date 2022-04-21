@@ -287,7 +287,7 @@ mat-header-cell {
 
 .botonera-step {
     float: left;
-    padding: 10px 10px 10px 10px;
+    padding: 18px 0px 0px 0px;
 }
 
 .botonera-form {
@@ -559,6 +559,10 @@ body::-webkit-scrollbar-thumb {
 .content-body-step::-webkit-scrollbar-thumb {
     background-color: rgb(5 198 93 / 70%);
     border-radius: 20px;
+}
+
+mat-radio-button mat-icon {
+    font-size: 14pt !important;
 }
 
 

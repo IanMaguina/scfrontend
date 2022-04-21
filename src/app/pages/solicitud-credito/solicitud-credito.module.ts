@@ -25,7 +25,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 /* componentes */
 
 import { CrearSolicitudCreditoComponent } from './solicitud-credito/crear-solicitud-credito/crear-solicitud-credito.component';
@@ -86,6 +86,7 @@ import { ConsorciosCoincidentesDialogComponent } from './solicitud-credito/datos
     MatRippleModule,
     MatStepperModule,
     MatExpansionModule,
+    MatTooltipModule,
   ],
   exports: [
     CdkStepperModule,
