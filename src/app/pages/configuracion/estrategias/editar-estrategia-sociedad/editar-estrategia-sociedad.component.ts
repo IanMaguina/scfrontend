@@ -15,6 +15,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { Estrategia } from 'src/app/models/estrategia.interface';
+import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
+import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
+import { SociedadService } from 'src/app/services/sociedad.service';
+
+
+
 @Component({
   selector: 'app-editar-estrategia-sociedad',
   templateUrl: './editar-estrategia-sociedad.component.html',
@@ -29,7 +35,9 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     'usuario': '',
     'estado': '',
     'rol': '',
-    'revisor': ''
+    'revisor': '',
+    'grupo_revisor': '',
+    'sociedad_revisor': '',
   }
   validationMessages = {
     'usuario': {
@@ -43,17 +51,23 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     },
     'revisor': {
       'required': 'el perfil es requerido.',
-    }
+    },
+    'grupo_revisor': {
+      'required': 'el revisor es requerido.',
+    },
+    'sociedad_revisor': {
+      'required': 'el revisor es requerido.',
+    },
   };
   //Submitted form
   submitted = false;
   carga: boolean = false;
 
   //poner el tipado correcto => es data dummy
-  listadoSociedades: Sociedad[] = [
-    { codigo_sap: '0011', nombre: 'sociedad 1' },
+  listadoSociedadRevisor: Sociedad[] = [];
+   /*  { codigo_sap: '0011', nombre: 'sociedad 1' },
     { codigo_sap: '0012', nombre: 'sociedad 2' },
-  ];
+  ]; */
   /* poner el tipo del modelo Rol */
 
   listadoRoles: Rol[] = [
@@ -78,6 +92,12 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   filteredUsuarioRevisor!: Observable<Usuario[]>;
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
+
+
+  filteredGrupoRevisor!: Observable<GrupoCliente[]>;
+  comboListadoGrupoRevisor: GrupoCliente[] = [];
+  selectedGrupoRevisor: any;
+
   estrategia: Estrategia;
   constructor(
     public dialogRef: MatDialogRef<EditarEstrategiaSociedadComponent>,
@@ -87,20 +107,26 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
     private estadoService: EstadoService,
-    private estrategiaService: EstrategiaService
+    private estrategiaService: EstrategiaService,
+    private sociedadService: SociedadService,
+    private grupoService: GrupoClienteService,
   ) {
     this.estrategia = data.estrategia;
     this.formDialog = this.formBuilder.group({
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
-      revisor: ['', Validators.required]
+      revisor: ['', Validators.required],
+      grupo_revisor: [''],
+      sociedad_revisor: [''],
     })
     this.formDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
     })
     this.listarEstados();
     this.listarUsuarios();
+    this.listarGrupos();
+    this.listarSociedades();
   }
 
   ngOnInit(): void {
@@ -252,4 +278,36 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
     return o1.id === o2.id;
   }
+
+
+  /* grupo revisor */
+  async listarGrupos() {
+    let listado = await this.grupoService.listarGrupoCliente().then()
+    this.comboListadoGrupoRevisor = listado;
+    this.filteredGrupoRevisor = this.formDialog.get('grupo_revisor')?.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.nombre),
+        map(nombre => nombre ? this._filterGrupoRevisor(nombre) : this.comboListadoGrupoRevisor.slice())
+      );
+  }
+
+  displayFnGrupoRevisor(grupo: GrupoCliente): string {
+    return grupo && grupo.nombre ? grupo.nombre : '';
+  }
+
+  private _filterGrupoRevisor(nombre: string): GrupoCliente[] {
+    let filterValue = nombre.toLowerCase();
+    return this.comboListadoGrupoRevisor.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  async listarSociedades() {
+    this.sociedadService.listarSociedades().then(data => {
+      this.listadoSociedadRevisor = data;
+    })
+  }
+
+
+
+
 }

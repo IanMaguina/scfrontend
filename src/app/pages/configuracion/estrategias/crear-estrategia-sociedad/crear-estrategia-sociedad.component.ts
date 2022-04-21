@@ -18,6 +18,8 @@ import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
+import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
 
 @Component({
   selector: 'app-crear-estrategia-sociedad',
@@ -26,14 +28,16 @@ import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.c
 })
 export class CrearEstrategiaSociedadComponent implements OnInit {
 
- 
+
 
   formDialog: FormGroup;
   formErrors = {
     'usuario': '',
     'estado': '',
     'rol': '',
-    'revisor': ''
+    'revisor': '',
+    'grupo_revisor': '',
+    'sociedad_revisor': '',
   }
   validationMessages = {
     'usuario': {
@@ -47,28 +51,33 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     },
     'revisor': {
       'required': 'el revisor es requerido.',
-    }
+    },
+    'grupo_revisor': {
+      'required': 'el revisor es requerido.',
+    },
+    'sociedad_revisor': {
+      'required': 'el revisor es requerido.',
+    },
   };
   //Submitted form
   submitted = false;
   carga: boolean = false;
 
   //poner el tipado correcto => es data dummy
-  listadoSociedades: Sociedad[] = [];
-/*     { codigo_sap: '0011', nombre: 'sociedad 1' },
-    { codigo_sap: '0012', nombre: 'sociedad 2' },
-  ]; */
+
+  listadoSociedadRevisor: Sociedad[] = [];
+
   /* poner el tipo del modelo Rol */
 
   listadoRoles: Rol[] = [];
- /*    { id: 1, nombre: 'rol 1' },
-    { id: 2, nombre: 'rol 2' },
-  ];
- */
+  /*    { id: 1, nombre: 'rol 1' },
+     { id: 2, nombre: 'rol 2' },
+   ];
+  */
   listadoEstados: Estado[] = [];
-/*     { id: 1, nombre: 'Estado 1' },
-    { id: 2, nombre: 'Estado 2' },
-  ]; */
+  /*     { id: 1, nombre: 'Estado 1' },
+      { id: 2, nombre: 'Estado 2' },
+    ]; */
 
   id_estado: number = 0;
   id_estado_rol: number = 0;
@@ -82,6 +91,11 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
 
+  myControlGrupoRevisor = new FormControl();
+  filteredGrupoRevisor!: Observable<GrupoCliente[]>;
+  comboListadoGrupoRevisor: GrupoCliente[] = [];
+  selectedGrupoRevisor: any;
+
   constructor(
     public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
     private matDialog: MatDialog,
@@ -89,13 +103,17 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
     private estadoService: EstadoService,
-    private estrategiaService: EstrategiaService
+    private estrategiaService: EstrategiaService,
+    private sociedadService: SociedadService,
+    private grupoService: GrupoClienteService,
   ) {
     this.formDialog = this.formBuilder.group({
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
       rol: ['', Validators.required],
       revisor: [''],
+      grupo_revisor: [''],
+      sociedad_revisor: [''],
     })
     this.formDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
@@ -105,6 +123,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   ngOnInit(): void {
     this.listarEstados();
     this.listarUsuarios();
+    this.listarGrupos();
+    this.listarSociedades();
   }
 
   async listarUsuariosNoAgregados() {
@@ -128,6 +148,9 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
+
+
+  /* usuario revisor */
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuarioRevisor = listado;
@@ -138,7 +161,6 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
         map(nombre => nombre ? this._filterRevisor(nombre) : this.comboListadoUsuarioRevisor.slice())
       );
   }
-
   displayFnRevisor(user: Usuario): string {
     return user && user.nombre ? user.nombre : '';
   }
@@ -147,6 +169,37 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     let filterValue = nombre.toLowerCase();
     return this.comboListadoUsuarioRevisor.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
+
+
+  /* grupo revisor */
+  async listarGrupos() {
+    let listado = await this.grupoService.listarGrupoCliente().then()
+    this.comboListadoGrupoRevisor = listado;
+    this.filteredGrupoRevisor = this.formDialog.get('grupo_revisor')?.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.nombre),
+        map(nombre => nombre ? this._filterGrupoRevisor(nombre) : this.comboListadoGrupoRevisor.slice())
+      );
+  }
+
+  displayFnGrupoRevisor(grupo: GrupoCliente): string {
+    return grupo && grupo.nombre ? grupo.nombre : '';
+  }
+
+  private _filterGrupoRevisor(nombre: string): GrupoCliente[] {
+    let filterValue = nombre.toLowerCase();
+    return this.comboListadoGrupoRevisor.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  async listarSociedades() {
+    this.sociedadService.listarSociedades().then(data => {
+      this.listadoSociedadRevisor = data;
+    })
+  }
+
+
+
 
   async listarEstados() {
     this.estadoService.listarParaEstrategia().then(data => {
@@ -194,12 +247,12 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
         });
       } else {
         this.callErrorDialog(mensaje);
-        
+
       }
     }
   }
 
-  callErrorDialog(mensaje:string){
+  callErrorDialog(mensaje: string) {
     this.matDialog.open(ErrorDialogComponent, {
       disableClose: true,
       width: "400px",
