@@ -8,6 +8,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ConsorciosCoincidentesDialogComponent } from './consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import {TooltipPosition} from '@angular/material/tooltip';
+import { GruposCoincidentesDialogComponent } from './grupos-coincidentes-dialog/grupos-coincidentes-dialog.component';
 
 @Component({
   selector: 'app-datos-cliente-sc',
@@ -38,7 +39,7 @@ export class DatosClienteScComponent implements OnInit {
     /* breakpointObserver: BreakpointObserver */
     ) {
       this.firstFormGroup = this._formBuilder.group({
-        clientSelector: [this.cliente,this.ClientSelectorControl, Validators.required],
+        tipo_cliente: [this.cliente,this.ClientSelectorControl, Validators.required],
         nombreGrupo: [''],
         rucGrupo: [''],
         razonSocialEmpresa: [''],
@@ -63,11 +64,24 @@ export class DatosClienteScComponent implements OnInit {
 
     openBuscarCoincidentes(data:any) {
       console.log(JSON.stringify(data));
-      this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
-        disableClose: true,
-        width:"400px",
-        data:data
-      });
+      let tipo_cliente=data.tipo_cliente;
+      switch (tipo_cliente) {
+        case 1:
+          console.log("Grupo Empresarial");
+          this.matDialog.open(GruposCoincidentesDialogComponent, {
+            disableClose: true,
+            width:"400px",
+            data:data
+          });
+   
+          break;
+        case 2:
+          console.log("Consorcio");
+          break;
+        case 3:
+          console.log("Individual");
+          break;
+      }
 
 
     }

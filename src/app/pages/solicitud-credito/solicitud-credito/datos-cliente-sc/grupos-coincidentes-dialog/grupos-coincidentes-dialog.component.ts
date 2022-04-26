@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import {ClienteAgrupacion} from '../../../../../models/cliente-agrupacion.interface';
+import {SolicitudService} from '../../../../../services/solicitud.service';
 @Component({
   selector: 'app-grupos-coincidentes-dialog',
   templateUrl: './grupos-coincidentes-dialog.component.html',
@@ -9,54 +10,29 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GruposCoincidentesDialogComponent implements OnInit {
 
-  listaGrupos:any[] = [
-    {
-      id:1,
-      nombre:'consorcio 1 SAC',
-      empresas: [
-        {
-          id:1,
-          razon_social:'Empresa 1 SAC'
-        },
-        {
-          id:2,
-          razon_social:'Empresa 2 SAC'
-        },
-        {
-          id:3,
-          razon_social:'Empresa 3 SAC'
-        },
-      ]
-    },
-    {
-      id:1,
-      razon_social:'consorcio 2 SAC',
-      empresas: [
-        {
-          id:4,
-          razon_social:'Empresa 4 SAC'
-        },
-        {
-          id:5,
-          razon_social:'Empresa 5 SAC'
-        },
-        {
-          id:6,
-          razon_social:'Empresa 6 SAC'
-        },
-      ]
-    },
-  ]
+  listaGrupos:ClienteAgrupacion[] = [];
   nodata:boolean= false;
+  nombre:string;
+  rucIntegrante:string;
   constructor(
     public dialogRef: MatDialogRef<GruposCoincidentesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private solicitudService:SolicitudService
   ) {
-    //this.listaConsorcios = data.payload;
-
+    this.nombre=data.nombreGrupo;
+    this.rucIntegrante=data.rucGrupo;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.listarClienteAgrupacionxNombre();
+  }
+  listarClienteAgrupacionxNombre(){
+    this.solicitudService.listarClienteAgrupacionxNombre(this.nombre).then((data)=>{
+      console.log("Listado de grupos empresariales-->"+JSON.stringify(data.payload))
+      this.listaGrupos=data.payload;
+      //this.cerrarDialog(data);  
+    })
+
   }
   verConsorcio(grupo:number){
     this.cerrarDialog(grupo);

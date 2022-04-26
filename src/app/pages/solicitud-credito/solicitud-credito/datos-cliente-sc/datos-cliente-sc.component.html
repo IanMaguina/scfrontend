@@ -3,7 +3,7 @@
         <div class="contenidoForm">
             <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                    <mat-radio-group aria-label="Select an option" formControlName="clientSelector" (change)="dosomething(ClientSelectorControl.value)" [formControl]="ClientSelectorControl" [(ngModel)]="cliente">
+                    <mat-radio-group aria-label="Select an option" formControlName="tipo_cliente" (change)="dosomething(ClientSelectorControl.value)" [formControl]="ClientSelectorControl" [(ngModel)]="cliente">
                         <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
                         &nbsp;
                         <mat-radio-button [(value)]="radioConsorcio">Consorcio
