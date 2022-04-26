@@ -276,6 +276,9 @@ mat-header-cell {
 .botonera {
     padding-top: 10px;
 }
+.botonera-superior {
+    float: right;
+}
 
 
 /* stepper */

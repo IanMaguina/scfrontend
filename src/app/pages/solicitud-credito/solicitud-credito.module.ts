@@ -42,6 +42,18 @@ import { PrincipalesClientesScComponent } from './solicitud-credito/datos-client
 import { EmpresasRelacionadasScComponent } from './solicitud-credito/datos-cliente-sc/empresas-relacionadas-sc/empresas-relacionadas-sc.component';
 import { GruposCoincidentesDialogComponent } from './solicitud-credito/datos-cliente-sc/grupos-coincidentes-dialog/grupos-coincidentes-dialog.component';
 import { ConsorciosCoincidentesDialogComponent } from './solicitud-credito/datos-cliente-sc/consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
+import { RiesgosScComponent } from './solicitud-credito/datos-planes-sc/riesgos-sc/riesgos-sc.component';
+import { HipotecasScComponent } from './solicitud-credito/datos-planes-sc/hipotecas-sc/hipotecas-sc.component';
+import { GarantiaLiquidaScComponent } from './solicitud-credito/datos-planes-sc/garantia-liquida-sc/garantia-liquida-sc.component';
+import { CesionDerechosProveedoresScComponent } from './solicitud-credito/datos-planes-sc/cesion-derechos-proveedores-sc/cesion-derechos-proveedores-sc.component';
+import { ResumenRiesgosScComponent } from './solicitud-credito/datos-planes-sc/resumen-riesgos-sc/resumen-riesgos-sc.component';
+import { DlgModificarPlanScComponent } from './solicitud-credito/datos-planes-sc/dlg-modificar-plan-sc/dlg-modificar-plan-sc.component';
+import { DlgNuevoPlanScComponent } from './solicitud-credito/datos-planes-sc/dlg-nuevo-plan-sc/dlg-nuevo-plan-sc.component';
+import { TabFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/tab-flujo-caja-sc/tab-flujo-caja-sc.component';
+import { TabEstadosFinancierosScComponent } from './solicitud-credito/datos-adjuntos-sc/tab-estados-financieros-sc/tab-estados-financieros-sc.component';
+import { TabDocumentosAdicionalesScComponent } from './solicitud-credito/datos-adjuntos-sc/tab-documentos-adicionales-sc/tab-documentos-adicionales-sc.component';
+import { DlgNuevoProductoFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-nuevo-producto-flujo-caja-sc/dlg-nuevo-producto-flujo-caja-sc.component';
+import { DlgCuadroFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-cuadro-flujo-caja-sc/dlg-cuadro-flujo-caja-sc.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +72,18 @@ import { ConsorciosCoincidentesDialogComponent } from './solicitud-credito/datos
     EmpresasRelacionadasScComponent,
     GruposCoincidentesDialogComponent,
     ConsorciosCoincidentesDialogComponent,
+    RiesgosScComponent,
+    HipotecasScComponent,
+    GarantiaLiquidaScComponent,
+    CesionDerechosProveedoresScComponent,
+    ResumenRiesgosScComponent,
+    DlgModificarPlanScComponent,
+    DlgNuevoPlanScComponent,
+    TabFlujoCajaScComponent,
+    TabEstadosFinancierosScComponent,
+    TabDocumentosAdicionalesScComponent,
+    DlgNuevoProductoFlujoCajaScComponent,
+    DlgCuadroFlujoCajaScComponent,
   ],
   imports: [
     RouterModule,
