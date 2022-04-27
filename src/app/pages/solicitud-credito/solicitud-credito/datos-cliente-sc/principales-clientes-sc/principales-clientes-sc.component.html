@@ -5,7 +5,7 @@
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>RUC</mat-label>
-                    <input matInput formControlName="ruc">
+                    <input matInput formControlName="numero_documento">
                 </mat-form-field>
             </div>
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
@@ -31,9 +31,9 @@
 
 
         <!-- Column -->
-        <ng-container matColumnDef="ruc">
+        <ng-container matColumnDef="numero_documento">
             <th mat-header-cell *matHeaderCellDef> Ruc </th>
-            <td mat-cell *matCellDef="let element"> <u> {{element.ruc}} </u></td>
+            <td mat-cell *matCellDef="let element"> <u> {{element.numero_documento}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="razon_social">
