@@ -19,6 +19,8 @@ import { GruposCoincidentesDialogComponent } from './grupos-coincidentes-dialog/
 })
 export class DatosClienteScComponent implements OnInit {
   @Output() onFirstFormGroup: EventEmitter<any> = new EventEmitter();
+  @Output() id_solicitud_hija: EventEmitter<any> = new EventEmitter();
+  @Input() id_solicitud_editar:number;
   firstFormGroup:FormGroup;
   /* to settings constantes */
   radioGrupo: number =1;
@@ -36,6 +38,7 @@ export class DatosClienteScComponent implements OnInit {
   nombreGrupoAcordeon:string=null;
   clienteData:Empresa[];
   cliente_seleccionado:number=1;
+  id_solicitud_dc:number=0;
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
@@ -78,8 +81,12 @@ export class DatosClienteScComponent implements OnInit {
           });
           dialogRef2.afterClosed().subscribe(async result => {
             console.log("return Grupo dialogs-->"+JSON.stringify(result));
-            this.nombreGrupoAcordeon=result.nombre;
-            this.clienteData=result.empresa;
+            this.nombreGrupoAcordeon=result.grupo.nombre;
+            //this.id_solicitud_dc=await result.payload.id;
+            this.clienteData=result.grupo.empresa;
+            this.id_solicitud_hija.emit(result.solicitud.id);
+
+
           });
           break;
         case 2:
