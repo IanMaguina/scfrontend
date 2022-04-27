@@ -7,7 +7,7 @@
     <mat-step [stepControl]="firstForm">
       <div class="content-stepper">
         <ng-template matStepLabel>Datos del Cliente</ng-template>
-        <app-datos-cliente-sc (onFirstFormGroup)="onFirstFormGroupEvent($event)"></app-datos-cliente-sc>
+        <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)" (onFirstFormGroup)="onFirstFormGroupEvent($event)"></app-datos-cliente-sc>
       </div>
     </mat-step>
     <mat-step [stepControl]="secondForm">

@@ -45,7 +45,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
     console.log("grupo seleccionado-->"+JSON.stringify(grupo));
     let solicitud:Solicitud = await this.mapeoSolicitud(grupo)
     this.solicitudService.crear(solicitud).then(data=>{
-      this.cerrarDialog(grupo);
+      this.cerrarDialog({grupo:grupo, solicitud:data.payload});
     })
     
   }

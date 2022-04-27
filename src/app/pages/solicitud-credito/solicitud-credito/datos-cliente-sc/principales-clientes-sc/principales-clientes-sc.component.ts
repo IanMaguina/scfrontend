@@ -64,7 +64,7 @@ export class PrincipalesClientesScComponent implements OnInit {
   }
   
   listar(){
-    this.solicitudService.listarSolicitudPrincipalClientexSolicitud(7).then(data=>{
+    this.solicitudService.listarSolicitudPrincipalClientexSolicitud(this.id_solicitud).then(data=>{
       this.listadoPrincipalesClientes=data.payload;
     })
 
@@ -83,7 +83,7 @@ export class PrincipalesClientesScComponent implements OnInit {
 
   async mapeoData(form: any) {
     let solicitud: SolicitudPrincipalCliente = {
-      "id_solicitud": 115,//this.id_solicitud,
+      "id_solicitud": this.id_solicitud,
       "id_documento_identidad": 1,
       "numero_documento": form.numero_documento,
       "razon_social": form.razon_social

@@ -64,10 +64,9 @@ export class EmpresasRelacionadasScComponent implements OnInit {
   }
   
   listar(){
-    this.solicitudService.listarSolicitudEmpresaRelacionada(7).then(data=>{
+    this.solicitudService.listarSolicitudEmpresaRelacionada(this.id_solicitud).then(data=>{
       this.listadoEmpresaRelacionadas=data.payload;
     })
-
   }
 
   async agregar(form:any){
@@ -83,7 +82,7 @@ export class EmpresasRelacionadasScComponent implements OnInit {
 
   async mapeoData(form: any) {
     let solicitud: SolicitudEmpresaRelacionada = {
-      "id_solicitud": 115,//this.id_solicitud,
+      "id_solicitud": this.id_solicitud,
       "id_documento_identidad": 1,
       "numero_documento": form.numero_documento,
       "razon_social": form.razon_social
