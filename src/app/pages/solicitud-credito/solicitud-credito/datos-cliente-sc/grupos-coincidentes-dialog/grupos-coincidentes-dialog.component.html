@@ -17,13 +17,13 @@
                             </mat-panel-title>
                             <mat-panel-description>
 
-                                <button type="button" mat-flat-button class="boton-principal-light" (click)="verConsorcio(obj.id)">
+                                <button type="button" mat-flat-button class="boton-principal-light" (click)="guardarSolicitud(obj)">
                   elegir
                 </button>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="expansion-body">
-                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let empresa of obj.empresas">
+                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let empresa of obj.empresa">
                                 {{empresa.razon_social}}
                             </div>
                         </div>

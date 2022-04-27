@@ -1,3 +1,4 @@
+import { Empresa } from './empresa.interface';
 import { TipoCliente } from "./tipo-cliente.interface";
 import { TipoDocumentoIdentidad } from "./tipo-documento-identidad.interface";
 
@@ -9,6 +10,7 @@ export interface ClienteAgrupacion{
     tipo_documento_identidad?:TipoDocumentoIdentidad,
     numero_documento?:string,
     nombre:string,
+    empresa?:Empresa[];
     activo?:boolean
 }
 

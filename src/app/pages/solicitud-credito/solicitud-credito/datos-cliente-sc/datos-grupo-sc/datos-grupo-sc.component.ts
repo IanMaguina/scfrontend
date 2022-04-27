@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Empresa } from './../../../../../models/empresa.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ZonalService } from 'src/app/services/zonal.service';
+import { Zonal } from 'src/app/models/zonal.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 
 @Component({
   selector: 'app-datos-grupo-sc',
@@ -7,41 +13,74 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DatosGrupoScComponent implements OnInit {
-  listaEmpresas:any =[
-    { 
-      id: 1,
-      id_grupo: 1,
-      codigo_cliente_sap: '65165',
-      canal_comercial: 'Canal 1',
-      oficina_venta: 'oficina 1',
-      razon_social: 'empresa 1 SAC',
-      grupo_cliente: 'Grupo 1',
-      correo: 'empresa1@gmail.com',
-    },
-    { 
-      id: 2,
-      id_grupo: 1,
-      codigo_cliente_sap: '65166',
-      canal_comercial: 'Canal 2',
-      oficina_venta: 'oficina 2',
-      razon_social: 'empresa 2 SAC',
-      grupo_cliente: 'Grupo 2',
-      correo: 'empresa2@gmail.com',
-    },
-    { 
-      id: 3,
-      id_grupo: 1,
-      codigo_cliente_sap: '65167',
-      canal_comercial: 'Canal 3',
-      oficina_venta: 'oficina 3',
-      razon_social: 'empresa 3 SAC',
-      grupo_cliente: 'Grupo 3',
-      correo: 'empresa3@gmail.com',
-    },
-  ]
-  constructor() { }
+  @Input() clienteData: Empresa[];
+  listaEmpresas:any =[];
+  listadoZonales:Zonal[] =[];
 
+  grupoForm: FormGroup;
+
+  formErrors = {
+    'sustento_comercial': '',
+    'id_zonal': '',
+    'telefono': '',
+    'correo': '',
+  
+  }
+  validationMessages = {
+    'sustento_comercial': {
+      'required': 'el sustento_comercial es requerido.'
+    },
+    'id_zonal': {
+      'required': 'el id_zonal es requerido.'
+    },
+    'telefono': {
+      'required': 'el telefono es requerido.'
+    },
+    'correo': {
+      'required': 'el correo es requerido.'
+    },
+    
+  };
+  //Submitted form
+  submitted = false;
+  carga: boolean = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private formValidatorService: FormValidatorService,
+    private zonalService:ZonalService,
+    private solicitudService:SolicitudService,
+  ) { 
+    this.grupoForm = this.formBuilder.group({
+     
+      sustento_comercial: ['', Validators.required],
+      id_zonal: ['', Validators.required],
+      telefono: ['', Validators.required],
+      correo: ['', Validators.required],
+  
+    })
+    this.grupoForm.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.grupoForm, this.formErrors, this.validationMessages, this.submitted);
+    })
+  }
+  
   ngOnInit(): void {
+    console.log("data de GRUPO-->"+JSON.stringify(this.clienteData));
+    this.listaEmpresas=this.clienteData;
+    this.listarZonales();
+  }
+  async listarZonales(){
+    await this.zonalService.listarZonales().then((dato) => {
+      this.listadoZonales = dato;
+    })
+  }
+
+  async guardarSeccionGrupo(form: any) {
+    console.log("guardarSeccionGrupo--->" + JSON.stringify(form));
+     
+    /* this.solicitudService.crear(form).then(() => {
+
+    }); */
   }
 
 }

@@ -1,3 +1,4 @@
+import { Empresa } from './../../../../models/empresa.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -8,6 +9,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ConsorciosCoincidentesDialogComponent } from './consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import {TooltipPosition} from '@angular/material/tooltip';
+import { GruposCoincidentesDialogComponent } from './grupos-coincidentes-dialog/grupos-coincidentes-dialog.component';
 
 @Component({
   selector: 'app-datos-cliente-sc',
@@ -16,7 +18,6 @@ import {TooltipPosition} from '@angular/material/tooltip';
   ]
 })
 export class DatosClienteScComponent implements OnInit {
-
   @Output() onFirstFormGroup: EventEmitter<any> = new EventEmitter();
   firstFormGroup:FormGroup;
   /* to settings constantes */
@@ -31,6 +32,10 @@ export class DatosClienteScComponent implements OnInit {
   /* toolTip control */
   positionOption: TooltipPosition =  'above';
   //stepperOrientation: Observable<StepperOrientation>;
+
+  nombreGrupoAcordeon:string=null;
+  clienteData:Empresa[];
+  cliente_seleccionado:number=1;
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
@@ -38,7 +43,7 @@ export class DatosClienteScComponent implements OnInit {
     /* breakpointObserver: BreakpointObserver */
     ) {
       this.firstFormGroup = this._formBuilder.group({
-        clientSelector: [this.cliente,this.ClientSelectorControl, Validators.required],
+        tipo_cliente: [this.cliente,this.ClientSelectorControl, Validators.required],
         nombreGrupo: [''],
         rucGrupo: [''],
         razonSocialEmpresa: [''],
@@ -46,32 +51,49 @@ export class DatosClienteScComponent implements OnInit {
         razonSocialConsorcio: [''],
         rucConsorcio: [''],
       });
-
-
     }
+
     ngOnInit(): void {
       console.log("ngOnInit");
     }
 
-
     guardarSeccionInformacion(element:any){
       console.log("guardarSeccionInformacion");
     }
-    dosomething(element:any){
-      console.log(JSON.stringify(element));
+
+    seleccionCliente(){
+      this.cliente_seleccionado=this.ClientSelectorControl.value;
     }
 
-    openBuscarCoincidentes(data:any) {
+    async openBuscarCoincidentes(data:any) {
       console.log(JSON.stringify(data));
-      this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
-        disableClose: true,
-        width:"400px",
-        data:data
-      });
-
-
+      this.cliente_seleccionado=data.tipo_cliente;
+      switch (this.cliente_seleccionado) {
+        case 1:
+          console.log("Grupo Empresarial");
+          const dialogRef2 = this.matDialog.open(GruposCoincidentesDialogComponent, {
+            disableClose: true,
+            width:"400px",
+            data:data
+          });
+          dialogRef2.afterClosed().subscribe(async result => {
+            console.log("return Grupo dialogs-->"+JSON.stringify(result));
+            this.nombreGrupoAcordeon=result.nombre;
+            this.clienteData=result.empresa;
+          });
+          break;
+        case 2:
+          console.log("Consorcio");
+          break;
+        case 3:
+          console.log("Individual");
+          break;
+      }
     }
 
+    limpiarCampo(nombre:string){
+      this.firstFormGroup.get(nombre).setValue('');
+    }
   }
 
 

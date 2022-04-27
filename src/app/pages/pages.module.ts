@@ -8,13 +8,11 @@ import { PagesComponent } from './pages.component';
 import { ConfiguracionModule } from './configuracion/configuracion.module';
 import { SolicitudCreditoModule } from './solicitud-credito/solicitud-credito.module';
 
-
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
-    PagesComponent,
+    PagesComponent
+
   ],
   exports: [
     DashboardComponent,

@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { Solicitud } from 'src/app/models/solicitud.interface';
+import {ClienteAgrupacion} from '../../../../../models/cliente-agrupacion.interface';
+import {SolicitudService} from '../../../../../services/solicitud.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 @Component({
   selector: 'app-grupos-coincidentes-dialog',
   templateUrl: './grupos-coincidentes-dialog.component.html',
@@ -9,60 +12,60 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GruposCoincidentesDialogComponent implements OnInit {
 
-  listaGrupos:any[] = [
-    {
-      id:1,
-      nombre:'consorcio 1 SAC',
-      empresas: [
-        {
-          id:1,
-          razon_social:'Empresa 1 SAC'
-        },
-        {
-          id:2,
-          razon_social:'Empresa 2 SAC'
-        },
-        {
-          id:3,
-          razon_social:'Empresa 3 SAC'
-        },
-      ]
-    },
-    {
-      id:1,
-      razon_social:'consorcio 2 SAC',
-      empresas: [
-        {
-          id:4,
-          razon_social:'Empresa 4 SAC'
-        },
-        {
-          id:5,
-          razon_social:'Empresa 5 SAC'
-        },
-        {
-          id:6,
-          razon_social:'Empresa 6 SAC'
-        },
-      ]
-    },
-  ]
+  listaGrupos:ClienteAgrupacion[] = [];
   nodata:boolean= false;
+  nombre:string;
+  rucIntegrante:string;
+  ESTADO_SOLICITUD_EN_SOLICITANTE=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ROL_SOLICITANTE=GlobalSettings.ROL_SOLICITANTE;
   constructor(
     public dialogRef: MatDialogRef<GruposCoincidentesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private solicitudService:SolicitudService
   ) {
-    //this.listaConsorcios = data.payload;
-
+    this.nombre=data.nombreGrupo;
+    this.rucIntegrante=data.rucGrupo;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.listarClienteAgrupacionxNombre();
   }
-  verConsorcio(grupo:number){
-    this.cerrarDialog(grupo);
+  listarClienteAgrupacionxNombre(){
+    this.solicitudService.listarClienteAgrupacionxNombre(this.nombre).then((data)=>{
+      console.log("Listado de grupos empresariales-->"+JSON.stringify(data.payload))
+      this.listaGrupos=data.payload;
+      if (data.payload.length===0){
+        this.nodata=true;
+      }
+    })
+
+  }
+  
+  async guardarSolicitud(grupo:any){
+    console.log("grupo seleccionado-->"+JSON.stringify(grupo));
+    let solicitud:Solicitud = await this.mapeoSolicitud(grupo)
+    this.solicitudService.crear(solicitud).then(data=>{
+      this.cerrarDialog(grupo);
+    })
+    
   }
 
-  cerrarDialog(grupo:number){
+  async mapeoSolicitud(grupo: any) {
+    let solicitud: Solicitud = {
+      "correlativo": null,
+      "id_estado": this.ESTADO_SOLICITUD_EN_SOLICITANTE,
+      "id_rol": this.ROL_SOLICITANTE,
+      "id_usuario": 12,
+      "id_usuario_creacion":12,
+      "id_solicitud_referencia": null,
+      "sociedad_codigo_sap": null,
+      "id_cliente_agrupacion": grupo.id,
+      "id_empresa": null
+    }
+    return solicitud;
+  }
+
+  cerrarDialog(grupo:any){
     this.dialogRef.close(grupo);
   }
 
