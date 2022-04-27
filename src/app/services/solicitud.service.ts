@@ -57,4 +57,20 @@ export class SolicitudService {
     );
   }
 
+  crear(solicitud : Solicitud): Promise<any> {
+    console.log("adding suplencia..." + JSON.stringify(solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud", solicitud).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
 }

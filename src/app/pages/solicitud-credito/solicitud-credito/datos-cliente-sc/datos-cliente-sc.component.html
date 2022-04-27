@@ -3,7 +3,7 @@
         <div class="contenidoForm">
             <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                    <mat-radio-group aria-label="Select an option" formControlName="tipo_cliente" (change)="dosomething(ClientSelectorControl.value)" [formControl]="ClientSelectorControl" [(ngModel)]="cliente">
+                    <mat-radio-group aria-label="Select an option" (change)="seleccionCliente()" [formControl]="ClientSelectorControl" [(ngModel)]="cliente">
                         <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
                         &nbsp;
                         <mat-radio-button [(value)]="radioConsorcio">Consorcio
@@ -14,18 +14,18 @@
                     </mat-radio-group>
                 </div>
                 <br><br>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioGrupo">
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === 1">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Grupo</mat-label>
-                            <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo">
+                            <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo" (focus)="limpiarCampo('rucGrupo')">
                         </mat-form-field>
 
                     </div>
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>RUC</mat-label>
-                            <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo">
+                            <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo" (focus)="limpiarCampo('nombreGrupo')">
                         </mat-form-field>
                     </div>
                     <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
@@ -34,7 +34,7 @@
                 </button>
                     </div>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioEmpresa">
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === 3">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
@@ -53,7 +53,7 @@
                 </button>
                     </div>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioConsorcio">
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === 2">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
@@ -79,8 +79,36 @@
         </div>
         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
             <mat-accordion>
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value==1">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Grupo Empresarial: {{nombreGrupoAcordeon}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-grupo-sc [clienteData]="clienteData"></app-datos-grupo-sc>
+
+                </mat-expansion-panel>
+                <!-- Consorcio - Datos importantes -->
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value==2">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Consorcio:
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-consorcio-sc></app-datos-consorcio-sc>
+                </mat-expansion-panel>
+
+                <!-- Consorcio - Consorciados -->
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value==2">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Consorciados
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-consorciados-sc></app-datos-consorciados-sc>
+                </mat-expansion-panel>
                 <!--  Empresa - Datos importantes-->
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value === 3">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             Datos de la empresa
@@ -90,34 +118,6 @@
 
                 </mat-expansion-panel>
                 <!-- Grupo - Empresas Integrantes -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Grupo 1
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-grupo-sc></app-datos-grupo-sc>
-
-                </mat-expansion-panel>
-                <!-- Consorcio - Datos importantes -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Datos importantes Consorcio
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-consorcio-sc></app-datos-consorcio-sc>
-                </mat-expansion-panel>
-
-                <!-- Consorcio - Consorciados -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Consorciados
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-consorciados-sc></app-datos-consorciados-sc>
-                </mat-expansion-panel>
 
                 <!-- Proveedores -->
                 <mat-expansion-panel>
