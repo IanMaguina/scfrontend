@@ -1,15 +1,57 @@
 <div class="content-step">
     <div class="content-body-step">
-        <div class="contenidoForm">
-            <form [formGroup]="secondFormGroup">
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                </mat-form-field>
+        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+            <mat-accordion>
+                <!--  Planes - Riesgos -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Riesgos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-riesgos-sc></app-riesgos-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Hipotecas -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Hipotecas
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-hipotecas-sc></app-hipotecas-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Garantía Liquida -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Garantía Liquida
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-garantia-liquida-sc></app-garantia-liquida-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Cesión de Derecho con Proveedores -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Cesión de Derecho con Proveedores
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-cesion-derechos-proveedores-sc></app-cesion-derechos-proveedores-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Resumen de Riesgos -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Resumen de Riesgos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-resumen-riesgos-sc></app-resumen-riesgos-sc>
+                </mat-expansion-panel>
 
-            </form>
+
+            </mat-accordion>
+
         </div>
-
     </div>
     <div class="botonera-step ">
         <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;

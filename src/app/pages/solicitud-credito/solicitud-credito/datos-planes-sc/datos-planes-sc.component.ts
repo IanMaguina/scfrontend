@@ -8,14 +8,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   ]
 })
 export class DatosPlanesScComponent implements OnInit {
-  @Output() onSecondFormGroup: EventEmitter<any> = new EventEmitter();
-  secondFormGroup:FormGroup;
-  constructor(
-    private _formBuilder:FormBuilder
+  /* @Output() onSecondFormGroup: EventEmitter<any> = new EventEmitter();
+  secondFormGroup:FormGroup; */
+  
+  constructor( 
   ){
-   this.secondFormGroup = this._formBuilder.group({
+   /* this.secondFormGroup = this._formBuilder.group({
      secondCtrl: ['', Validators.required],
-   });
+   }); */
   }
   ngOnInit(): void {
   }

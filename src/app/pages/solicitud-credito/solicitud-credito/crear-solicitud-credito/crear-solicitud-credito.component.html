@@ -1,8 +1,9 @@
-<div class="botonera-superior">
-<button class="boton-secundario">Anular Solicitud</button>
-</div>
-<br>
+
 <div class="body-dialog">
+  <div class="botonera-superior">
+    <button mat-flat-button class="boton-secundario">Anular Solicitud</button>
+    </div>
+    <br>  <br>
   <mat-horizontal-stepper linear #stepper>
     <mat-step [stepControl]="firstForm">
       <div class="content-stepper">
@@ -10,10 +11,12 @@
         <app-datos-cliente-sc (onFirstFormGroup)="onFirstFormGroupEvent($event)"></app-datos-cliente-sc>
       </div>
     </mat-step>
-    <mat-step [stepControl]="secondForm">
+<!--     [stepControl]="secondForm" -->
+<!-- (onSecondFormGroup)="onSecondFormGroupEvent($event)" -->
+    <mat-step >
       <div class="content-stepper">
         <ng-template matStepLabel>Planes de Crédito</ng-template>
-        <app-datos-planes-sc (onSecondFormGroup)="onSecondFormGroupEvent($event)"></app-datos-planes-sc>
+        <app-datos-planes-sc ></app-datos-planes-sc>
       </div>
     </mat-step>
     <mat-step [stepControl]="thirdForm">
