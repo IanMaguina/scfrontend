@@ -95,7 +95,7 @@
                             Consorcio:
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-consorcio-sc></app-datos-consorcio-sc>
+                    <app-datos-consorcio-sc [clienteData]="clienteData"></app-datos-consorcio-sc>
                 </mat-expansion-panel>
 
                 <!-- Consorcio - Consorciados -->
@@ -114,7 +114,7 @@
                             Datos de la empresa
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-empresa-sc></app-datos-empresa-sc>
+                    <app-datos-empresa-sc [clienteData]="clienteData"></app-datos-empresa-sc>
 
                 </mat-expansion-panel>
                 <!-- Grupo - Empresas Integrantes -->

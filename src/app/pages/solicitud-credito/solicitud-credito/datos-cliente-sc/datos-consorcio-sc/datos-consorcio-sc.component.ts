@@ -13,7 +13,7 @@ import { ZonalService } from 'src/app/services/zonal.service';
   ]
 })
 export class DatosConsorcioScComponent implements OnInit {
-  @Input() clienteData: any;
+  @Input() clienteData: Empresa;
   listaConsorciados: any = [];
   listadoZonales: Zonal[] = [];
   formularyForm: FormGroup;
@@ -64,6 +64,7 @@ export class DatosConsorcioScComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("data de consorcio-->" + JSON.stringify(this.clienteData));
     console.log("ngOnInit");
   }
   guardarDatosConsorcio(form: any) {
