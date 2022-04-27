@@ -10,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class EditarSolicitudCreditoComponent {
 
    
+  
   /* datos cliente */
   firstForm:FormGroup;
   /* datos planes */
@@ -18,7 +19,7 @@ export class EditarSolicitudCreditoComponent {
   thirdForm:FormGroup;
   /* datos adjuntos */
   fourthForm:FormGroup;
-
+  id_solicitud_editar:any=0;
   
  constructor(){}
 
@@ -33,5 +34,10 @@ export class EditarSolicitudCreditoComponent {
  }
  onFourthFormGroupEvent(_event){
    this.fourthForm = _event;
+ }
+
+ send(_event){
+   console.log("valor del evento-->"+_event);
+   this.id_solicitud_editar=_event;
  }
 }
