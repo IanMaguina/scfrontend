@@ -54,6 +54,7 @@ import { TabEstadosFinancierosScComponent } from './solicitud-credito/datos-adju
 import { TabDocumentosAdicionalesScComponent } from './solicitud-credito/datos-adjuntos-sc/tab-documentos-adicionales-sc/tab-documentos-adicionales-sc.component';
 import { DlgNuevoProductoFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-nuevo-producto-flujo-caja-sc/dlg-nuevo-producto-flujo-caja-sc.component';
 import { DlgCuadroFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-cuadro-flujo-caja-sc/dlg-cuadro-flujo-caja-sc.component';
+import { EditarSolicitudCreditoComponent } from './solicitud-credito/editar-solicitud-credito/editar-solicitud-credito.component';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { DlgCuadroFlujoCajaScComponent } from './solicitud-credito/datos-adjunto
     TabDocumentosAdicionalesScComponent,
     DlgNuevoProductoFlujoCajaScComponent,
     DlgCuadroFlujoCajaScComponent,
+    EditarSolicitudCreditoComponent,
 
   ],
   imports: [
