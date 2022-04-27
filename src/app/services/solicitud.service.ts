@@ -130,4 +130,117 @@ export class SolicitudService {
 
   }
 
+  crearSolicitudEmpresaRelacionada(solicitud : Solicitud): Promise<any> {
+    console.log("adding SolicitudEmpresaRelacionada..." + JSON.stringify(solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud-empresa-relacionada", solicitud).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+  eliminarSolicitudEmpresaRelacionada(id : number): Promise<any> {
+    console.log("deletting SolicitudEmpresaRelacionada..." + JSON.stringify(id));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource2("/api/solicitud-empresa-relacionada/"+id).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }  
+
+  listarSolicitudEmpresaRelacionada(id_solicitud:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+          this.resourceService.getResource("/api/solicitud-empresa-relacionada").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+
+
+  crearSolicitudReferenciaComercial(solicitud : Solicitud): Promise<any> {
+    console.log("adding SolicitudReferenciaComercial..." + JSON.stringify(solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud-referencia-comercial", solicitud).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+  eliminarSolicitudReferenciaComercial(id : number): Promise<any> {
+    console.log("deletting SolicitudReferenciaComercial..." + JSON.stringify(id));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource2("/api/solicitud-referencia-comercial/"+id).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }  
+
+  listarSolicitudReferenciaComercial(id_solicitud:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+          this.resourceService.getResource("/api/solicitud-referencia-comercial").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+  
 }

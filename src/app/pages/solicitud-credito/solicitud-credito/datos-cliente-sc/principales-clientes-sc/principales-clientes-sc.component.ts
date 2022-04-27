@@ -70,7 +70,7 @@ export class PrincipalesClientesScComponent implements OnInit {
 
   }
 
-  async agregarCliente(form:any){
+  async agregar(form:any){
     console.log("agregarReferencia"+JSON.stringify(form));
     let solicitud:SolicitudPrincipalCliente = await this.mapeoData(form)
     this.solicitudService.crearSolicitudPrincipalCliente(solicitud).then(data=>{
@@ -91,7 +91,7 @@ export class PrincipalesClientesScComponent implements OnInit {
     return solicitud;
   }
 
-  eliminarCliente(id:number){
+  eliminar(id:number){
     console.log("eliminarReferencia"+id);
     this.solicitudService.eliminarSolicitudPrincipalCliente(id).then(data=>{
       this.listar();
