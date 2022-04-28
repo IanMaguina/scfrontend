@@ -194,6 +194,14 @@ body {
     background-color: #707070;
     color: #FFFFFF;
 }
+.card-login {
+    width: 300px;
+    margin: 20px 0px 0px 20px;
+    
+}
+.card-login mat-card-actions {
+    padding: 0px 0px 0px 25px;
+}
 
 mat-header-cell {
     background-color: #05C65D !important;

@@ -10,7 +10,7 @@ import { PagesModule } from './pages/pages.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
@@ -43,7 +43,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     HttpClientModule,
     MatButtonModule,
-    MatSidenavModule,
     SharedModule,
     MatExpansionModule,
     MatTooltipModule,

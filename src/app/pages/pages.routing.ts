@@ -13,12 +13,10 @@ import { LoginComponent } from '../auth/login/login.component';
 
 const routes: Routes = [
     {
-        path: '', 
+        path: 'app', 
         component: PagesComponent,
         children: [
           { path: 'dashboard', component: DashboardComponent, data:{titulo: 'Dashboard', ruta: 'Dashboard'} }, 
-          { path: '', redirectTo: 'login', pathMatch:'full' }, 
-          { path: 'login', component: LoginComponent, data:{titulo: 'Login', ruta: 'Login'}  },  
           { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'}  },  
           { path: 'solicitudcredito', component: SolicitudCreditoComponent, data:{titulo: 'Solicitud de Crédito', ruta: 'Solicitud de Crédito'}  },  
           /*    { path: 'usuarios',component: UsuariosComponent }, */
