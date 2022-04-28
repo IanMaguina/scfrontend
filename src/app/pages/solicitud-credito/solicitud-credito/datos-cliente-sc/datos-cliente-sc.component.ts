@@ -81,7 +81,7 @@ export class DatosClienteScComponent implements OnInit {
           });
           dialogRef2.afterClosed().subscribe(async result => {
             console.log("return Grupo dialogs-->"+JSON.stringify(result));
-            this.nombreGrupoAcordeon=result.grupo.nombre;
+            this.nombreGrupoAcordeon="";//result.grupo.nombre;
             //this.id_solicitud_dc=await result.payload.id;
             this.clienteData=result.grupo.empresa;
             this.id_solicitud_hija.emit(result.solicitud.id);
