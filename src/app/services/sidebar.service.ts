@@ -36,6 +36,9 @@ export class SidebarService {
       toolTip: 'Solicitud de Crédito',
       children: [
         { name: 'Nueva Solicitud de Crédito', url: 'solicitudcredito/nuevasolicitudcredito' },
+        { name: 'bandeja de Solicitudes Pendientes', url: 'solicitudcredito/bandejaMisPendiendes' },
+        { name: 'Solicitud de Grupo', url: 'solicitudcredito/crearSolicitudGrupo' },
+        { name: 'Solicitud de Consorcio', url: 'solicitudcredito/crearSolicitudConsorcio' },
       ]
     },
   ];
