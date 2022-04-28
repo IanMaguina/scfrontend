@@ -25,7 +25,7 @@ export class AutenticacionService {
 
 
   signInWithGoogle(): Promise<any> {
-
+    console.log("aqui entro");
     return new Promise((resolve, reject) => {
       //Getting access token
       this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {

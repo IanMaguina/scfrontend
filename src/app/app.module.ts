@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 
 import { GoogleLoginProvider,SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { CookieModule } from 'ngx-cookie';
 
 /* components */
 import { AppComponent } from './app.component';
@@ -48,7 +49,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTooltipModule,
     MatSnackBarModule,
     MatCardModule,
-    SocialLoginModule
+    SocialLoginModule,
+    CookieModule.forRoot()
   ],
   exports: [
   ],

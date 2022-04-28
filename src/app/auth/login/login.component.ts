@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" );
     this.socialAuthService.authState.subscribe((user) => {
 
       this.usuarioLogueado = user;
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
       //aqui hago el proceso
       console.log('la data de loggeo : '+JSON.stringify(data));    
       this.usuarioSocial = data;
-      if (data.id) {
+      if (data && data.id) {
         this.autenticacionService.loggedIn = true;
         this.router.navigate(['dashboard']);
       } else {
