@@ -54,8 +54,10 @@ carga: boolean = false;
   async crearConsorcio(form: any) {
     console.log("crearConsorcio:" + JSON.stringify(form));
     let clienteAgrupacion = await this.mapeoGrupo(form)
-    this.consorcioService.crearConsorcio(clienteAgrupacion).then();
-    this.onNoClick();
+    this.consorcioService.crearConsorcio(clienteAgrupacion).then(()=>{
+      this.onNoClick();
+    });
+    
   }
 
   async mapeoGrupo(form: any) {

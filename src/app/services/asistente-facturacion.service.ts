@@ -57,14 +57,10 @@ export class AsistenteFacturacionService {
   }
 
   crearAsistenteFacturacion(asistenteFacturacion: AsistenteFacturacion): Promise<any> {
-    let item = {
-      id_zonal: asistenteFacturacion.zonal.id,
-      id_usuario: asistenteFacturacion.usuario.id,
-    }
-    console.log("sending asistente Facturacion..." + JSON.stringify(item));
+    console.log("sending asistente Facturacion..." + JSON.stringify(asistenteFacturacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/asistente-facturacion", item).toPromise().then((data) => {
+        this.resourceService.postResource("/api/asistente-facturacion", asistenteFacturacion).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -95,15 +91,10 @@ export class AsistenteFacturacionService {
       });
   }
   actualizarAsistenteFacturacion(asistenteFacturacion: AsistenteFacturacion): Promise<any> {
-    let item = {
-      "id_zonal": asistenteFacturacion.zonal,
-      "id_usuario": asistenteFacturacion.usuario.id,
-      "activo": asistenteFacturacion.activo
-    }
     console.log("make item..." + JSON.stringify(asistenteFacturacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.putResource("/api/asistente-facturacion/"+asistenteFacturacion.id, item).toPromise().then((data) => {
+        this.resourceService.putResource("/api/asistente-facturacion/"+asistenteFacturacion.id, asistenteFacturacion).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
