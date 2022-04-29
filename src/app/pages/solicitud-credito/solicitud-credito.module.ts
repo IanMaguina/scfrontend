@@ -121,6 +121,7 @@ import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-so
   exports: [
     CdkStepperModule,
     MatStepperModule,
+    SolicitudCreditoComponent
 
   ],
 })
