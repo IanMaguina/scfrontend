@@ -4,12 +4,13 @@ import { PagesRoutingModule } from './pages/pages.routing';
 
 import { LoginComponent } from './auth/login/login.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { PagesComponent } from './pages/pages.component';
 
 const routes: Routes = [
   
   // put general routes here
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch:'full' }, 
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   // path:'pages'
   //not found route
   { path: '**', component: NopagefoundComponent },

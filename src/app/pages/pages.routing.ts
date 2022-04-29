@@ -13,7 +13,7 @@ import { LoginComponent } from '../auth/login/login.component';
 
 const routes: Routes = [
     {
-        path: 'app', 
+        path: '', 
         component: PagesComponent,
         children: [
           { path: 'dashboard', component: DashboardComponent, data:{titulo: 'Dashboard', ruta: 'Dashboard'} }, 
