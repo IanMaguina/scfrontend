@@ -10,14 +10,12 @@ import { TipoDocumentoValoradoComponent } from './tipoDocumentoValorado/tipo-doc
 import { SuplenciaComponent } from './suplencia/suplencia/suplencia.component';
 import { AsistenteFacturacionComponent } from './asistenteFacturacion/asistente-facturacion/asistente-facturacion.component';
 import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adicional/aprobador-adicional.component';
-
-
+import { PagesComponent } from '../pages.component';
 
 const routes: Routes = [
     {
-
-        path: 'configuracion',
-        component: ConfiguracionComponent,
+        path: 'app/configuracion',
+        component: PagesComponent,
         children: [
             { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
             { path: 'usuarios', component: ListarUsuarioComponent, data:{titulo: 'Usuarios', ruta: 'Configuración  /  Usuarios'}  },
@@ -35,8 +33,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forChild(routes),
-
+        RouterModule.forRoot(routes),
     ],
     exports: [RouterModule]
 })
