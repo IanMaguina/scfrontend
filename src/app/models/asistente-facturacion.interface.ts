@@ -3,8 +3,10 @@ import { Zonal } from "./zonal.interface";
 
 export interface AsistenteFacturacion{
     id?: number,
-    usuario:Usuario,
-    zonal:Zonal,
+    id_usuario?:number,
+    usuario?:Usuario,
+    zonal_codigo_sap?:string,
+    zonal?:Zonal,
     activo?:boolean
 }
 
