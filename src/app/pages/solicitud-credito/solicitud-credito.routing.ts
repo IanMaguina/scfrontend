@@ -1,3 +1,4 @@
+import { PagesComponent } from './../pages.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -10,8 +11,8 @@ import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-so
 
 const routes: Routes = [
   {
-    path: 'solicitudcredito',
-    component: SolicitudCreditoComponent,
+    path: 'app/solicitudcredito',
+    component: PagesComponent,
     children: [
       { path: '', redirectTo: 'nuevasolicitudcredito', pathMatch: 'full' },
       { path: 'nuevasolicitudcredito', component: CrearSolicitudCreditoComponent, data: { titulo: 'Nueva Solicitud de Crédito', ruta: 'Solicitud de Crédito  /  Nueva' } },
@@ -25,7 +26,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes),
+    RouterModule.forRoot(routes),
 
   ],
   exports: [
