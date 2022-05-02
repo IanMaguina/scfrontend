@@ -61,8 +61,8 @@
             <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                 <b>No se ha encontrado un Grupo Empresarial coincidente! </b>
                 <br>
-                <p>Verifique los datos ingresados o <a href="app/solicitudcredito/crearSolicitudGrupo">¿Desea registrar uno nuevo?</a>
-
+                <p>Verifique si los datos ingresados son correctos 
+                    o ¿Desea registrar uno nuevo?
                 </p>
 
 
@@ -73,7 +73,11 @@
     <div class="botonera objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
         <button type="button" mat-flat-button class="boton-secundario" (click)="cerrarDialog(0)">
       Cerrar
-    </button>
+    </button>&nbsp;
+        <a *ngIf="nodata" type="button" mat-flat-button class="boton-secundario" href="app/solicitudcredito/crearSolicitudGrupo">
+      Registrar
+        </a>
+
     </div>
 
 </div>
