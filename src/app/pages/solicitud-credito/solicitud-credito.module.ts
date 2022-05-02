@@ -56,6 +56,8 @@ import { DlgNuevoProductoFlujoCajaScComponent } from './solicitud-credito/datos-
 import { DlgCuadroFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-cuadro-flujo-caja-sc/dlg-cuadro-flujo-caja-sc.component';
 import { EditarSolicitudCreditoComponent } from './solicitud-credito/editar-solicitud-credito/editar-solicitud-credito.component';
 import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-solicitud-credito/bandeja-solicitud-credito.component';
+import { BandejaSolicitudGrupoComponent } from './solicitud-credito/bandeja-solicitud-grupo/bandeja-solicitud-grupo.component';
+import { BandejaSolicitudConsorcioComponent } from './solicitud-credito/bandeja-solicitud-consorcio/bandeja-solicitud-consorcio.component';
 
 
 @NgModule({
@@ -89,6 +91,8 @@ import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-so
     DlgCuadroFlujoCajaScComponent,
     EditarSolicitudCreditoComponent,
     BandejaSolicitudCreditoComponent,
+    BandejaSolicitudGrupoComponent,
+    BandejaSolicitudConsorcioComponent,
 
   ],
   imports: [
