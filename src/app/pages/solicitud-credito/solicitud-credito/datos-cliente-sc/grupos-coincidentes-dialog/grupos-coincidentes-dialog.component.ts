@@ -16,6 +16,10 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   nodata:boolean= false;
   nombre:string;
   rucIntegrante:string;
+  displayedColumns:string[] = [
+    'sociedad',
+    'razon_social',
+  ];
   ESTADO_SOLICITUD_EN_SOLICITANTE=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ROL_SOLICITANTE=GlobalSettings.ROL_SOLICITANTE;
   constructor(
