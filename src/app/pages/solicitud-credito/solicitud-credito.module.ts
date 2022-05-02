@@ -58,6 +58,8 @@ import { EditarSolicitudCreditoComponent } from './solicitud-credito/editar-soli
 import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-solicitud-credito/bandeja-solicitud-credito.component';
 import { BandejaSolicitudGrupoComponent } from './solicitud-credito/bandeja-solicitud-grupo/bandeja-solicitud-grupo.component';
 import { BandejaSolicitudConsorcioComponent } from './solicitud-credito/bandeja-solicitud-consorcio/bandeja-solicitud-consorcio.component';
+import { DlgDetalleSolicitudConsorcioComponent } from './solicitud-credito/dlg-detalle-solicitud-consorcio/dlg-detalle-solicitud-consorcio.component';
+import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
 
 
 @NgModule({
@@ -93,6 +95,8 @@ import { BandejaSolicitudConsorcioComponent } from './solicitud-credito/bandeja-
     BandejaSolicitudCreditoComponent,
     BandejaSolicitudGrupoComponent,
     BandejaSolicitudConsorcioComponent,
+    DlgDetalleSolicitudConsorcioComponent,
+    DlgDetalleSolicitudGrupoComponent,
 
   ],
   imports: [

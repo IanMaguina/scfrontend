@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DlgDetalleSolicitudConsorcioComponent } from '../dlg-detalle-solicitud-consorcio/dlg-detalle-solicitud-consorcio.component';
 
 @Component({
   selector: 'app-bandeja-solicitud-consorcio',
@@ -23,6 +25,7 @@ export class BandejaSolicitudConsorcioComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   constructor(
+    private matDialog: MatDialog,
    //private solicitudConsorcioService:SolicitudConsorcioService
   ) {
    
@@ -34,6 +37,19 @@ export class BandejaSolicitudConsorcioComponent implements OnInit {
   }
   buscarSolicitudes(form:any){
     console.log("buscarSolicitudes:.."+JSON.stringify(form));
+  }
+  openAsignarIntegrantes(id:any){
+    const dialogRef2 = this.matDialog.open(DlgDetalleSolicitudConsorcioComponent, {
+      disableClose: true,
+      width: '80%',
+      data:id
+    });
+
+    dialogRef2.afterClosed().subscribe(result => {
+      console.log("return function process");
+     
+    });
+
   }
 
 }
