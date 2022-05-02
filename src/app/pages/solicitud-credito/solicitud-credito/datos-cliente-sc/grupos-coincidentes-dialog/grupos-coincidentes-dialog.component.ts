@@ -56,15 +56,16 @@ export class GruposCoincidentesDialogComponent implements OnInit {
 
   async mapeoSolicitud(grupo: any) {
     let solicitud: Solicitud = {
-      "correlativo": null,
-      "id_estado": this.ESTADO_SOLICITUD_EN_SOLICITANTE,
-      "id_rol": this.ROL_SOLICITANTE,
-      "id_usuario": 12,
-      "id_usuario_creacion":12,
-      "id_solicitud_referencia": null,
-      "sociedad_codigo_sap": null,
-      "id_cliente_agrupacion": grupo.id,
-      "id_empresa": null
+      correlativo: null,
+      id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
+      id_rol: this.ROL_SOLICITANTE,
+      id_usuario: 12,
+      id_usuario_creacion:12,
+      id_solicitud_referencia: null,
+      sociedad_codigo_sap: null,
+      id_cliente_agrupacion: grupo.id,
+      id_empresa: null,
+      id_tipo_cliente:1
     }
     return solicitud;
   }
