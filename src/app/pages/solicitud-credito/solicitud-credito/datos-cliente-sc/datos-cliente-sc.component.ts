@@ -113,9 +113,7 @@ export class DatosClienteScComponent implements OnInit {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
             this.nombreGrupoAcordeon = "";
-            //result.grupo.nombre;
-            //this.id_solicitud_dc=await result.payload.id;
-            this.solicitudService.listarGrupoEmpresarialxSolicitud({id_solicitud:this.id_solicitud_editar}).then(res=>{
+            this.solicitudService.listarGrupoEmpresarialxSolicitud({id_solicitud:result.solicitud.id}).then(res=>{
               console.log("listarGrupoEmpresarialxSolicitud--->"+JSON.stringify(res.payload));
               this.clienteData=res.payload;
             })

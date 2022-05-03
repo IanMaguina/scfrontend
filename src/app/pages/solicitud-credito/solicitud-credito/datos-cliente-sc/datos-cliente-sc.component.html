@@ -82,7 +82,7 @@
                 <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Grupo Empresarial: {{nombreGrupoAcordeon}}
+                            Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-grupo-sc>

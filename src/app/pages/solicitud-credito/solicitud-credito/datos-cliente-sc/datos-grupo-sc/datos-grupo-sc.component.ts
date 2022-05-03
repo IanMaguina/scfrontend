@@ -72,28 +72,30 @@ export class DatosGrupoScComponent implements OnInit {
  
     this.listarZonales();
   }
+
   async listarZonales() {
     await this.zonalService.listarZonales().then((dato) => {
       this.listadoZonales = dato;
     })
   }
 
-  async guardarSeccionGrupo(form: any) {
-    console.log("guardarSeccionGrupo--->" + JSON.stringify(form));
-    let solicitud:SolicitudCliente = await this.mapeoData(form)
-    this.solicitudService.actualizarSolicitudCliente(solicitud).then(data=>{
+  async guardarSeccionGrupo(obj:SolicitudCliente,form: any) {
+    console.log()
+    let solicitudCliente:SolicitudCliente = await this.mapeoData(obj,form)
+    console.log("guardarSeccionGrupo--->" + JSON.stringify(solicitudCliente));
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(data=>{
     })
   }
 
-  async mapeoData(form: any) {
-    let solicitud: SolicitudCliente = {
-    id_solicitud:this.id_solicitud,
+  async mapeoData(obj:any,form: any) {
+    let solicitudCliente: SolicitudCliente = {
+    id:obj.id,
     sustento_comercial:form.sustento_comercial,
     zonal_codigo_sap:form.zonal_codigo_sap,
     telefono:form.telefono,
     correo: form.correo
   }
-    return solicitud;
+    return solicitudCliente;
   }
 
 
