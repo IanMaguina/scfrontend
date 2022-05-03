@@ -5,6 +5,8 @@ import { Zonal } from 'src/app/models/zonal.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { SolicitudCliente } from 'src/app/models/solicitud-cliente.interface';
+import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 
 @Component({
   selector: 'app-datos-grupo-sc',
@@ -13,7 +15,8 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
   ]
 })
 export class DatosGrupoScComponent implements OnInit {
-  @Input() clienteData: Empresa[];
+  @Input() clienteData: ClienteDatos;
+  @Input() id_solicitud: number;
 
   listadoZonales: Zonal[] = [];
 
@@ -21,7 +24,7 @@ export class DatosGrupoScComponent implements OnInit {
 
   formErrors = {
     'sustento_comercial': '',
-    'id_zonal': '',
+    'zonal_codigo_sap': '',
     'telefono': '',
     'correo': '',
 
@@ -30,8 +33,8 @@ export class DatosGrupoScComponent implements OnInit {
     'sustento_comercial': {
       'required': 'el sustento_comercial es requerido.'
     },
-    'id_zonal': {
-      'required': 'el id_zonal es requerido.'
+    'zonal_codigo_sap': {
+      'required': 'el zonal es requerido.'
     },
     'telefono': {
       'required': 'el telefono es requerido.'
@@ -54,7 +57,7 @@ export class DatosGrupoScComponent implements OnInit {
     this.formularyForm = this.formBuilder.group({
 
       sustento_comercial: [''],
-      id_zonal: [''],
+      zonal_codigo_sap: [''],
       telefono: [''],
       correo: [''],
 
@@ -69,18 +72,31 @@ export class DatosGrupoScComponent implements OnInit {
  
     this.listarZonales();
   }
+
   async listarZonales() {
     await this.zonalService.listarZonales().then((dato) => {
       this.listadoZonales = dato;
     })
   }
 
-  async guardarSeccionGrupo(form: any) {
-    console.log("guardarSeccionGrupo--->" + JSON.stringify(form));
-
-    /* this.solicitudService.crear(form).then(() => {
-
-    }); */
+  async guardarSeccionGrupo(obj:SolicitudCliente,form: any) {
+    console.log()
+    let solicitudCliente:SolicitudCliente = await this.mapeoData(obj,form)
+    console.log("guardarSeccionGrupo--->" + JSON.stringify(solicitudCliente));
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(data=>{
+    })
   }
+
+  async mapeoData(obj:any,form: any) {
+    let solicitudCliente: SolicitudCliente = {
+    id:obj.id,
+    sustento_comercial:form.sustento_comercial,
+    zonal_codigo_sap:form.zonal_codigo_sap,
+    telefono:form.telefono,
+    correo: form.correo
+  }
+    return solicitudCliente;
+  }
+
 
 }

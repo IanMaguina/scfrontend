@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editar-solicitud-credito',
@@ -20,8 +21,13 @@ export class EditarSolicitudCreditoComponent {
   /* datos adjuntos */
   fourthForm:FormGroup;
   id_solicitud_editar:any=0;
-  
- constructor(){}
+
+  constructor(
+  private activatedRoute: ActivatedRoute
+ ){
+   console.log("arriiba persu--->"+this.activatedRoute.snapshot.params.id)
+  this.id_solicitud_editar = this.activatedRoute.snapshot.params.id;
+ }
 
  onFirstFormGroupEvent(_event){
    this.firstForm = _event;
