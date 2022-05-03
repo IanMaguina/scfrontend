@@ -55,7 +55,6 @@ export class DatosGrupoScComponent implements OnInit {
     private solicitudService: SolicitudService,
   ) {
     this.formularyForm = this.formBuilder.group({
-
       sustento_comercial: [''],
       zonal_codigo_sap: [''],
       telefono: [''],
@@ -68,9 +67,15 @@ export class DatosGrupoScComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("data de GRUPO-->" + JSON.stringify(this.clienteData));
- 
+    //console.log("data de GRUPO-->" + JSON.stringify(this.id_solicitud));
     this.listarZonales();
+    if (this.id_solicitud) {
+      this.solicitudService.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud }).then(res => {
+        this.clienteData = res.payload;
+        console.log("desde datos grupo-->" + JSON.stringify(this.clienteData.solicitud_cliente));
+      })
+    }
+
   }
 
   async listarZonales() {
@@ -79,24 +84,27 @@ export class DatosGrupoScComponent implements OnInit {
     })
   }
 
-  async guardarSeccionGrupo(obj:SolicitudCliente,form: any) {
-    console.log()
-    let solicitudCliente:SolicitudCliente = await this.mapeoData(obj,form)
+  async guardarSeccionGrupo(obj: SolicitudCliente, form: any) {
+    console.log("OBJ--->" + JSON.stringify(obj));
+    let solicitudCliente: SolicitudCliente = await this.mapeoData(obj, form)
     console.log("guardarSeccionGrupo--->" + JSON.stringify(solicitudCliente));
-    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(data=>{
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(data => {
     })
   }
 
-  async mapeoData(obj:any,form: any) {
+  async mapeoData(obj: any, form: any) {
     let solicitudCliente: SolicitudCliente = {
-    id:obj.id,
-    sustento_comercial:form.sustento_comercial,
-    zonal_codigo_sap:form.zonal_codigo_sap,
-    telefono:form.telefono,
-    correo: form.correo
-  }
+      id: obj.id,
+      sustento_comercial: form.sustento_comercial,
+      zonal_codigo_sap: form.zonal_codigo_sap,
+      telefono: form.telefono,
+      correo: form.correo
+    }
     return solicitudCliente;
   }
 
-
+  valor(event: any) {
+    console.log(event);
+    return "hola mundo";
+  }
 }
