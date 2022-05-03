@@ -1,7 +1,7 @@
 <div class="expansion-body" *ngIf="clienteData  && clienteData.solicitud_cliente">
-    <form [formGroup]="formularyForm" (ngSubmit)="guardarSeccionGrupo(obj,formularyForm.value)">
-        <div class="objetoEmpresa objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-            *ngFor="let obj of clienteData.solicitud_cliente">
+    <div class="objetoEmpresa objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
+        *ngFor="let obj of clienteData.solicitud_cliente">
+        <form [formGroup]="formularyForm" (ngSubmit)="guardarSeccionGrupo(obj,formularyForm.value)">
             <div class="objeto formElementoPlano col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <div class="label">Sociedad:</div>
                 <div class="dato">{{(obj.sociedad&& obj.sociedad.nombre ?obj.sociedad.nombre:'')}}</div>
@@ -30,7 +30,7 @@
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Sustento Comercial</mat-label>
-                    <input matInput formControlName="sustento_comercial" placeholder= ´obj.sustento_comercial´>
+                    <input matInput value={{obj.sustento_comercial}} formControlName="sustento_comercial">
                 </mat-form-field>
             </div>
             <mat-form-field appearance="outline">
@@ -56,6 +56,7 @@
                 <button mat-flat-button class="boton-secundario" type="submit"
                     [disabled]="formularyForm.invalid">Guardar</button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </div>
