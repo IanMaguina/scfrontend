@@ -1,5 +1,5 @@
 <div class="titlesection col-s-11 col- col-m-11 col-xl-11">
-    Bandeja de Pendientes
+    Bandeja de Pendientes ARSA
     <br><br>
     <mat-divider></mat-divider>
 </div>
@@ -18,7 +18,7 @@
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
                 <mat-form-field appearance="outline">
                     <mat-label>RUC</mat-label>
-                    <input matInput formControlName="ruc">
+                    <input matInput formControlName="numero_documento">
                 </mat-form-field>
             </div>
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
@@ -71,7 +71,7 @@
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> estado</th>
             <td mat-cell *matCellDef="let element" (dblclick)="editarSolicitud(element)"><u>
-                    {{element.estado}} </u></td>
+                    {{element.estado.nombre}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="correlativo">
@@ -80,28 +80,28 @@
                     {{element.correlativo}} </u></td>
         </ng-container>
         <!-- Column -->
-        <ng-container matColumnDef="ruc">
+        <ng-container matColumnDef="numero_documento">
             <th mat-header-cell *matHeaderCellDef> RUC</th>
             <td mat-cell *matCellDef="let element" ><u>
-                    {{element.ruc}} </u></td>
+                    {{element.numero_documento}} </u></td>
         </ng-container>
         <!-- Column -->
-        <ng-container matColumnDef="razon_social">
+        <ng-container matColumnDef="cliente">
             <th mat-header-cell *matHeaderCellDef> Razón Social</th>
             <td mat-cell *matCellDef="let element" ><u>
-                    {{element.razon_social}} </u></td>
+                    {{element.cliente.nombre}} </u></td>
         </ng-container>
         <!-- Column -->
-        <ng-container matColumnDef="fecha_solicitud">
+        <ng-container matColumnDef="fecha_creacion">
             <th mat-header-cell *matHeaderCellDef> fecha solicitud</th>
             <td mat-cell *matCellDef="let element" ><u>
-                    {{element.fecha_solicitud}} </u></td>
+                    {{element.fecha_creacion}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef> usuario</th>
             <td mat-cell *matCellDef="let element" ><u>
-                    {{element.usuario}} </u></td>
+                    {{element.usuario.nombre}} </u></td>
         </ng-container>
 
 

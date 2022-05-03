@@ -1,6 +1,8 @@
+import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { Solicitud } from '../models/solicitud.interface';
+import { SolicitudCliente } from '../models/solicitud-cliente.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,30 @@ export class SolicitudService {
       (resolve, reject) => {
         this.resourceService.getResource("/api/solicitud").toPromise().then((data) => {
           if (data.header.exito) {
-            resolve(data.payload);
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+
+  obtenerSolicitud(id:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/solicitud/"+id).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
           } else {
             console.log("no perfiles encontradas...");
             resolve([]);
@@ -38,7 +63,7 @@ export class SolicitudService {
     console.log("/api/cliente-agrupacion/1/buscar?nombre=" + nombre);
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/1/buscar?nombre=" + nombre).toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-grupo-empresarial?nombre=" + nombre).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -242,5 +267,41 @@ export class SolicitudService {
     );
 
   }
-  
+
+  actualizarSolicitudCliente(solicitudCliente:SolicitudCliente){
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/solicitud-cliente/" + solicitudCliente.id, solicitudCliente).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });    
+  }
+
+  listarGrupoEmpresarialxSolicitud(filtro:any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+          this.resourceService.getResource("/api/solicitud/"+filtro.id_solicitud+"/grupo-empresarial").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
 }

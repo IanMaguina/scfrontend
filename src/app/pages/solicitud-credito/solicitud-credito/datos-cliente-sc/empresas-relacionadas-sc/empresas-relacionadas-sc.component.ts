@@ -59,7 +59,7 @@ export class EmpresasRelacionadasScComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit principales clientes");
+    console.log("ngOnInit empresas relacionadas-->"+this.id_solicitud);
     this.listar();
   }
   

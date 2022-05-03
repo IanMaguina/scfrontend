@@ -1,6 +1,8 @@
 import { TipoCliente } from './tipo-cliente.interface';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { Empresa } from './empresa.interface';
+import { Usuario } from './usuario.interface';
+import { Estado } from './estado.interface';
 export interface Solicitud{
     id?: number,
     ya_tiene_solicitud?:boolean,
@@ -18,4 +20,9 @@ export interface Solicitud{
     id_tipo_cliente?:number,
     tipo_cliente?:TipoCliente
 
+    usuario?:Usuario,
+    estado?:Estado,
+    razon_social?:string,
+    numero_documento?:string,
+    fecha_creacion?:string,
 }

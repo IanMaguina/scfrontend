@@ -42,10 +42,15 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   }
   
   async guardarSolicitud(grupo:any){
-    console.log("grupo seleccionado-->"+JSON.stringify(grupo));
+    //console.log("grupo seleccionado-->"+JSON.stringify(grupo));
     let solicitud:Solicitud = await this.mapeoSolicitud(grupo)
     this.solicitudService.crear(solicitud).then(data=>{
-      this.cerrarDialog({grupo:grupo, solicitud:data.payload});
+      let id_solicitud=data.payload.id;
+      console.log("Solicitud-->"+JSON.stringify(id_solicitud));
+      this.solicitudService.listarGrupoEmpresarialxSolicitud(id_solicitud).then(res=>{
+        console.log("listarGrupoEmpresarialxSolicitud 11111111-->"+JSON.stringify(res));
+      })
+      this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:grupo, solicitud:data.payload});
     })
     
   }
