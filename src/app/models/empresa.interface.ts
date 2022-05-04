@@ -20,5 +20,6 @@ export interface Empresa{
     grupo_cliente?:GrupoCliente,
     zonal?:Zonal
     sociedad?:Sociedad,
+    tcliente_agrupacion_empresa?:any
 }
 

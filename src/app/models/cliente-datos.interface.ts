@@ -3,6 +3,7 @@ import { TipoCanal } from './tipo-canal.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { ClienteAgrupacion } from "./cliente-agrupacion.interface";
 import { SolicitudCliente } from "./solicitud-cliente.interface";
+import { Empresa } from './empresa.interface';
 
 export interface ClienteDatos{
     id?: number,
@@ -19,6 +20,7 @@ export interface ClienteDatos{
     activo?:boolean,
     sociedad?:Sociedad
     tipo_canal?:TipoCanal,
-    grupo_cliente?:GrupoCliente
+    grupo_cliente?:GrupoCliente,
+    empresa?:Empresa,
 }
 
