@@ -10,7 +10,7 @@ const routes: Routes = [
   
   // put general routes here
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   // path:'pages'
   //not found route
   { path: '**', component: NopagefoundComponent },
