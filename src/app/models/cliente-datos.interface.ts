@@ -1,3 +1,6 @@
+import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
+import { TipoCanal } from './tipo-canal.interface';
+import { Sociedad } from 'src/app/models/sociedad.interface';
 import { ClienteAgrupacion } from "./cliente-agrupacion.interface";
 import { SolicitudCliente } from "./solicitud-cliente.interface";
 
@@ -10,6 +13,12 @@ export interface ClienteDatos{
     nombre?:string,
     solicitud_cliente?:SolicitudCliente[],
     cliente_agrupacion?:ClienteAgrupacion,
-    activo?:boolean
+    razon_social?:string,
+    cliente_codigo_sap?:string,
+    cliente_codigo_isicom?:string,
+    activo?:boolean,
+    sociedad?:Sociedad
+    tipo_canal?:TipoCanal,
+    grupo_cliente?:GrupoCliente
 }
 

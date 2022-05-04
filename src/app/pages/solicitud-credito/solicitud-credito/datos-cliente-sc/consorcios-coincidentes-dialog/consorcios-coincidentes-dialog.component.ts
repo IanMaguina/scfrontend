@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
+import { Solicitud } from 'src/app/models/solicitud.interface';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 
@@ -30,7 +31,7 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listarConsorcios();
+    this.listarConsorcios()
   }
 
   async listarConsorcios(){
@@ -43,11 +44,33 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
     })
   }
 
-  verConsorcio(consorcio: number) {
-    this.cerrarDialog(consorcio);
+  async guardarSolicitud(element:any){
+    let solicitud:Solicitud = await this.mapeoSolicitud(element);
+    this.solicitudService.crear(solicitud).then(async data=>{
+      let id_solicitud=data.payload.id;
+      console.log("Solicitud--------->"+JSON.stringify(id_solicitud));
+      this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:element, solicitud:data.payload});
+    })
+    
   }
 
-  cerrarDialog(consorcio: number) {
+  async mapeoSolicitud(element: any) {
+    let solicitud: Solicitud = {
+      correlativo: null,
+      id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
+      id_rol: this.ROL_SOLICITANTE,
+      id_usuario: 12,
+      id_usuario_creacion:12,
+      id_solicitud_referencia: null,
+      sociedad_codigo_sap: null,
+      id_cliente_agrupacion: element.id,
+      id_empresa: null,
+      id_tipo_cliente:1
+    }
+    return solicitud;
+  }
+
+  cerrarDialog(consorcio: any) {
     this.dialogRef.close(consorcio);
   }
 

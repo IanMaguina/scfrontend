@@ -19,7 +19,7 @@ export class DatosGrupoScComponent implements OnInit {
   @Input() id_solicitud: number;
 
   listadoZonales: Zonal[] = [];
-
+ 
   formularyForm: FormGroup;
 
   formErrors = {

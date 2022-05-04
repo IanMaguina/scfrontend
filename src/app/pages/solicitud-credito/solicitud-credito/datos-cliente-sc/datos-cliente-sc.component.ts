@@ -98,11 +98,12 @@ export class DatosClienteScComponent implements OnInit {
 
   seleccionCliente() {
     this.cliente_seleccionado = this.ClientSelectorControl.value;
+    console.log("RADIO BOTTON-->"+this.cliente_seleccionado)
   }
 
   async openBuscarCoincidentes(data: any) {
-    console.log(JSON.stringify(data));
-    this.cliente_seleccionado = data.tipo_cliente;
+    console.log('openBuscarCoincidentes--->'+JSON.stringify(data));
+    //this.cliente_seleccionado = data.tipo_cliente;
     switch (this.cliente_seleccionado) {
       case 1:
         console.log("Grupo Empresarial");
@@ -137,8 +138,8 @@ export class DatosClienteScComponent implements OnInit {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
             this.nombreGrupoAcordeon = "";
-            this.solicitudService.listarGrupoEmpresarialxSolicitud({id_solicitud:result.solicitud.id}).then(res=>{
-              console.log("listarGrupoEmpresarialxSolicitud--->"+JSON.stringify(res.payload));
+            this.solicitudService.listarConsorcioxSolicitud({id_solicitud:result.solicitud.id}).then(res=>{
+              console.log("listarConsorcioxSolicitud--->"+JSON.stringify(res.payload));
               this.clienteData=res.payload;
             })
   

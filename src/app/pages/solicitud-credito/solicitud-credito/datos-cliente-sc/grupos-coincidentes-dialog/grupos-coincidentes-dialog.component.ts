@@ -14,7 +14,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   listaGrupos:ClienteAgrupacion[] = [];
   nodata:boolean= false;
   nombre:string;
-  rucIntegrante:string;
+  rucIntegrante:string; 
   ESTADO_SOLICITUD_EN_SOLICITANTE=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ROL_SOLICITANTE=GlobalSettings.ROL_SOLICITANTE;
   constructor(
