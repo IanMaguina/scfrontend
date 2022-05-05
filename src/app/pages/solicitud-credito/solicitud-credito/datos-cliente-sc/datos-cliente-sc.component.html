@@ -38,7 +38,7 @@
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
-                            <input matInput formControlName="razonSocialEmpresa" placeholder="Código Cliente SAP">
+                            <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
                         </mat-form-field>
                     </div>
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
@@ -57,7 +57,7 @@
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
-                            <input matInput formControlName="razonSocialConsorcio" placeholder="Código Cliente SAP">
+                            <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
                         </mat-form-field>
                     </div>
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
@@ -92,10 +92,10 @@
                 <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Consorcio:
+                            Consorcio: {{(clienteData?clienteData.nombre:'')}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-consorcio-sc [clienteData]="clienteData"></app-datos-consorcio-sc>
+                    <app-datos-consorcio-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-consorcio-sc>
                 </mat-expansion-panel>
 
                 <!-- Consorcio - Consorciados -->
@@ -105,7 +105,7 @@
                             Consorciados
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-consorciados-sc></app-datos-consorciados-sc>
+                    <app-datos-consorciados-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-consorciados-sc>
                 </mat-expansion-panel>
                 <!--  Empresa - Datos importantes-->
                 <mat-expansion-panel *ngIf="ClientSelectorControl.value === radioEmpresa">

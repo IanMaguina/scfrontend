@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("AAAAAAAAAAA"+JSON.stringify(this.usuarioLogueado));
     if (this.autenticacionService.isLoggedIn()){
       this.router.navigate(['app/dashboard']);
 

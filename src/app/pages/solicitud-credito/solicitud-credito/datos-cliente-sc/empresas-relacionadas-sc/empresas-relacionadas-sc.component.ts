@@ -13,12 +13,12 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 export class EmpresasRelacionadasScComponent implements OnInit {
   @Input() id_solicitud: number;
   formulary: FormGroup;
-  displayedColumns:string[]= [
+  displayedColumns: string[] = [
     'id',
     'razon_social',
     'numero_documento'
   ]
-  listadoEmpresaRelacionadas:any[]=[
+  listadoEmpresaRelacionadas: any[] = [
     {
       id: 1,
       numero_documento: '65432189745',
@@ -29,7 +29,7 @@ export class EmpresasRelacionadasScComponent implements OnInit {
   formErrors = {
     'numero_documento': '',
     'razon_social': '',
-   
+
   }
   validationMessages = {
     'numero_documento': {
@@ -38,17 +38,17 @@ export class EmpresasRelacionadasScComponent implements OnInit {
     'razon_social': {
       'required': 'el razon_social es requerido.'
     },
-   
-    
+
+
   };
   //Submitted form
   submitted = false;
   carga: boolean = false;
   constructor(
     private _formBuilder: FormBuilder,
-    private _formValidatorService:FormValidatorService,
-    private solicitudService:SolicitudService
-  ) { 
+    private _formValidatorService: FormValidatorService,
+    private solicitudService: SolicitudService
+  ) {
     this.formulary = this._formBuilder.group({
       numero_documento: ['', Validators.required],
       razon_social: ['', Validators.required],
@@ -59,20 +59,22 @@ export class EmpresasRelacionadasScComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit empresas relacionadas-->"+this.id_solicitud);
-    this.listar();
+    console.log("ngOnInit empresas relacionadas-->" + this.id_solicitud);
+    if (this.id_solicitud !== null) {
+      this.listar();
+    }
   }
-  
-  listar(){
-    this.solicitudService.listarSolicitudEmpresaRelacionada(this.id_solicitud).then(data=>{
-      this.listadoEmpresaRelacionadas=data.payload;
+
+  listar() {
+    this.solicitudService.listarSolicitudEmpresaRelacionada(this.id_solicitud).then(data => {
+      this.listadoEmpresaRelacionadas = data.payload;
     })
   }
 
-  async agregar(form:any){
-    console.log("agregarReferencia"+JSON.stringify(form));
-    let solicitud:SolicitudEmpresaRelacionada = await this.mapeoData(form)
-    this.solicitudService.crearSolicitudEmpresaRelacionada(solicitud).then(data=>{
+  async agregar(form: any) {
+    console.log("agregarReferencia" + JSON.stringify(form));
+    let solicitud: SolicitudEmpresaRelacionada = await this.mapeoData(form)
+    this.solicitudService.crearSolicitudEmpresaRelacionada(solicitud).then(data => {
       this.listar();
       this.limpiarCampos();
 
@@ -90,15 +92,15 @@ export class EmpresasRelacionadasScComponent implements OnInit {
     return solicitud;
   }
 
-  eliminar(id:number){
-    console.log("eliminarReferencia"+id);
-    this.solicitudService.eliminarSolicitudEmpresaRelacionada(id).then(data=>{
+  eliminar(id: number) {
+    console.log("eliminarReferencia" + id);
+    this.solicitudService.eliminarSolicitudEmpresaRelacionada(id).then(data => {
       this.listar();
     })
 
   }
 
-  limpiarCampos(){
+  limpiarCampos() {
     this.formulary.get("numero_documento").setValue("");
     this.formulary.get("razon_social").setValue("");
   }

@@ -19,7 +19,7 @@ export class CrearSolicitudCreditoComponent {
   thirdForm:FormGroup;
   /* datos adjuntos */
   fourthForm:FormGroup;
-  id_solicitud_editar:any=0;
+  id_solicitud_editar:any=null;
   
  constructor(){}
 

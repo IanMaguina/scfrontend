@@ -60,7 +60,10 @@ export class PrincipalesClientesScComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit principales clientes");
-    this.listar();
+    if(this.id_solicitud!==null){
+      this.listar();
+    }
+    
   }
   
   listar(){

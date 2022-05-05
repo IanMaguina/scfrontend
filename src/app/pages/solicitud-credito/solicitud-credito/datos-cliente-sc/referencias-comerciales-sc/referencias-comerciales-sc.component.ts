@@ -80,7 +80,10 @@ export class ReferenciasComercialesScComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit referencia comercial");
-    this.listar();
+    if (this.id_solicitud!==null){
+      this.listar();
+    }
+    
   }
   
   listar(){

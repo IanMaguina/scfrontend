@@ -1,14 +1,14 @@
-<div class="expansion-body">
-    <div class="objetoEmpresa objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let obj of listaConsorciados">
+<div class="expansion-body" *ngIf="clienteData && clienteData.solicitud_cliente">
+    <div class="objetoEmpresa objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let obj of clienteData.solicitud_cliente">
         <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3" >
-            <div class="label">RUC:</div><div class="dato">{{obj.ruc}}</div>
+            <div class="label">RUC:</div><div class="dato">{{obj.numero_documento}}</div>
         </div>
         <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3" >
             <div class="label">Razón Social:</div><div class="dato">{{obj.razon_social}}</div>
         </div>
-        <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3" >
-            <div class="label">Participación:</div><div class="dato">{{obj.participacion}}</div>
+<!--         <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3" >
+            <div class="label">Participación:</div><div class="dato">{{obj.tcliente_agrupacion_empresa.participacion}}</div>
         </div>
-       
+ -->       
     </div>
 </div>

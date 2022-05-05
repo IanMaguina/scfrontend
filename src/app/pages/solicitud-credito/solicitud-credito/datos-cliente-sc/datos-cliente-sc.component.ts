@@ -54,16 +54,18 @@ export class DatosClienteScComponent implements OnInit {
       tipo_cliente: [this.cliente, this.ClientSelectorControl, Validators.required],
       nombreGrupo: [''],
       rucGrupo: [''],
-      razonSocialEmpresa: [''],
+      clienteCodigoSapEmpresa: [''],
       rucEmpresa: [''],
-      razonSocialConsorcio: [''],
+      clienteCodigoSapConsorcio: [''],
       rucConsorcio: [''],
     });
   }
 
   ngOnInit(): void {
-    console.log("editar solicitud--->" + this.id_solicitud_editar);
-    this.obtenerSolicitud();
+    console.log("editar solicitud datos cliente--->" + this.id_solicitud_editar);
+    if (this.id_solicitud_editar!==null){
+      this.obtenerSolicitud();
+    }
     console.log("ngOnInit");
   }
 
@@ -96,20 +98,21 @@ export class DatosClienteScComponent implements OnInit {
 
   seleccionCliente() {
     this.cliente_seleccionado = this.ClientSelectorControl.value;
+    console.log("RADIO BOTTON-->"+this.cliente_seleccionado)
   }
 
   async openBuscarCoincidentes(data: any) {
-    console.log(JSON.stringify(data));
-    this.cliente_seleccionado = data.tipo_cliente;
+    console.log('openBuscarCoincidentes--->'+JSON.stringify(data));
+    //this.cliente_seleccionado = data.tipo_cliente;
     switch (this.cliente_seleccionado) {
       case 1:
         console.log("Grupo Empresarial");
-        const dialogRef2 = this.matDialog.open(GruposCoincidentesDialogComponent, {
+        const dialogRef1 = this.matDialog.open(GruposCoincidentesDialogComponent, {
           disableClose: true,
           width: "400px",
           data: data
         });
-        dialogRef2.afterClosed().subscribe(async result => {
+        dialogRef1.afterClosed().subscribe(async result => {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
             this.nombreGrupoAcordeon = "";
@@ -125,8 +128,28 @@ export class DatosClienteScComponent implements OnInit {
         });
         break;
       case 2:
-        console.log("Consorcio");
+        console.log("CONSORCIO");
+        const dialogRef2 = this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: data
+        });
+        dialogRef2.afterClosed().subscribe(async result => {
+          console.log("return Grupo dialogs-->" + JSON.stringify(result));
+          if (result.resultado === 'CONFIRM_DLG_YES') {
+            this.nombreGrupoAcordeon = "";
+            this.solicitudService.listarConsorcioxSolicitud({id_solicitud:result.solicitud.id}).then(res=>{
+              console.log("listarConsorcioxSolicitud--->"+JSON.stringify(res.payload));
+              this.clienteData=res.payload;
+            })
+  
+            //this.clienteData = result.grupo.empresa;
+            this.id_solicitud_hija.emit(result.solicitud.id);
+          }
+
+        });
         break;
+
       case 3:
         console.log("Individual");
         break;

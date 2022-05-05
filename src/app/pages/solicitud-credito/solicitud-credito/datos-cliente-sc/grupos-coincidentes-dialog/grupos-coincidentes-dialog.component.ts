@@ -11,7 +11,6 @@ import { GlobalSettings } from 'src/app/shared/settings';
   ]
 })
 export class GruposCoincidentesDialogComponent implements OnInit {
-
   listaGrupos:ClienteAgrupacion[] = [];
   nodata:boolean= false;
   nombre:string;
@@ -32,30 +31,25 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listarClienteAgrupacionxNombre();
+    this.listarGrupoEmpresarialxNombre();
   }
-  listarClienteAgrupacionxNombre(){
-    this.solicitudService.listarClienteAgrupacionxNombre(this.nombre).then((data)=>{
+
+  listarGrupoEmpresarialxNombre(){
+    this.solicitudService.listarGrupoEmpresarialxNombre(this.nombre).then((data)=>{
       console.log("Listado de grupos empresariales-->"+JSON.stringify(data.payload))
       this.listaGrupos=data.payload;
       if (data.payload.length===0){
         this.nodata=true;
       }
     })
-
   }
   
   async guardarSolicitud(grupo:any){
-    //console.log("grupo seleccionado-->"+JSON.stringify(grupo));
     let solicitud:Solicitud = await this.mapeoSolicitud(grupo)
     this.solicitudService.crear(solicitud).then(async data=>{
       let id_solicitud=data.payload.id;
       console.log("Solicitud--------->"+JSON.stringify(id_solicitud));
       this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:grupo, solicitud:data.payload});
-/*       this.solicitudService.listarGrupoEmpresarialxSolicitud({id_solicitud:id_solicitud}).then(async res=>{
-        
-      })
- */      
     })
     
   }

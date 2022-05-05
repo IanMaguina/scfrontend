@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 
 @Component({
   selector: 'app-datos-consorciados-sc',
@@ -7,33 +9,22 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DatosConsorciadosScComponent implements OnInit {
-  listaConsorciados:any =[
-    { 
-      id: 1,
-      id_consorcio: 1,
-      ruc: '65165987265',
-      razon_social: 'empresa 1 SAC',
-      participacion: '15%'
-    },
-    { 
-      id: 2,
-      id_consorcio: 1,
-      ruc: '65165987261',
-      razon_social: 'empresa 2 SAC',
-      participacion: '35%'
-    },
-    { 
-      id: 3,
-      id_consorcio: 1,
-      ruc: '65165987267',
-      razon_social: 'empresa 3 SAC',
-      participacion: '50%'
-    },
-  ];
+  @Input() clienteData: ClienteDatos;
+  @Input() id_solicitud: number;
 
-  constructor() { }
+  constructor(
+    private solicitudService: SolicitudService,
+  ) { }
 
   ngOnInit(): void {
+    console.log("data de consorciados-->" + JSON.stringify(this.clienteData));
+    console.log("ngOnInit");
+    if (this.id_solicitud) {
+      this.solicitudService.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud }).then(res => {
+        this.clienteData = res.payload;
+        console.log("desde datos grupo-->" + JSON.stringify(this.clienteData.solicitud_cliente));
+      })
+    }
   }
 
 }
