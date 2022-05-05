@@ -1,7 +1,8 @@
+
 export const GlobalSettings = Object.freeze({
 
-    BASE_API_URL: 'http://localhost:8080',
-    //BASE_API_URL: 'https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com',
+    //BASE_API_URL: 'http://localhost:8080',
+    BASE_API_URL: 'https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com',
     N_COLUMNAS_GRID: 4,
 
 /*     clientId: "3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com",
@@ -9,7 +10,7 @@ export const GlobalSettings = Object.freeze({
     CLIENT_KEY: '3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com',
  */
     clientId: "311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com",
-    CLIENT_ID: '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',
+    CLIENT_ID:'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',
     CLIENT_KEY: '311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com',
 
     //Perfiles
