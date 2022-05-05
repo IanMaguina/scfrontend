@@ -109,7 +109,7 @@ export class DatosClienteScComponent implements OnInit {
         console.log("Grupo Empresarial");
         const dialogRef1 = this.matDialog.open(GruposCoincidentesDialogComponent, {
           disableClose: true,
-          width: "400px",
+          width: "500px",
           data: data
         });
         dialogRef1.afterClosed().subscribe(async result => {
@@ -131,7 +131,7 @@ export class DatosClienteScComponent implements OnInit {
         console.log("CONSORCIO");
         const dialogRef2 = this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
           disableClose: true,
-          width: "400px",
+          width: "500px",
           data: data
         });
         dialogRef2.afterClosed().subscribe(async result => {

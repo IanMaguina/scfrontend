@@ -20,6 +20,10 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
 
   clienteCodigoSapConsorcio:string;
   rucConsorcio:string;
+  displayedColumns:string[] = [
+    'sociedad',
+    'razon_social',
+  ];
   constructor(
     public dialogRef: MatDialogRef<ConsorciosCoincidentesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
