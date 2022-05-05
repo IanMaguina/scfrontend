@@ -9,8 +9,8 @@ import { PagesComponent } from './pages/pages.component';
 const routes: Routes = [
   
   // put general routes here
-  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   // path:'pages'
   //not found route
   { path: '**', component: NopagefoundComponent },

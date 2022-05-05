@@ -77,7 +77,7 @@ export class AutenticacionService {
 
   isLoggedIn() {
     let sessionData = this.cookieService.get("_user_session");
-    console.log(JSON.stringify(sessionData))
+    console.log('usuario logueado-->'+JSON.stringify(sessionData));
     if (sessionData){
       this.loggedIn = true;
       return true;
