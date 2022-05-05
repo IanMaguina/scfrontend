@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 import { Empresa } from 'src/app/models/empresa.interface';
+import { Zonal } from 'src/app/models/zonal.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { ZonalService } from 'src/app/services/zonal.service';
@@ -12,8 +14,10 @@ import { ZonalService } from 'src/app/services/zonal.service';
   ]
 })
 export class DatosEmpresaScComponent implements OnInit {
-  @Input() clienteData: Empresa[];
+  @Input() clienteData: ClienteDatos;
   formulary: FormGroup;
+  listaConsorciados: any = [];
+  listadoZonales: Zonal[] = [];
   formErrors = {
     'sustento_comercial': '',
     'id_zonal': '',

@@ -151,7 +151,14 @@ export class DatosClienteScComponent implements OnInit {
         break;
 
       case 3:
-        console.log("Individual");
+       /*  this.solicitudService.listarConsorcioxSolicitud({id_solicitud:result.solicitud.id}).then(res=>{
+        console.log("listarConsorcioxSolicitud--->"+JSON.stringify(res.payload));
+        this.clienteData=res.payload;
+      })
+
+      //this.clienteData = result.grupo.empresa;
+      this.id_solicitud_hija.emit(result.solicitud.id);
+        console.log("Individual"); */
         break;
     }
   }
