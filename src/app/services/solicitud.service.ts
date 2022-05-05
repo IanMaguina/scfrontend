@@ -36,10 +36,10 @@ export class SolicitudService {
 
   }
 
-  obtenerSolicitud(id:number): Promise<any> {
+  obtenerSolicitud(id: number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/solicitud/"+id).toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + id).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -59,10 +59,24 @@ export class SolicitudService {
 
   }
 
-  listarGrupoEmpresarialxNombre(nombre: string): Promise<any> {
-      return new Promise(
+  listarGrupoEmpresarialxFiltros(filtros: any): Promise<any> {
+    let numero_documento = null;
+    let nombre = null;
+    let query = "";
+    if (filtros['numero_documento']) {
+      numero_documento = filtros['numero_documento'];
+      query = "numero_documento=" + numero_documento;
+
+    }
+    if (filtros['nombre']) {
+      nombre = filtros['nombre'];
+      query = query != "" ? "&nombre=" + nombre : "nombre=" + nombre;
+    }
+    console.log("link-->" + "/api/cliente-agrupacion/buscar-grupo-empresarial?" + query);
+
+    return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/buscar-grupo-empresarial?nombre=" + nombre).toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-grupo-empresarial?" + query).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -81,7 +95,7 @@ export class SolicitudService {
     );
   }
 
-  listarConsorcioxNumeroDocumentoxFiltros(filtros: any): Promise<any> {
+  listarConsorcioxFiltros(filtros: any): Promise<any> {
     let numero_documento = null;
     let cliente_codigo_sap = null;
     let query = "";
@@ -94,29 +108,29 @@ export class SolicitudService {
       cliente_codigo_sap = filtros['cliente_codigo_sap'];
       query = query != "" ? "&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
     }
-
+    console.log("link-->" + "/api/cliente-agrupacion/buscar-consorcio?" + query);
     return new Promise(
-    (resolve, reject) => {
-      this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcio?" + query).toPromise().then((data) => {
-        if (data.header.exito) {
-          resolve(data);
-        } else {
-          console.log("no hay usuarios encontrados...");
-          resolve([]);
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcio?" + query).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay usuarios encontrados...");
+            resolve([]);
+          }
         }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
       }
-      ).catch(
-        (error) => {
-          console.log("error status=" + error.status + ", msg=" + error.message);
-          reject(error);
-        }
-      );
+    );
+  }
 
-    }
-  );
-}
-
-  crear(solicitud : Solicitud): Promise<any> {
+  crear(solicitud: Solicitud): Promise<any> {
     console.log("adding suplencia..." + JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
@@ -133,7 +147,20 @@ export class SolicitudService {
   }
 
 
-  crearSolicitudPrincipalCliente(solicitud : Solicitud): Promise<any> {
+  actualizarSolicitud(id_solicitud,solicitud:Solicitud): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/solicitud/" + id_solicitud, solicitud).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });    
+  }
+
+  crearSolicitudPrincipalCliente(solicitud: Solicitud): Promise<any> {
     console.log("adding SolicitudPrincipalCliente..." + JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
@@ -149,11 +176,11 @@ export class SolicitudService {
       });
   }
 
-  eliminarSolicitudPrincipalCliente(id : number): Promise<any> {
+  eliminarSolicitudPrincipalCliente(id: number): Promise<any> {
     console.log("deletting SolicitudPrincipalCliente..." + JSON.stringify(id));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/solicitud-principal-cliente/"+id).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/solicitud-principal-cliente/" + id).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
@@ -163,13 +190,13 @@ export class SolicitudService {
         });
 
       });
-  }  
+  }
 
-  listarSolicitudPrincipalClientexSolicitud(id_solicitud:number): Promise<any> {
+  listarSolicitudPrincipalClientexSolicitud(id_solicitud: number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-          this.resourceService.getResource("/api/solicitud-principal-cliente?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-principal-cliente?id_solicitud=" + id_solicitud).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -189,7 +216,7 @@ export class SolicitudService {
 
   }
 
-  crearSolicitudEmpresaRelacionada(solicitud : Solicitud): Promise<any> {
+  crearSolicitudEmpresaRelacionada(solicitud: Solicitud): Promise<any> {
     console.log("adding SolicitudEmpresaRelacionada..." + JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
@@ -205,11 +232,11 @@ export class SolicitudService {
       });
   }
 
-  eliminarSolicitudEmpresaRelacionada(id : number): Promise<any> {
+  eliminarSolicitudEmpresaRelacionada(id: number): Promise<any> {
     console.log("deletting SolicitudEmpresaRelacionada..." + JSON.stringify(id));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/solicitud-empresa-relacionada/"+id).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/solicitud-empresa-relacionada/" + id).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
@@ -219,13 +246,13 @@ export class SolicitudService {
         });
 
       });
-  }  
+  }
 
-  listarSolicitudEmpresaRelacionada(id_solicitud:number): Promise<any> {
+  listarSolicitudEmpresaRelacionada(id_solicitud: number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-          this.resourceService.getResource("/api/solicitud-empresa-relacionada?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-empresa-relacionada?id_solicitud=" + id_solicitud).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -246,7 +273,7 @@ export class SolicitudService {
   }
 
 
-  crearSolicitudReferenciaComercial(solicitud : Solicitud): Promise<any> {
+  crearSolicitudReferenciaComercial(solicitud: Solicitud): Promise<any> {
     console.log("adding SolicitudReferenciaComercial..." + JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
@@ -262,11 +289,11 @@ export class SolicitudService {
       });
   }
 
-  eliminarSolicitudReferenciaComercial(id : number): Promise<any> {
+  eliminarSolicitudReferenciaComercial(id: number): Promise<any> {
     console.log("deletting SolicitudReferenciaComercial..." + JSON.stringify(id));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/solicitud-referencia-comercial/"+id).toPromise().then((data) => {
+        this.resourceService.deleteResource2("/api/solicitud-referencia-comercial/" + id).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
@@ -276,13 +303,13 @@ export class SolicitudService {
         });
 
       });
-  }  
+  }
 
-  listarSolicitudReferenciaComercial(id_solicitud:number): Promise<any> {
+  listarSolicitudReferenciaComercial(id_solicitud: number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-          this.resourceService.getResource("/api/solicitud-referencia-comercial?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-referencia-comercial?id_solicitud=" + id_solicitud).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -302,7 +329,7 @@ export class SolicitudService {
 
   }
 
-  actualizarSolicitudCliente(solicitudCliente:SolicitudCliente){
+  actualizarSolicitudCliente(solicitudCliente: SolicitudCliente): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/solicitud-cliente/" + solicitudCliente.id, solicitudCliente).toPromise().then((data) => {
@@ -312,14 +339,14 @@ export class SolicitudService {
           console.log("error status=" + error.status + ", msg=" + error.message);
           reject(error);
         });
-      });    
+      });
   }
 
-  listarGrupoEmpresarialxSolicitud(filtro:any): Promise<any> {
+  listarGrupoEmpresarialxSolicitud(filtro: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-          this.resourceService.getResource("/api/solicitud/"+filtro.id_solicitud+"/grupo-empresarial").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/grupo-empresarial").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -339,11 +366,11 @@ export class SolicitudService {
 
   }
 
-  listarConsorcioxSolicitud(filtro:any): Promise<any> {
+  listarConsorcioxSolicitud(filtro: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-          this.resourceService.getResource("/api/solicitud/"+filtro.id_solicitud+"/consorcio").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/consorcio").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

@@ -35,11 +35,15 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listarConsorcios()
+    if (this.rucConsorcio){
+    this.listarConsorcioxFiltros({numero_documento:this.rucConsorcio})
+    }else{
+      this.listarConsorcioxFiltros({cliente_codigo_sap:this.clienteCodigoSapConsorcio})
+    }
   }
 
-  async listarConsorcios(){
-    this.solicitudService.listarConsorcioxNumeroDocumentoxFiltros({numero_documento:this.rucConsorcio}).then((data)=>{
+  async listarConsorcioxFiltros(filtro:any){
+    this.solicitudService.listarConsorcioxFiltros(filtro).then((data)=>{
       console.log("Listado de Consorcios -->"+JSON.stringify(data.payload))
       this.listaConsorcios=data.payload;
       if (data.payload.length===0){
@@ -49,29 +53,7 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
   }
 
   async guardarSolicitud(element:any){
-    let solicitud:Solicitud = await this.mapeoSolicitud(element);
-    this.solicitudService.crear(solicitud).then(async data=>{
-      let id_solicitud=data.payload.id;
-      console.log("Solicitud--------->"+JSON.stringify(id_solicitud));
-      this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:element, solicitud:data.payload});
-    })
-    
-  }
-
-  async mapeoSolicitud(element: any) {
-    let solicitud: Solicitud = {
-      correlativo: null,
-      id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
-      id_rol: this.ROL_SOLICITANTE,
-      id_usuario: 12,
-      id_usuario_creacion:12,
-      id_solicitud_referencia: null,
-      sociedad_codigo_sap: null,
-      id_cliente_agrupacion: element.id,
-      id_empresa: null,
-      id_tipo_cliente:1
-    }
-    return solicitud;
+    this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:element});    
   }
 
   cerrarDialog(consorcio: any) {

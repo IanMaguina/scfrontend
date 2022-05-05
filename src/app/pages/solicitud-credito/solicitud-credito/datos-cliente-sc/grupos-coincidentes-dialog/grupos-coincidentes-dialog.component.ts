@@ -31,11 +31,16 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listarGrupoEmpresarialxNombre();
+    if (this.nombre){
+    this.listarGrupoEmpresarialxFiltros({nombre:this.nombre});
+    }else{
+      this.listarGrupoEmpresarialxFiltros({numero_documento:this.rucIntegrante});
+
+    }
   }
 
-  listarGrupoEmpresarialxNombre(){
-    this.solicitudService.listarGrupoEmpresarialxNombre(this.nombre).then((data)=>{
+  listarGrupoEmpresarialxFiltros(filtro:any){
+    this.solicitudService.listarGrupoEmpresarialxFiltros(filtro).then((data)=>{
       console.log("Listado de grupos empresariales-->"+JSON.stringify(data.payload))
       this.listaGrupos=data.payload;
       if (data.payload.length===0){
@@ -45,29 +50,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   }
   
   async guardarSolicitud(grupo:any){
-    let solicitud:Solicitud = await this.mapeoSolicitud(grupo)
-    this.solicitudService.crear(solicitud).then(async data=>{
-      let id_solicitud=data.payload.id;
-      console.log("Solicitud--------->"+JSON.stringify(id_solicitud));
-      this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:grupo, solicitud:data.payload});
-    })
-    
-  }
-
-  async mapeoSolicitud(grupo: any) {
-    let solicitud: Solicitud = {
-      correlativo: null,
-      id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
-      id_rol: this.ROL_SOLICITANTE,
-      id_usuario: 12,
-      id_usuario_creacion:12,
-      id_solicitud_referencia: null,
-      sociedad_codigo_sap: null,
-      id_cliente_agrupacion: grupo.id,
-      id_empresa: null,
-      id_tipo_cliente:1
-    }
-    return solicitud;
+    this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:grupo});
   }
 
   cerrarDialog(grupo:any){
