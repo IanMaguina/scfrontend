@@ -20,7 +20,7 @@ export class GrupoEmpresarialComponent implements OnInit {
       'estado':'habilitado'
     }
   ];
-  displayedColumns: string[] = ['grupo', 'estado', 'id'];
+  displayedColumns: string[] = ['grupo', 'pendiente','solicitante', 'estado', 'id'];
   
   constructor(
     private matDialog: MatDialog,

@@ -48,7 +48,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   listadoIntegrantes: any[] = [];
 
   displayedColumns: string[] = [
-    'sociedad',
+    /* 'sociedad', */
     'codigocliente',
     'razonsocial',
     'ruc',

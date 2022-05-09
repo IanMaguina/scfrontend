@@ -22,7 +22,8 @@ export class ConsorcioComponent implements OnInit {
       'estado':'activo'
     }
   ];
-  displayedColumns: string[] = ['razonsocial', 'ruc', 'estado', 'id'];
+  displayedColumns: string[] = ['razonsocial','pendiente','solicitante', 'ruc', 'estado', 'id'];
+
   
   constructor(
     private matDialog: MatDialog,
