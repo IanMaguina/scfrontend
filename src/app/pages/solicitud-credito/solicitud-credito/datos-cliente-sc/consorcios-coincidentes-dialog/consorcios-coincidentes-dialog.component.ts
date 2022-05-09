@@ -35,6 +35,7 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("datos del consorcio-->"+JSON.stringify(this.data));
     if (this.rucConsorcio){
     this.listarConsorcioxFiltros({numero_documento:this.rucConsorcio})
     }else{

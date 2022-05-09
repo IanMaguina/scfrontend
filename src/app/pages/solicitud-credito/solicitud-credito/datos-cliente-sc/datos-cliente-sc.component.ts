@@ -119,11 +119,11 @@ export class DatosClienteScComponent implements OnInit {
     switch (this.cliente_seleccionado) {
       case 1:
         console.log("Grupo Empresarial");
-        if ((data.nombreGrupo==="" &&  data.rucGrupo==="")){
+        if ((data.nombreGrupo === "" && data.rucGrupo === "")) {
           console.log("esta vacio");
           break;
         }
-  
+
         const dialogRef1 = this.matDialog.open(GruposCoincidentesDialogComponent, {
           disableClose: true,
           width: "500px",
@@ -137,7 +137,7 @@ export class DatosClienteScComponent implements OnInit {
                 this.id_solicitud_editar = id;
                 this.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
-            }else{
+            } else {
               this.actualizarSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
                 this.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud_editar });
@@ -148,7 +148,7 @@ export class DatosClienteScComponent implements OnInit {
         break;
       case 2:
         console.log("CONSORCIO");
-        if (data.clienteCodigoSapConsorcio==="" && data.rucConsorcio){
+        if (data.clienteCodigoSapConsorcio === "" && data.rucConsorcio === "") {
           break;
         }
         const dialogRef2 = this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
@@ -159,20 +159,45 @@ export class DatosClienteScComponent implements OnInit {
         dialogRef2.afterClosed().subscribe(async result => {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
-            this.crearSolicitud(result.grupo).then(async (id) => {
-              this.id_solicitud_editar = id;
-              this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
-            });
+            if (this.id_solicitud_editar === null) {
+              this.crearSolicitud(result.grupo).then(async (id) => {
+                this.id_solicitud_editar = id;
+                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+              });
+            } else {
+              this.actualizarSolicitud(result.grupo).then(async (id) => {
+                this.id_solicitud_editar = id;
+                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+              });
+            }
           }
         });
         break;
-
       case 3:
-        if ((data.clienteCodigoSapEmpresa==="" &&  data.rucEmpresa==="")){
+        if ((data.clienteCodigoSapEmpresa === "" && data.rucEmpresa === "")) {
           console.log("esta vacio");
           break;
         }
-  
+        let filtro = {
+          numero_documento: "20225116458"
+        }
+        this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
+          if (result.payload !== null) {
+            if (this.id_solicitud_editar === null) {
+              this.crearSolicitud(result.payload).then(async (id) => {
+                this.id_solicitud_editar = id;
+                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+              });
+            } else {
+              this.actualizarSolicitud(result.grupo).then(async (id) => {
+                this.id_solicitud_editar = id;
+                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+              });
+            }
+
+          }
+        })
+
         break;
     }
   }
@@ -182,9 +207,10 @@ export class DatosClienteScComponent implements OnInit {
   }
 
 
-  async crearSolicitud(grupo: any): Promise<any> {
+  async crearSolicitud(cliente: any): Promise<any> {
+    console.log("para crear solicitud-->" + JSON.stringify(cliente));
     let id_solicitud = null;
-    let solicitud: Solicitud = this.mapeoSolicitud(grupo);
+    let solicitud: Solicitud = this.mapeoSolicitud(cliente);
     return new Promise(
       (resolve, reject) => {
         this.solicitudService.crear(solicitud).then(async data => {
@@ -201,7 +227,7 @@ export class DatosClienteScComponent implements OnInit {
       })
   }
 
-  mapeoSolicitud(grupo: any) {
+  mapeoSolicitud(cliente: any) {
     let solicitud: Solicitud = {
       correlativo: null,
       id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
@@ -209,10 +235,11 @@ export class DatosClienteScComponent implements OnInit {
       id_usuario: 12,
       id_usuario_creacion: 12,
       id_solicitud_referencia: null,
-      sociedad_codigo_sap: null,
-      id_cliente_agrupacion: grupo.id,
-      id_empresa: null,
-      id_tipo_cliente: this.cliente_seleccionado
+      sociedad_codigo_sap: "2020",
+      id_cliente_agrupacion: (this.cliente_seleccionado !== 3 ? cliente.id : null),
+      id_empresa: (this.cliente_seleccionado === 3 ? cliente.id : null),
+      id_tipo_cliente: this.cliente_seleccionado,
+      crear_correlativo: false
     }
     return solicitud;
   }
@@ -220,13 +247,13 @@ export class DatosClienteScComponent implements OnInit {
   async actualizarSolicitud(grupo: any): Promise<any> {
     let id_solicitud = null;
     let solicitud: Solicitud = this.mapeoEditarSolicitud(grupo);
-    console.log("mapeo-->"+JSON.stringify(solicitud));
+    console.log("mapeo-->" + JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
         this.solicitudService.actualizarSolicitud(this.id_solicitud_editar, solicitud).then(async data => {
           console.log("se actualizo la solicitud-->" + JSON.stringify(data));
-          id_solicitud = data.payload.id;
-          this.id_solicitud_hija.emit(id_solicitud);
+          id_solicitud = this.id_solicitud_editar;
+          this.id_solicitud_hija.emit(this.id_solicitud_editar);
           resolve(id_solicitud)
         }).catch(
           (error) => {
@@ -237,19 +264,18 @@ export class DatosClienteScComponent implements OnInit {
       })
   }
 
-  mapeoEditarSolicitud(grupo: any) {
+  mapeoEditarSolicitud(cliente: any) {
     let solicitud: Solicitud = {
       id: this.id_solicitud_editar,
-      correlativo: null,
       id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
       id_rol: this.ROL_SOLICITANTE,
       id_usuario: 12,
       id_usuario_creacion: 12,
-      id_solicitud_referencia: null,
-      sociedad_codigo_sap: null,
-      id_cliente_agrupacion: grupo.id,
-      id_empresa: null,
-      id_tipo_cliente: this.cliente_seleccionado
+      sociedad_codigo_sap: "2020",
+      id_cliente_agrupacion: (this.cliente_seleccionado !== 3 ? cliente.id : null),
+      id_empresa: (this.cliente_seleccionado === 3 ? cliente.id : null),
+      id_tipo_cliente: this.cliente_seleccionado,
+      crear_correlativo: false
     }
     return solicitud;
   }

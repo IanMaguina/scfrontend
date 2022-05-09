@@ -25,4 +25,6 @@ export interface Solicitud{
     razon_social?:string,
     numero_documento?:string,
     fecha_creacion?:string,
+
+    crear_correlativo?:boolean
 }
