@@ -24,7 +24,7 @@ export class DlgDetalleSolicitudGrupoComponent implements OnInit {
   asignarEmpresaFormDialog: any;
   formErrors = {
     'sociedad': '',
-    'ruc': '',
+    'ruc': '',  
   }
   validationMessages = {
     'sociedad': {
@@ -48,13 +48,11 @@ export class DlgDetalleSolicitudGrupoComponent implements OnInit {
   listadoIntegrantes: any[] = [];
 
   displayedColumns: string[] = [
-    'sociedad',
-    'codigocliente',
+    'accion',
+    'fecha_modificacion',
     'razonsocial',
-    'ruc',
-    'canal',
-    'zonal',
-    'grupo_cliente',
+    'usuario_modificacion',
+    'estado_aprobacion',
     'id',
   ];
 
@@ -71,7 +69,7 @@ export class DlgDetalleSolicitudGrupoComponent implements OnInit {
   ) {
     this.grupoData = data;
     console.log("trayendo del listado--->" + JSON.stringify(this.grupoData));
-    this.id_cliente_agrupacion = this.grupoData.id;
+    this.id_cliente_agrupacion = this.grupoData.id_cliente_agrupacion;
 
     /*  */
     this.asignarEmpresaFormDialog = this.formBuilder.group({
@@ -86,22 +84,13 @@ export class DlgDetalleSolicitudGrupoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit");
-    this.listarSociedades();
     this.listarClienteEmpresa();
   }
 
-  async listarSociedades() {
-    this.sociedadService.listarSociedades().then(data => {
-      console.log("listarSociedad:" + JSON.stringify(data));
-      this.listadoSociedades = data;
-    })
-  }
+
 
   async listarClienteEmpresa() {
-    this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
-      console.log("listarClienteEmpresas:" + JSON.stringify(data));
-      this.listadoIntegrantes = data.payload;
-    })
+    this.listadoIntegrantes = this.grupoData.empresas
 
   }  
   asignarEmpresaGrupo(form: any) {
@@ -139,6 +128,14 @@ export class DlgDetalleSolicitudGrupoComponent implements OnInit {
 
   }
 
+  AprobarCambio(element:any){
+
+  }
+  RechazarCambio(element:any){
+
+  }
+
+
   QuitarEmpresa(form: any) {
 
     form.mensaje = `¿Desea desasignar la empresa: ${form.empresa.razon_social} de este grupo? `;
@@ -156,8 +153,6 @@ export class DlgDetalleSolicitudGrupoComponent implements OnInit {
       }
       this.listarClienteEmpresa();
     });
-
-
 
   }
 

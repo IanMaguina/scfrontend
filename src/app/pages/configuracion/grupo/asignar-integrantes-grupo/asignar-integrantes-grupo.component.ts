@@ -161,6 +161,10 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   }
 
+  SolicitarActualizarGrupo(){
+    console.log("SolicitarActualizarGrupo");
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

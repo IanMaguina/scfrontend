@@ -1,48 +1,13 @@
 <div class="content-dialog">
     <br>
-    <div class="titledialog color-title">Asignar Integrantes</div>
+    <div class="titledialog color-title">Solcitud de Aprobación Grupo : nombregrupo</div>
     <br>
     <div class="body-dialog">
 <!-- tabs to make styles to support responsive... -->
 <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Integrantes" >
         <div class="content-section">
-            <div class="contenidoForm">
-            <form [formGroup]="asignarEmpresaFormDialog" (ngSubmit)="asignarEmpresaConsorcio(asignarEmpresaFormDialog.value)">
-        
-                <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Sociedad</mat-label>
-                        <mat-select formControlName="sociedad" required>
-                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
-                                {{ sociedad.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-        
-        
-                <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ruc</mat-label>
-                        <input matInput placeholder="ingrese el RUC" formControlName="ruc" required>
-                        <mat-hint>
-                            <mat-error [hidden]="!(formErrors.ruc)">
-                                {{formErrors.ruc}}
-                            </mat-error>
-                        </mat-hint>
-        
-                    </mat-form-field>
-                </div>
-        
-        
-        
-                <div class="objetoBoton col-xs-12 col-s-12 col-m-4 col-l-4 col-xl-6">
-                    <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
-                </div>
-            </form>
-
-            </div>
+            
         
             <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
             
@@ -99,8 +64,11 @@
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button class="color-secundario" (click)="QuitarEmpresa(element)">
-                            <mat-icon>delete</mat-icon>
+                        <button mat-flat-button class="boton-principal-light" (click)="QuitarEmpresa(element)">
+                            Aprobar
+                        </button>
+                        <button mat-flat-button class="boton-secundario" type="button" (click)="QuitarEmpresa(element)">
+                            Rechazar
                         </button>
                     </td>
                 </ng-container>

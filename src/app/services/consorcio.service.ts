@@ -112,6 +112,27 @@ export class ConsorcioService {
         });
       });
   }
+  listarSolicitudesConsorciosPendientes(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/cliente-agrupacion-aprobacion/listar-agrupado?id_tipo_cliente=2").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data.payload);
+          } else {
+            console.log("no hay solicitudes encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
 
 
 }
