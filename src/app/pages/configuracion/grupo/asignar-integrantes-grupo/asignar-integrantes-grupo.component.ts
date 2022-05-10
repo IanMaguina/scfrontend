@@ -48,7 +48,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   listadoIntegrantes: any[] = [];
 
   displayedColumns: string[] = [
-    'sociedad',
+    /* 'sociedad', */
     'codigocliente',
     'razonsocial',
     'ruc',
@@ -159,6 +159,10 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
 
 
+  }
+
+  SolicitarActualizarGrupo(){
+    console.log("SolicitarActualizarGrupo");
   }
 
   onNoClick(): void {

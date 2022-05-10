@@ -17,14 +17,34 @@
                             </mat-panel-title>
                             <mat-panel-description>
 
-                                <button type="button" mat-flat-button class="boton-principal-light" (click)="verConsorcio(obj.id)">
+                                <button type="button" mat-flat-button class="boton-principal-light" (click)="guardarSolicitud(obj)">
                   elegir
                 </button>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="expansion-body">
-                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngFor="let empresa of obj.empresas">
-                                {{empresa.razon_social}}
+                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" >
+                            <br>
+                                <table mat-table [dataSource]="obj.empresa" class="mat-elevation-z8 " >
+                                    <caption title="tabla empresas del grupo"></caption>
+                                    <!-- Table estrategias - por sociedad -->
+                                    <!-- Column -->
+                                    <ng-container matColumnDef="sociedad">
+                                        <th mat-header-cell *matHeaderCellDef> Sociedad </th>
+                                        <td mat-cell *matCellDef="let element">{{element.sociedad.nombre}} </td>
+                                    </ng-container>
+                                    <!-- Column -->
+                                    <ng-container matColumnDef="razon_social">
+                                        <th mat-header-cell *matHeaderCellDef> Empresa </th>
+                                        <td mat-cell *matCellDef="let element">  {{element.razon_social}} </td>
+                                    </ng-container>
+                            
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+
+
+
                             </div>
                         </div>
                     </mat-expansion-panel>
@@ -39,7 +59,12 @@
         <div class="contenidoForm" *ngIf="nodata">
 
             <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                <p>No se ha encontrado un Grupo Empresarial coincidente! </p>
+                <b>No se ha encontrado un Grupo Empresarial coincidente! </b>
+                <br>
+                <p>Verifique si los datos ingresados son correctos 
+                    o ¿Desea registrar uno nuevo?
+                </p>
+
 
             </div>
         </div>
@@ -48,7 +73,11 @@
     <div class="botonera objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
         <button type="button" mat-flat-button class="boton-secundario" (click)="cerrarDialog(0)">
       Cerrar
-    </button>
+    </button>&nbsp;
+        <a *ngIf="nodata" type="button" mat-flat-button class="boton-secundario" href="app/solicitudcredito/crearSolicitudGrupo">
+      Registrar
+        </a>
+
     </div>
 
 </div>

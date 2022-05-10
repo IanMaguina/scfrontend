@@ -19,15 +19,15 @@ export class SidebarService {
       icono: 'build',
       toolTip: 'Configuración',
       children: [
-        { name: 'Usuarios', url: 'configuracion/usuarios' },
-        { name: 'Estrategias', url: 'configuracion/estrategias' },
-        { name: 'Consorcios', url: 'configuracion/consorcios' },
-        { name: 'Grupos', url: 'configuracion/grupos' },
-        { name: 'Planes', url: 'configuracion/planes' },
-        { name: 'Tipo de documento valorado', url: 'configuracion/tipodocumentovalorado' },
-        { name: 'Suplencias', url: 'configuracion/suplencias' },
-        { name: 'Asistente de facturacion', url: 'configuracion/asistentefacturacion' },
-        { name: 'Aprobador adicional', url: 'configuracion/aprobadoradicional' },
+        { name: 'Usuarios', url: 'app/configuracion/usuarios' },
+        { name: 'Estrategias', url: 'app/configuracion/estrategias' },
+        { name: 'Consorcios', url: 'app/configuracion/consorcios' },
+        { name: 'Grupos', url: 'app/configuracion/grupos' },
+        { name: 'Planes', url: 'app/configuracion/planes' },
+        { name: 'Tipo de documento valorado', url: 'app/configuracion/tipodocumentovalorado' },
+        { name: 'Suplencias', url: 'app/configuracion/suplencias' },
+        { name: 'Asistente de facturacion', url: 'app/configuracion/asistentefacturacion' },
+        { name: 'Aprobador adicional', url: 'app/configuracion/aprobadoradicional' },
       ]
     },
     {
@@ -35,7 +35,12 @@ export class SidebarService {
       icono: 'credit_card',
       toolTip: 'Solicitud de Crédito',
       children: [
-        { name: 'Nueva Solicitud de Crédito', url: 'solicitudcredito/nuevasolicitudcredito' },
+        { name: 'Nueva Solicitud de Crédito', url: 'app/solicitudcredito/nuevasolicitudcredito' },
+        { name: 'bandeja de Solicitudes Pendientes', url: 'app/solicitudcredito/bandejaMisPendiendes' },
+        { name: 'Solicitud de Grupo', url: 'app/solicitudcredito/crearSolicitudGrupo' },
+        { name: 'Bandeja de Grupos', url: 'app/solicitudcredito/bandejaGruposPendiendes' },
+        { name: 'Solicitud de Consorcio', url: 'app/solicitudcredito/crearSolicitudConsorcio' },
+        { name: 'Bandeja de Consorcios', url: 'app/solicitudcredito/bandejaConsorciosPendiendes' },
       ]
     },
   ];

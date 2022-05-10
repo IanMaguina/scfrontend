@@ -1,3 +1,13 @@
+<div class="main-content" >
+    <mat-sidenav-container class="example-container" >
+    <mat-sidenav mode="side" opened #sideNav (mouseenter) ="showSidebar()" (mouseleave)="hideSidebar()" >
+        <app-sidebar [collapse]="funcion"></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="padded">
+        
+        <router-outlet></router-outlet>
 
-    <!-- Sistema de Rutas-->
-    <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

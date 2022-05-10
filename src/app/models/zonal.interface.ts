@@ -1,4 +1,4 @@
 export interface Zonal{
-    id:number,
+    codigo_sap:string,
     nombre:string,
 }

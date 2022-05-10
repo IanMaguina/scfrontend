@@ -1,16 +1,16 @@
 <div class="contenidoForm">
-    <form [formGroup]="formulary" (ngSubmit)="agregarReferencia(formulary.value)">
+    <form [formGroup]="formulary" (ngSubmit)="agregar(formulary.value)">
         <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Empresa</mat-label>
-                    <input matInput name="empresa" readonly="true">
+                    <input matInput formControlName="razon_social" >
                 </mat-form-field>
             </div>
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                 <mat-form-field appearance="outline">
                     <mat-label>RUC</mat-label>
-                    <input matInput formControlName="ruc">
+                    <input matInput formControlName="numero_documento">
                 </mat-form-field>
             </div>
             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
@@ -46,14 +46,14 @@
         <caption title="tablaReferenciasComerciales"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
-        <ng-container matColumnDef="empresa">
+        <ng-container matColumnDef="razon_social">
             <th mat-header-cell *matHeaderCellDef> Empresa </th>
-            <td mat-cell *matCellDef="let element"> <u> {{element.empresa}} </u></td>
+            <td mat-cell *matCellDef="let element"> <u> {{element.razon_social}} </u></td>
         </ng-container>
         <!-- Column -->
-        <ng-container matColumnDef="ruc">
+        <ng-container matColumnDef="numero_documento">
             <th mat-header-cell *matHeaderCellDef> Ruc </th>
-            <td mat-cell *matCellDef="let element"> <u> {{element.ruc}} </u></td>
+            <td mat-cell *matCellDef="let element"> <u> {{element.numero_documento}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="contacto">
@@ -76,7 +76,7 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button type="button" mat-icon-button class="color_secundario" (click)="eliminarReferencia(element.id);">
+                <button type="button" mat-icon-button class="color_secundario" (click)="eliminar(element.id);">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>

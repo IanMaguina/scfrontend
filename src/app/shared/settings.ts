@@ -1,21 +1,29 @@
+
 export const GlobalSettings = Object.freeze({
 
     BASE_API_URL: 'http://localhost:8080',
     //BASE_API_URL: 'https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com',
     N_COLUMNAS_GRID: 4,
 
-    clientId: "3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com",
+/*     clientId: "3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com",
     CLIENT_ID: 'PFryqr66AXV7uv0bNnsvx3KW',
     CLIENT_KEY: '3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com',
+ */
+    clientId: "311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com",
+    CLIENT_ID:'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',
+    CLIENT_KEY: '311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com',
 
     //Perfiles
     PERFIL_ADMINISTRADOR: 1,
     PERFIL_USUARIO: 2,
 
     //Roles
-    ROL_SOLICITANTE: 1,
-    ROL_SUPERVISOR: 2,
-    ROL_CALIDAD: 3,
+    ROL_SOLICITANTE: 10,
+    ROL_REVISOR: 20,
+    ROL_RPA: 30,
+    ROL_EVALUADOR: 40,
+    ROL_APROBADOR: 50,
+    
     ROL_COSTOS: 4,
     ROL_COMERCIAL: 5,
     ROL_ADMINISTRADOR_MATERIAL: 6,
@@ -23,12 +31,13 @@ export const GlobalSettings = Object.freeze({
     ROL_MARKETING: 10,
 
     //Estados
-    ESTADO_SOLICITUD_EN_SOLICITANTE: 1,
+    ESTADO_SOLICITUD_EN_SOLICITANTE: 10,
+    ESTADO_SOLICITUD_EN_REVISION: 20,
+    ESTADO_SOLICITUD_EN_RPA: 30,
+    ESTADO_SOLICITUD_EN_EVALUACION: 40,
+    ESTADO_SOLICITUD_EN_APROBACION: 50,
+
     ESTADO_SOLICITUD_ANULADO: 2,
-    ESTADO_SOLICITUD_EN_SUPERVISION: 3,
-    ESTADO_SOLICITUD_EN_CALIDAD: 4,
-    ESTADO_SOLICITUD_EN_COSTOS: 5,
-    ESTADO_SOLICITUD_EN_COMERCIAL: 6,
     ESTADO_SOLICITUD_EN_ADMINISTRACION: 7,
     ESTADO_SOLICITUD_EN_CONTROL_GESTION: 10,
     ESTADO_SOLICITUD_EN_SAP: 8,

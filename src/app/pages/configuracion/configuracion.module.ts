@@ -125,7 +125,7 @@ import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-apr
     DragDropModule
   ],
   exports: [
-
+    ConfiguracionComponent,
   ]
 })
 export class ConfiguracionModule { }

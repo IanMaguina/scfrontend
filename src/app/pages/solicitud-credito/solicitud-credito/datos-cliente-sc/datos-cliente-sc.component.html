@@ -3,49 +3,42 @@
         <div class="contenidoForm">
             <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                    <mat-radio-group aria-label="Select an option" formControlName="clientSelector"
-                        (change)="dosomething(ClientSelectorControl.value)" [formControl]="ClientSelectorControl"
-                        [(ngModel)]="cliente">
+                    <mat-radio-group aria-label="Select an option" (change)="seleccionCliente()" [formControl]="ClientSelectorControl">
                         <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
                         &nbsp;
                         <mat-radio-button [(value)]="radioConsorcio">Consorcio
-                            <mat-icon #tooltip="matTooltip"
-                                matTooltip="Conjunto de empresas que se consideran como una empresa con RUC"
-                                [matTooltipPosition]="positionOption">info</mat-icon>
+                            <mat-icon #tooltip="matTooltip" matTooltip="Conjunto de empresas que se consideran como una empresa con RUC" [matTooltipPosition]="positionOption">info</mat-icon>
                         </mat-radio-button>
                         &nbsp;
                         <mat-radio-button [(value)]="radioEmpresa">Empresa Individual</mat-radio-button>
                     </mat-radio-group>
                 </div>
                 <br><br>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-                    *ngIf="ClientSelectorControl.value === radioGrupo">
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioGrupo">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Grupo</mat-label>
-                            <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo">
+                            <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo" (focus)="limpiarCampo('rucGrupo')">
                         </mat-form-field>
 
                     </div>
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>RUC</mat-label>
-                            <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo">
+                            <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo" (focus)="limpiarCampo('nombreGrupo')">
                         </mat-form-field>
                     </div>
                     <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-                        <button mat-mini-fab color="primary" aria-label="Buscar"
-                            class="boton-principal-light objetoSimple">
+                        <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light objetoSimple">
                             <mat-icon>search</mat-icon>
                         </button>
                     </div>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-                    *ngIf="ClientSelectorControl.value === radioEmpresa">
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioEmpresa">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
-                            <input matInput formControlName="razonSocialEmpresa" placeholder="Código Cliente SAP">
+                            <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
                         </mat-form-field>
                     </div>
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
@@ -55,18 +48,16 @@
                         </mat-form-field>
                     </div>
                     <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-                        <button mat-mini-fab color="primary" aria-label="Buscar"
-                            class="boton-principal-light objetoSimple">
+                        <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light objetoSimple">
                             <mat-icon>search</mat-icon>
                         </button>
                     </div>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-                    *ngIf="ClientSelectorControl.value === radioConsorcio">
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioConsorcio">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
-                            <input matInput formControlName="razonSocialConsorcio" placeholder="Código Cliente SAP">
+                            <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
                         </mat-form-field>
                     </div>
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
@@ -76,8 +67,7 @@
                         </mat-form-field>
                     </div>
                     <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-                        <button mat-mini-fab aria-label="Buscar" color="primary"
-                            class="boton-principal-light objetoSimple">
+                        <button mat-mini-fab aria-label="Buscar" color="primary" class="boton-principal-light objetoSimple">
                             <mat-icon>search</mat-icon>
                         </button>
                     </div>
@@ -89,45 +79,45 @@
         </div>
         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
             <mat-accordion>
-                <!--  Empresa - Datos importantes-->
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Datos de la empresa
+                            Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-empresa-sc></app-datos-empresa-sc>
-
-                </mat-expansion-panel>
-                <!-- Grupo - Empresas Integrantes -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Grupo 1
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-grupo-sc></app-datos-grupo-sc>
+                    <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-grupo-sc>
 
                 </mat-expansion-panel>
                 <!-- Consorcio - Datos importantes -->
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Datos importantes Consorcio
+                            Consorcio: {{(clienteData?clienteData.nombre:'')}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-consorcio-sc></app-datos-consorcio-sc>
+                    <app-datos-consorcio-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-consorcio-sc>
                 </mat-expansion-panel>
 
                 <!-- Consorcio - Consorciados -->
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             Consorciados
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-datos-consorciados-sc></app-datos-consorciados-sc>
+                    <app-datos-consorciados-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-consorciados-sc>
                 </mat-expansion-panel>
+                <!--  Empresa - Datos importantes-->
+                <mat-expansion-panel *ngIf="ClientSelectorControl.value === radioEmpresa">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Datos de la empresa
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-empresa-sc [clienteData]="clienteData"></app-datos-empresa-sc>
+
+                </mat-expansion-panel>
+                <!-- Grupo - Empresas Integrantes -->
 
                 <!-- Proveedores -->
                 <mat-expansion-panel>
@@ -136,7 +126,7 @@
                             Referencias Comerciales (Proveedores)
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-referencias-comerciales-sc></app-referencias-comerciales-sc>
+                    <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar"></app-referencias-comerciales-sc>
                 </mat-expansion-panel>
 
                 <!-- Principales Clientes -->
@@ -146,7 +136,7 @@
                             Principales Clientes
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-principales-clientes-sc></app-principales-clientes-sc>
+                    <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar"></app-principales-clientes-sc>
                 </mat-expansion-panel>
 
                 <!-- Empresas Relacionadas -->
@@ -156,7 +146,7 @@
                             Empresas Relacionadas
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-empresas-relacionadas-sc></app-empresas-relacionadas-sc>
+                    <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar"></app-empresas-relacionadas-sc>
                 </mat-expansion-panel>
 
                 <!-- <mat-expansion-panel (opened)="panelOpenState = true"

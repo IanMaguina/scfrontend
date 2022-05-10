@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
+import { Empresa } from 'src/app/models/empresa.interface';
+import { Zonal } from 'src/app/models/zonal.interface';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SolicitudService } from 'src/app/services/solicitud.service';
+import { ZonalService } from 'src/app/services/zonal.service';
 
 @Component({
   selector: 'app-datos-empresa-sc',
@@ -8,26 +14,57 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   ]
 })
 export class DatosEmpresaScComponent implements OnInit {
+  @Input() clienteData: ClienteDatos;
+  formulary: FormGroup;
+  listaConsorciados: any = [];
+  listadoZonales: Zonal[] = [];
+  formErrors = {
+    'sustento_comercial': '',
+    'id_zonal': '',
+    'telefono': '',
+    'correo': '',
 
-  formulary:FormGroup;
+  }
+  validationMessages = {
+    'sustento_comercial': {
+      'required': 'el sustento_comercial es requerido.'
+    },
+    'id_zonal': {
+      'required': 'el id_zonal es requerido.'
+    },
+    'telefono': {
+      'required': 'el telefono es requerido.'
+    },
+    'correo': {
+      'required': 'el correo es requerido.'
+    },
+
+  };
+  //Submitted form
+  submitted = false;
+  carga: boolean = false;
+
   constructor(
-    private _formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private formValidatorService: FormValidatorService,
+    private zonalService: ZonalService,
+    private solicitudService: SolicitudService,
   ) {
-    this.formulary = this._formBuilder.group({
-      sociedadEmpresa: [''],
-      rucEmpresa: [''],
-      razonSocialEmpresa: [''],
-      codigoCliEmpresa: [''],
-      canalComEmpresa: [''],
-      grupoCliEmpresa: [''],
-      sustentoComercialEmpresa: [''],
-      oficinaVentaEmpresa: [''],
-      telefonoEmpresa: [''],
-      correoEmpresa: [''],
+    this.formulary = this.formBuilder.group({
+      sustento_comercial: ['',],
+      id_zonal: [''],
+      telefono: [''],
+      correo: [''],
     });
+    this.formulary.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formulary, this.formErrors, this.validationMessages, this.submitted);
+    })
   }
 
   ngOnInit(): void {
+  }
+  guardarDatosEmpresa(form: any) {
+    console.log("guardarDatosConsorcio..:" + JSON.stringify(form));
   }
 
 }

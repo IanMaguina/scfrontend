@@ -25,14 +25,14 @@ export class AutenticacionService {
 
 
   signInWithGoogle(): Promise<any> {
-
+    console.log("aqui entro");
     return new Promise((resolve, reject) => {
       //Getting access token
       this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
         this.usuarioService.listarUsuarioPorFiltros({correo:data.email}).then((u) => {
-          this.cookieService.put("_user_session", JSON.stringify(u['usuario']));
+          this.cookieService.put("_user_session", JSON.stringify(u['payload'][0]));
           console.log("user info was saved....");
-          resolve(u['usuario']);
+          resolve(u['payload'][0]);
 
         })
       }).catch(err => {
@@ -77,6 +77,7 @@ export class AutenticacionService {
 
   isLoggedIn() {
     let sessionData = this.cookieService.get("_user_session");
+    console.log('usuario logueado-->'+JSON.stringify(sessionData));
     if (sessionData){
       this.loggedIn = true;
       return true;

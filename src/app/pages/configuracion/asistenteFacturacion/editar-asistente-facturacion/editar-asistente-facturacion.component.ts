@@ -55,7 +55,7 @@ export class EditarAsistenteFacturacionComponent implements OnInit {
     this.asistenteData = data;
     console.log("recibido asistente : "+ JSON.stringify(this.asistenteData.id));
     this.formDialog = this.formBuilder.group({
-      zonal: [this.asistenteData.zonal.id, Validators.required],
+      zonal: [this.asistenteData.zonal, Validators.required],
       usuario: [this.asistenteData.usuario, Validators.required],
     })
     this.formDialog.valueChanges.subscribe(() => {
@@ -68,17 +68,25 @@ export class EditarAsistenteFacturacionComponent implements OnInit {
   }
 
 
-
-  async editarAsistenteFacturacion(form: any) {
-    form.id = this.asistenteData.id;
-    form.activo = this.asistenteData.activo;
-    console.log("to send AF: "+JSON.stringify(form));
-    this.asistenteFacturacionService.actualizarAsistenteFacturacion(form).then(data => {
+ async editarAsistenteFacturacion(form: any) {
+   console.log(JSON.stringify(form));
+    let asistenteFacturacion:AsistenteFacturacion=await this.mapeo(form);
+    this.asistenteFacturacionService.actualizarAsistenteFacturacion(asistenteFacturacion).then(data => {
       if (data.header.exito) {
         this.onNoClick('CONFIRM_DLG_YES');
       }
     })
   }
+
+  async mapeo(form: any) {
+    let asistenteFacturacion: AsistenteFacturacion = {
+        id:this.asistenteData.id,
+        zonal_codigo_sap: form.zonal.codigo_sap,
+        id_usuario: form.usuario.id,
+      }
+    return asistenteFacturacion;
+  }
+
 
   onNoClick(msg:string): void {
     this.dialogRef.close(msg);
@@ -118,11 +126,14 @@ export class EditarAsistenteFacturacionComponent implements OnInit {
     return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
-
   async listarZonales() {
     await this.zonalService.listarZonales().then((zonales) => {
       this.listadoZonales = zonales;
     });
   }
 
+  compareZonal(o1: Zonal, o2: Zonal) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.codigo_sap === o2.codigo_sap;
+  }  
 }

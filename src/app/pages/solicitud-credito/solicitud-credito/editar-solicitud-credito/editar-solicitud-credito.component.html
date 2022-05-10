@@ -1,0 +1,32 @@
+<div class="botonera-superior">
+    <button class="boton-secundario">Anular Solicitud</button>
+    </div>
+    <br>
+    <div class="body-dialog">
+      <mat-horizontal-stepper linear #stepper>
+        <mat-step [stepControl]="firstForm">
+          <div class="content-stepper">
+            <ng-template matStepLabel>Datos del Cliente</ng-template>
+            <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)" (onFirstFormGroup)="onFirstFormGroupEvent($event)"></app-datos-cliente-sc>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="secondForm">
+          <div class="content-stepper">
+            <ng-template matStepLabel>Planes de Crédito</ng-template>
+            <app-datos-planes-sc (onSecondFormGroup)="onSecondFormGroupEvent($event)"></app-datos-planes-sc>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="thirdForm">
+          <div class="content-stepper">
+            <ng-template matStepLabel>Datos de Obra</ng-template>
+            <app-datos-obras-sc (onThirdFormGroup)="onThirdFormGroupEvent($event)"></app-datos-obras-sc>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="fourthForm">
+          <div class="content-stepper">
+            <ng-template matStepLabel>Adjuntos y Plantillas</ng-template>
+            <app-datos-adjuntos-sc (onFourthFormGroup)="onFourthFormGroupEvent($event)"></app-datos-adjuntos-sc>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>

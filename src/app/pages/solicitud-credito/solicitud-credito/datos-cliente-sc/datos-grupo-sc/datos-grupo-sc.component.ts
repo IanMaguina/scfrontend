@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { SolicitudClienteDTO } from './../../../../../models/solicitud-cliente-dto.interface';
+import { Empresa } from './../../../../../models/empresa.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ZonalService } from 'src/app/services/zonal.service';
+import { Zonal } from 'src/app/models/zonal.interface';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { SolicitudService } from 'src/app/services/solicitud.service';
+import { SolicitudCliente } from 'src/app/models/solicitud-cliente.interface';
+import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-datos-grupo-sc',
@@ -7,41 +17,105 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DatosGrupoScComponent implements OnInit {
-  listaEmpresas:any =[
-    { 
-      id: 1,
-      id_grupo: 1,
-      codigo_cliente_sap: '65165',
-      canal_comercial: 'Canal 1',
-      oficina_venta: 'oficina 1',
-      razon_social: 'empresa 1 SAC',
-      grupo_cliente: 'Grupo 1',
-      correo: 'empresa1@gmail.com',
-    },
-    { 
-      id: 2,
-      id_grupo: 1,
-      codigo_cliente_sap: '65166',
-      canal_comercial: 'Canal 2',
-      oficina_venta: 'oficina 2',
-      razon_social: 'empresa 2 SAC',
-      grupo_cliente: 'Grupo 2',
-      correo: 'empresa2@gmail.com',
-    },
-    { 
-      id: 3,
-      id_grupo: 1,
-      codigo_cliente_sap: '65167',
-      canal_comercial: 'Canal 3',
-      oficina_venta: 'oficina 3',
-      razon_social: 'empresa 3 SAC',
-      grupo_cliente: 'Grupo 3',
-      correo: 'empresa3@gmail.com',
-    },
+  @Input() clienteData: ClienteDatos;
+  @Input() id_solicitud: number;
+  
+  displayedColumns: string[] = [
+    'sociedad_codigo_sap',
+    'numero_documento',
+    'razon_social',
+    'cliente_codigo_sap',
+    'tipo_canal',
+    'grupo_cliente',
+    'zonal_codigo_sap',
+    'sustento_comercial',
+    'id'
   ]
-  constructor() { }
 
-  ngOnInit(): void {
+  listadoZonales: Zonal[] = [];
+
+  formularyForm: FormGroup;
+
+  formErrors = {
+    'sustento_comercial': '',
+    'zonal_codigo_sap': '',
+    'telefono': '',
+    'correo': '',
+
+  }
+  validationMessages = {
+    'sustento_comercial': {
+      'required': 'el sustento_comercial es requerido.'
+    },
+    'zonal_codigo_sap': {
+      'required': 'el zonal es requerido.'
+    },
+    'telefono': {
+      'required': 'el telefono es requerido.'
+    },
+    'correo': {
+      'required': 'el correo es requerido.'
+    },
+
+  };
+  //Submitted form
+  submitted = false;
+  carga: boolean = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private formValidatorService: FormValidatorService,
+    private zonalService: ZonalService,
+    private solicitudService: SolicitudService,
+  ) {
+    this.formularyForm = this.formBuilder.group({
+      empresasArray: this.formBuilder.array([])
+    })
+    this.formularyForm.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formularyForm, this.formErrors, this.validationMessages, this.submitted);
+    })
+  }
+
+  async ngOnInit() {
+    this.listarZonales();
+    if (this.id_solicitud) {
+      this.solicitudService.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud }).then(async res => {
+        this.clienteData = res.payload;
+        this.formularyForm.setControl('empresasArray', this.mapear(this.clienteData.solicitud_cliente));
+        console.log("desde datos grupo-->" + JSON.stringify(this.formularyForm.get('empresasArray').value));
+      })
+    }
+  }
+
+  mapear(lista: SolicitudClienteDTO[]): FormArray {
+    const valor = lista.map((SolicitudClienteDTO.asFormGroup));
+    return new FormArray(valor);
+  }
+
+  get empresasArray(): FormArray {
+    return this.formularyForm.get('empresasArray') as FormArray;
+  }
+
+  async listarZonales() {
+    await this.zonalService.listarZonales().then((dato) => {
+      this.listadoZonales = dato;
+    })
+  }
+
+  async guardarSeccionGrupo(obj: any) {
+    let solicitudCliente: SolicitudCliente = await this.mapeoData(obj)
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then();
+  }
+
+  async mapeoData(obj: SolicitudCliente) {
+    let solicitudCliente: SolicitudCliente = {
+      id: obj.id,
+      sustento_comercial: obj.sustento_comercial,
+      zonal_codigo_sap: obj.zonal_codigo_sap,
+      telefono: obj.telefono,
+      correo: obj.correo
+    }
+    return solicitudCliente;
   }
 
 }

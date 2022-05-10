@@ -19,7 +19,7 @@ export class CrearSolicitudCreditoComponent {
   thirdForm:FormGroup;
   /* datos adjuntos */
   fourthForm:FormGroup;
-
+  id_solicitud_editar:any=null;
   
  constructor(){}
 
@@ -34,5 +34,10 @@ export class CrearSolicitudCreditoComponent {
  }
  onFourthFormGroupEvent(_event){
    this.fourthForm = _event;
+ }
+
+ send(_event){
+   console.log("valor del evento-->"+_event);
+   this.id_solicitud_editar=_event;
  }
 }

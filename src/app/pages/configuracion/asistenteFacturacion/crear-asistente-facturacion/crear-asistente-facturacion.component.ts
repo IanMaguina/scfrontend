@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AsistenteFacturacion } from 'src/app/models/asistente-facturacion.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { Zonal } from 'src/app/models/zonal.interface';
 import { AsistenteFacturacionService } from 'src/app/services/asistente-facturacion.service';
@@ -73,11 +74,20 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
 
 
   async crearAsistenteFacturacion(form: any) {
-    this.asistenteFacturacionService.crearAsistenteFacturacion(form).then(data => {
+    let asistenteFacturacion:AsistenteFacturacion=await this.mapeo(form);
+    this.asistenteFacturacionService.crearAsistenteFacturacion(asistenteFacturacion).then(data => {
       if (data.header.exito) {
         this.onNoClick('CONFIRM_DLG_YES');
       }
     })
+  }
+
+  async mapeo(form: any) {
+    let asistenteFacturacion: AsistenteFacturacion = {
+        zonal_codigo_sap: form.zonal.codigo_sap,
+        id_usuario: form.usuario.id,
+      }
+    return asistenteFacturacion;
   }
 
   onNoClick(msg:string): void {

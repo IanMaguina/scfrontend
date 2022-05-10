@@ -17,7 +17,7 @@ export class NopagefoundComponent {
     console.log("ngOnInit");
   }
   regresar(){
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['app/dashboard']);
   }
 
 }

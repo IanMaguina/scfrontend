@@ -6,14 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'scfrontend';
-  funcion:boolean = true;
-  hideSidebar() {
-    this.funcion = true;
-  }
-  showSidebar() {
-    this.funcion = false;
-  }
+  
 
 
 }

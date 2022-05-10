@@ -62,7 +62,7 @@ export class UsuarioService {
 
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/usuario/buscar?" + query).toPromise().then((data) => {
+        this.resourceService.getResource("/api/usuario?" + query).toPromise().then((data) => {
           if (data && Object.keys(data).length !== 0) {
             resolve(data);
           } else {

@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { Solicitud } from 'src/app/models/solicitud.interface';
+import {ClienteAgrupacion} from '../../../../../models/cliente-agrupacion.interface';
+import {SolicitudService} from '../../../../../services/solicitud.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 @Component({
   selector: 'app-grupos-coincidentes-dialog',
   templateUrl: './grupos-coincidentes-dialog.component.html',
@@ -8,61 +11,49 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   ]
 })
 export class GruposCoincidentesDialogComponent implements OnInit {
-
-  listaGrupos:any[] = [
-    {
-      id:1,
-      nombre:'consorcio 1 SAC',
-      empresas: [
-        {
-          id:1,
-          razon_social:'Empresa 1 SAC'
-        },
-        {
-          id:2,
-          razon_social:'Empresa 2 SAC'
-        },
-        {
-          id:3,
-          razon_social:'Empresa 3 SAC'
-        },
-      ]
-    },
-    {
-      id:1,
-      razon_social:'consorcio 2 SAC',
-      empresas: [
-        {
-          id:4,
-          razon_social:'Empresa 4 SAC'
-        },
-        {
-          id:5,
-          razon_social:'Empresa 5 SAC'
-        },
-        {
-          id:6,
-          razon_social:'Empresa 6 SAC'
-        },
-      ]
-    },
-  ]
+  listaGrupos:ClienteAgrupacion[] = [];
   nodata:boolean= false;
+  nombre:string;
+  rucIntegrante:string;
+  displayedColumns:string[] = [
+    'sociedad',
+    'razon_social',
+  ];
+  ESTADO_SOLICITUD_EN_SOLICITANTE=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ROL_SOLICITANTE=GlobalSettings.ROL_SOLICITANTE;
   constructor(
     public dialogRef: MatDialogRef<GruposCoincidentesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private solicitudService:SolicitudService
   ) {
-    //this.listaConsorcios = data.payload;
-
+    this.nombre=data.nombreGrupo;
+    this.rucIntegrante=data.rucGrupo;
   }
 
-  ngOnInit(): void {
-  }
-  verConsorcio(grupo:number){
-    this.cerrarDialog(grupo);
+  ngOnInit() {
+    if (this.nombre){
+    this.listarGrupoEmpresarialxFiltros({nombre:this.nombre});
+    }else{
+      this.listarGrupoEmpresarialxFiltros({numero_documento:this.rucIntegrante});
+
+    }
   }
 
-  cerrarDialog(grupo:number){
+  listarGrupoEmpresarialxFiltros(filtro:any){
+    this.solicitudService.listarGrupoEmpresarialxFiltros(filtro).then((data)=>{
+      console.log("Listado de grupos empresariales-->"+JSON.stringify(data.payload))
+      this.listaGrupos=data.payload;
+      if (data.payload.length===0){
+        this.nodata=true;
+      }
+    })
+  }
+  
+  async guardarSolicitud(grupo:any){
+    this.cerrarDialog({resultado:"CONFIRM_DLG_YES",grupo:grupo});
+  }
+
+  cerrarDialog(grupo:any){
     this.dialogRef.close(grupo);
   }
 
