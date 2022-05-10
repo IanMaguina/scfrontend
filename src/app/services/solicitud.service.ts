@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { Solicitud } from '../models/solicitud.interface';
 import { SolicitudCliente } from '../models/solicitud-cliente.interface';
+import { Observable } from 'rxjs';
+import { FormArray } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -183,7 +185,7 @@ export class SolicitudService {
   }
 
 
-  actualizarSolicitud(id_solicitud,solicitud:Solicitud): Promise<any> {
+  actualizarSolicitud(id_solicitud, solicitud: Solicitud): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/solicitud/" + id_solicitud, solicitud).toPromise().then((data) => {
@@ -193,7 +195,7 @@ export class SolicitudService {
           console.log("error status=" + error.status + ", msg=" + error.message);
           reject(error);
         });
-      });    
+      });
   }
 
   crearSolicitudPrincipalCliente(solicitud: Solicitud): Promise<any> {
@@ -366,6 +368,7 @@ export class SolicitudService {
   }
 
   actualizarSolicitudCliente(solicitudCliente: SolicitudCliente): Promise<any> {
+    console.log("sending-->"+JSON.stringify(solicitudCliente));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/solicitud-cliente/" + solicitudCliente.id, solicitudCliente).toPromise().then((data) => {
@@ -399,14 +402,61 @@ export class SolicitudService {
 
       }
     );
-
   }
+
+  listarGrupoEmpresarialxSolicitud2(filtro: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/grupo-empresarial").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
 
   listarConsorcioxSolicitud(filtro: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
         this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/consorcio").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+
+  listarEmpresaIndividualxSolicitud(filtro: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/empresa-individual").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

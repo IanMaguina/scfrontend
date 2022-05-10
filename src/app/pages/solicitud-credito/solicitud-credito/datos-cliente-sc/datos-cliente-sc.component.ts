@@ -1,10 +1,5 @@
-import { Empresa } from './../../../../models/empresa.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/cdk/stepper';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { ConsorciosCoincidentesDialogComponent } from './consorcios-coincidentes-dialog/consorcios-coincidentes-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +9,7 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { Solicitud } from 'src/app/models/solicitud.interface';
 import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-datos-cliente-sc',
@@ -51,7 +47,8 @@ export class DatosClienteScComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
     private formValidatorService: FormValidatorService,
-    private solicitudService: SolicitudService
+    private solicitudService: SolicitudService,
+    private router: Router,
     /* breakpointObserver: BreakpointObserver */
   ) {
     this.firstFormGroup = this._formBuilder.group({
@@ -87,6 +84,12 @@ export class DatosClienteScComponent implements OnInit {
     })
   }
 
+  async listarEmpresaIndividualxSolicitud(filtro: any) {
+    this.solicitudService.listarEmpresaIndividualxSolicitud(filtro).then(res => {
+      console.log("listarEmpresaIndividualxSolicitud--->" + JSON.stringify(res.payload));
+      this.clienteData = res.payload;
+    })
+  }  
   async obtenerSolicitud() {
     this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
       console.log("datos cliente--->" + JSON.stringify(data));
@@ -103,6 +106,9 @@ export class DatosClienteScComponent implements OnInit {
           this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
           break;
         case 3:
+          this.ClientSelectorControl.setValue(this.radioEmpresa)
+          this.cliente_seleccionado = this.radioEmpresa;
+          this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
           break;
       }
     })
@@ -135,7 +141,8 @@ export class DatosClienteScComponent implements OnInit {
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
-                this.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud_editar });
+                this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
+                //this.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             } else {
               this.actualizarSolicitud(result.grupo).then(async (id) => {
@@ -162,7 +169,8 @@ export class DatosClienteScComponent implements OnInit {
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
-                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+                this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
+                //this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             } else {
               this.actualizarSolicitud(result.grupo).then(async (id) => {
@@ -179,19 +187,20 @@ export class DatosClienteScComponent implements OnInit {
           break;
         }
         let filtro = {
-          numero_documento: "20225116458"
+          numero_documento: data.rucEmpresa//"20225116458"
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
           if (result.payload !== null) {
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.payload).then(async (id) => {
                 this.id_solicitud_editar = id;
-                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+                this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
+                //this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             } else {
               this.actualizarSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
-                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+                this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             }
 
