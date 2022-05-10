@@ -87,7 +87,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
 
   editarSolicitud(element:any){
     console.log(JSON.stringify(element));
-    this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+    this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]); 
 
 
   }

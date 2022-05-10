@@ -1,12 +1,14 @@
+import { SolicitudClienteDTO } from './../../../../../models/solicitud-cliente-dto.interface';
 import { Empresa } from './../../../../../models/empresa.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ZonalService } from 'src/app/services/zonal.service';
 import { Zonal } from 'src/app/models/zonal.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { SolicitudCliente } from 'src/app/models/solicitud-cliente.interface';
 import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-datos-grupo-sc',
@@ -17,9 +19,21 @@ import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 export class DatosGrupoScComponent implements OnInit {
   @Input() clienteData: ClienteDatos;
   @Input() id_solicitud: number;
+  
+  displayedColumns: string[] = [
+    'sociedad_codigo_sap',
+    'numero_documento',
+    'razon_social',
+    'cliente_codigo_sap',
+    'tipo_canal',
+    'grupo_cliente',
+    'zonal_codigo_sap',
+    'sustento_comercial',
+    'id'
+  ]
 
   listadoZonales: Zonal[] = [];
- 
+
   formularyForm: FormGroup;
 
   formErrors = {
@@ -55,27 +69,31 @@ export class DatosGrupoScComponent implements OnInit {
     private solicitudService: SolicitudService,
   ) {
     this.formularyForm = this.formBuilder.group({
-      sustento_comercial: [''],
-      zonal_codigo_sap: [''],
-      telefono: [''],
-      correo: [''],
-
+      empresasArray: this.formBuilder.array([])
     })
     this.formularyForm.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formularyForm, this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
-  ngOnInit(): void {
-    //console.log("data de GRUPO-->" + JSON.stringify(this.id_solicitud));
+  async ngOnInit() {
     this.listarZonales();
     if (this.id_solicitud) {
-      this.solicitudService.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud }).then(res => {
+      this.solicitudService.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud }).then(async res => {
         this.clienteData = res.payload;
-        console.log("desde datos grupo-->" + JSON.stringify(this.clienteData.solicitud_cliente));
+        this.formularyForm.setControl('empresasArray', this.mapear(this.clienteData.solicitud_cliente));
+        console.log("desde datos grupo-->" + JSON.stringify(this.formularyForm.get('empresasArray').value));
       })
     }
+  }
 
+  mapear(lista: SolicitudClienteDTO[]): FormArray {
+    const valor = lista.map((SolicitudClienteDTO.asFormGroup));
+    return new FormArray(valor);
+  }
+
+  get empresasArray(): FormArray {
+    return this.formularyForm.get('empresasArray') as FormArray;
   }
 
   async listarZonales() {
@@ -84,27 +102,20 @@ export class DatosGrupoScComponent implements OnInit {
     })
   }
 
-  async guardarSeccionGrupo(obj: SolicitudCliente, form: any) {
-    console.log("OBJ--->" + JSON.stringify(obj));
-    let solicitudCliente: SolicitudCliente = await this.mapeoData(obj, form)
-    console.log("guardarSeccionGrupo--->" + JSON.stringify(solicitudCliente));
-    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(data => {
-    })
+  async guardarSeccionGrupo(obj: any) {
+    let solicitudCliente: SolicitudCliente = await this.mapeoData(obj)
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then();
   }
 
-  async mapeoData(obj: any, form: any) {
+  async mapeoData(obj: SolicitudCliente) {
     let solicitudCliente: SolicitudCliente = {
       id: obj.id,
-      sustento_comercial: form.sustento_comercial,
-      zonal_codigo_sap: form.zonal_codigo_sap,
-      telefono: form.telefono,
-      correo: form.correo
+      sustento_comercial: obj.sustento_comercial,
+      zonal_codigo_sap: obj.zonal_codigo_sap,
+      telefono: obj.telefono,
+      correo: obj.correo
     }
     return solicitudCliente;
   }
 
-  valor(event: any) {
-    console.log(event);
-    return "hola mundo";
-  }
 }
