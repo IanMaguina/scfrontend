@@ -5,6 +5,7 @@ import { Solicitud } from '../models/solicitud.interface';
 import { SolicitudCliente } from '../models/solicitud-cliente.interface';
 import { Observable } from 'rxjs';
 import { FormArray } from '@angular/forms';
+import { Obra } from '../models/obra.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -351,7 +352,7 @@ export class SolicitudService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no perfiles encontradas...");
+            console.log("nReferencia comercial no encontrada...");
             resolve([]);
           }
         }
@@ -389,7 +390,7 @@ export class SolicitudService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no perfiles encontradas...");
+            console.log("Grupos no encontradas...");
             resolve([]);
           }
         }
@@ -412,7 +413,7 @@ export class SolicitudService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no perfiles encontradas...");
+            console.log("Grupos no encontrados...");
             resolve([]);
           }
         }
@@ -436,7 +437,7 @@ export class SolicitudService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no perfiles encontradas...");
+            console.log("Consorcios no encontrados...");
             resolve([]);
           }
         }
@@ -460,7 +461,7 @@ export class SolicitudService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no perfiles encontradas...");
+            console.log("empresas no encontradas...");
             resolve([]);
           }
         }
@@ -474,6 +475,69 @@ export class SolicitudService {
       }
     );
 
+  }
+
+  listarObra(codigo_obra_sap: number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-obra/" + codigo_obra_sap).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data.payload);
+          } else {
+            console.log("obra no encontrada...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+  listarSolicitudObras(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-cliente-obra/").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data.payload);
+          } else {
+            console.log("obras de la solicitud no encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
+
+  asignarObra(obra: Obra): Promise<any> {
+    console.log("adding suplencia..." + JSON.stringify(obra));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud-cliente-obra/", obra).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
   }
 
 }
