@@ -39,7 +39,7 @@ export class EmpresaService {
     console.log("enviando data--->"+sociedad_codigo_sap+"------"+numero_documento);
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/empresa/buscar-cliente?numero_documento="+numero_documento+"&sociedad_codigo_sap="+sociedad_codigo_sap).toPromise().then((data) => {
+        this.resourceService.getResource("/api/empresa?numero_documento="+numero_documento+"&sociedad_codigo_sap="+sociedad_codigo_sap).toPromise().then((data) => {
             resolve(data);
         }
         ).catch(

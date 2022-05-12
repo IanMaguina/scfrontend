@@ -10,7 +10,7 @@ import { Solicitud } from 'src/app/models/solicitud.interface';
 import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { Router } from '@angular/router';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-datos-cliente-sc',
   templateUrl: './datos-cliente-sc.component.html',
@@ -49,6 +49,7 @@ export class DatosClienteScComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private solicitudService: SolicitudService,
     private router: Router,
+    private _snack: MatSnackBar
     /* breakpointObserver: BreakpointObserver */
   ) {
     this.firstFormGroup = this._formBuilder.group({
@@ -287,5 +288,13 @@ export class DatosClienteScComponent implements OnInit {
       crear_correlativo: false
     }
     return solicitud;
+  }
+
+  snack(mensaje:string){
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
   }
 }

@@ -8,7 +8,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { SolicitudCliente } from 'src/app/models/solicitud-cliente.interface';
 import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
-import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-datos-grupo-sc',
@@ -67,6 +67,7 @@ export class DatosGrupoScComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private zonalService: ZonalService,
     private solicitudService: SolicitudService,
+    private _snack: MatSnackBar
   ) {
     this.formularyForm = this.formBuilder.group({
       empresasArray: this.formBuilder.array([])
@@ -104,7 +105,9 @@ export class DatosGrupoScComponent implements OnInit {
 
   async guardarSeccionGrupo(obj: any) {
     let solicitudCliente: SolicitudCliente = await this.mapeoData(obj)
-    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then();
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(()=>{
+      this.snack("Se guardaron los cambios");
+    });
   }
 
   async mapeoData(obj: SolicitudCliente) {
@@ -118,4 +121,11 @@ export class DatosGrupoScComponent implements OnInit {
     return solicitudCliente;
   }
 
+  snack(mensaje:string){
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
 }

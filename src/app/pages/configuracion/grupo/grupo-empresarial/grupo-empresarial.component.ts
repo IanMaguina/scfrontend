@@ -44,7 +44,7 @@ export class GrupoEmpresarialComponent implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe( (_) => {
+    dialogRef.afterClosed().subscribe(() => {
         this.listarGruposEmpresariales();
     });
 
