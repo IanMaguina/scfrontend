@@ -37,10 +37,10 @@ export class SidebarService {
       children: [
         { name: 'Nueva Solicitud de Crédito', url: 'app/solicitudcredito/nuevasolicitudcredito' },
         { name: 'bandeja de Solicitudes Pendientes', url: 'app/solicitudcredito/bandejaMisPendiendes' },
-        { name: 'Solicitud de Grupo', url: 'app/solicitudcredito/crearSolicitudGrupo' },
-        { name: 'Bandeja de Grupos', url: 'app/solicitudcredito/bandejaGruposPendiendes' },
-        { name: 'Solicitud de Consorcio', url: 'app/solicitudcredito/crearSolicitudConsorcio' },
-        { name: 'Bandeja de Consorcios', url: 'app/solicitudcredito/bandejaConsorciosPendiendes' },
+        { name: 'Solicitud de Grupo', url: 'app/solicitudcredito/crearSolicitudGrupo' }, 
+        /*{ name: 'Bandeja de Grupos', url: 'app/solicitudcredito/bandejaGruposPendiendes' }, */
+        { name: 'Solicitud de Consorcio', url: 'app/solicitudcredito/crearSolicitudConsorcio' }, 
+        /*{ name: 'Bandeja de Consorcios', url: 'app/solicitudcredito/bandejaConsorciosPendiendes' }, */
       ]
     },
   ];

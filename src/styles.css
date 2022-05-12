@@ -302,6 +302,7 @@ mat-header-cell {
 }
 .botonera-superior {
     float: right;
+    display:block;
 }
 
 

@@ -7,8 +7,6 @@ import { CrearSolicitudCreditoComponent } from './solicitud-credito/crear-solici
 import { GrupoEmpresarialComponent } from '../configuracion/grupo/grupo-empresarial/grupo-empresarial.component';
 import { ConsorcioComponent } from '../configuracion/consorcio/consorcio/consorcio.component';
 import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-solicitud-credito/bandeja-solicitud-credito.component';
-import { BandejaSolicitudConsorcioComponent } from './solicitud-credito/bandeja-solicitud-consorcio/bandeja-solicitud-consorcio.component';
-import { BandejaSolicitudGrupoComponent } from './solicitud-credito/bandeja-solicitud-grupo/bandeja-solicitud-grupo.component';
 import { EditarSolicitudCreditoComponent } from './solicitud-credito/editar-solicitud-credito/editar-solicitud-credito.component';
 
 const routes: Routes = [
@@ -19,12 +17,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'nuevasolicitudcredito', pathMatch: 'full' },
       { path: 'nuevasolicitudcredito', component: CrearSolicitudCreditoComponent, data: { titulo: 'Nueva Solicitud de Crédito', ruta: 'Solicitud de Crédito  /  Nueva' } },
       { path: 'editarSolicitudCredito/:id', component: EditarSolicitudCreditoComponent, data: { titulo: 'Editar Solicitud de Crédito', ruta: 'Solicitud de Crédito  /  Editar' } },
-      { path: 'crearSolicitudGrupo', component: GrupoEmpresarialComponent, data: { titulo: 'Solicitud de Grupo', ruta: 'Solicitud de Crédito  /  Solicitud de Grupo' } },
-      { path: 'crearSolicitudConsorcio', component: ConsorcioComponent, data: { titulo: 'Solicitud de Consorcio', ruta: 'Solicitud de Crédito  /  Solicitud de Consorcio' } },
+      { path: 'crearSolicitudGrupo', component: GrupoEmpresarialComponent, data: { titulo: 'Solicitud de Grupo', ruta: 'Solicitud de Crédito  /  Solicitud de Grupo', acceso:'solicitante' } },
+      { path: 'crearSolicitudConsorcio', component: ConsorcioComponent, data: { titulo: 'Solicitud de Consorcio', ruta: 'Solicitud de Crédito  /  Solicitud de Consorcio', acceso: 'solicitante' } },
       { path: 'bandejaMisPendiendes', component: BandejaSolicitudCreditoComponent, data: { titulo: 'Bandeja de Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Pendientes' } },
-      { path: 'bandejaGruposPendiendes', component: BandejaSolicitudGrupoComponent, data: { titulo: 'Bandeja de Grupos Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Grupos Pendientes' } },
-      { path: 'bandejaConsorciosPendiendes', component: BandejaSolicitudConsorcioComponent, data: { titulo: 'Bandeja de Consorcios Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Consorcios Pendientes' } },
-
+     /*  { path: 'bandejaGruposPendiendes', component: GrupoEmpresarialComponent, data: { titulo: 'Bandeja de Grupos Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Grupos Pendientes', acceso:'aprobador' } },
+      { path: 'bandejaConsorciosPendiendes', component: ConsorcioComponent, data: { titulo: 'Bandeja de Consorcios Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Consorcios Pendientes', acceso:'aprobador' } },
+ */
     ]
   },
 ];

@@ -2,10 +2,17 @@
     <div class="content-body-step">
         <div class="contenidoForm">
             <form [formGroup]="fourthFormGroup">
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="fourthCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                </mat-form-field>
+                <mat-tab-group mat-align-tabs="start">
+                    <mat-tab label="Flujo de Caja">
+                        <app-tab-flujo-caja-sc></app-tab-flujo-caja-sc>
+                    </mat-tab>
+                    <mat-tab label="Estados Financieros">
+                        <app-tab-estados-financieros-sc></app-tab-estados-financieros-sc>
+                    </mat-tab>
+                    <mat-tab label="Documentos Adicionales">
+                        <app-tab-documentos-adicionales-sc></app-tab-documentos-adicionales-sc>
+                    </mat-tab>
+                  </mat-tab-group>
 
             </form>
 

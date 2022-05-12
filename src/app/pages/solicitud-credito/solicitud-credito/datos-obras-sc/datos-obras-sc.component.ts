@@ -15,7 +15,7 @@ export class DatosObrasScComponent implements OnInit {
     private _formBuilder: FormBuilder
   ) {
     this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required],
+      codigo_obra: ['', Validators.required],
     });
   }
   ngOnInit(): void {

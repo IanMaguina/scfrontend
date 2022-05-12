@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { GrupoEmpresarialService } from 'src/app/services/grupo-empresarial.service';
 import { DlgDetalleSolicitudGrupoComponent } from '../dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
 
 @Component({
@@ -12,10 +13,9 @@ export class BandejaSolicitudGrupoComponent implements OnInit {
 
   listadoSolicitudGrupos:any[]=[];
   displayedColumns:string[] = [
-    'estado',
     'nombre',
-    'fecha_solicitud',
-    'solicitante'
+    'fecha_modificacion',
+    'cambios',
   ];
 
   
@@ -24,7 +24,7 @@ export class BandejaSolicitudGrupoComponent implements OnInit {
   carga: boolean = false;
   constructor(
     private matDialog: MatDialog,
-   //private solicitudConsorcioService:SolicitudConsorcioService
+    private grupoEmpresarialService:GrupoEmpresarialService,
   ) {
    
     
@@ -32,16 +32,26 @@ export class BandejaSolicitudGrupoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit");
+    this.listarSolicitudesGrupoPendientes();
   }
-  buscarSolicitudes(form:any){
-    console.log("buscarSolicitudes:.."+JSON.stringify(form));
+  listarSolicitudesGrupoPendientes(){
+    this.grupoEmpresarialService.listarSolicitudesGruposPendientes().then( data=>{
+     this.listadoSolicitudGrupos = data;
+      console.log("mis solicitudes: "+ JSON.stringify(data));
+    });
 
   }
-  openAsignarIntegrantesGrupo(id:any){
+
+  buscarSolicitudes(form:any){
+    console.log("buscarSolicitudes:.."+JSON.stringify(form));
+    this.openAsignarIntegrantesGrupo(form);
+
+  }
+  openAsignarIntegrantesGrupo(form:any){
     const dialogRef2 = this.matDialog.open(DlgDetalleSolicitudGrupoComponent, {
       disableClose: true,
       width: '80%',
-      data:id
+      data:form
     });
 
     dialogRef2.afterClosed().subscribe(result => {

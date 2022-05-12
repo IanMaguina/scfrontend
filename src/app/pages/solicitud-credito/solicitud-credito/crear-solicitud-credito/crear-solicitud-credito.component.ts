@@ -14,7 +14,7 @@ export class CrearSolicitudCreditoComponent {
   /* datos cliente */
   firstForm:FormGroup;
   /* datos planes */
-  secondForm:FormGroup;
+ /*  secondForm:FormGroup; */
   /* datos obras */
   thirdForm:FormGroup;
   /* datos adjuntos */
@@ -26,9 +26,9 @@ export class CrearSolicitudCreditoComponent {
  onFirstFormGroupEvent(_event){
    this.firstForm = _event;
  }
- onSecondFormGroupEvent(_event){
+ /* onSecondFormGroupEvent(_event){
    this.secondForm = _event;
- }
+ } */
  onThirdFormGroupEvent(_event){
    this.thirdForm = _event;
  }

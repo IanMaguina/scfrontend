@@ -2,12 +2,43 @@
     <div class="content-body-step">
         <div class="contenidoForm">
             <form [formGroup]="thirdFormGroup">
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                </mat-form-field>
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Codigo Obra</mat-label>
+                            <input matInput formControlName="codigo_obra" placeholder="ingrese el código de la obra">
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-9 col-xl-9">
+                        <button mat-flat-button color="primary" aria-label="Buscar" class="boton-principal-light ">
+                            Agregar
+                        </button>
+                        &nbsp;
+                        <button mat-flat-button aria-label="Buscar" class="boton-secundario ">
+                            Quitar
+                        </button>
+                    </div>
+                    <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+
+                    </div>
+                </div>
 
             </form>
+        </div>
+        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+            <mat-accordion>
+                <!--  Lista de Obras -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Obra 1
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-riesgos-sc></app-riesgos-sc>
+                </mat-expansion-panel>
+            </mat-accordion>
         </div>
 
     </div>
