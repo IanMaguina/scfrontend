@@ -22,6 +22,7 @@
 .color-notify {
     color: #3482A1;
 }
+
 .color-title {
     color: #B4B4B4;
 }
@@ -29,19 +30,22 @@
 .color-aprobacion {
     color: #F7FF0E;
 }
+
 .color-aprobado {
     color: #E18D11;
 }
+
 .color-activado {
     color: #04C55C;
 }
+
 .color-retirado {
     color: #A8A8A8;
 }
+
 .color-rechazado {
     color: #FF0000;
 }
-
 
 
 /* sidenav */
@@ -194,11 +198,12 @@ body {
     background-color: #707070;
     color: #FFFFFF;
 }
+
 .card-login {
     width: 300px;
     margin: 20px 0px 0px 20px;
-    
 }
+
 .card-login mat-card-actions {
     padding: 0px 0px 0px 25px;
 }
@@ -297,12 +302,19 @@ mat-header-cell {
     padding-top: 10px;
 }
 
+.content-form-dialog {
+    padding-top: 5px;
+    overflow-y: auto;
+    height: 70vh;
+}
+
 .botonera {
     padding-top: 10px;
 }
+
 .botonera-superior {
     float: right;
-    display:block;
+    display: block;
 }
 
 
@@ -358,6 +370,7 @@ mat-header-cell {
     float: left;
     height: auto;
 }
+
 .formElementoPlano {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -596,9 +609,10 @@ body::-webkit-scrollbar-thumb {
 mat-radio-button mat-icon {
     font-size: 14pt !important;
 }
-.mat-expansion-panel-header.mat-expanded{
+
+.mat-expansion-panel-header.mat-expanded {
     background-color: rgb(5 198 93 / 70%) !important;
-    color:#FFF  !important;
+    color: #FFF !important;
 }
 
 

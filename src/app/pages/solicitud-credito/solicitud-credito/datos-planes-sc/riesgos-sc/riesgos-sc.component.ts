@@ -37,7 +37,22 @@ export class RiesgosScComponent implements OnInit {
       tipo_linea:'regular',
       vigencia:'20/01/2021 - 15/05/2022',
       plan_control:'',
-    }
+    },
+    {
+      id:2,
+      sociedad:'2020',
+      plan:'Fuera de plan',
+      razon_social:'XYZ SA',
+      grupo_cliente:'KAM',
+      linea_credito_actual:'s/.20000',
+      documento_valorado_actual:'Cheque',
+      linea_solicitada:'',
+      moneda_solicitada:'Sol',
+      documento_valorado_propuesto:'Cheque',
+      tipo_linea:'regular',
+      vigencia:'20/01/2021 - 15/05/2022',
+      plan_control:'',
+    },
   ];
   displayedColumns: string[] = [
     'sociedad',
