@@ -1,7 +1,7 @@
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { TipoCanal } from './tipo-canal.interface';
 import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 
 export class SolicitudClienteDTO {
     sociedad?:Sociedad;
@@ -18,7 +18,7 @@ export class SolicitudClienteDTO {
     telefono?:string;
   
     static asFormGroup(grupo: SolicitudClienteDTO): FormGroup {
-      const fg = new FormGroup({
+      return new FormGroup({
         sociedad: new FormControl(grupo.sociedad),
         sociedad_codigo_sap: new FormControl(grupo.sociedad_codigo_sap),
         numero_documento: new FormControl(grupo.numero_documento),
@@ -32,7 +32,6 @@ export class SolicitudClienteDTO {
         correo: new FormControl(grupo.correo),
         telefono: new FormControl(grupo.telefono),
       });
-      return fg;
     }
   }
   
