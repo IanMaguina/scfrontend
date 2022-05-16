@@ -101,21 +101,11 @@
 
 
                 <div class="objetoBoton col-xs-12 col-s-12 col-m-4 col-l-4 col-xl-6">
-
-                    <button mat-raised-button class="boton-principal-light" type="submit">Aplicar</button>
-
+                    
+                    <button mat-raised-button class="boton-secundario_popup" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
+                    <button mat-raised-button class="boton-principal_popup" type="submit">Aplicar</button>
                 </div>
-
-
             </form>
-
         </div>
-    </div>
-    <br>
-    <br><br><br><br>
-    <div class="botonera">
-        <button mat-flat-button class="boton-secundario" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
-
-
     </div>
 </div>

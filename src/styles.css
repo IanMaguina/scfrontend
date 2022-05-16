@@ -4,7 +4,7 @@
 /* colores letras*/
 
 .color-principal {
-    color: #1D8F3A;
+    color: #05C65D;
 }
 
 .color-secundario {
@@ -194,6 +194,20 @@ body {
     color: #FFFFFF;
 }
 
+.boton-principal_popup{
+
+    background-color: #05C65D;
+    color: #FFFFFF;
+    margin-right: 12px !important;
+}
+
+.boton-secundario_popup{
+
+    background-color: #707070;
+    color: #FFFFFF;
+    margin-right: 12px !important;
+}
+
 .boton-secundario {
     background-color: #707070;
     color: #FFFFFF;
@@ -221,7 +235,7 @@ mat-header-cell {
 
 .toolbar-color {
     background: #FFFFFF;
-    color: #1D8F3A;
+    color: #05C65D;
 }
 
 .sidebar {
@@ -310,6 +324,7 @@ mat-header-cell {
 
 .botonera {
     padding-top: 10px;
+    
 }
 
 .botonera-superior {
@@ -349,6 +364,9 @@ mat-header-cell {
     overflow-x: auto;
     max-height: 60vh;
 }
+.mat-stepper-horizontal{
+    background-color: #ffffff00;
+}
 
 
 /* .content-stepper {
@@ -378,7 +396,8 @@ mat-header-cell {
 
 .objetoSimple {
     float: left;
-    height: 10px;
+    height: 30px;
+    width: 30px;
 }
 
 .objetoBoton {
@@ -458,6 +477,16 @@ th.mat-header-cell {
     color: #fff;
 }
 
+.mat-form-field-appearance-fill .mat-form-field-flex{
+    background-color: #FFF;
+    width: 250px !important;
+    border-radius: 0px 0px 0px 0px;
+    color:#05C65D;
+}
+.mat-form-field{
+    color:#04C55C;
+}
+
 .tdEditable .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 3px 0 3px 0 !important;
 }
@@ -472,29 +501,29 @@ th.mat-header-cell {
 
 .mat-primary .mat-pseudo-checkbox-checked,
 .mat-primary .mat-pseudo-checkbox-indeterminate {
-    background-color: #1D8F3A;
+    background-color: #05C65D;
 }
 
 .mat-radio-button.mat-accent .mat-radio-inner-circle,
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
 .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
-    background-color: #1D8F3A;
+    background-color: #05C65D;
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-    border-color: #1D8F3A;
+    border-color: #05C65D;
 }
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #1D8F3A;
+    background-color: #05C65D;
 }
 
 .mat-step-header .mat-step-icon-selected,
 .mat-step-header .mat-step-icon-state-done,
 .mat-step-header .mat-step-icon-state-edit {
-    background-color: #1D8F3A;
+    background-color: #05C65D;
 }
 
 .mat-stepper-horizontal,
@@ -506,9 +535,21 @@ th.mat-header-cell {
 .mat-raised-button.mat-primary,
 .mat-fab.mat-primary,
 .mat-mini-fab.mat-primary {
-    background-color: #1D8F3A;
+    background-color: #05C65D;
 }
 
+.seleccionclientes{
+    display: flex;
+    margin-top: 10px !important;
+}
+
+.mat-radio-label{
+    padding-right: 15px;
+}
+
+.buscar{
+    padding-top: 15px;
+}
 
 /* cdk dragDrop */
 
@@ -602,18 +643,41 @@ body::-webkit-scrollbar-thumb {
 }
 
 .content-body-step::-webkit-scrollbar-thumb {
-    background-color: rgb(5 198 93 / 70%);
+    background-color: #05C65D;
     border-radius: 20px;
 }
 
-mat-radio-button mat-icon {
+.mat-radio-button mat-icon {
     font-size: 14pt !important;
 }
 
 .mat-expansion-panel-header.mat-expanded {
-    background-color: rgb(5 198 93 / 70%) !important;
-    color: #FFF !important;
+    background-color: #05C65D !important;
+    Color: #FFF !important;
+    border-radius: 10px !important;
 }
+.mat-expansion-panel-header{
+    background-color: #707070 !important;
+    border-radius: 10px !important;
+    margin-bottom: 8px;
+}
+.mat-expansion-panel-header-title{
+    color: #FFF;
+}
+.mat-expansion-panel-header-description, .mat-expansion-indicator::after{
+    color: #FFF !important;
+    
+}
+.mat-expansion-panel{
+    background-color: #ffffff00;
+    box-shadow: 0px 0px 0px 0px #ffffff00, 0px 0px 0px 0px #ffffff00, 0px 0px 0px 0px #ffffff00 !important;
+    margin-bottom: 25px;
+}
+.divisor{
+    margin-top: 20px !important;
+}
+
+
 
 
 /* INIT - Grid responsive */

@@ -2,39 +2,53 @@
     <div class="content-body-step">
         <div class="contenidoForm">
             <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                    <mat-radio-group aria-label="Select an option" (change)="seleccionCliente()" [formControl]="ClientSelectorControl">
+                <div class="seleccionclientes objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                    <mat-radio-group  aria-label="Select an option" (change)="seleccionCliente()" [formControl]="ClientSelectorControl">
                         <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
-                        &nbsp;
+                        
                         <mat-radio-button [(value)]="radioConsorcio">Consorcio
-                            <mat-icon #tooltip="matTooltip" matTooltip="Conjunto de empresas que se consideran como una empresa con RUC" [matTooltipPosition]="positionOption">info</mat-icon>
+
+                            <mat-icon class="tip" 
+                            #tooltip="matTooltip" 
+                            matTooltip="Conjunto de empresas que se consideran como una empresa con RUC" 
+                            [matTooltipPosition]="positionOption">info</mat-icon>
+                        
                         </mat-radio-button>
-                        &nbsp;
+                        
                         <mat-radio-button [(value)]="radioEmpresa">Empresa Individual</mat-radio-button>
                     </mat-radio-group>
+
                 </div>
-                <br><br>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioGrupo">
+
+                
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 buscar" *ngIf="ClientSelectorControl.value === radioGrupo">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Grupo</mat-label>
+                         
+                        <mat-form-field appearance="fill">
+                            <mat-label>Nombre del grupo</mat-label>
                             <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo" (focus)="limpiarCampo('rucGrupo')">
                         </mat-form-field>
 
                     </div>
+
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>RUC</mat-label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>RUC de algun integrante</mat-label>
                             <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo" (focus)="limpiarCampo('nombreGrupo')">
                         </mat-form-field>
                     </div>
+
                     <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
                         <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light objetoSimple">
                             <mat-icon>search</mat-icon>
-                        </button>
+                        </button>                
                     </div>
+
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioEmpresa">
+                
+            
+
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 buscar" *ngIf="ClientSelectorControl.value === radioEmpresa">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
@@ -53,7 +67,8 @@
                         </button>
                     </div>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="ClientSelectorControl.value === radioConsorcio">
+
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 buscar" *ngIf="ClientSelectorControl.value === radioConsorcio">
                     <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Código Cliente SAP</mat-label>
@@ -72,12 +87,14 @@
                         </button>
                     </div>
                 </div>
-                <br>
-                <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-
+                
+                <mat-divider class="divisor objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
+              
             </form>
+            
         </div>
-        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+
+        <div class="acordeon objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
             <mat-accordion>
                 <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
                     <mat-expansion-panel-header>
@@ -166,6 +183,7 @@
 
         <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
     </div>
+    <hr>
     <div class="botonera-step ">
         <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
     </div>

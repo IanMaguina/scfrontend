@@ -5,8 +5,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-crear-solicitud-credito',
   templateUrl: './crear-solicitud-credito.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class CrearSolicitudCreditoComponent {
   
