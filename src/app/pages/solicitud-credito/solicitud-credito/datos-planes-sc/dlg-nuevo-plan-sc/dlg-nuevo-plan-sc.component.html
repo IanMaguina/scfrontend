@@ -1,12 +1,11 @@
-<div class="content-dialog">
+<div class="content-form-dialog">
     <br>
     <div class="titledialog color-title">Nuevo Plan de Crédito</div>
     <br>
     <div class="body-dialog">
         <div class="contenidoForm ">
             <br>
-            <form [formGroup]="formulary"
-                (ngSubmit)="ingresarPlan(formulary.value)">
+            <form [formGroup]="formulary" (ngSubmit)="ingresarPlan(formulary.value)">
 
                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
                     <mat-form-field appearance="outline">
@@ -99,7 +98,7 @@
 
                     </mat-form-field>
                 </div>
-                
+
 
                 <div class="objetoBoton col-xs-12 col-s-12 col-m-4 col-l-4 col-xl-6">
 
@@ -109,14 +108,14 @@
 
 
             </form>
-         
+
         </div>
     </div>
     <br>
     <br><br><br><br>
     <div class="botonera">
         <button mat-flat-button class="boton-secundario" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
-       
+
 
     </div>
 </div>
