@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SolicitudClienteObraDTO } from 'src/app/dto/solicitud-cliente-obra.dto';
 import { Obra } from 'src/app/models/obra.interface';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 
 @Component({
@@ -13,110 +16,151 @@ export class DatosObrasScComponent implements OnInit {
 
   @Output() onThirdFormGroup: EventEmitter<any> = new EventEmitter();
   @Input() id_solicitud_editar: number;
+
   thirdFormGroup: FormGroup;
   formulary: FormGroup;
-  listadoObras: Obra[] = [
-    {
-      id:1,
-      id_solicitud: 1,
-      obra_codigo_isicom: '1515',
-      dueno: 'jack O neil',
-      ubicacion: 'Lima',
-      plazo_obra: '48 Meses',
-      nombre_obra: 'Obra Las Bambas',
-      fecha_inicio_obra: '15/01/2020',
-      fecha_fin_obra: '20/06/2023'
-    },
-    {
-      id:2,
-      id_solicitud: 1,
-      obra_codigo_isicom: '1516',
-      dueno: 'jack O neil',
-      ubicacion: 'Lima',
-      plazo_obra: '48 Meses',
-      nombre_obra: 'Obra Vichapampa',
-      fecha_inicio_obra: '15/01/2020',
-      fecha_fin_obra: '20/06/2023'
-    },
-  ];
-  constructor(
-    private _formBuilder: FormBuilder,
-    private solicitudService: SolicitudService,
+  submitted = false;
+  formErrors = {
+    'informacion_adicional': '',
+    'fecha_inicio_atencion': '',
+    'fecha_fin_atencion': '',
 
+  }
+  validationMessages = {
+    'informacion_adicional': {
+      'required': 'informacion adicional es requerida.'
+    },
+    'fecha_inicio_atencion': {
+      'required': 'fecha inicio atencion es requerido.'
+    },
+    'fecha_fin_atencion': {
+      'required': 'fecha fin atenciones requerido.'
+    },
+
+  };
+  listadoObras: SolicitudClienteObraDTO[] = [];
+  /* {
+    id: 1,
+    id_solicitud: 1,
+    obra_codigo_isicom: '1515',
+    dueno: 'jack O neil',
+    ubicacion: 'Lima',
+    plazo_obra: '48 Meses',
+    nombre_obra: 'Obra Las Bambas',
+    fecha_inicio_obra: '15/01/2020',
+    fecha_fin_obra: '20/06/2023'
+  },
+  {
+    id: 2,
+    id_solicitud: 1,
+    obra_codigo_isicom: '1516',
+    dueno: 'jack O neil',
+    ubicacion: 'Lima',
+    plazo_obra: '48 Meses',
+    nombre_obra: 'Obra Vichapampa',
+    fecha_inicio_obra: '15/01/2020',
+    fecha_fin_obra: '20/06/2023'
+  },
+]; */
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private solicitudService: SolicitudService,
+    private formValidatorService: FormValidatorService,
+    private _snack: MatSnackBar
   ) {
-    this.thirdFormGroup = this._formBuilder.group({
+    this.thirdFormGroup = this.formBuilder.group({
       codigo_obra: ['', Validators.required],
     });
-    this.formulary = this._formBuilder.group({
-      informacion_adicional: [''],
-      fecha_inicio_atencion: [''],
-      fecha_final_atencion: [''],
+    this.formulary = this.formBuilder.group({
+      obrasArray: this.formBuilder.array([])
     });
+    this.formulary.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formulary, this.formErrors, this.submitted)
+    })
 
   }
   ngOnInit(): void {
-    console.log("object");
-    this.listarObras();
+    console.log("id solicitud en obras: " + this.id_solicitud_editar);
+    if (this.id_solicitud_editar) {
+      this.listarObras();
+
+    }
+  }
+
+  listarObras() {
+    this.solicitudService.listarSolicitudObras(this.id_solicitud_editar).then(data => {
+      this.listadoObras = data.payload;
+      console.log("data fechas "+ JSON.stringify(data.payload));
+      this.formulary.setControl('obrasArray', this.mapearObra(this.listadoObras));
+     // console.log("las obras listadas de la solicitud " + this.id_solicitud_editar + " son :" + JSON.stringify(data.payload));
+    });
   }
 
   async getDataObra(form: any) {
-    //console.log("dato salido: "+form.codigo_obra);
-    await this.solicitudService.listarObra(form.codigo_obra).then(data => {
-      //console.log("informacion de la obra: "+ JSON.stringify(data));
-      //mapping
-      let obra_solicitud = this.mapeoObra(data[0]);
-      //aqui agregamos la obra
-
-      console.log("informacion de la obra: " + JSON.stringify(obra_solicitud));
-      /* this.solicitudService.asignarObra(obra_solicitud).then((response) => {
-
-      }) */
+    await this.solicitudService.listarObra(form.codigo_obra).then(async data => {
+      let obra_solicitud: Obra = await this.mapeoObra(data);
+      this.solicitudService.asignarObra(obra_solicitud).then((response) => {
+        if (response.header.exito) {
+          this.generarMensaje("Se agregó la Obra");
+          this.listarObras();
+        }
+      })
     })
   }
 
+  get obrasArray(): FormArray {
+    return this.formulary.get('obrasArray') as FormArray;
+  }
+
+  mapearObra(lista: SolicitudClienteObraDTO[]): FormArray {
+    const valor = lista.map((SolicitudClienteObraDTO.asFormGroup));
+    return new FormArray(valor);
+  }
 
   async mapeoObra(data: any) {
-    let obraSolicitud: Obra = {
+    let obraSolicitud: SolicitudClienteObraDTO = {
+      id: data.id,
       id_solicitud: this.id_solicitud_editar,
-      obra_codigo_isicom: data.codigo_obra,
-      dueno: data.responsable,
+      obra_codigo_isicom: data.obra_codigo_isicom,
+      dueno: data.dueno,
       ubicacion: data.ubicacion,
       plazo_obra: data.duracion,
-      informacion_adicional: data.nombre_obra,
-      fecha_inicio_obra: data.fecha_inicio,
-      fecha_fin_obra: data.fecha_fin,
-      /* fecha_inicio_atencion:,
-      fecha_final_atencion:, */
-
+      nombre_obra: data.nombre_obra,
+      informacion_adicional: data.informacion_adicional,
+      fecha_inicio_obra: data.fecha_inicio_obra,
+      fecha_fin_obra: data.fecha_fin_obra,
+      fecha_inicio_atencion: data.fecha_inicio_atencion,
+      fecha_fin_atencion: data.fecha_fin_atencion
     }
     return obraSolicitud;
   }
 
-  listarObras() {
-     this.solicitudService.listarSolicitudObras().then(data =>{
-      this.listadoObras = data;
-    }); 
-  }
-
-  quitarObra(id_solicitud_obra:number) {
-    this.solicitudService.quitarSolicitudObra(id_solicitud_obra).then((data)=>{
-      //se eliminó la obra de la solicitud
+  eliminarSolicitudObra(id_solicitud_obra: number) {
+    this.solicitudService.eliminarSolicitudObra(id_solicitud_obra).then((data) => {
+      if (data.header.exito) {
+        this.generarMensaje("se eliminó la obra correctamente");
+      }
     });
   }
 
-  agregarObra(obra:Obra) {
-    this.solicitudService.asignarObra(obra).then((data)=>{
-      //se agregó
+  //actualizar obra
+  async actualizarSolicitudObra(form: any) {
+    console.log(JSON.stringify(form));
+    let solicitudObra: SolicitudClienteObraDTO = await this.mapeoObra(form)
+    this.solicitudService.actualizarSolicitudObra(solicitudObra).then((data) => {
+      if (data.header.exito) {
+        this.generarMensaje("se actualizó la obra correctamente");
+      }
     })
   }
-  guardarDatosObra(id:number, form: any) {
-//actualizar
-//Rafa haz tu magia
-this.solicitudService.actualizarSolicitudObra(id, form).then((data)=>{
-  //se agregó
-})
+
+  generarMensaje(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
   }
-
-
 
 }
