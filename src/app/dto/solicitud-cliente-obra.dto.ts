@@ -2,7 +2,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 
 export class SolicitudClienteObraDTO {
     id?: number;
-    obra_codigo_isicom:string;
+    obra_codigo_isicom?:string;
     id_solicitud?: number;
     nombre_obra?:string;
     dueno?:string;

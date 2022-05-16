@@ -22,7 +22,7 @@
     <mat-step [stepControl]="thirdForm">
       <div class="content-stepper">
         <ng-template matStepLabel>Datos de Obra</ng-template>
-        <app-datos-obras-sc (onThirdFormGroup)="onThirdFormGroupEvent($event)"></app-datos-obras-sc>
+        <app-datos-obras-sc (onThirdFormGroup)="onThirdFormGroupEvent($event)" [id_solicitud_editar]="id_solicitud_editar"></app-datos-obras-sc>
       </div>
     </mat-step>
     <mat-step [stepControl]="fourthForm">

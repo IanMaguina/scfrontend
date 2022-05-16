@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DlgNuevoPlanScComponent } from './dlg-nuevo-plan-sc/dlg-nuevo-plan-sc.component';
@@ -12,7 +12,7 @@ import { DlgNuevoPlanScComponent } from './dlg-nuevo-plan-sc/dlg-nuevo-plan-sc.c
 export class DatosPlanesScComponent implements OnInit {
   /* @Output() onSecondFormGroup: EventEmitter<any> = new EventEmitter();
   secondFormGroup:FormGroup; */
-  
+  @Input() id_solicitud_editar: number;
   constructor( 
     private matDialog: MatDialog,
   ){

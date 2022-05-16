@@ -500,13 +500,13 @@ export class SolicitudService {
     );
 
   }
-  listarSolicitudObras(): Promise<any> {
+  listarSolicitudObras(id_solicitud:number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-        this.resourceService.getResource("/api/solicitud-cliente-obra/").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-cliente-obra/?id_solicitud="+id_solicitud).toPromise().then((data) => {
           if (data.header.exito) {
-            resolve(data.payload);
+            resolve(data);
           } else {
             console.log("obras de la solicitud no encontradas...");
             resolve([]);
@@ -540,7 +540,7 @@ export class SolicitudService {
       });
   }
 
-  quitarSolicitudObra(id_obra_solicitud: number): Promise<any> {
+  eliminarSolicitudObra(id_obra_solicitud: number): Promise<any> {
     console.log("deleting obra solicitud..." + JSON.stringify(id_obra_solicitud));
     return new Promise(
       (resolve, reject) => {
@@ -556,10 +556,10 @@ export class SolicitudService {
       });
   }
 
-  actualizarSolicitudObra(id_obra_solicitud:number, solicitud_obra: Obra): Promise<any> {
+  actualizarSolicitudObra(solicitud_obra: Obra): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.putResource("/api/solicitud-cliente-obra/" + id_obra_solicitud, solicitud_obra).toPromise().then((data) => {
+        this.resourceService.putResource("/api/solicitud-cliente-obra/" + solicitud_obra.id, solicitud_obra).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
