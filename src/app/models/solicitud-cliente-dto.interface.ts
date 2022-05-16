@@ -1,7 +1,7 @@
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { TipoCanal } from './tipo-canal.interface';
 import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 
 export class SolicitudClienteDTO {
     sociedad?:Sociedad;
