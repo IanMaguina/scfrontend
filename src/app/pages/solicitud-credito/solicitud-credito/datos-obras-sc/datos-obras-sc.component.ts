@@ -12,31 +12,31 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 export class DatosObrasScComponent implements OnInit {
 
   @Output() onThirdFormGroup: EventEmitter<any> = new EventEmitter();
-  @Input() id_solicitud: number;
+  @Input() id_solicitud_editar: number;
   thirdFormGroup: FormGroup;
   formulary: FormGroup;
   listadoObras: Obra[] = [
     {
+      id:1,
       id_solicitud: 1,
       obra_codigo_isicom: '1515',
       dueno: 'jack O neil',
       ubicacion: 'Lima',
-      plazo: '48 Meses',
-      nombre: 'Obra Las Bambas',
-      informacion_adicional: '',
+      plazo_obra: '48 Meses',
+      nombre_obra: 'Obra Las Bambas',
       fecha_inicio_obra: '15/01/2020',
-      fecha_final_obra: '20/06/2023'
+      fecha_fin_obra: '20/06/2023'
     },
     {
+      id:2,
       id_solicitud: 1,
-      obra_codigo_isicom: '1515',
+      obra_codigo_isicom: '1516',
       dueno: 'jack O neil',
       ubicacion: 'Lima',
-      plazo: '48 Meses',
-      nombre: 'Obra Vichapampa',
-      informacion_adicional: '',
+      plazo_obra: '48 Meses',
+      nombre_obra: 'Obra Vichapampa',
       fecha_inicio_obra: '15/01/2020',
-      fecha_final_obra: '20/06/2023'
+      fecha_fin_obra: '20/06/2023'
     },
   ];
   constructor(
@@ -56,6 +56,7 @@ export class DatosObrasScComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("object");
+    this.listarObras();
   }
 
   async getDataObra(form: any) {
@@ -76,14 +77,14 @@ export class DatosObrasScComponent implements OnInit {
 
   async mapeoObra(data: any) {
     let obraSolicitud: Obra = {
-      id_solicitud: this.id_solicitud,
+      id_solicitud: this.id_solicitud_editar,
       obra_codigo_isicom: data.codigo_obra,
       dueno: data.responsable,
       ubicacion: data.ubicacion,
-      plazo: data.duracion,
+      plazo_obra: data.duracion,
       informacion_adicional: data.nombre_obra,
       fecha_inicio_obra: data.fecha_inicio,
-      fecha_final_obra: data.fecha_fin,
+      fecha_fin_obra: data.fecha_fin,
       /* fecha_inicio_atencion:,
       fecha_final_atencion:, */
 
@@ -92,20 +93,28 @@ export class DatosObrasScComponent implements OnInit {
   }
 
   listarObras() {
-    /* this.solicitudService.listarSolicitudObras().then(data =>{
+     this.solicitudService.listarSolicitudObras().then(data =>{
       this.listadoObras = data;
-    }); */
+    }); 
   }
 
-  quitarObra() {
-
+  quitarObra(id_solicitud_obra:number) {
+    this.solicitudService.quitarSolicitudObra(id_solicitud_obra).then((data)=>{
+      //se eliminó la obra de la solicitud
+    });
   }
 
-  agregarObra() {
-
+  agregarObra(obra:Obra) {
+    this.solicitudService.asignarObra(obra).then((data)=>{
+      //se agregó
+    })
   }
-  guardarDatosObra(form: any) {
-
+  guardarDatosObra(id:number, form: any) {
+//actualizar
+//Rafa haz tu magia
+this.solicitudService.actualizarSolicitudObra(id, form).then((data)=>{
+  //se agregó
+})
   }
 
 

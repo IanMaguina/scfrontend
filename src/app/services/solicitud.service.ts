@@ -525,7 +525,7 @@ export class SolicitudService {
   }
 
   asignarObra(obra: Obra): Promise<any> {
-    console.log("adding suplencia..." + JSON.stringify(obra));
+    console.log("adding obra a solicitud..." + JSON.stringify(obra));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.postResource("/api/solicitud-cliente-obra/", obra).toPromise().then((data) => {
@@ -539,5 +539,37 @@ export class SolicitudService {
 
       });
   }
+
+  quitarSolicitudObra(id_obra_solicitud: number): Promise<any> {
+    console.log("deleting obra solicitud..." + JSON.stringify(id_obra_solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.deleteResource2("/api/solicitud-cliente-obra/" + id_obra_solicitud).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+  actualizarSolicitudObra(id_obra_solicitud:number, solicitud_obra: Obra): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/solicitud-cliente-obra/" + id_obra_solicitud, solicitud_obra).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+
+
+
 
 }
