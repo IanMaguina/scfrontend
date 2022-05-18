@@ -26,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
 /* componentes */
 
 import { CrearSolicitudCreditoComponent } from './solicitud-credito/crear-solicitud-credito/crear-solicitud-credito.component';
@@ -60,6 +61,8 @@ import { BandejaSolicitudGrupoComponent } from './solicitud-credito/bandeja-soli
 import { BandejaSolicitudConsorcioComponent } from './solicitud-credito/bandeja-solicitud-consorcio/bandeja-solicitud-consorcio.component';
 import { DlgDetalleSolicitudConsorcioComponent } from './solicitud-credito/dlg-detalle-solicitud-consorcio/dlg-detalle-solicitud-consorcio.component';
 import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
+import { EvaluarCreditoComponent } from './evaluar-credito/evaluar-credito.component';
+import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evaluacion-ec/sustento-evaluacion-ec.component';
 
 
 @NgModule({
@@ -97,6 +100,8 @@ import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detal
     BandejaSolicitudConsorcioComponent,
     DlgDetalleSolicitudConsorcioComponent,
     DlgDetalleSolicitudGrupoComponent,
+    EvaluarCreditoComponent,
+    SustentoEvaluacionEcComponent,
 
   ],
   imports: [
@@ -125,6 +130,7 @@ import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detal
     MatStepperModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatCardModule
   ],
   exports: [
     CdkStepperModule,

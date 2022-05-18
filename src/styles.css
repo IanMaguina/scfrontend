@@ -292,6 +292,11 @@ mat-header-cell {
     font-size: 20pt;
     color: #B4B4B4;
 }
+.titledocumento {
+    margin-top: 20px;
+    font-size: 16pt;
+    color: #B4B4B4;
+}
 
 .titledialog {
     margin-top: 0px;
