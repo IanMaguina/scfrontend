@@ -2,13 +2,16 @@
     <div class="content-body-step">
         <div class="contenidoForm">
             <form [formGroup]="fourthFormGroup">
-                <mat-tab-group mat-align-tabs="start">
+                <mat-tab-group mat-align-tabs="start" class="head_adjuntos">
+
                     <mat-tab label="Flujo de Caja">
                         <app-tab-flujo-caja-sc></app-tab-flujo-caja-sc>
                     </mat-tab>
+
                     <mat-tab label="Estados Financieros">
                         <app-tab-estados-financieros-sc></app-tab-estados-financieros-sc>
                     </mat-tab>
+
                     <mat-tab label="Documentos Adicionales">
                         <app-tab-documentos-adicionales-sc></app-tab-documentos-adicionales-sc>
                     </mat-tab>

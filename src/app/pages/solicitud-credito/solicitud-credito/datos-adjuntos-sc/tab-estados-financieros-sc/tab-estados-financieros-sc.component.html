@@ -1,1 +1,27 @@
-<p>tab-estados-financieros-sc works!</p>
+<mat-card class="header_adjuntos">
+    <span>Estados Financieros</span>
+    <mat-radio-group aria-label="Selecciona una opción">
+        <mat-radio-button value="1">Si</mat-radio-button>
+        <mat-radio-button value="2">No</mat-radio-button>
+    </mat-radio-group>
+</mat-card>
+
+<mat-card class="subheader_adjuntos">
+    <mat-icon>queue icon</mat-icon><span class="Agregar">Agregar Archivos</span>
+    <br>
+    <strong><span style="color: #ff0000">*Los estados financieros deben tener una vigencia no mayor a 3
+            meses.</span></strong>
+</mat-card>
+
+<mat-card class="zona_de_adjuntos">
+    <form>
+        Adjuntar:<button mat-raised-button class="boton-secundario">Seleccionar Archivo</button> <span>Ningun archivo seleccionado...</span>
+        <div>
+            <span class="descripcion">Descripción:</span>
+            <mat-form-field class="bloquedescripcion" appearance="outline">
+                <mat-label>Escriba una descripción</mat-label>
+                <textarea matInput placeholder="Escribir..."></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-card>

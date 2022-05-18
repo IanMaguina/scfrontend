@@ -137,7 +137,13 @@ mat-tree a:active {
 }
 
 .descripcion {
-    font-size: 12pt;
+    font-size: 15px;
+    padding-right: 20px;
+}
+
+.bloquedescripcion{
+    width: 500px;
+    height: 70px;
 }
 
 
@@ -710,6 +716,60 @@ body::-webkit-scrollbar-thumb {
 .divisor{
     margin-top: 20px !important;
 }
+
+/*Adjuntos y Plantillas*/
+
+.Agregar{
+ font-size: 18px !important;
+}
+.header_adjuntos{
+    border-radius: 0px 0px 0px 0px !important;
+    align-items: center;
+    font-size: 16px !important;
+    max-width: 767px;
+}
+
+.subheader_adjuntos{
+    border-radius: 0px 0px 0px 0px !important;
+    max-width: 767px;
+}
+
+.zona_de_adjuntos{
+    margin-left: 20px;
+    border-radius: 0px 0px 0px 0px !important;
+    max-width: 747px;
+}
+
+.Escriba{
+    width: 500px !important;
+}
+
+.mat-tab-label-active {
+    width: 300px !important;
+    background-color: #05C65D!important;
+    border-radius: 7px 7px 0px 0px;
+}
+
+.mat-tab-group{
+    padding-top: 20px;
+}
+
+.mat-tab-label{
+    width: 250px;
+    background-color: #959595;
+    border-radius: 10px 10px 0px 0px;
+    color:#fff;
+    height: 35px !important;
+    font-size: 15px;
+}
+
+.texto{
+    display: flex;
+}
+
+
+
+
 
 
 
