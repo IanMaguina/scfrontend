@@ -80,13 +80,27 @@
                             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>fecha inicio de atenciones</mat-label>
-                                    <input matInput formControlName="fecha_inicio_atencion">
+                                    <input matInput [matDatepicker]="picker1" formControlName="fecha_inicio_atencion">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                                    <mat-hint>
+                                        <mat-error [hidden]="!(formErrors.fecha_inicio_atencion)">
+                                            {{formErrors.fecha_inicio_atencion}}
+                                        </mat-error>
+                                    </mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>fecha final de atenciones </mat-label>
-                                    <input matInput formControlName="fecha_fin_atencion">
+                                    <input matInput [matDatepicker]="picker2" formControlName="fecha_fin_atencion">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                                    <mat-hint>
+                                        <mat-error [hidden]="!(formErrors.fecha_fin_atencion)">
+                                            {{formErrors.fecha_fin_atencion}}
+                                        </mat-error>
+                                    </mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
