@@ -26,7 +26,7 @@ const routes: Routes = [
             { path: 'tipodocumentovalorado', component: TipoDocumentoValoradoComponent, data:{titulo: 'tipo documento valorado', ruta: 'Configuración  /  Tipo documento valorado'}  },
             { path: 'suplencias', component: SuplenciaComponent, data:{titulo: 'Suplencias', ruta: 'Configuración  /  Suplencias'}  },
             { path: 'asistentefacturacion', component: AsistenteFacturacionComponent, data:{titulo: 'Asistente facturacion', ruta: 'Configuración  /  Asistente facturacion'}  },
-            { path: 'aprobadoradicional', component: AprobadorAdicionalComponent, data:{titulo: 'Aprobador adicional', ruta: 'Configuración  /  Aprobador adicional'}  },
+            { path: 'aprobadoradicional', component: AprobadorAdicionalComponent, data:{titulo: 'Aprobador adicional', ruta: 'Configuración  /  Aprobador adicional'}  }
         ]
     },
 ];

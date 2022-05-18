@@ -21,29 +21,29 @@
                 </div>
 
                 
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 buscar" *ngIf="ClientSelectorControl.value === radioGrupo">
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                         
-                        <mat-form-field appearance="fill">
+                <div class="objeto buscar" *ngIf="ClientSelectorControl.value === radioGrupo">
+                     
+                    
+                        <mat-form-field class="formInput" appearance="fill">
                             <mat-label>Nombre del grupo</mat-label>
                             <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo" (focus)="limpiarCampo('rucGrupo')">
                         </mat-form-field>
+                    
 
-                    </div>
+                    <span class="formInputo">O</span>
 
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="fill">
+                    
+                        <mat-form-field class="formInput" appearance="fill">
                             <mat-label>RUC de algun integrante</mat-label>
                             <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo" (focus)="limpiarCampo('nombreGrupo')">
                         </mat-form-field>
-                    </div>
+                    
 
-                    <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-                        <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light objetoSimple">
-                            <mat-icon>search</mat-icon>
-                        </button>                
-                    </div>
-
+                    <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar">
+                        <mat-icon>search</mat-icon>
+                    </button>                
+              
+                        
                 </div>
                 
             
