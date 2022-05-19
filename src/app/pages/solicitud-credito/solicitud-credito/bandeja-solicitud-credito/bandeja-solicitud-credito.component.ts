@@ -12,16 +12,17 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
   ]
 })
 export class BandejaSolicitudCreditoComponent implements OnInit {
-  listadoSolicitudes:Solicitud[]=[];
-  listadoEstadosSolicitud:any[]=[];
+  listadoSolicitudes: Solicitud[] = [];
+  listadoEstadosSolicitud: any[] = [];
   formulary: FormGroup;
-  displayedColumns:string[] = [
+  displayedColumns: string[] = [
     'estado',
     'correlativo',
     'numero_documento',
     'cliente',
     'fecha_creacion',
-    'usuario'
+    'usuario',
+    'id'
   ];
 
   formErrors = {
@@ -53,13 +54,13 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   //Submitted form
   submitted = false;
   carga: boolean = false;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private solicitudService: SolicitudService,
     private router: Router,
-    
+
   ) {
     this.formulary = this.formBuilder.group({
       tipo_cliente: ['',],
@@ -71,30 +72,32 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     this.formulary.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formulary, this.formErrors, this.validationMessages, this.submitted);
     })
-   }
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     console.log("ngOnInit  bandeja de pendientes");
     this.listarSolicitud();
   }
 
-  listarSolicitud(){
-    this.solicitudService.listarSolicitudes().then(data=>{
+  listarSolicitud() {
+    this.solicitudService.listarSolicitudes().then(data => {
       console.log(JSON.stringify(data));
-      this.listadoSolicitudes=data.payload;
+      this.listadoSolicitudes = data.payload;
     })
   }
 
-  editarSolicitud(element:any){
+  editarSolicitud(element: any) {
     console.log(JSON.stringify(element));
-    this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]); 
+    this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
 
 
   }
-  buscarSolicitudes(form:any){
-    console.log("buscarSolicitudes:.."+JSON.stringify(form));
+  buscarSolicitudes(form: any) {
+    console.log("buscarSolicitudes:.." + JSON.stringify(form));
   }
 
-
-
+  /* Se eliminará la siguiente función */
+  evaluar(element:any) {
+    this.router.navigate(['app/solicitudcredito/evaluarSolicitud', element.id])
+  }
 }
