@@ -407,7 +407,10 @@ body {
    float: left;
     height: auto;
 }
-
+.objetoCuadro{
+    float: left;
+    height: 650px;
+}
 .formElementoPlano {
     padding-top: 10px;
     padding-bottom: 10px;

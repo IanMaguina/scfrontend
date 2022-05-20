@@ -1,6 +1,6 @@
 <div class="titledocumento col-s-11 col- col-m-11 col-xl-11">
     Solicitud: {{id_solicitud}} 
-    <button class="botonera-superior boton-secundario">Anular Solicitud</button>
+    <button mat-flat-button class="botonera-superior boton-secundario">Anular Solicitud</button>
     <br><br>
     <mat-divider></mat-divider>
     <br>
@@ -39,7 +39,7 @@
             </mat-tab>
             <mat-tab label="Sustento de Evaluación" >
                 <div >
-                    <app-sustento-evaluacion-ec></app-sustento-evaluacion-ec>
+                    <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
                 </div>
             </mat-tab>
             <mat-tab label="Resumen de Evaluación " >

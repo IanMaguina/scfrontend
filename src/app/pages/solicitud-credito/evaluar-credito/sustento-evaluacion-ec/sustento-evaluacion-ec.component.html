@@ -22,8 +22,8 @@
 
 
                 <!-- cuadros -->
-
-                <mat-card class="objeto col-xs-12 col-s-6 col-m-6 col-l-4 col-xl-4">
+                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
                         <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Reporte Central de Riesgos (Miles)</mat-card-title>
@@ -31,16 +31,31 @@
                     </mat-card-header>
 
                     <mat-card-content>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <u> Centenario Desarrollo Urbano SAC Representant </u>
-                        </div>
+                        
 
+                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <div class="label">Empresa/ Representante Legal:</div>
+                            </div>
+                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <div class="dato">
+                                    <mat-form-field >
+                                        <mat-label> Representante Legal </mat-label>
+                                    <mat-select formControlName="representante_legal" required (selectionChange)="filtrarRepresentante()">
+                                        <mat-option *ngFor="let rep of reporteRiesgoCliente.reporte_riesgo_cliente_representante_legal" [value]="rep">
+                                            {{rep.nombre}}
+                                        </mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                 <div class="label">Fecha:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">DD/MM/AA</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].fecha_consulta | date: 'dd/MM/yyyy' }}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -48,7 +63,7 @@
                                 <div class="label">Semáforo Actual:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">DD/MM/AA</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].semaforo_actual }}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -56,7 +71,7 @@
                                 <div class="label">Deuda total SBS:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/ 164,023.7</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_total}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -64,7 +79,7 @@
                                 <div class="label">Reactiva:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">No registra</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].reactiva}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -72,7 +87,7 @@
                                 <div class="label">Calificación SBS:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">Normal</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -80,7 +95,7 @@
                                 <div class="label">Impagos:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 0,9 (SEDAPAL)</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].impagos}}</div>
 
                             </div>
                         </div>
@@ -89,7 +104,7 @@
                                 <div class="label">Protestos:</div>
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">No registra</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].protestos}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -98,7 +113,7 @@
 
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">No registra</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_laboral}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -107,7 +122,7 @@
 
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">No registra</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_tributaria}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -116,7 +131,7 @@
                             </div>
 
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">99%</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -125,7 +140,7 @@
 
                             </div>
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">No registra</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_vencida}}</div>
                             </div>
                         </div>
                         <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -134,7 +149,7 @@
                             </div>
 
                             <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">No registra</div>
+                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].otros_reportes_negativos }}</div>
                             </div>
                         </div>
                     </mat-card-content>
@@ -148,7 +163,9 @@
                         </div>
                     </mat-card-actions>
                 </mat-card>
-                <mat-card class="objeto col-xs-12 col-s-6 col-m-6 col-l-4 col-xl-4">
+            </div>
+            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
                         <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Morosidad</mat-card-title>
@@ -231,7 +248,9 @@
                         </div>
                     </mat-card-actions>
                 </mat-card>
-                <mat-card class="objeto col-xs-12 col-s-6 col-m-6 col-l-4 col-xl-4">
+            </div>
+            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
                         <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Detalle de cuentas por cobrar</mat-card-title>
@@ -314,8 +333,9 @@
                         </div>
                     </mat-card-actions>
                 </mat-card>
-
-                <mat-card class="objeto col-xs-12 col-s-6 col-m-6 col-l-4 col-xl-4">
+            </div>
+            <div class="objeto col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
                         <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Reporte Judicial</mat-card-title>
@@ -335,9 +355,9 @@
                         </div>
                     </mat-card-actions>
                 </mat-card>
-
-
+            </div>
                  <!-- expansion panels -->
+                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                 <mat-accordion>
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
@@ -361,6 +381,7 @@
                         </mat-expansion-panel-header>
                     </mat-expansion-panel>
                 </mat-accordion>
+                </div>
             </form>
         </mat-expansion-panel>
     </mat-accordion>
