@@ -351,7 +351,7 @@ body {
 /* stepper */
 
 .content-body-step {
-    overflow: auto;
+    overflow-y: auto;
     height: 65vh;
 }
 
@@ -392,6 +392,8 @@ body {
 } */
 
 .contenidoForm {
+    margin-left: 10px;
+    margin-right: 25px;
     width: 99%;
 }
 
@@ -512,13 +514,25 @@ th.mat-header-cell {
 .boton-buscar{
     background-color: #fff !important;
     border-radius: 0px !important;
-    padding-top: 5px;
+    height: 49px !important;
+    width: 49px !important;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
+    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
 .formInput{
-    padding-top: 15px;
-    padding-right: 25px;
+ padding-right:25px;  
+ padding-top: 15px; 
 }
+
+.mat-form-field-wrapper{
+    padding-bottom: 0px;
+}
+.mat-form-field-underline{
+    display: none;
+}
+
 .formInputo{
     padding-right: 25px;
 }
@@ -576,6 +590,7 @@ th.mat-header-cell {
 
 .seleccionclientes{
     display: flex;
+    position: relative;
     margin-top: 10px !important;
 }
 
@@ -584,7 +599,13 @@ th.mat-header-cell {
 }
 
 .buscar{
+    display: flex;
+    position: relative;
+    align-items: center !important;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     padding-top: 15px;
+  
 }
 
 /* cdk dragDrop */
