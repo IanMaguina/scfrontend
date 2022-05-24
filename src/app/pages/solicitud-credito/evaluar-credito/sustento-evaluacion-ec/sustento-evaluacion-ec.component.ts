@@ -1,8 +1,11 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ReporteMorosidad } from 'src/app/models/reporte-morosidad.interface';
+import { ReporteRiesgoCliente } from 'src/app/models/reporte-riesgo-cliente.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
+import { ReporteSustentoEvaluacionService } from 'src/app/services/reporte-sustento-evaluacion.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
 
 const ELEMENT_DATA = [
@@ -30,6 +33,8 @@ const ELEMENT_DATA = [
 })
 
 export class SustentoEvaluacionEcComponent implements OnInit {
+  @Input() id_solicitud:string;
+  id_solicitud_fake:string = "1";
   formulary: FormGroup;
   listadoSociedades:Sociedad[];
   cols=3;
@@ -37,6 +42,8 @@ export class SustentoEvaluacionEcComponent implements OnInit {
 
 
 
+  reporteRiesgoCliente?:ReporteRiesgoCliente;
+  reporteMorosidad?:ReporteMorosidad;
   constructor(
     
     private responsive: BreakpointObserver,
@@ -47,11 +54,11 @@ export class SustentoEvaluacionEcComponent implements OnInit {
       el servicio actual está listando todas.
     */
     private sociedadService: SociedadService,
-    ) 
-    
-    { 
+    private reporteSustentoEvaluacionService: ReporteSustentoEvaluacionService,
+    ) { 
       this.formulary = this.formBuilder.group({
         sociedad: [''],
+        representante_legal: [''],
       });
     }
 
@@ -95,6 +102,8 @@ export class SustentoEvaluacionEcComponent implements OnInit {
 
 
 
+    this.listarReporteRiesgos(this.id_solicitud_fake);
+    this.listarReporteMorosidad(this.id_solicitud_fake);
   }
 
   async listarSociedades() {
@@ -103,5 +112,22 @@ export class SustentoEvaluacionEcComponent implements OnInit {
       this.listadoSociedades = data;
     })
   }
-  
+
+  listarReporteRiesgos(id_solicitud:string){
+    this.reporteSustentoEvaluacionService.listarReporteRiesgos(id_solicitud).then((data)=>{
+      console.log("listar reporte:" + JSON.stringify(data));
+      this.reporteRiesgoCliente = data.payload;
+    })
+  }
+listarReporteMorosidad(id_solicitud:string){
+  this.reporteSustentoEvaluacionService.listarReporteMorosidad(id_solicitud).then((data)=>{
+    console.log("listar reporte morosidad:" + JSON.stringify(data));
+    this.reporteMorosidad = data.payload;
+  })
+}
+
+  filtrarRepresentante(){
+
+  }
+
 }

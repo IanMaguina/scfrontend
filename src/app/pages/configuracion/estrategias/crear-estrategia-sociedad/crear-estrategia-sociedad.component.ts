@@ -24,7 +24,9 @@ import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
 @Component({
   selector: 'app-crear-estrategia-sociedad',
   templateUrl: './crear-estrategia-sociedad.component.html',
-  styles: ['./crear-estrategia-sociedad.component.css']
+  styles: []
+  /* no acepta './crear-estrategia-sociedad.component.css' */
+  
 })
 export class CrearEstrategiaSociedadComponent implements OnInit {
 
@@ -219,6 +221,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     }
     this.formDialog.get("revisor")?.updateValueAndValidity();
     await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
+      //console.log("obtener roles por estado: "+ JSON.stringify(data));
       this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
       this.id_estado_rol = data.payload.length !== 0 ? data.payload[0].id : null;
       this.listarUsuariosNoAgregados();

@@ -5,20 +5,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { GlobalSettings } from '../shared/settings';
 import { Messages } from '../shared/messages';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private oauthTokenURL = GlobalSettings.BASE_API_URL + "/oauth/token";
-
+  private oauthTokenURL = "";
+  
+  private vl_appConfig:any;
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private appConfig: AppConfigService
   ) {
     console.log("constructor... AuthService");
-
+    this.vl_appConfig = this.appConfig.getConfig();
+    this.oauthTokenURL = this.vl_appConfig.BASE_API_URL + "/oauth/token";
   }
 
 
@@ -30,9 +34,9 @@ export class AuthService {
       params.append('username', loginData.username);
       params.append('password', loginData.password);
       params.append('grant_type', 'password');
-      params.append('client_id', GlobalSettings.CLIENT_ID);
+      params.append('client_id', this.vl_appConfig.CLIENT_ID);
 
-      let authorization = btoa(GlobalSettings.CLIENT_ID + ":" + GlobalSettings.CLIENT_KEY);
+      let authorization = btoa(this.vl_appConfig.CLIENT_ID + ":" + this.vl_appConfig.CLIENT_KEY);
       console.log("params=" + params);
       console.log("authorization=" + authorization);
 
@@ -71,9 +75,9 @@ export class AuthService {
       let params = new URLSearchParams();
       params.append('grant_type', 'refresh_token');
       params.append('refresh_token', this.cookieService.get('refresh_token'));
-      params.append('client_id', GlobalSettings.CLIENT_ID);
+      params.append('client_id', this.vl_appConfig.CLIENT_ID);
 
-      let authorization = btoa(GlobalSettings.CLIENT_ID + ":" + GlobalSettings.CLIENT_KEY);
+      let authorization = btoa(this.vl_appConfig.CLIENT_ID + ":" + this.vl_appConfig.CLIENT_KEY);
       console.log("params=" + params);
       console.log("authorization=" + authorization);
 

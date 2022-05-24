@@ -33,7 +33,8 @@ g
 
   openAgregarEstrategiaSociedad() {
     const dialogRef = this.matDialog.open(CrearEstrategiaSociedadComponent, {
-      disableClose: true
+      disableClose: true,
+      width:'300px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
