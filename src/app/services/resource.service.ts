@@ -6,18 +6,24 @@ import { throwError } from 'rxjs';
 //import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
 import { GlobalSettings } from '../shared/settings';
+import { AppConfigService } from './app-config.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
 
-  private apiURL = GlobalSettings.BASE_API_URL;
+  private apiURL = "";//GlobalSettings.BASE_API_URL;
 
   constructor(
     private http: HttpClient,
+    private appConfig: AppConfigService
     //private cookieService: CookieService
-  ) { }
+  ) { 
+    var vl_appConfig = this.appConfig.getConfig();
+    this.apiURL = vl_appConfig.BASE_API_URL;
+  }
 
 
   getResource(resourceUrl: string): Observable<any> {
