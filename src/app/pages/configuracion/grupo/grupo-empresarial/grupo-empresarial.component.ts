@@ -13,13 +13,13 @@ import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
   ]
 })
 export class GrupoEmpresarialComponent implements OnInit {
-  listadoGrupos:any[] = [
-    {
+  listadoGrupos:any[] = [];
+    /* {
       'grupo':'Grupo fake 1',
       'id':1, 
       'estado':'habilitado'
     }
-  ];
+  ]; */
   displayedColumns: string[] = ['grupo', 'pendiente','solicitante', 'estado', 'id'];
   
   constructor(
@@ -56,8 +56,7 @@ export class GrupoEmpresarialComponent implements OnInit {
       data:id
     });
 
-    dialogRef2.afterClosed().subscribe(result => {
-      console.log("return function process");
+    dialogRef2.afterClosed().subscribe(() => {
       this.listarGruposEmpresariales();
     });
   }
@@ -86,7 +85,7 @@ export class GrupoEmpresarialComponent implements OnInit {
       }
     });
   }
-  editarGrupo(element){
-    console.log("editarGrupo");
+  editarGrupo(element:any){
+    console.log("editarGrupo: "+ JSON.stringify(element));
   }
 }
