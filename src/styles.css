@@ -136,16 +136,6 @@ mat-tree a:active {
     font-weight: bold;
 }
 
-.descripcion {
-    font-size: 15px;
-    padding-right: 20px;
-}
-
-.bloquedescripcion{
-    width: 500px;
-    height: 70px;
-}
-
 
 /* fonts sizes */
 
@@ -227,7 +217,7 @@ body {
     text-align: center;
     top: 25%;
 }
-.mat-card-header {
+.headerLogin {
     padding-top: 30px;
     text-align: center;
     align-content: center;
@@ -729,11 +719,47 @@ body::-webkit-scrollbar-thumb {
  font-size: 18px !important;
 }
 .header_adjuntos{
+    display: flex !important;
+    justify-content: left;
     border-radius: 0px 0px 0px 0px !important;
-    align-items: center;
     font-size: 16px !important;
     max-width: 767px;
 }
+
+.adjuntos_text{
+    padding-right: 25px;
+}
+
+.header_seleccionar{
+    padding-right: 25px;
+}
+
+.boton-adjuntos{
+    margin-right: 25px !important;
+    background-color: #707070;
+    color: #FFFFFF;
+}
+
+.descripcion {
+    font-size: 15px;
+    padding-right: 20px;
+    vertical-align: top;
+}
+.descripcion_adjuntos{
+    padding-bottom: 20px !important;
+}
+
+.descripcion_1{
+    font-size: 15px;
+    padding-right: 44px;
+}
+
+.bloquedescripcion{
+    width: 500px;
+    height: 70px;
+}
+
+
 
 .subheader_adjuntos{
     border-radius: 0px 0px 0px 0px !important;
@@ -744,10 +770,6 @@ body::-webkit-scrollbar-thumb {
     margin-left: 20px;
     border-radius: 0px 0px 0px 0px !important;
     max-width: 747px;
-}
-
-.Escriba{
-    width: 500px !important;
 }
 
 .mat-tab-label-active {
@@ -773,11 +795,84 @@ body::-webkit-scrollbar-thumb {
     display: flex;
 }
 
+.showDiv {
+    background-color: aqua;
+    height: 200px;
+    width: 500px;
+ }
+ 
+ .hideDiv {
+    display: none;
+ }
 
 
+/* Evaluador */
 
+.cartas{
+    width: 450px;
+    max-height: 980px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
 
+.cartas_header{
+    padding-left: 16px;
+    padding-top: 14px;
+    padding-bottom: 8px;
+    background-color: #05C65D;
+    color: #fff;
+}
 
+.cartas_contenido{
+    padding-left: 16px;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+}
+
+.cartas_footer{
+    padding-left: 16px !important;
+    padding-top: 16px !important;
+    padding-right: 16px !important;
+    padding-bottom: 16px !important;
+    margin-left: 0px !important;
+}
+
+.cartas_footer {
+    display: table;
+  }
+  
+  .cartafooter_label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+    vertical-align: middle;
+  }
+  
+  .footerbutton {
+    display: table-cell;
+    vertical-align: middle;
+    align-items: right !important;
+    
+  }
+
+.cartasfoottertext{
+    display: flex !important;
+}
+
+.tabladecarta{
+    box-shadow:
+    0px 0px 0px 0px rgba(0, 0, 0, 0),
+    0px 0px 0px 0px rgba(0, 0, 0, 0),
+    0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.tabladecarta .mat-row{
+    min-height: 48px;
+}
 
 
 /* INIT - Grid responsive */

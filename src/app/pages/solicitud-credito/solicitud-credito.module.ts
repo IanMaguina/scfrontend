@@ -27,6 +27,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 /* componentes */
 
 import { CrearSolicitudCreditoComponent } from './solicitud-credito/crear-solicitud-credito/crear-solicitud-credito.component';
@@ -131,7 +132,8 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     MatStepperModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
   ],
   exports: [
     CdkStepperModule,

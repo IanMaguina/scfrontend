@@ -1,4 +1,6 @@
+import { BlockScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -9,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabEstadosFinancierosScComponent implements OnInit {
 
+
+  adjuntarfinancieros: number = 1;
+  motivofinancieros: number = 2;
+  estadosfinancieros = new FormControl('auto');
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
