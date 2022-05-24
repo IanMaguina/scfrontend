@@ -18,8 +18,8 @@ export class SustentoEvaluacionEcComponent implements OnInit {
   id_solicitud_fake:string = "1";
   formulary: FormGroup;
   listadoSociedades:Sociedad[];
-  reporteRiesgoCliente?:ReporteRiesgoCliente;
-  reporteMorosidad?:ReporteMorosidad;
+  reporteRiesgoCliente!:ReporteRiesgoCliente;
+  reporteMorosidad!:ReporteMorosidad;
   constructor(
     private formBuilder: FormBuilder,
     private matDialog: MatDialog,
@@ -49,14 +49,14 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     })
   }
 
-  listarReporteRiesgos(id_solicitud:string){
-    this.reporteSustentoEvaluacionService.listarReporteRiesgos(id_solicitud).then((data)=>{
+  async listarReporteRiesgos(id_solicitud:string){
+    await this.reporteSustentoEvaluacionService.listarReporteRiesgos(id_solicitud).then((data)=>{
       console.log("listar reporte:" + JSON.stringify(data));
       this.reporteRiesgoCliente = data.payload;
     })
   }
-listarReporteMorosidad(id_solicitud:string){
-  this.reporteSustentoEvaluacionService.listarReporteMorosidad(id_solicitud).then((data)=>{
+async listarReporteMorosidad(id_solicitud:string){
+  await this.reporteSustentoEvaluacionService.listarReporteMorosidad(id_solicitud).then((data)=>{
     console.log("listar reporte morosidad:" + JSON.stringify(data));
     this.reporteMorosidad = data.payload;
   })

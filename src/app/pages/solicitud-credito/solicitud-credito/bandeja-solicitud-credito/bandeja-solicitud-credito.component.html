@@ -95,7 +95,7 @@
         <ng-container matColumnDef="fecha_creacion">
             <th mat-header-cell *matHeaderCellDef> fecha solicitud</th>
             <td mat-cell *matCellDef="let element" ><u>
-                    {{element.fecha_creacion}} </u></td>
+                    {{element.fecha_creacion | date: 'dd/MM/yyyy' }} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="usuario">
