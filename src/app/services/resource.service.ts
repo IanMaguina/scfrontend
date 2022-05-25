@@ -3,9 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-//import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
-import { GlobalSettings } from '../shared/settings';
 import { AppConfigService } from './app-config.service';
 
 

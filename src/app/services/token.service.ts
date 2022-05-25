@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-//import { CookieService } from 'ngx-cookie-service';
 import { CookieService } from 'ngx-cookie';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { GlobalSettings } from '../shared/settings';
 import { Messages } from '../shared/messages';
 import { AppConfigService } from './app-config.service';
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ResourceService } from './resource.service'
-import { Perfil } from '../models/perfil.interface';
+import { ResourceService } from './resource.service';
 
 @Injectable({
   providedIn: 'root'
