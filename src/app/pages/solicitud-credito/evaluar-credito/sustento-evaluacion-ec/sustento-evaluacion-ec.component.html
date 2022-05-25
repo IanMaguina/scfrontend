@@ -19,382 +19,409 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <!-- cuadros -->
-                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
-                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
-                    <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                        <mat-card-title>Reporte Central de Riesgos (Miles)</mat-card-title>
 
+                <!-- cuadros
+
+           
+                                <mat-table>
                                     <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
                                 </mat-table>
                             </mat-card-content>
+
                             <hr>
                             <mat-card-actions class="cartas_footer">
                                 <div class="cartafooter_label">Reporte de central de riesgos<br>*Se obtendrá el reporte en formato .pdf</div>
                                 <div class="footerbutton">
                                     <button mat-raised-button>Descargar</button>
                                 </div>
-                             <!--   <span class="cartasfootertext">Reporte de central de Riesgos<br>
+                              <span class="cartasfootertext">Reporte de central de Riesgos<br>
                                     *Se obtendrá el reporte en formato .pdf</span>
-                                <button mat-raised-button>Descargar</button>-->
+                                <button mat-raised-button>Descargar</button>
                             </mat-card-actions>
                         </mat-card>
-                    </mat-grid-tile>
+                    </mat-grid-tile>-->
 
-                    <mat-card-content>
-                        
-
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Empresa/ Representante Legal:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">
-                                    <mat-form-field >
-                                        <mat-label> Representante Legal </mat-label>
-                                    <mat-select formControlName="representante_legal" required (selectionChange)="filtrarRepresentante()">
-                                        <mat-option *ngFor="let rep of reporteRiesgoCliente.reporte_riesgo_cliente_representante_legal" [value]="rep">
-                                            {{rep.nombre}}
-                                        </mat-option>
-                                    </mat-select>
-                                    </mat-form-field>
+                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image"></div>
+                            <mat-card-title>Reporte Central de Riesgos (Miles)</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Empresa/ Representante Legal:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">
+                                        <mat-form-field>
+                                            <mat-label> Representante Legal </mat-label>
+                                            <mat-select formControlName="representante_legal" required
+                                                (selectionChange)="filtrarRepresentante()">
+                                                <mat-option
+                                                    *ngFor="let rep of reporteRiesgoCliente.reporte_riesgo_cliente_representante_legal"
+                                                    [value]="rep">
+                                                    {{rep.nombre}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Fecha:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Fecha:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].fecha_consulta |
+                                        date:
+                                        'dd/MM/yyyy' }}</div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].fecha_consulta | date: 'dd/MM/yyyy' }}</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Semáforo Actual:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].semaforo_actual
+                                        }}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Semáforo Actual:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Deuda total SBS:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_total}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].semaforo_actual }}</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Reactiva:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].reactiva}}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Deuda total SBS:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Calificación SBS:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{
+                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_total}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Reactiva:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].reactiva}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Calificación SBS:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Impagos:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].impagos}}</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Impagos:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].impagos}}</div>
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Protestos:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Protestos:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].protestos}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].protestos}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Deuda Laboral:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Deuda Laboral:</div>
 
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_laboral}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_laboral}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Deuda Tributaria:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Deuda Tributaria:</div>
 
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{
+                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_tributaria}}</div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_tributaria}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">% Calificación Normal:</div>
-                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">% Calificación Normal:</div>
+                                </div>
 
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}</div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{
+                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Deuda Vencida:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Deuda Vencida:</div>
 
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_vencida}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_vencida}}</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Otros reportes negativos:</div>
-                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Otros reportes negativos:</div>
+                                </div>
 
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].otros_reportes_negativos }}</div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">{{
+                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].otros_reportes_negativos
+                                        }}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <strong> Reporte de central de Riesgos</strong><br>
-                            <small>* Se obtendrá el reporte en formato pdf</small>
-                        </div>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <button mat-button class="boton-principal-light">Descargar</button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
-                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
-                    <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                        <mat-card-title>Morosidad</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Clasificación Mora:</div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <strong> Reporte de central de Riesgos</strong><br>
+                                <small>* Se obtendrá el reporte en formato pdf</small>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">A</div>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <button mat-button class="boton-principal-light">Descargar</button>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Partida abierta mas antigua (SAP):</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">30 días</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Promedio mora partidas abiertas:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato"></div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">promedio mora 0 meses:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">0</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">promedio mora 1 mes:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">0</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">promedio mora 3 meses:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">0</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">promedio mora 6 meses:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">0</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">promedio mora 12 meses:</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">6 días</div>
-                            </div>
-                        </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
 
-
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <strong> Reporte Morosidad y Deuda</strong><br>
-                            <small>* Se obtendrá el reporte en formato pdf</small>
-                        </div>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <button mat-button class="boton-principal-light">Descargar</button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
-                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
-                    <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                        <mat-card-title>Detalle de cuentas por cobrar</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuenta por cobrar:</div>
+                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
+                        <mat-card-header>
+                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                            <mat-card-title>Morosidad</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Clasificación Mora:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">A</div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 13 800 663</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Partida abierta mas antigua (SAP):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">30 días</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuenta por cobrar(No vencida):</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Promedio mora partidas abiertas:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato"></div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 2 474 212</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">promedio mora 0 meses:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">0</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuenta por cobrar(vencida):</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">promedio mora 1 mes:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">0</div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 1 326 451</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">promedio mora 3 meses:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">0</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">% Vencido:</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">promedio mora 6 meses:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">0</div>
+                                </div>
                             </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">82%</div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">promedio mora 12 meses:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">6 días</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuentas por cobrar (1-15 días):</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 4 155 321</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuentas por cobrar (16-30 días):</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 1 671 810</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuentas por cobrar (31-60 días):</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 2 910 723</div>
-                            </div>
-                        </div>
-                        <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="label">Cuentas por cobrar (61 a más días):</div>
-                            </div>
-                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <div class="dato">s/. 2 588 598</div>
-                            </div>
-                        </div>
 
 
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <strong> Reporte de cuentas por cobrar</strong><br>
-                            <small>* Se obtendrá el reporte en formato pdf</small>
-                        </div>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <button mat-button class="boton-principal-light">Descargar</button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-            <div class="objeto col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
-                <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
-                    <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                        <mat-card-title>Reporte Judicial</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <strong> Reporte Morosidad y Deuda</strong><br>
+                                <small>* Se obtendrá el reporte en formato pdf</small>
+                            </div>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <button mat-button class="boton-principal-light">Descargar</button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+
+                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
+                        <mat-card-header>
+                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                            <mat-card-title>Detalle de cuentas por cobrar</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuenta por cobrar:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 13 800 663</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuenta por cobrar(No vencida):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 2 474 212</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuenta por cobrar(vencida):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 1 326 451</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">% Vencido:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">82%</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (1-15 días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 4 155 321</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (16-30 días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 1 671 810</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (31-60 días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 2 910 723</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (61 a más días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 2 588 598</div>
+                                </div>
+                            </div>
+
+
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <strong> Reporte de cuentas por cobrar</strong><br>
+                                <small>* Se obtendrá el reporte en formato pdf</small>
+                            </div>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <button mat-button class="boton-principal-light">Descargar</button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+
+                <div class="objeto col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
+                        <mat-card-header>
+                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                            <mat-card-title>Reporte Judicial</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
 
 
 
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <strong> Reporte Judicial</strong><br>
-                            <small>* Se obtendrá el reporte en formato pdf</small>
-                        </div>
-                        <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                            <button mat-button class="boton-principal-light">Descargar</button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-                 <!-- expansion panels -->
-                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                <mat-accordion>
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                Facturación (Miles)
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                Comportamiento de Pago
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                Indicadores Financieros
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                    </mat-expansion-panel>
-                </mat-accordion>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <strong> Reporte Judicial</strong><br>
+                                <small>* Se obtendrá el reporte en formato pdf</small>
+                            </div>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <button mat-button class="boton-principal-light">Descargar</button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+
+                <!-- expansion panels -->
+                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Facturación (Miles)
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Comportamiento de Pago
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Indicadores Financieros
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                        </mat-expansion-panel>
+                    </mat-accordion>
                 </div>
             </form>
         </mat-expansion-panel>
     </mat-accordion>
+
+    
 </div>

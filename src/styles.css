@@ -206,7 +206,7 @@ body {
 
 .boton-secundario {
     background-color: #707070;
-    color: #FFFFFF;
+    color: #FFFFFF ;
 }
 
 .card-login {
@@ -353,6 +353,7 @@ body {
 .content-body-step {
     overflow-y: auto;
     height: 65vh;
+    width: 100%;
 }
 
 .botonera-step {
@@ -383,6 +384,11 @@ body {
     background-color: #ffffff00;
 }
 
+.acordeon{
+    padding-top: 20px;
+    width: 95%;
+}
+
 
 /* .content-stepper {
     margin-top: 10px;
@@ -391,27 +397,30 @@ body {
     height: 68vh;
 } */
 
-.contenidoForm {
-    margin-left: 10px;
-    margin-right: 25px;
-    width: 99%;
-}
-
 .center {
     text-align: center;
 }
 
 .objeto {
-   float: left;
+    float: left;
     height: auto;
 }
+.objeto_right {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
 .objetoCuadro{
     float: left;
     height: 650px;
 }
 .formElementoPlano {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .objetoSimple {
@@ -429,20 +438,33 @@ body {
 }
 
 .objetoEmpresa {
-    padding: 10px;
+    padding: 20px;
     border-radius: 5px;
     box-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
-    margin-bottom: 2px;
+    margin-bottom: 15px;
+    background-color: #fff;
 }
 
 .label {
+    display: flex;
+    width: 150px;
     font-weight: bold;
     float: left;
 }
 
 .dato {
+    display: flex;
+    align-items: center;
+    min-width: 210px;
     margin-left: 3px;
-    float: left;
+    justify-content: flex-end;
+    padding-right: 30px;
+    min-height: 52px;
+
+}
+
+.input_forms{
+    width: 200px !important;
 }
 
 .tabla-sm {
@@ -498,21 +520,27 @@ th.mat-header-cell {
     color: #fff;
 }
 
-.mat-form-field-appearance-fill .mat-form-field-flex{
-    background-color: #FFF;
-    width: 250px !important;
-    border-radius: 0px 0px 0px 0px !important;
+.mat-form-field{
+    width: 250px;
     padding-right: 10px;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
-                0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
-                0px 1px 2px 0px rgba(0, 0, 0, 0.12);
     display: flex;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex{
+    background-color: #fff;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
+    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 0px 0px 0px 0px !important;
 }
 
 .mat-form-field .mat-focused .mat-form-field-ripple{
     background-color: #04c55b00 !important;
     display: flex !important;
+
 }
+
+
 
 .boton-buscar{
     background-color: #fff !important;

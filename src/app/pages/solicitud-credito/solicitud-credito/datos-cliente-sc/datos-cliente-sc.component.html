@@ -41,14 +41,16 @@
                 </div>
             </div>
 
-            <div class="buscar"
-                *ngIf="ClientSelectorControl.value === radioEmpresa">
+            <div class="buscar" *ngIf="ClientSelectorControl.value === radioEmpresa">
                 <div class="formInput">
                     <mat-form-field appearance="fill">
                         <mat-label>Código Cliente SAP</mat-label>
                         <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
                     </mat-form-field>
                 </div>
+
+                <span class="formInput">O</span>
+
                 <div class="formInput">
                     <mat-form-field appearance="fill">
                         <mat-label>RUC</mat-label>
@@ -62,14 +64,16 @@
                 </div>
             </div>
 
-            <div class="buscar"
-                *ngIf="ClientSelectorControl.value === radioConsorcio">
+            <div class="buscar" *ngIf="ClientSelectorControl.value === radioConsorcio">
                 <div class="formInput">
                     <mat-form-field appearance="fill">
                         <mat-label>Código Cliente SAP</mat-label>
                         <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
                     </mat-form-field>
                 </div>
+
+                <span class="formInput">O</span>
+
                 <div class="formInput">
                     <mat-form-field appearance="fill">
                         <mat-label>RUC</mat-label>
@@ -83,13 +87,11 @@
                 </div>
             </div>
 
-            <mat-divider class="divisor objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-
+            <mat-divider class="divisor"></mat-divider>
         </form>
-
     </div>
 
-    <div class="acordeon objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+    <div class="acordeon">
         <mat-accordion>
             <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
                 <mat-expansion-panel-header>
@@ -99,7 +101,6 @@
                 </mat-expansion-panel-header>
                 <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
                 </app-datos-grupo-sc>
-
             </mat-expansion-panel>
             <!-- Consorcio - Datos importantes -->
             <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
@@ -179,12 +180,8 @@
         </mat-accordion>
     </div>
 
-    <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
 </div>
-
-
-
-<hr>
+<mat-divider class="divisor"></mat-divider>
 <div class="botonera-step ">
     <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
 </div>
