@@ -5,7 +5,7 @@ import { AsignarIntegrantesGrupoComponent } from '../asignar-integrantes-grupo/a
 import { CrearGrupoEmpresarialComponent } from '../crear-grupo-empresarial/crear-grupo-empresarial.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
-import { GrupoEmpresarial } from 'src/app/models/grupo-empresarial.interface';
+import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 
 @Component({
   selector: 'app-grupo-empresarial',
@@ -14,7 +14,7 @@ import { GrupoEmpresarial } from 'src/app/models/grupo-empresarial.interface';
   ]
 })
 export class GrupoEmpresarialComponent implements OnInit {
-  listadoGrupos:GrupoEmpresarial[] = [];
+  listadoGrupos:AgrupacionClienteSolicitud[] = [];
     
   displayedColumns: string[] = ['nombre', 'pendiente','usuario_creacion', 'estado', 'id'];
   

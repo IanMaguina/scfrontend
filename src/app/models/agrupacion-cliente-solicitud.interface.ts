@@ -6,7 +6,7 @@ import { TipoCanal } from "./tipo-canal.interface";
 import { TipoCliente } from "./tipo-cliente.interface"
 import { Usuario } from "./usuario.interface";
 
-export interface GrupoEmpresarial {
+export interface AgrupacionClienteSolicitud {
     id?: number;
     id_tipo_cliente?: number;
     tipo_cliente?: TipoCliente;
