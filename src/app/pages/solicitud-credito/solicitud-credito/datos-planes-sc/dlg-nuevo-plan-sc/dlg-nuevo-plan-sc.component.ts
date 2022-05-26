@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import {PlanService} from 'src/app/services/plan.service';
+import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
@@ -19,6 +22,9 @@ export class DlgNuevoPlanScComponent implements OnInit {
   listadoLineaProducto:any[]=[];
   listadoDocumentosValorados:any[]=[];
   listadoCondicionesPago:any[]=[];
+
+  listadoMoneda:any[]=[];
+  
   LINEA_REGULAR=GlobalSettings.LINEA_REGULAR;
   LINEA_TEMPORAL=GlobalSettings.LINEA_TEMPORAL;
 
@@ -77,7 +83,11 @@ export class DlgNuevoPlanScComponent implements OnInit {
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private planService:PlanService
+    private planService:PlanService,
+    private documentoValoradoService: DocumentoValoradoService,
+    private lineaProductoService: LineaProductoService,
+    private tipoMonedaService: TipoMonedaService
+
   ) {
     this.solicitudData = data;
     this.formulary = this.formBuilder.group({
@@ -98,12 +108,33 @@ export class DlgNuevoPlanScComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarPlan();
+    this.listarDocumentosValorados();
+    this.listarProductos();
+    this.listarMoneda();
   }
 
   listarPlan() {
     this.planService.listarPlan().then(data => {
       this.listadoPlanesCredito = data.payload;
     })
+  }
+
+  listarDocumentosValorados() {
+    this.documentoValoradoService.listarDocumentosValorados().then(data =>{
+      this.listadoDocumentosValorados = data.payload;
+    })
+  }
+
+  listarProductos(){
+    this.lineaProductoService.listar().then(data =>{
+      this.listadoLineaProducto = data.payload;
+    })
+  }
+
+  listarMoneda(){
+this.tipoMonedaService.listar().then(data=>{
+  this.listadoMoneda =data.payload;
+})
   }
 
 
