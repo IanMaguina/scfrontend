@@ -113,14 +113,14 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     })
   }
 
-  listarReporteRiesgos(id_solicitud:string){
-    this.reporteSustentoEvaluacionService.listarReporteRiesgos(id_solicitud).then((data)=>{
+  async listarReporteRiesgos(id_solicitud:string){
+    await this.reporteSustentoEvaluacionService.listarReporteRiesgos(id_solicitud).then((data)=>{
       console.log("listar reporte:" + JSON.stringify(data));
       this.reporteRiesgoCliente = data.payload;
     })
   }
-listarReporteMorosidad(id_solicitud:string){
-  this.reporteSustentoEvaluacionService.listarReporteMorosidad(id_solicitud).then((data)=>{
+async listarReporteMorosidad(id_solicitud:string){
+  await this.reporteSustentoEvaluacionService.listarReporteMorosidad(id_solicitud).then((data)=>{
     console.log("listar reporte morosidad:" + JSON.stringify(data));
     this.reporteMorosidad = data.payload;
   })

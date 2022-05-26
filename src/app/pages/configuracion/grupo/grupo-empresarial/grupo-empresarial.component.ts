@@ -5,6 +5,7 @@ import { AsignarIntegrantesGrupoComponent } from '../asignar-integrantes-grupo/a
 import { CrearGrupoEmpresarialComponent } from '../crear-grupo-empresarial/crear-grupo-empresarial.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
+import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 
 @Component({
   selector: 'app-grupo-empresarial',
@@ -13,14 +14,9 @@ import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
   ]
 })
 export class GrupoEmpresarialComponent implements OnInit {
-  listadoGrupos:any[] = [];
-    /* {
-      'grupo':'Grupo fake 1',
-      'id':1, 
-      'estado':'habilitado'
-    }
-  ]; */
-  displayedColumns: string[] = ['grupo', 'pendiente','solicitante', 'estado', 'id'];
+  listadoGrupos:AgrupacionClienteSolicitud[] = [];
+    
+  displayedColumns: string[] = ['nombre', 'pendiente','usuario_creacion', 'estado', 'id'];
   
   constructor(
     private matDialog: MatDialog,

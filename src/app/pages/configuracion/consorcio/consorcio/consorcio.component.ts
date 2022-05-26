@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { ConsorcioService } from 'src/app/services/consorcio.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -13,15 +14,15 @@ import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.comp
   ]
 })
 export class ConsorcioComponent implements OnInit {
-  listadoConsorcios:any[] = [
-    {
+  listadoConsorcios:AgrupacionClienteSolicitud[] = [];
+   /*  {
       'razonsocial':'010101',
       
       'ruc':'654321987564',
       'id':1, 
       'estado':'activo'
     }
-  ];
+  ]; */
   displayedColumns: string[] = ['razonsocial','pendiente','solicitante', 'ruc', 'estado', 'id'];
 
   
@@ -31,7 +32,6 @@ export class ConsorcioComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log("ngInit");
     this.listarConsorcios();
   }
   async listarConsorcios() {
@@ -46,8 +46,7 @@ export class ConsorcioComponent implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("return function process");
+    dialogRef.afterClosed().subscribe((_) => {
       this.listarConsorcios();
     });
 
@@ -59,8 +58,7 @@ export class ConsorcioComponent implements OnInit {
       data:id
     });
 
-    dialogRef2.afterClosed().subscribe(result => {
-      console.log("return function process");
+    dialogRef2.afterClosed().subscribe((_)  => {
       this.listarConsorcios();
     });
 
@@ -96,9 +94,7 @@ export class ConsorcioComponent implements OnInit {
     });
   }
 
-  editarConsorcio(element:any){
-    console.log("editarConsorcio");
-  }
+ 
 
   
 }

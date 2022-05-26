@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service';
-import { Rol } from '../models/rol.interface';
-import { EstadoRol } from '../models/estado-rol.interface';
-import { EstadoRolUsuario } from '../models/estado-rol-usuario.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -12,9 +12,7 @@
 <div class="content-table col-s-11 col- col-m-11 col-xl-11">
     
     <table mat-table [dataSource]="listadoConsorcios" class="mat-elevation-z8" >
-        <!-- Table estrategias - por sociedad -->
-
-        
+        <caption title="lista de consorcios"></caption>
         
         <!-- Column -->
         <ng-container matColumnDef="razonsocial">
@@ -24,12 +22,12 @@
         <!-- Column -->
         <ng-container matColumnDef="pendiente">
             <th mat-header-cell *matHeaderCellDef>Estado </th>
-            <td mat-cell *matCellDef="let element" > - </td>
+            <td mat-cell *matCellDef="let element" > {{ element.estado_cliente_agrupacion.nombre }}</td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="solicitante">
             <th mat-header-cell *matHeaderCellDef>Solicitante </th>
-            <td mat-cell *matCellDef="let element" > - </td>
+            <td mat-cell *matCellDef="let element" > {{element.usuario_creacion.nombre}}  </td>
         </ng-container>
 
         <!-- Column -->
