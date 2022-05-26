@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import {PlanService} from 'src/app/services/plan.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -11,12 +13,18 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 })
 export class DlgNuevoPlanScComponent implements OnInit {
   solicitudData:any;
-  listadoTipoLinea:any[]=[];
+  listadoTipoLinea:any[]=[{id:1,nombre:"Regular"},{id:2,nombre:"Temporal"}];
   listadoPlanesCredito:any[]=[];
-  listadoVigencias:any[]=[];
+  listadoVigencias:any[]=[{id:1,nombre:"Pico de demanda"},{id:2,nombre:"DV en curso"},{id:1,nombre:"Fecha"}];
   listadoLineaProducto:any[]=[];
   listadoDocumentosValorados:any[]=[];
   listadoCondicionesPago:any[]=[];
+  LINEA_REGULAR=GlobalSettings.LINEA_REGULAR;
+  LINEA_TEMPORAL=GlobalSettings.LINEA_TEMPORAL;
+
+  PICO_DEMANDA=GlobalSettings.PICO_DEMANDA;
+  DOCUMENTO_VALORADO_EN_CURSO=GlobalSettings.DOCUMENTO_VALORADO_EN_CURSO;
+  FECHA_VIGENCIA_TEMPORAL=GlobalSettings.FECHA_VIGENCIA_TEMPORAL;
 
   formulary: FormGroup;
 
@@ -69,6 +77,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
+    private planService:PlanService
   ) {
     this.solicitudData = data;
     this.formulary = this.formBuilder.group({
@@ -88,11 +97,25 @@ export class DlgNuevoPlanScComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.listarPlan();
   }
+
+  listarPlan() {
+    this.planService.listarPlan().then(data => {
+      this.listadoPlanesCredito = data.payload;
+    })
+  }
+
+
   ingresarPlan(form:any){
 
   }
   onNoClick(res:string){
     this.dialogRef.close(res);
+  }
+
+  seteoTipoLinea(){
+    let valor=this.formulary.get("tipo_linea").value;
+    console.log(JSON.stringify(valor));
   }
 }

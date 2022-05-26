@@ -19,7 +19,7 @@ export class PlanService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("no hay documento valorado encontrados...");
+            console.log("no hay planes encontrados...");
             resolve([]);
           }
         }
