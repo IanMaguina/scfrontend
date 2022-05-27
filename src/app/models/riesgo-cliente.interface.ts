@@ -20,4 +20,6 @@ fecha_consulta?:string;
 activo?:boolean;
 estado_rpa?:string;
 fecha_sistema?:string;
+adjunto?:string;
+
 }

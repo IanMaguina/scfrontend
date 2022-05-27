@@ -8,10 +8,10 @@ export class ReporteSustentoEvaluacionService {
 
   constructor(private resourceService: ResourceService) { }
 
-  listarReporteRiesgos(item:any): Promise<any> {
+  listarReporteRiesgos(item: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-riesgo-cliente?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => {
+        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-riesgo-cliente?id_solicitud=" + item.id_solicitud + "&sociedad_codigo_sap=" + item.sociedad_codigo_sap + "&id_empresa=" + item.id_empresa).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -28,12 +28,14 @@ export class ReporteSustentoEvaluacionService {
 
       }
     );
-
   }
-  listarReporteMorosidad(item:any): Promise<any> {
+
+  listarReporteMorosidad(item: any): Promise<any> {
+    console.log("this item morosidad" + JSON.stringify(item));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-bi?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => {
+        /*  this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-bi?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => { */
+        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-bi?id_solicitud=1").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -47,19 +49,22 @@ export class ReporteSustentoEvaluacionService {
             reject(error);
           }
         );
-
       }
     );
-
   }
-  listarReportePoderJudicial(item:any): Promise<any> {
+
+
+
+
+  listarReportePoderJudicial(item: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-poder-judicial?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => {
+        /* this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-poder-judicial?id_solicitud=" + item.id_solicitud + "&sociedad_codigo_sap=" + item.sociedad_codigo_sap + "&id_empresa=" + item.id_empresa).toPromise().then((data) => { */
+        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-poder-judicial?id_solicitud=1").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("datos de morosidad no encontrados...");
+            console.log("datos de poder judicial no encontrados...");
             resolve([]);
           }
         }
