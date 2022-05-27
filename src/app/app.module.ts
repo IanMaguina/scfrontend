@@ -29,6 +29,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppConfigService } from './services/app-config.service';
 import { map } from 'rxjs/operators';
 
+import { MatTableResponsiveModule } from './shared/tables/mat-table-responsive.module';
+
 export function initConfig(appConfig: AppConfigService) {
   return () => appConfig.loadConfig();
 }
@@ -73,9 +75,10 @@ export function socialConfigFactory(restService: AppConfigService) {
     MatSnackBarModule,
     MatCardModule,
     SocialLoginModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    MatTableResponsiveModule
   ],
-  exports: [
+  exports: [MatTableResponsiveModule
   ],
 
   providers: [

@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-
+body {
+    font-family: Poppins, Arial, sans-serif;
+    margin: 0;
+  }
 
 /* colores letras*/
 
@@ -136,10 +139,6 @@ mat-tree a:active {
     font-weight: bold;
 }
 
-.descripcion {
-    font-size: 12pt;
-}
-
 
 /* fonts sizes */
 
@@ -210,7 +209,7 @@ body {
 
 .boton-secundario {
     background-color: #707070;
-    color: #FFFFFF;
+    color: #FFFFFF ;
 }
 
 .card-login {
@@ -221,7 +220,7 @@ body {
     text-align: center;
     top: 25%;
 }
-.mat-card-header {
+.headerLogin {
     padding-top: 30px;
     text-align: center;
     align-content: center;
@@ -238,7 +237,7 @@ body {
 
 .mat-header-cell {
     background-color: #05C65D !important;
-    color: #FFFFFF !important;
+    color: #000000 !important;
 }
 
 .header {
@@ -355,8 +354,9 @@ body {
 /* stepper */
 
 .content-body-step {
-    overflow: auto;
+    overflow-y: auto;
     height: 65vh;
+    width: 100%;
 }
 
 .botonera-step {
@@ -387,6 +387,11 @@ body {
     background-color: #ffffff00;
 }
 
+.acordeon{
+    padding-top: 20px;
+    width: 95%;
+}
+
 
 /* .content-stepper {
     margin-top: 10px;
@@ -395,25 +400,30 @@ body {
     height: 68vh;
 } */
 
-.contenidoForm {
-    width: 99%;
-}
-
 .center {
     text-align: center;
 }
 
 .objeto {
-   float: left;
+    float: left;
     height: auto;
 }
+.objeto_right {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
 .objetoCuadro{
     float: left;
     height: 650px;
 }
 .formElementoPlano {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .objetoSimple {
@@ -431,20 +441,33 @@ body {
 }
 
 .objetoEmpresa {
-    padding: 10px;
+    padding: 20px;
     border-radius: 5px;
     box-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
-    margin-bottom: 2px;
+    margin-bottom: 15px;
+    background-color: #fff;
 }
 
 .label {
+    display: flex;
+    width: 150px;
     font-weight: bold;
     float: left;
 }
 
 .dato {
+    display: flex;
+    align-items: center;
+    min-width: 210px;
     margin-left: 3px;
-    float: left;
+    justify-content: flex-end;
+    padding-right: 30px;
+    min-height: 52px;
+
+}
+
+.input_forms{
+    width: 200px !important;
 }
 
 .tabla-sm {
@@ -497,35 +520,53 @@ table {
 
 th.mat-header-cell {
     background-color: #05C65D;
-    color: #fff;
+    color: rgb(255, 255, 255);
+}
+
+.mat-form-field{
+    width: 250px;
+    padding-right: 10px;
+    display: flex;
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex{
-    background-color: #FFF;
-    width: 250px !important;
-    border-radius: 0px 0px 0px 0px !important;
-    padding-right: 10px;
+    background-color: #fff;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
-                0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
-                0px 1px 2px 0px rgba(0, 0, 0, 0.12);
-    display: flex;
+    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 0px 0px 0px 0px !important;
 }
 
 .mat-form-field .mat-focused .mat-form-field-ripple{
     background-color: #04c55b00 !important;
     display: flex !important;
+
 }
+
+
 
 .boton-buscar{
     background-color: #fff !important;
     border-radius: 0px !important;
-    padding-top: 5px;
+    height: 49px !important;
+    width: 49px !important;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
+    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
 .formInput{
-    padding-top: 15px;
-    padding-right: 25px;
+ padding-right:25px;  
+ padding-top: 15px; 
 }
+
+.mat-form-field-wrapper{
+    padding-bottom: 0px;
+}
+.mat-form-field-underline{
+    display: none;
+}
+
 .formInputo{
     padding-right: 25px;
 }
@@ -583,6 +624,7 @@ th.mat-header-cell {
 
 .seleccionclientes{
     display: flex;
+    position: relative;
     margin-top: 10px !important;
 }
 
@@ -591,7 +633,13 @@ th.mat-header-cell {
 }
 
 .buscar{
+    display: flex;
+    position: relative;
+    align-items: center !important;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     padding-top: 15px;
+  
 }
 
 /* cdk dragDrop */
@@ -720,7 +768,166 @@ body::-webkit-scrollbar-thumb {
     margin-top: 20px !important;
 }
 
+/*Adjuntos y Plantillas*/
 
+.Agregar{
+ font-size: 18px !important;
+}
+.header_adjuntos{
+    display: flex !important;
+    justify-content: left;
+    border-radius: 0px 0px 0px 0px !important;
+    font-size: 16px !important;
+    max-width: 767px;
+}
+
+.adjuntos_text{
+    padding-right: 25px;
+}
+
+.header_seleccionar{
+    padding-right: 25px;
+}
+
+.boton-adjuntos{
+    margin-right: 25px !important;
+    background-color: #707070;
+    color: #FFFFFF;
+}
+
+.descripcion {
+    font-size: 15px;
+    padding-right: 20px;
+    vertical-align: top;
+}
+.descripcion_adjuntos{
+    padding-bottom: 20px !important;
+}
+
+.descripcion_1{
+    font-size: 15px;
+    padding-right: 44px;
+}
+
+.bloquedescripcion{
+    width: 500px;
+    height: 70px;
+}
+
+
+
+.subheader_adjuntos{
+    border-radius: 0px 0px 0px 0px !important;
+    max-width: 767px;
+}
+
+.zona_de_adjuntos{
+    margin-left: 20px;
+    border-radius: 0px 0px 0px 0px !important;
+    max-width: 747px;
+}
+
+.mat-tab-label-active {
+    width: 300px !important;
+    background-color: #05C65D!important;
+    border-radius: 7px 7px 0px 0px;
+}
+
+.mat-tab-group{
+    padding-top: 20px;
+}
+
+.mat-tab-label{
+    width: 250px;
+    background-color: #959595;
+    border-radius: 10px 10px 0px 0px;
+    color:#fff;
+    height: 35px !important;
+    font-size: 15px;
+}
+
+.texto{
+    display: flex;
+}
+
+.showDiv {
+    background-color: aqua;
+    height: 200px;
+    width: 500px;
+ }
+ 
+ .hideDiv {
+    display: none;
+ }
+
+
+/* Evaluador */
+
+.cartas{
+    width: 450px;
+    max-height: 980px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+.cartas_header{
+    padding-left: 16px;
+    padding-top: 14px;
+    padding-bottom: 8px;
+    background-color: #05C65D;
+    color: #fff;
+}
+
+.cartas_contenido{
+    padding-left: 16px;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+}
+
+.cartas_footer{
+    padding-left: 16px !important;
+    padding-top: 16px !important;
+    padding-right: 16px !important;
+    padding-bottom: 16px !important;
+    margin-left: 0px !important;
+}
+
+.cartas_footer {
+    display: table;
+  }
+  
+  .cartafooter_label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+    vertical-align: middle;
+  }
+  
+  .footerbutton {
+    display: table-cell;
+    vertical-align: middle;
+    align-items: right !important;
+    
+  }
+
+.cartasfoottertext{
+    display: flex !important;
+}
+
+.tabladecarta{
+    box-shadow:
+    0px 0px 0px 0px rgba(0, 0, 0, 0),
+    0px 0px 0px 0px rgba(0, 0, 0, 0),
+    0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.tabladecarta .mat-row{
+    min-height: 48px;
+}
 
 
 /* INIT - Grid responsive */
@@ -940,3 +1147,81 @@ body::-webkit-scrollbar-thumb {
 
 
 /* END - Grid responsive */
+
+@media (max-width: 768px) {
+    .mat-table[matTableResponsive] {
+      .mat-header-row {
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+  
+        th.mat-header-cell {
+          display: flex;
+          flex: 1;
+          align-items: center;
+          padding: 1rem 0.5rem;
+          justify-content: space-around;
+  
+          & > .mat-sort-header-container {
+            padding-left: 15px; // padding is used to center the header table cells, due to the width of the sort icon
+          }
+  
+          &:not([mat-sort-header]),
+          &.mat-sort-header-disabled,
+          &.mat-column-actions {
+            display: none;
+          }
+        }
+      }
+  
+      .mat-row {
+        height: auto;
+  
+        td.mat-cell:not(.mat-column-actions) {
+          display: grid;
+          grid-template-columns: 50% 50%;
+          padding: 0.5rem;
+          text-align: right;
+          word-break: break-word;
+  
+          & > * {
+            grid-column: 2;
+          }
+  
+          &:before {
+            content: attr(data-column-name);
+            text-align: left;
+          }
+        }
+  
+        td.mat-column-actions {
+          display: flex;
+          justify-content: center;
+          padding: 0 0.5rem;
+  
+          & > button {
+            margin: 0.5rem 0;
+          }
+        }
+  
+        &:last-of-type td:last-of-type {
+          border: none;
+        }
+  
+        &:not(:last-of-type) td:last-of-type {
+          border-bottom: 0.5rem solid #fafafa;
+        }
+      }
+    }
+  
+    .mat-card,
+    .mat-expansion-panel {
+      .mat-table[matTableResponsive] {
+        border: 0.5rem solid #fafafa;
+      }
+    }
+  }
+  

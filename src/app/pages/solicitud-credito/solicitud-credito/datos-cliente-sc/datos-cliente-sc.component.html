@@ -1,172 +1,171 @@
-<div class="content-step">
-    <div class="content-body-step">
-        <div class="contenidoForm">
-            <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
-                <div class="seleccionclientes objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                    <mat-radio-group  aria-label="Select an option" (change)="seleccionCliente()" [formControl]="ClientSelectorControl">
-                        <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
-                        
-                        <mat-radio-button [(value)]="radioConsorcio">Consorcio
+<div class="content-body-step">
+    <div class="contenidoForm">
+        <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
+            <div class="seleccionclientes">
+                <mat-radio-group aria-label="Select an option" (change)="seleccionCliente()"
+                    [formControl]="ClientSelectorControl">
+                    <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
 
-                            <mat-icon class="tip" 
-                            #tooltip="matTooltip" 
-                            matTooltip="Conjunto de empresas que se consideran como una empresa con RUC" 
+                    <mat-radio-button [(value)]="radioConsorcio">Consorcio
+
+                        <mat-icon class="tip" #tooltip="matTooltip"
+                            matTooltip="Conjunto de empresas que se consideran como una empresa con RUC"
                             [matTooltipPosition]="positionOption">info</mat-icon>
-                        
-                        </mat-radio-button>
-                        
-                        <mat-radio-button [(value)]="radioEmpresa">Empresa Individual</mat-radio-button>
-                    </mat-radio-group>
 
-                </div>
+                    </mat-radio-button>
 
-                
-                <div class="objeto buscar" *ngIf="ClientSelectorControl.value === radioGrupo">
-                     
-                    
-                        <mat-form-field class="formInput" appearance="fill">
-                            <mat-label>Nombre del grupo</mat-label>
-                            <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo" (focus)="limpiarCampo('rucGrupo')">
-                        </mat-form-field>
-                    
+                    <mat-radio-button [(value)]="radioEmpresa">Empresa Individual</mat-radio-button>
+                </mat-radio-group>
+            </div>
 
-                    <span class="formInputo">O</span>
+            <div class="buscar" *ngIf="ClientSelectorControl.value === radioGrupo">
+                <mat-form-field class="formInput" appearance="fill">
+                    <mat-label>Nombre del grupo</mat-label>
+                    <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo"
+                        (focus)="limpiarCampo('rucGrupo')">
+                </mat-form-field>
 
-                    
-                        <mat-form-field class="formInput" appearance="fill">
-                            <mat-label>RUC de algun integrante</mat-label>
-                            <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo" (focus)="limpiarCampo('nombreGrupo')">
-                        </mat-form-field>
-                    
+                <span class="formInput">O</span>
 
+                <mat-form-field class="formInput" appearance="fill">
+                    <mat-label>RUC de algun integrante</mat-label>
+                    <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo"
+                        (focus)="limpiarCampo('nombreGrupo')">
+                </mat-form-field>
+
+
+                <div class="formInput">
                     <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar">
                         <mat-icon>search</mat-icon>
-                    </button>                
-              
-                        
+                    </button>
                 </div>
-                
-            
+            </div>
 
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 buscar" *ngIf="ClientSelectorControl.value === radioEmpresa">
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Código Cliente SAP</mat-label>
-                            <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
-                        </mat-form-field>
-                    </div>
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>RUC</mat-label>
-                            <input matInput formControlName="rucEmpresa" placeholder="RUC de la empresa">
-                        </mat-form-field>
-                    </div>
-                    <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-                        <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light objetoSimple">
-                            <mat-icon>search</mat-icon>
-                        </button>
-                    </div>
+            <div class="buscar" *ngIf="ClientSelectorControl.value === radioEmpresa">
+                <div class="formInput">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Código Cliente SAP</mat-label>
+                        <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
+                    </mat-form-field>
                 </div>
 
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 buscar" *ngIf="ClientSelectorControl.value === radioConsorcio">
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Código Cliente SAP</mat-label>
-                            <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
-                        </mat-form-field>
-                    </div>
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>RUC</mat-label>
-                            <input matInput formControlName="rucConsorcio" placeholder="RUC del Consorcio">
-                        </mat-form-field>
-                    </div>
-                    <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-6 col-xl-6">
-                        <button mat-mini-fab aria-label="Buscar" color="primary" class="boton-principal-light objetoSimple">
-                            <mat-icon>search</mat-icon>
-                        </button>
-                    </div>
+                <span class="formInput">O</span>
+
+                <div class="formInput">
+                    <mat-form-field appearance="fill">
+                        <mat-label>RUC</mat-label>
+                        <input matInput formControlName="rucEmpresa" placeholder="RUC de la empresa">
+                    </mat-form-field>
                 </div>
-                
-                <mat-divider class="divisor objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-              
-            </form>
-            
-        </div>
+                <div class="formInput">
+                    <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
 
-        <div class="acordeon objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-            <mat-accordion>
-                <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-grupo-sc>
+            <div class="buscar" *ngIf="ClientSelectorControl.value === radioConsorcio">
+                <div class="formInput">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Código Cliente SAP</mat-label>
+                        <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
+                    </mat-form-field>
+                </div>
 
-                </mat-expansion-panel>
-                <!-- Consorcio - Datos importantes -->
-                <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Consorcio: {{(clienteData?clienteData.nombre:'')}}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-consorcio-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-consorcio-sc>
-                </mat-expansion-panel>
+                <span class="formInput">O</span>
 
-                <!-- Consorcio - Consorciados -->
-                <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Consorciados
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-consorciados-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData"></app-datos-consorciados-sc>
-                </mat-expansion-panel>
-                <!--  Empresa - Datos importantes-->
-                <mat-expansion-panel *ngIf="ClientSelectorControl.value === radioEmpresa">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Datos de la empresa
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-datos-empresa-sc [clienteData]="clienteData"></app-datos-empresa-sc>
+                <div class="formInput">
+                    <mat-form-field appearance="fill">
+                        <mat-label>RUC</mat-label>
+                        <input matInput formControlName="rucConsorcio" placeholder="RUC del Consorcio">
+                    </mat-form-field>
+                </div>
+                <div class="formInput">
+                    <button mat-mini-fab aria-label="Buscar" color="white" class="boton-buscar">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
 
-                </mat-expansion-panel>
-                <!-- Grupo - Empresas Integrantes -->
+            <mat-divider class="divisor"></mat-divider>
+        </form>
+    </div>
 
-                <!-- Proveedores -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Referencias Comerciales (Proveedores)
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar"></app-referencias-comerciales-sc>
-                </mat-expansion-panel>
+    <div class="acordeon">
+        <mat-accordion>
+            <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
+                </app-datos-grupo-sc>
+            </mat-expansion-panel>
+            <!-- Consorcio - Datos importantes -->
+            <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Consorcio: {{(clienteData?clienteData.nombre:'')}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-datos-consorcio-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
+                </app-datos-consorcio-sc>
+            </mat-expansion-panel>
 
-                <!-- Principales Clientes -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Principales Clientes
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar"></app-principales-clientes-sc>
-                </mat-expansion-panel>
+            <!-- Consorcio - Consorciados -->
+            <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Consorciados
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-datos-consorciados-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
+                </app-datos-consorciados-sc>
+            </mat-expansion-panel>
+            <!--  Empresa - Datos importantes-->
+            <mat-expansion-panel *ngIf="ClientSelectorControl.value === radioEmpresa">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Datos de la empresa
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-datos-empresa-sc [clienteData]="clienteData"></app-datos-empresa-sc>
 
-                <!-- Empresas Relacionadas -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Empresas Relacionadas
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar"></app-empresas-relacionadas-sc>
-                </mat-expansion-panel>
+            </mat-expansion-panel>
+            <!-- Grupo - Empresas Integrantes -->
 
-                <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+            <!-- Proveedores -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Referencias Comerciales (Proveedores)
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar"></app-referencias-comerciales-sc>
+            </mat-expansion-panel>
+
+            <!-- Principales Clientes -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Principales Clientes
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar"></app-principales-clientes-sc>
+            </mat-expansion-panel>
+
+            <!-- Empresas Relacionadas -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Empresas Relacionadas
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar"></app-empresas-relacionadas-sc>
+            </mat-expansion-panel>
+
+            <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -178,13 +177,11 @@
           </mat-expansion-panel-header>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel> -->
-            </mat-accordion>
-        </div>
+        </mat-accordion>
+    </div>
 
-        <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-    </div>
-    <hr>
-    <div class="botonera-step ">
-        <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
-    </div>
+</div>
+<mat-divider class="divisor"></mat-divider>
+<div class="botonera-step ">
+    <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
 </div>

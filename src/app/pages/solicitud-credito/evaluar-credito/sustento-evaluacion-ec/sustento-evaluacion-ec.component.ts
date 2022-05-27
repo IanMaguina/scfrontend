@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,22 +10,46 @@ import { ReporteSustentoEvaluacionService } from 'src/app/services/reporte-suste
 import { SociedadService } from 'src/app/services/sociedad.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 
+const ELEMENT_DATA = [
+  {name: 'Fecha', respuesta: 'DD/MM/AA'},
+  {name: 'Semáforo Actual', respuesta: 'DD/MM/AA'},
+  {name: 'Deuda total SBS', respuesta: 'DD/MM/AA'},
+  {name: 'Beryllium', respuesta: 'DD/MM/AA'},
+  {name: 'Boron', respuesta: 'DD/MM/AA'},
+  {name: 'Carbon', respuesta: 'DD/MM/AA'},
+  {name: 'Nitrogen', respuesta: 'DD/MM/AA'},
+  {name: 'Oxygen', respuesta: 'DD/MM/AA'},
+  {name: 'Fluorine', respuesta: 'DD/MM/AA'},
+  {name: 'Neon', respuesta: 'DD/MM/AA'},
+  {name: 'Fluorine', respuesta: 'DD/MM/AA'},
+  {name: 'Neon', respuesta: 'DD/MM/AA'},
+  {name: 'otros Reportes Negativos', respuesta: 'DD/MM/AA'}
+];
+
+
 @Component({
   selector: 'app-sustento-evaluacion-ec',
   templateUrl: './sustento-evaluacion-ec.component.html',
   styles: [
   ]
 })
+
 export class SustentoEvaluacionEcComponent implements OnInit {
   @Input() id_solicitud: string;
 /*   id_solicitud_fake: string = "1"; */
   formulary: FormGroup;
-  listadoSociedades: Sociedad[];
-  reporteRiesgoCliente!: ReporteRiesgoCliente;
-  reporteMorosidad!: ReporteMorosidad;
+  listadoSociedades:Sociedad[];
+  cols=3;
+  rowHeight = '650px';
 
+
+
+  reporteRiesgoCliente?:ReporteRiesgoCliente;
+  reporteMorosidad?:ReporteMorosidad;
   listadoEmpresaSolicitud: Empresa[];
   constructor(
+    
+    private responsive: BreakpointObserver,
     private formBuilder: FormBuilder,
     private matDialog: MatDialog,
     /* 
@@ -41,11 +66,48 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     });
   }
 
+
+    displayedColumns: string[] = ['name', 'respuesta'];
+    dataSource = ELEMENT_DATA;
+
+
+
   ngOnInit(): void {
     this.listarEmpresas();
     this.listarSociedades();
-    
-   
+
+   /*  this.responsive.observe([
+      Breakpoints.TabletPortrait,
+      Breakpoints.TabletLandscape,
+      Breakpoints.HandsetPortrait,
+      Breakpoints.HandsetLandscape
+    ])
+    .subscribe(result => {
+        this.cols =3;
+        this.rowHeight = "980px";
+
+        const breakpoints = result.breakpoints;
+
+        if (breakpoints[Breakpoints.TabletPortrait]){
+          this.cols = 1;
+        }
+        else if (breakpoints[Breakpoints.HandsetPortrait]){
+          this.cols = 1;
+          this.rowHeight ="980px";
+        }
+        else if (breakpoints[Breakpoints.HandsetLandscape]){
+          this.cols = 1;
+        }
+        else if (breakpoints[Breakpoints.TabletLandscape]){
+          this.cols = 2;
+        }
+
+
+
+    }); */
+
+
+
   }
 
   async listarSociedades() {

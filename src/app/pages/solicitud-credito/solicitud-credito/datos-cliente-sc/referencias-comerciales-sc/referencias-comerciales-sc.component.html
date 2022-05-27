@@ -1,37 +1,52 @@
 <div class="contenidoForm">
     <form [formGroup]="formulary" (ngSubmit)="agregar(formulary.value)">
-        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>Empresa</mat-label>
-                    <input matInput formControlName="razon_social" >
-                </mat-form-field>
+        <div class="objeto objetoEmpresa">
+            <div class="objeto formElementoPlano ">
+                <div class="label">Empresa:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Empresa</mat-label>
+                        <input matInput formControlName="razon_social">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>RUC</mat-label>
-                    <input matInput formControlName="numero_documento">
-                </mat-form-field>
+            <div class="objeto formElementoPlano">
+                <div class="label">RUC:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>RUC</mat-label>
+                        <input matInput formControlName="numero_documento">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>Contacto</mat-label>
-                    <input matInput formControlName="contacto">
-                </mat-form-field>
+            <div class="objeto formElementoPlano">
+                <div class="label">Contacto:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Contacto</mat-label>
+                        <input matInput formControlName="contacto">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>Cargo</mat-label>
-                    <input matInput formControlName="cargo">
-                </mat-form-field>
+            <div class="objeto formElementoPlano">
+                <div class="label">Cargo:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cargo</mat-label>
+                        <input matInput formControlName="cargo">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>Teléfono</mat-label>
-                    <input matInput formControlName="telefono">
-                </mat-form-field>
+            <div class="objeto formElementoPlano">
+                <div class="label">Télefono:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput formControlName="telefono">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <div class="objetoBoton">
                 <button mat-flat-button aria-label="agregarReferencia" class="boton-principal-light" type="submit">
                     Agregar
                 </button>
@@ -42,7 +57,7 @@
 </div>
 
 <div class="content-table col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-    <table mat-table [dataSource]="listadoReferenciasComerciales" class="mat-elevation-z8 ">
+    <table mat-table matTableResponsive [dataSource]="listadoReferenciasComerciales" class="mat-elevation-z8 ">
         <caption title="tablaReferenciasComerciales"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
@@ -82,7 +97,7 @@
             </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 

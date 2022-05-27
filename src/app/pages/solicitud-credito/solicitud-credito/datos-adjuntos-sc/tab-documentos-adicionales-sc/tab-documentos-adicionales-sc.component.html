@@ -1,1 +1,18 @@
-<p>tab-documentos-adicionales-sc works!</p>
+<mat-card class="header_adjuntos">
+    <span class="adjuntos_text">En esta sección podrás agregar otros tipos de documentos: Vigencia de Poderes,
+        Constitución del Consorcio, Contratos.</span>
+</mat-card>
+
+<mat-card class="zona_de_adjuntos">
+    <form>
+        <div class="descripcion_adjuntos"><span class="descripcion_1">Adjuntar:</span><button mat-raised-button
+                class="boton-adjuntos">Seleccionar Archivo</button><span>Ningun archivo seleccionado...</span></div>
+        <div>
+            <span class="descripcion">Descripción:</span>
+            <mat-form-field class="bloquedescripcion" appearance="outline">
+                <mat-label>Escriba una descripción</mat-label>
+                <textarea matInput placeholder="Escribir..."></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-card>
