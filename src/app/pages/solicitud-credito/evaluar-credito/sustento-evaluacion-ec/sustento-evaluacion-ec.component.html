@@ -132,6 +132,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Deuda Laboral:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.deuda_laboral:"")}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Deuda Tributaria:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.deuda_tributaria:"")}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">% Calificacion Normal:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.calificacion_normal:"")}}
+                                        </div>
+                                    </div>
+                                </div>
 
 
                             </mat-card-content>
@@ -310,20 +337,13 @@
                                     </div>
                                 </div>
 
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="label">Otros reportes negativos:</div>
-                                    </div>
-                                    <div class="dato">
-                                        {{ (listadoRiesgoCliente?listadoRiesgoCliente.otros_reportes_negativos:"") }}
-                                    </div>
-                                </div>
+                               
 
 
                             </mat-card-content>
                             <mat-card-actions>
                                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <strong> Reporte de central de Riesgos</strong><br>
+                                    <strong> Reporte de Cuentas por Cobrar</strong><br>
                                     <small>* Se obtendrá el reporte en formato pdf</small>
                                 </div>
                                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
