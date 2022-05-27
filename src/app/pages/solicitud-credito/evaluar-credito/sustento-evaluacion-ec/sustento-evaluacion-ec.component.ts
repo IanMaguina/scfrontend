@@ -62,6 +62,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
   ) {
     this.formulary = this.formBuilder.group({
       sociedad: [''],
+      empresa: [''],
       representante_legal: [''],
     });
   }
@@ -121,7 +122,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     this.solicitudService.listarSolicitudCliente(this.id_solicitud).then(data => {
       this.listadoEmpresaSolicitud = data.payload;
       console.log(`listado de empresas ${JSON.stringify(this.listadoEmpresaSolicitud)}`);
-      this.formulary['sociedad'].setvalue(data.payload[0].sociedad_codigo_sap);
+      //this.formulary['sociedad'].setValue(data.payload[0].sociedad_codigo_sap);
     });
   }
 
@@ -145,18 +146,21 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     })
   }
 
-  async listarReportes(sociedad_codigo_sap: string, id_empresa: string) {
+  async listarReportes() {
 
     let item = {
       id_solicitud: this.id_solicitud,
-      sociedad_codigo_sap: sociedad_codigo_sap,
-      id_empresa: id_empresa,
+      sociedad_codigo_sap: this.formulary.get('sociedad').value,
+      id_empresa: this.formulary.get('empresa').value,
     }
     await this.listarReporteRiesgos(item);
     //await this.listarReporteMorosidad(item);
     /* console.log(`al seleccionar la sociedad -> ${JSON.stringify(event)}`); */
   }
   
+  filtrarRepresentante(){
+    console.log(`Cambio de Representante`);
+  }
 
 
 }
