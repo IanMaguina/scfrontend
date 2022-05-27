@@ -568,6 +568,29 @@ export class SolicitudService {
         });
       });
   }
+  listarSolicitudCliente(id_solicitud:string): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-cliente/?id_solicitud="+id_solicitud).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("empresas del cliente en la solicitud no encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
 
 
 

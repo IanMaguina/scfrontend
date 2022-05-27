@@ -8,10 +8,10 @@ export class ReporteSustentoEvaluacionService {
 
   constructor(private resourceService: ResourceService) { }
 
-  listarReporteRiesgos(id_solicitud:string): Promise<any> {
+  listarReporteRiesgos(item:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-riesgo-cliente?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-riesgo-cliente?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -30,10 +30,10 @@ export class ReporteSustentoEvaluacionService {
     );
 
   }
-  listarReporteMorosidad(id_solicitud:string): Promise<any> {
+  listarReporteMorosidad(item:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-bi?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-bi?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -52,10 +52,10 @@ export class ReporteSustentoEvaluacionService {
     );
 
   }
-  listarReportePoderJudicial(id_solicitud:string): Promise<any> {
+  listarReportePoderJudicial(item:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-poder-judicial?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/rpa-cliente/linea-credito/reporte-poder-judicial?id_solicitud="+item.id_solicitud+"&sociedad_codigo_sap="+item.sociedad_codigo_sap+"&id_empresa="+item.id_empresa).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

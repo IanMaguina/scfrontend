@@ -1,9 +1,9 @@
 <div class="contenidoForm">
     <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let empresa of listadoEmpresaSolicitud" (opened)="listarReportes(empresa)">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    nombre Empresa:
+                    nombre Empresa: {{empresa.razon_social}}
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <!-- formulario de sociedades del grupo -->
@@ -12,8 +12,8 @@
                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                     <mat-form-field appearance="outline">
                         <mat-label>Sociedad</mat-label>
-                        <mat-select formControlName="sociedad" required>
-                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
+                        <mat-select #sociedad formControlName="sociedad"  required (selectionChange)="listarReportes(sociedad.value, empresa.id_empresa)">
+                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
                                 {{ sociedad.nombre }}
                             </mat-option>
                         </mat-select>
@@ -21,11 +21,9 @@
                 </div>
 
 
-                <!-- cuadros -->
-                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
                 <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Reporte Central de Riesgos (Miles)</mat-card-title>
 
                     </mat-card-header>
@@ -42,7 +40,7 @@
                                     <mat-form-field >
                                         <mat-label> Representante Legal </mat-label>
                                     <mat-select formControlName="representante_legal" required (selectionChange)="filtrarRepresentante()">
-                                        <mat-option *ngFor="let rep of reporteRiesgoCliente.reporte_riesgo_cliente_representante_legal" [value]="rep">
+                                        <mat-option *ngFor="let rep of reporte_riesgo_cliente_representante_legal" [value]="rep">
                                             {{rep.nombre}}
                                         </mat-option>
                                     </mat-select>
@@ -164,10 +162,10 @@
                     </mat-card-actions>
                 </mat-card>
             </div>
-            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+            <!-- <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
                 <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                       
                         <mat-card-title>Morosidad</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
@@ -248,11 +246,10 @@
                         </div>
                     </mat-card-actions>
                 </mat-card>
-            </div>
-            <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+            </div> -->
+            <!-- <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
                 <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Detalle de cuentas por cobrar</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
@@ -337,7 +334,6 @@
             <div class="objeto col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
                 <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                     <mat-card-header>
-                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
                         <mat-card-title>Reporte Judicial</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
@@ -356,7 +352,9 @@
                     </mat-card-actions>
                 </mat-card>
             </div>
-                 <!-- expansion panels -->
+                  -->
+
+
                  <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                 <mat-accordion>
                     <mat-expansion-panel>

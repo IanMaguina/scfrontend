@@ -14,5 +14,4 @@ activo?:boolean;
 adjunto?:string;
 id_trpa_reporte_riesgo_cliente?: string;
 fecha_sistema?:string;
-
 }
