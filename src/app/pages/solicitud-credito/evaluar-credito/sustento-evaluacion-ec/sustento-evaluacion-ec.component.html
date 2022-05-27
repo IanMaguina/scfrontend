@@ -1,9 +1,9 @@
 <div class="contenidoForm">
     <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let empresa of listadoEmpresaSolicitud" (opened)="listarReportes(empresa)">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    nombre Empresa:
+                    nombre Empresa: {{empresa.razon_social}}
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <!-- formulario de sociedades del grupo -->
@@ -12,34 +12,16 @@
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Sociedad</mat-label>
-                        <mat-select formControlName="sociedad" required>
-                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
+                        <mat-select #sociedad formControlName="sociedad" required
+                            (selectionChange)="listarReportes(sociedad.value, empresa.id_empresa)">
+                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
                                 {{ sociedad.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
 
-                <!-- cuadros
 
-           
-                                <mat-table>
-                                    <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                                </mat-table>
-                            </mat-card-content>
-
-                            <hr>
-                            <mat-card-actions class="cartas_footer">
-                                <div class="cartafooter_label">Reporte de central de riesgos<br>*Se obtendrá el reporte en formato .pdf</div>
-                                <div class="footerbutton">
-                                    <button mat-raised-button>Descargar</button>
-                                </div>
-                              <span class="cartasfootertext">Reporte de central de Riesgos<br>
-                                    *Se obtendrá el reporte en formato .pdf</span>
-                                <button mat-raised-button>Descargar</button>
-                            </mat-card-actions>
-                        </mat-card>
-                    </mat-grid-tile>-->
 
                 <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
                     <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
@@ -132,59 +114,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="label">Deuda Laboral:</div>
-
-                                </div>
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_laboral}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="label">Deuda Tributaria:</div>
-
-                                </div>
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="dato">{{
-                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_tributaria}}</div>
-                                </div>
-                            </div>
-                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="label">% Calificación Normal:</div>
-                                </div>
-
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="dato">{{
-                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].calificacion_normal}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="label">Deuda Vencida:</div>
-
-                                </div>
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="dato">{{ reporteRiesgoCliente.reporte_riesgo_cliente[0].deuda_vencida}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="label">Otros reportes negativos:</div>
-                                </div>
-
-                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <div class="dato">{{
-                                        reporteRiesgoCliente.reporte_riesgo_cliente[0].otros_reportes_negativos
-                                        }}
-                                    </div>
-                                </div>
-                            </div>
+                        
+                                  
+                                
+                          
                         </mat-card-content>
                         <mat-card-actions>
                             <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
@@ -287,7 +220,6 @@
                 <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
                     <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
                         <mat-card-header>
-                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
                             <mat-card-title>Detalle de cuentas por cobrar</mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
@@ -356,6 +288,110 @@
                                 </div>
                             </div>
 
+                            <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <div class="dato">
+                                    {{ reporteRiesgoCliente.reporte_riesgo_cliente[0].otros_reportes_negativos }}
+                                </div>
+                            </div>
+
+
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <strong> Reporte de central de Riesgos</strong><br>
+                                <small>* Se obtendrá el reporte en formato pdf</small>
+                            </div>
+                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                <button mat-button class="boton-principal-light">Descargar</button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+               
+
+
+                <div class="objetoCuadro col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
+                        <mat-card-header>
+                            <mat-card-title>Detalle de cuentas por cobrar</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuenta por cobrar:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 13 800 663</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuenta por cobrar(No vencida):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 2 474 212</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuenta por cobrar(vencida):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 1 326 451</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">% Vencido:</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">82%</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (1-15 días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 4 155 321</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (16-30 días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 1 671 810</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (31-60 días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 2 910 723</div>
+                                </div>
+                            </div>
+                            <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="label">Cuentas por cobrar (61 a más días):</div>
+                                </div>
+                                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                    <div class="dato">s/. 2 588 598</div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+
+                <div class="objeto col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
+                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
+                        <mat-card-header>
+
+                            <mat-card-title>Reporte Judicial</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
 
                         </mat-card-content>
                         <mat-card-actions>
@@ -370,30 +406,6 @@
                     </mat-card>
                 </div>
 
-                <div class="objeto col-xs-12 col-s-12 col-m-6 col-l-4 col-xl-4">
-                    <mat-card class="objeto col-xs-11 col-s-11 col-m-11 col-l-11 col-xl-11">
-                        <mat-card-header>
-                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                            <mat-card-title>Reporte Judicial</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-
-
-
-                        </mat-card-content>
-                        <mat-card-actions>
-                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <strong> Reporte Judicial</strong><br>
-                                <small>* Se obtendrá el reporte en formato pdf</small>
-                            </div>
-                            <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                <button mat-button class="boton-principal-light">Descargar</button>
-                            </div>
-                        </mat-card-actions>
-                    </mat-card>
-                </div>
-
-                <!-- expansion panels -->
                 <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                     <mat-accordion>
                         <mat-expansion-panel>
@@ -419,9 +431,11 @@
                         </mat-expansion-panel>
                     </mat-accordion>
                 </div>
+
+
             </form>
         </mat-expansion-panel>
     </mat-accordion>
 
-    
+
 </div>

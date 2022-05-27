@@ -1,3 +1,4 @@
+import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -6,7 +7,9 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import {PlanService} from 'src/app/services/plan.service';
 import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 import { GlobalSettings } from 'src/app/shared/settings';
+import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 
 export interface PeriodicElement {
   name: string;
@@ -51,6 +54,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
 
 
   solicitudData:any;
+  id_solicitud_editar:any;
   listadoTipoLinea:any[]=[{id:1,nombre:"Regular"},{id:2,nombre:"Temporal"}];
   listadoPlanesCredito:any[]=[];
   listadoVigencias:any[]=[{id:1,nombre:"Pico de demanda"},{id:2,nombre:"DV en curso"},{id:1,nombre:"Fecha"}];
@@ -122,9 +126,11 @@ export class DlgNuevoPlanScComponent implements OnInit {
     private documentoValoradoService: DocumentoValoradoService,
     private lineaProductoService: LineaProductoService,
     private tipoMonedaService: TipoMonedaService,
+    private solicitudPlanService: SolicitudPlanService
 
   ) {
-    this.solicitudData = data;
+    this.id_solicitud_editar = data;
+    console.log("PENELOPE-->"+JSON.stringify(this.id_solicitud_editar));
     this.formulary = this.formBuilder.group({
       tipo_linea: [''],
       moneda: [''],
@@ -176,9 +182,7 @@ this.tipoMonedaService.listar().then(data=>{
   ingresarPlan(form:any){
 
   }
-  onNoClick(res:string){
-    this.dialogRef.close(res);
-  }
+
 
   seteoTipoLinea(){
     let valor=this.formulary.get("tipo_linea").value;
@@ -186,4 +190,37 @@ this.tipoMonedaService.listar().then(data=>{
   }
 
   
+  async agregar(form: any) {
+    console.log("solicitud plan-->" + JSON.stringify(form));
+    let solicitud: SolicitudPlan = await this.mapeoData(form)
+     this.solicitudPlanService.crear(solicitud).then(data => {
+      this.onNoClick(data);
+    }) 
+  }
+
+  async mapeoData(form: any) {
+    let solicitud: SolicitudPlan = 
+      {
+        "id": null,
+        "id_solicitud": this.id_solicitud_editar,
+        "id_tipo_linea": form.tipo_linea.id,
+        "id_plan": form.plan_credito.id,
+        "grupo_cliente_codigo_sap": null,
+        "id_cliente_agrupacion": null,
+        "id_empresa": null,
+        "fecha_vigencia": null,
+        "id_tipo_moneda": form.moneda.id,
+        "importe": form.importe,
+        "fecha_inicio": null,
+        "fecha_fin": null,
+        "comentario": form.informacion_adicional,
+        "id_plan_referencia": null,
+        "tipo_calculo": null
+    }
+    return solicitud;
+  }
+
+  onNoClick(res:string){
+    this.dialogRef.close(res);
+  }
 }
