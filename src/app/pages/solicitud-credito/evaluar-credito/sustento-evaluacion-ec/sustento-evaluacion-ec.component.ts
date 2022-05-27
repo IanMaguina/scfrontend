@@ -1,3 +1,5 @@
+import { RiesgoClienteRepresentanteLegal } from './../../../../models/riesgo-cliente-representante-legal.interface';
+import { RiesgoCliente } from './../../../../models/riesgo-cliente.interface';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -47,6 +49,8 @@ export class SustentoEvaluacionEcComponent implements OnInit {
   reporteRiesgoCliente?:ReporteRiesgoCliente;
   reporteMorosidad?:ReporteMorosidad;
   listadoEmpresaSolicitud: Empresa[];
+  listadoRiesgoCliente: RiesgoCliente;
+  listadoRepresentanteLegal: RiesgoClienteRepresentanteLegal[]=[];
   constructor(
     
     private responsive: BreakpointObserver,
@@ -126,11 +130,25 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     });
   }
 
+  async listarReportes() {
+
+    let item = {
+      id_solicitud: this.id_solicitud,
+      sociedad_codigo_sap: this.formulary.get('sociedad').value,
+      id_empresa: this.formulary.get('empresa').value,
+    }
+    await this.listarReporteRiesgos(item);
+    //await this.listarReporteMorosidad(item);
+    /* console.log(`al seleccionar la sociedad -> ${JSON.stringify(event)}`); */
+  }
+
   async listarReporteRiesgos(item: any) {
     console.log(`item reporte : ${JSON.stringify(item)}`);
     await this.reporteSustentoEvaluacionService.listarReporteRiesgos(item).then((data) => {
       console.log("listar reporte:" + JSON.stringify(data));
       this.reporteRiesgoCliente = data.payload;
+      this.listadoRiesgoCliente=data.payload.reporte_riesgo_cliente[0];
+      this.listadoRepresentanteLegal=data.payload.reporte_riesgo_cliente_representante_legal;
     })
   }
   async listarReporteMorosidad(item: any) {
@@ -146,17 +164,6 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     })
   }
 
-  async listarReportes() {
-
-    let item = {
-      id_solicitud: this.id_solicitud,
-      sociedad_codigo_sap: this.formulary.get('sociedad').value,
-      id_empresa: this.formulary.get('empresa').value,
-    }
-    await this.listarReporteRiesgos(item);
-    //await this.listarReporteMorosidad(item);
-    /* console.log(`al seleccionar la sociedad -> ${JSON.stringify(event)}`); */
-  }
   
   filtrarRepresentante(){
     console.log(`Cambio de Representante`);
