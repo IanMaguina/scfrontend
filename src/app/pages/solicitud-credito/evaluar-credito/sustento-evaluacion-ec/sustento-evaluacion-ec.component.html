@@ -4,8 +4,8 @@
         <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
             <mat-form-field appearance="outline">
                 <mat-label>Empresa</mat-label>
-                <mat-select formControlName="empresa" required>
-                    <mat-option *ngFor="let empresa of listadoEmpresaSolicitud" [value]="empresa.id_empresa">
+                <mat-select formControlName="empresa" (selectionChange)="listarReportes()" required>
+                    <mat-option *ngFor="let empresa of listadoEmpresaSolicitud" [value]="empresa">
                         {{ empresa.razon_social }}
                     </mat-option>
                 </mat-select>
@@ -16,6 +16,8 @@
             <mat-form-field appearance="outline">
                 <mat-label>Sociedad</mat-label>
                 <mat-select formControlName="sociedad" (selectionChange)="listarReportes()" required>
+                    <mat-option value="E" selected>
+                        ----Seleccionar Sociedad-----</mat-option>                    
                     <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
                         {{ sociedad.nombre }}
                     </mat-option>
@@ -49,6 +51,9 @@
                                                 <mat-label> Representante Legal </mat-label>
                                                 <mat-select formControlName="representante_legal" required
                                                     (selectionChange)="filtrarRepresentante()">
+                                                <mat-option value="E" selected>
+                                                    {{formulary.get("empresa").value.razon_social}}</mat-option>
+
                                                     <mat-option *ngFor="let rep of listadoRepresentanteLegal"
                                                         [value]="rep">
                                                         {{rep.nombre}}
@@ -69,17 +74,15 @@
                                             'dd/MM/yyyy' }}</div>
                                     </div>
                                 </div>
-                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" >
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="label">Semáforo Actual:</div>
                                         
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="dato">
-                                            {{(listadoRiesgoCliente?"Empresa:"+listadoRiesgoCliente.semaforo_actual:"Empresa: No registra")
-                                            }} <br>
-                                            {{(formulary.get("representante_legal").value?"Representante:"+formulary.get("representante_legal").value.calificacion_normal:"Representante: No registra")}}
-                                        </div>
+                                            {{dataRiesgoCliente.semaforo_actual}}
+                                        </div> 
                                     </div>
                                 </div>
                                 <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -87,19 +90,17 @@
                                         <div class="label">Deuda total SBS:</div>
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{
-                                            (listadoRiesgoCliente?"Empresa:"+listadoRiesgoCliente.deuda_total:"Empresa: No registra")}}
-                                            <br>
-                                            {{(formulary.get("representante_legal").value?"Representante:"+formulary.get("representante_legal").value.deuda_total:"Representante: No registra")}}
+                                        <div class="dato">
+                                            {{dataRiesgoCliente.deuda_total}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="hiddenRrepresentanteLegal">
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="label">Reactiva:</div>
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.reactiva:"")}}
+                                        <div class="dato">{{ dataRiesgoCliente.reactiva}}
                                         </div>
                                     </div>
                                 </div>
@@ -108,45 +109,8 @@
                                         <div class="label">Calificación SBS:</div>
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{
-                                            (listadoRiesgoCliente?listadoRiesgoCliente.calificacion_normal:"")}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="label">Impagos:</div>
-                                    </div>
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.impagos:"")}}
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="label">Protestos:</div>
-                                    </div>
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.protestos:"")}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="label">Deuda Laboral:</div>
-                                    </div>
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.deuda_laboral:"")}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="label">Deuda Tributaria:</div>
-                                    </div>
-                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.deuda_tributaria:"")}}
+                                        <div class="dato">
+                                            {{dataRiesgoCliente.peor_calificacion}}
                                         </div>
                                     </div>
                                 </div>
@@ -155,16 +119,65 @@
                                         <div class="label">% Calificacion Normal:</div>
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.calificacion_normal:"")}}
+                                        <div class="dato">
+                                            {{dataRiesgoCliente.calificacion_normal}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="hiddenRrepresentanteLegal">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Impagos:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{ dataRiesgoCliente.impagos}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="hiddenRrepresentanteLegal">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Protestos:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{ dataRiesgoCliente.protestos}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="hiddenRrepresentanteLegal">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Deuda Laboral:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{dataRiesgoCliente.deuda_laboral}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="hiddenRrepresentanteLegal">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Deuda Tributaria:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">{{dataRiesgoCliente.deuda_tributaria}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="label">Deuda Vencida:</div>
+                                    </div>
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                                        <div class="dato">
+                                            {{dataRiesgoCliente.deuda_vencida}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" *ngIf="hiddenRrepresentanteLegal">
+                                    <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="label">Otros Reportes Negativos:</div>
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                        <div class="dato">{{ (listadoRiesgoCliente?listadoRiesgoCliente.otros_reportes_negativos:"")}}
+                                        <div class="dato">{{dataRiesgoCliente.otros_reportes_negativos}}
                                         </div>
                                     </div>
                                 </div>
@@ -177,8 +190,7 @@
                                     <small>* Se obtendrá el reporte en formato pdf</small>
                                 </div>
                                 <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                                    <a href="listadoRiesgoCliente?listadoRiesgoCliente.adjunto:'nopagefound'"
-                                        target="_blank" mat-raised-button class="boton-principal-light">Descargar</a>
+                                    <button mat-icon-button color="accent" (click)="descargarAnexo(listadoRiesgoCliente.adjunto)"></button>
                                 </div>
                             </mat-card-actions>
                         </mat-card>
