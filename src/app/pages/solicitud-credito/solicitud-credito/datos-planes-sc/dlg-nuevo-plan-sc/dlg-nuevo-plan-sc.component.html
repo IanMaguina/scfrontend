@@ -3,11 +3,11 @@
     <div class="titledialog color-title">Nuevo Plan de Crédito</div>
     <br>
     <div class="body-dialog">
-        <div class="contenidoForm ">
+        <div class="contenidoForm">
             <br>
             <form [formGroup]="formulary" (ngSubmit)="ingresarPlan(formulary.value)">
 
-                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Tipo Linea</mat-label>
                         <mat-select formControlName="tipo_linea" (selectionChange)="seteoTipoLinea()" required>
@@ -18,7 +18,7 @@
                     </mat-form-field>
                 </div>
 
-                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Moneda</mat-label>
                         <mat-select formControlName="moneda" required>
@@ -29,7 +29,7 @@
                     </mat-form-field>
                 </div>
 
-                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Plan de Crédito</mat-label>
                         <mat-select formControlName="plan_credito" required>
@@ -39,12 +39,27 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="objeto col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
-                    * Selecciona solo si se hará un reemplazo de plan
+
+                <div class="objetoNuevoPlan">
+                    <span>* Selecciona solo si se hará un reemplazo de plan</span>
                     <mat-checkbox formControlName="reemplazo" [(ngModel)]="checkReemplazoPlan">Reemplazo de planes
                     </mat-checkbox>
                 </div>
-                <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-12">
+
+
+                <div class="objetoNuevoPlan">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Empresa</mat-label>
+                        <mat-select formControlName="empresa" required>
+                            <mat-option *ngFor="let item of listadoPlanesCredito" [value]="item.tipo_plan_credito">
+                                {{ item.tipo_plan_credito.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Importe</mat-label>
                         <input matInput placeholder="Ingrese importe" formControlName="importe" required>
@@ -57,7 +72,8 @@
                     </mat-form-field>
                 </div>
 
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
+
+                <div class="objetoNuevoPlan"
                     *ngIf="formulary.get('tipo_linea').value.id===LINEA_TEMPORAL">
                     <mat-form-field appearance="outline">
                         <mat-label>Vigencia</mat-label>
@@ -68,10 +84,10 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Línea de Productos</mat-label>
-                        <mat-select formControlName="linea_producto" required>
+                        <mat-select formControlName="linea_producto" multiple>
                             <mat-option *ngFor="let linea_producto of listadoLineaProducto" [value]="linea_producto">
                                 {{ linea_producto.nombre }}
                             </mat-option>
@@ -79,19 +95,34 @@
                     </mat-form-field>
                 </div>
 
-
-
-
-
-
-
-
-
                 
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+
+                <table mat-table [dataSource]="dataSources" class="tableforms mat-elevation-z8">
+
+                    <ng-container matColumnDef="position">
+                      <th mat-header-cell *matHeaderCellDef> Linea de Producto </th>
+                      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> Condición de Pago </th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnas;"></tr>
+                  </table>
+                
+
+
+
+
+
+
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Documentos Valorados</mat-label>
-                        <mat-select formControlName="documento_valorado" required>
+                        <mat-select formControlName="documento_valorado" multiple>
                             <mat-option *ngFor="let documento_valorado of listadoDocumentosValorados"
                                 [value]="documento_valorado">
                                 {{ documento_valorado.nombre }}
@@ -99,7 +130,32 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+
+
+
+                <table mat-table [dataSource]="dataSource" class="tableforms mat-elevation-z8">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                  
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                      <th mat-header-cell *matHeaderCellDef> Documento Valorado </th>
+                      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> Importe </th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+
+
+                <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Información Adicional</mat-label>
                         <input matInput placeholder="Ingrese Información adicional"
@@ -109,12 +165,11 @@
                                 {{formErrors.informacion_adicional}}
                             </mat-error>
                         </mat-hint>
-
                     </mat-form-field>
                 </div>
 
 
-                <div class="objetoBoton col-xs-12 col-s-12 col-m-4 col-l-4 col-xl-6">
+                <div class="objetoBoton">
 
                     <button mat-raised-button class="boton-secundario_popup"
                         (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>

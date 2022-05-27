@@ -237,7 +237,7 @@ body {
 
 .mat-header-cell {
     background-color: #05C65D !important;
-    color: #000000 !important;
+    color: #ffffff !important;
 }
 
 .header {
@@ -336,8 +336,15 @@ body {
 
 .content-form-dialog {
     padding-top: 5px;
-    overflow-y: auto;
     height: 70vh;
+    overflow-y: auto;
+}
+
+.tableforms{
+    margin-left: 8px;
+    margin-top: 8px;
+    width:70% !important;
+    min-width: 20% !important;
 }
 
 .botonera {
@@ -399,6 +406,12 @@ body {
     display: block;
     height: 68vh;
 } */
+
+.objetoNuevoPlan{
+    display:flex;
+    padding-left: 10px;
+    padding-top: 8px;
+}
 
 .center {
     text-align: center;
