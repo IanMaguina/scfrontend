@@ -11,6 +11,32 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 
+export interface PeriodicElement {
+  name: string;
+  position: number;
+
+}
+
+export interface LineadeProductos {
+  name: string;
+  position: number;
+
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen'},
+  {position: 2, name: 'Helium'},
+];
+
+const ELEMENT_DATAS: LineadeProductos[] = [
+  {position: 1, name: 'Hydrogen'},
+  {position: 2, name: 'Helium'},
+];
+
+
+
+
+
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
   templateUrl: './dlg-nuevo-plan-sc.component.html',
@@ -18,6 +44,16 @@ import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
   ]
 })
 export class DlgNuevoPlanScComponent implements OnInit {
+
+  displayedColumns: string[] = ['position', 'name'];
+  dataSource = ELEMENT_DATA;
+
+  displayedColumnas: string[] = ['position', 'name'];
+  dataSources = ELEMENT_DATAS;
+
+
+
+  solicitudData:any;
   id_solicitud_editar:any;
   listadoTipoLinea:any[]=[{id:1,nombre:"Regular"},{id:2,nombre:"Temporal"}];
   listadoPlanesCredito:any[]=[];
@@ -138,7 +174,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
 
   listarMoneda(){
 this.tipoMonedaService.listar().then(data=>{
-  this.listadoMoneda =data.payload;
+  this.listadoMoneda = data.payload;
 })
   }
 
@@ -153,6 +189,7 @@ this.tipoMonedaService.listar().then(data=>{
     console.log(JSON.stringify(valor));
   }
 
+  
   async agregar(form: any) {
     console.log("solicitud plan-->" + JSON.stringify(form));
     let solicitud: SolicitudPlan = await this.mapeoData(form)
