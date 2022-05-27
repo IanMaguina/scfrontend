@@ -29,7 +29,7 @@
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            nombre Empresa
+                            Reportes de la Empresa
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
@@ -72,12 +72,14 @@
                                 <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="label">Semáforo Actual:</div>
-                                        {{formulary.get("representante_legal").value.semaforo_actual}}
+                                        
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="dato">
-                                            {{(listadoRiesgoCliente?listadoRiesgoCliente.semaforo_actual:"")
-                                            }}</div>
+                                            {{(listadoRiesgoCliente?"Empresa:"+listadoRiesgoCliente.semaforo_actual:"Empresa: No registra")
+                                            }} <br>
+                                            {{(formulary.get("representante_legal").value?"Representante:"+formulary.get("representante_legal").value.calificacion_normal:"Representante: No registra")}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
@@ -86,7 +88,9 @@
                                     </div>
                                     <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
                                         <div class="dato">{{
-                                            (listadoRiesgoCliente?listadoRiesgoCliente.deuda_total:"")}}
+                                            (listadoRiesgoCliente?"Empresa:"+listadoRiesgoCliente.deuda_total:"Empresa: No registra")}}
+                                            <br>
+                                            {{(formulary.get("representante_legal").value?"Representante:"+formulary.get("representante_legal").value.deuda_total:"Representante: No registra")}}
                                         </div>
                                     </div>
                                 </div>
