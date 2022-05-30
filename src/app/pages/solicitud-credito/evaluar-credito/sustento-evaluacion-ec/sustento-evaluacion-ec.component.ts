@@ -156,4 +156,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
   ngAfterContentChecked() {
     this.cdref.detectChanges();
   }
+
+  abrirEnlace(url: string){ window.open(url, "_blank"); }
+
 }
