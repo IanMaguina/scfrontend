@@ -124,13 +124,10 @@
                 </div>
 
 
-
-
-
                 <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Documentos Valorados</mat-label>
-                        <mat-select formControlName="documento_valorado" multiple>
+                        <mat-select formControlName="documento_valorado" multiple (selectionChange)="llenarDocumentoValoradoGrilla()">
                             <mat-option *ngFor="let documento_valorado of listadoDocumentosValorados"
                                 [value]="documento_valorado">
                                 {{ documento_valorado.nombre }}
@@ -140,28 +137,32 @@
                 </div>
 
 
-
-                <table mat-table [dataSource]="dataSource" class="tableforms mat-elevation-z8">
+                <div formArrayName="documentoValoradoArray">
+                <table mat-table [dataSource]="documentoValoradoArray.controls" class="tableforms mat-elevation-z8">
 
                     <!--- Note that these columns can be defined in any order.
                           The actual rendered columns are set as a property on the row definition" -->
 
                     <!-- Position Column -->
-                    <ng-container matColumnDef="position">
+                    <ng-container matColumnDef="nombre">
                         <th mat-header-cell *matHeaderCellDef> Documento Valorado </th>
-                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.get('nombre').value}} </td>
                     </ng-container>
 
                     <!-- Name Column -->
-                    <ng-container matColumnDef="name">
+                    <ng-container matColumnDef="importe">
                         <th mat-header-cell *matHeaderCellDef> Importe </th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        <td mat-cell *matCellDef="let element" [formGroup]="element">
+                            <mat-form-field appearance="outline">
+                                <input matInput formControlName="importe">
+                            </mat-form-field>
+                        </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumentoValorado"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsDocumentoValorado;"></tr>
                 </table>
-
+                </div>
 
                 <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">

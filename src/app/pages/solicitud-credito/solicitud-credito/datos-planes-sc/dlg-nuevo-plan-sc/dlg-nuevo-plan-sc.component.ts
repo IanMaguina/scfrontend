@@ -1,39 +1,16 @@
 import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-plan-condicion-pago.dto';
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import { PlanService } from 'src/app/services/plan.service';
-import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
-import { SolicitudService } from 'src/app/services/solicitud.service';
+import { TipoMonedaService } from 'src/app/services/tipo-moneda.service'; 
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-
-}
-
-export interface LineadeProductos {
-  name: string;
-  position: number;
-
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen' },
-  { position: 2, name: 'Helium' },
-];
-
-const ELEMENT_DATAS: LineadeProductos[] = [
-  { position: 1, name: 'Hydrogen' },
-  { position: 2, name: 'Helium' },
-];
-
+import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
 
 
 
@@ -46,12 +23,10 @@ const ELEMENT_DATAS: LineadeProductos[] = [
 })
 export class DlgNuevoPlanScComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name'];
-  dataSource = ELEMENT_DATA;
+  displayedColumnsDocumentoValorado: string[] = ['nombre', 'importe'];
+
 
   displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre','valor_nuevo'];
-  dataSources = ELEMENT_DATAS;
-  dataLineaProductos = ELEMENT_DATAS;
 
 
 
@@ -66,6 +41,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   listadoCondicionesPago: any[] = [];
 
   mostrarListadoLineaProductoGrilla: any[] = [];
+  mostrarListadoDocumentoValoradoGrilla: any[] = [];
 
   listadoMoneda: any[] = [];
 
@@ -147,6 +123,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
       vigencia: [''],
       linea_producto: [''],
       documento_valorado: [''],
+      documentoValoradoArray: this.formBuilder.array([]),
       informacion_adicional: [''],
     })
     this.formulary.valueChanges.subscribe(() => {
@@ -158,8 +135,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
     this.listarPlan();
     this.listarDocumentosValorados();
     this.listarLineaProductos();
-    this.listarMoneda();
-//    this.llenarLineaProductoGrilla();
+    this.listarMoneda(); 
   }
 
   listarPlan() {
@@ -206,11 +182,43 @@ export class DlgNuevoPlanScComponent implements OnInit {
   }
 
   //fin
+/* comienza Doc valorado */
   listarDocumentosValorados() {
     this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoDocumentosValorados = data.payload;
     })
   }
+
+  async mapeoDocumentoValorado(data: SolicitudPlanDocumentoValoradoDTO) {
+    let solicitudPlanDocumentovalorado: SolicitudPlanDocumentoValoradoDTO = {
+      id: data.id,
+      id_solicitud_plan: data.id_solicitud_plan,
+      nombre: data.nombre,
+      id_tipo_documento_valorado: data.id_tipo_documento_valorado,
+      importe: data.importe,
+      porcentaje: data.porcentaje
+
+    }
+    return solicitudPlanDocumentovalorado;
+  }
+
+  llenarDocumentoValoradoGrilla() {
+    let documentoValorado = this.formulary.get("documento_valorado").value;
+    console.log("cbo DV data -->" + JSON.stringify(documentoValorado));
+    this.mostrarListadoDocumentoValoradoGrilla = documentoValorado;
+    this.formulary.setControl('documentoValoradoArray', this.mapearDocumentoValorado(documentoValorado));
+  }
+
+  mapearDocumentoValorado(lista: SolicitudPlanDocumentoValoradoDTO[]): FormArray {
+    const valor = lista.map((SolicitudPlanDocumentoValoradoDTO.asFormGroup));
+    return new FormArray(valor);
+  }
+
+  get documentoValoradoArray(): FormArray {
+    return this.formulary.get('documentoValoradoArray') as FormArray;
+  }
+/* D valorados */
+  
 
 
   listarMoneda() {
