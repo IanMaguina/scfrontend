@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pages',
@@ -10,10 +10,20 @@ export class PagesComponent {
 
   title = 'scfrontend';
   funcion:boolean = true;
+
   hideSidebar() {
     this.funcion = true;
   }
   showSidebar() {
     this.funcion = false;
+  }
+
+  @Output() sidenavLayoutToggle = new EventEmitter<boolean>();
+
+  openMenu = true;
+  
+  clickMenu() {
+    this.openMenu = !this.openMenu;
+    this.sidenavLayoutToggle.emit(this.openMenu);
   }
 }

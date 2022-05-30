@@ -1,37 +1,12 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { Observer } from 'rxjs';
 import { MenuNode } from 'src/app/models/menu.interface';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { MatSidenav } from '@angular/material/sidenav';
-
-
-@Injectable()
-export class SideNavService {
-  constructor() { }
-  private sidenav: MatSidenav;
-
-  public setSidenav(sidenav: MatSidenav) {
-    this.sidenav = sidenav;
-  }
-
-  public open() {
-    this.sidenav.opened = true;
-    return this.sidenav.open();
-  }
-
-  public close() {
-    console.log('close')
-    return this.sidenav.close();
-  }
-
-  public toggle() {
-    return this.sidenav.toggle();
-  }
-}
-
+import { SideNavService } from './side-nav.service';
 
 interface ExampleFlatNode {
   expandable?: boolean;
@@ -65,17 +40,12 @@ export class SidebarComponent implements OnInit {
     };
   };
 
-  @Output() sidenavLayoutToggle = new EventEmitter<boolean>();
-
   lineadecredito:boolean =false;
   opened:boolean=true;
   isExpanded:boolean=false;
   
-  openMenu = false;
-  clickMenu() {
-    this.openMenu = !this.openMenu;
-    this.sidenavLayoutToggle.emit(this.openMenu);
-  }
+  @ViewChild('sidenav') public sidenav: MatSidenav;
+  @Input() sidenavLayout:any;
   
   
   // menuItems: MenuNode[];
@@ -101,6 +71,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private router: Router,
+    private sideNavService: SideNavService,
   ) {
     this.dataSource.data = this.sidebarService.menu;
 
@@ -112,6 +83,8 @@ export class SidebarComponent implements OnInit {
   this.treeControl.collapseAll();
 
    this.collapse ? this.treeControl.collapseAll() : console.log("nothing to do");
+
+   this.sideNavService.setSidenav(this.sidenav);
   }
   
   

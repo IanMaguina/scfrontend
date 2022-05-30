@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SideNavService } from '../sidebar/sidebar.component';
+import { SideNavService } from '../sidebar/side-nav.service';
 
 @Component({
   selector: 'app-header',

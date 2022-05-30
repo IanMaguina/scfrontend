@@ -20,7 +20,7 @@
 </mat-tree>-->
 
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened="true" (mouseenter)="isExpanded = true" (mouseleave)="isExpanded = false"
+  <mat-sidenav #sidenav mode="side" role="navigation" [opened]="sidenavLayout" (mouseenter)="isExpanded = true" (mouseleave)="isExpanded = false"
     (mouseleave)=" lineadecredito=false">
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="with-icon padded">
@@ -48,7 +48,7 @@
 
     <mat-nav-list>
   
-      <mat-list-item (click)="lineadecredito=!lineadecredito" mat-button>
+      <mat-list-item (click)="lineadecredito=!lineadecredito" mat-button (click)="sidenav.toggle()">
 
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
           <g id="Grupo_950" data-name="Grupo 950" transform="translate(20519.999 14055)">
