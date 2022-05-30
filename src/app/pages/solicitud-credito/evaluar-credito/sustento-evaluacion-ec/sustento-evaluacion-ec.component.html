@@ -31,7 +31,7 @@
 
 
             <mat-accordion>
-                <mat-expansion-panel>
+                <mat-expansion-panel [expanded]="true">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             Reportes de la Empresa
@@ -360,12 +360,8 @@
                                 <mat-card-header class="headercards">
                                     <mat-card-title class="textheadercards">Reporte Judicial</mat-card-title>
                                 </mat-card-header>
-                                <mat-card-content>
-
-                                </mat-card-content>
 
                                 <mat-card-actions class="actionscard">
-                                    <mat-divider></mat-divider>
                                     <div>
                                         <strong> Reporte de Poder Judicial</strong><br>
                                         <small>* Se obtendrá el reporte en formato pdf</small>
@@ -379,7 +375,6 @@
                             </mat-card>
                         </div>
                     </div>
-
 
                     <mat-accordion>
                         <mat-expansion-panel>
@@ -405,10 +400,50 @@
                         </mat-expansion-panel>
                     </mat-accordion>
 
-
-
-
                 </mat-expansion-panel>
+
+                
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            
+                                Flujo de Caja
+                            
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            
+                            Solicitud de Línea de Crédito
+                            
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                </mat-expansion-panel>
+                
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            
+                            Propuesta de Créditos y Cobranzas
+                            
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            
+                            Información Adicional
+                            
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                </mat-expansion-panel>
+       
+
             </mat-accordion>
 
         </div>

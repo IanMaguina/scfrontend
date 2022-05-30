@@ -1337,9 +1337,11 @@ body::-webkit-scrollbar-thumb {
 
 .expansioncards {
     display: grid;
+    padding-top: 25px;
     gap: 5rem;
     grid-template-columns: repeat(auto-fill, minmax(220px, 480px));
     justify-content: center;
+    padding-bottom: 35px;
 }
 
 .headercards {
