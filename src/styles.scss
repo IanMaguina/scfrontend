@@ -1,8 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    font-family: Poppins, Arial, sans-serif;
+    font-family: Poppins-Regular, Arial, sans-serif;
     margin: 0;
-  }
+}
+
+.mat-sidenav-container{
+  height:100%;
+ }
+ .mat-sidenav-content{
+     padding-left: 20px;
+     padding-right: 20px;
+ }
 
 /* colores letras*/
 
@@ -193,14 +201,14 @@ body {
     color: #FFFFFF;
 }
 
-.boton-principal_popup{
+.boton-principal_popup {
 
     background-color: #05C65D;
     color: #FFFFFF;
     margin-right: 12px !important;
 }
 
-.boton-secundario_popup{
+.boton-secundario_popup {
 
     background-color: #707070;
     color: #FFFFFF;
@@ -209,7 +217,7 @@ body {
 
 .boton-secundario {
     background-color: #707070;
-    color: #FFFFFF ;
+    color: #FFFFFF;
 }
 
 .card-login {
@@ -220,15 +228,16 @@ body {
     text-align: center;
     top: 25%;
 }
+
 .headerLogin {
     padding-top: 30px;
     text-align: center;
     align-content: center;
     flex-direction: column !important;
 
-} 
+}
 
-.background{
+.background {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -305,6 +314,7 @@ body {
     font-size: 20pt;
     color: #B4B4B4;
 }
+
 .titledocumento {
     margin-top: 20px;
     font-size: 16pt;
@@ -340,16 +350,16 @@ body {
     overflow-y: auto;
 }
 
-.tableforms{
+.tableforms {
     margin-left: 8px;
     margin-top: 8px;
-    width:70% !important;
+    width: 70% !important;
     min-width: 20% !important;
 }
 
 .botonera {
     padding-top: 10px;
-    
+
 }
 
 .botonera-superior {
@@ -390,11 +400,12 @@ body {
     overflow-x: auto;
     max-height: 60vh;
 }
-.mat-stepper-horizontal{
+
+.mat-stepper-horizontal {
     background-color: #ffffff00;
 }
 
-.acordeon{
+.acordeon {
     padding-top: 20px;
     width: 95%;
 }
@@ -407,8 +418,8 @@ body {
     height: 68vh;
 } */
 
-.objetoNuevoPlan{
-    display:flex;
+.objetoNuevoPlan {
+    display: flex;
     padding-left: 10px;
     padding-top: 8px;
 }
@@ -421,16 +432,18 @@ body {
     float: left;
     height: auto;
 }
+
 .objeto_right {
     display: flex;
     justify-content: flex-end;
 
 }
 
-.objetoCuadro{
+.objetoCuadro {
     float: left;
     height: 650px;
 }
+
 .formElementoPlano {
     display: flex;
     flex-flow: row wrap;
@@ -479,7 +492,7 @@ body {
 
 }
 
-.input_forms{
+.input_forms {
     width: 200px !important;
 }
 
@@ -536,21 +549,21 @@ th.mat-header-cell {
     color: rgb(255, 255, 255);
 }
 
-.mat-form-field{
+.mat-form-field {
     width: 250px;
     padding-right: 10px;
     display: flex;
 }
 
-.mat-form-field-appearance-fill .mat-form-field-flex{
+.mat-form-field-appearance-fill .mat-form-field-flex {
     background-color: #fff;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
-    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
-    0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12),
+        0px 3px 3px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
     border-radius: 0px 0px 0px 0px !important;
 }
 
-.mat-form-field .mat-focused .mat-form-field-ripple{
+.mat-form-field .mat-focused .mat-form-field-ripple {
     background-color: #04c55b00 !important;
     display: flex !important;
 
@@ -558,29 +571,30 @@ th.mat-header-cell {
 
 
 
-.boton-buscar{
+.boton-buscar {
     background-color: #fff !important;
     border-radius: 0px !important;
     height: 49px !important;
     width: 49px !important;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 
-    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 
-    0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.12),
+        0px 3px 3px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
-.formInput{
- padding-right:25px;  
- padding-top: 15px; 
+.formInput {
+    padding-right: 25px;
+    padding-top: 15px;
 }
 
-.mat-form-field-wrapper{
+.mat-form-field-wrapper {
     padding-bottom: 0px;
 }
-.mat-form-field-underline{
+
+.mat-form-field-underline {
     display: none;
 }
 
-.formInputo{
+.formInputo {
     padding-right: 25px;
 }
 
@@ -635,24 +649,24 @@ th.mat-header-cell {
     background-color: #05C65D;
 }
 
-.seleccionclientes{
+.seleccionclientes {
     display: flex;
     position: relative;
     margin-top: 10px !important;
 }
 
-.mat-radio-label{
+.mat-radio-label {
     padding-right: 15px;
 }
 
-.buscar{
+.buscar {
     display: flex;
     position: relative;
     align-items: center !important;
     justify-content: flex-start;
     flex-wrap: wrap;
     padding-top: 15px;
-  
+
 }
 
 /* cdk dragDrop */
@@ -760,33 +774,40 @@ body::-webkit-scrollbar-thumb {
     Color: #FFF !important;
     border-radius: 10px !important;
 }
-.mat-expansion-panel-header{
+
+.mat-expansion-panel-header {
     background-color: #707070 !important;
     border-radius: 10px !important;
     margin-bottom: 8px;
 }
-.mat-expansion-panel-header-title{
+
+.mat-expansion-panel-header-title {
     color: #FFF;
 }
-.mat-expansion-panel-header-description, .mat-expansion-indicator::after{
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
     color: #FFF !important;
-    
+
 }
-.mat-expansion-panel{
+
+.mat-expansion-panel {
     background-color: #ffffff00;
     box-shadow: 0px 0px 0px 0px #ffffff00, 0px 0px 0px 0px #ffffff00, 0px 0px 0px 0px #ffffff00 !important;
     margin-bottom: 25px;
 }
-.divisor{
+
+.divisor {
     margin-top: 20px !important;
 }
 
 /*Adjuntos y Plantillas*/
 
-.Agregar{
- font-size: 18px !important;
+.Agregar {
+    font-size: 18px !important;
 }
-.header_adjuntos{
+
+.header_adjuntos {
     display: flex !important;
     justify-content: left;
     border-radius: 0px 0px 0px 0px !important;
@@ -794,15 +815,15 @@ body::-webkit-scrollbar-thumb {
     max-width: 767px;
 }
 
-.adjuntos_text{
+.adjuntos_text {
     padding-right: 25px;
 }
 
-.header_seleccionar{
+.header_seleccionar {
     padding-right: 25px;
 }
 
-.boton-adjuntos{
+.boton-adjuntos {
     margin-right: 25px !important;
     background-color: #707070;
     color: #FFFFFF;
@@ -813,28 +834,29 @@ body::-webkit-scrollbar-thumb {
     padding-right: 20px;
     vertical-align: top;
 }
-.descripcion_adjuntos{
+
+.descripcion_adjuntos {
     padding-bottom: 20px !important;
 }
 
-.descripcion_1{
+.descripcion_1 {
     font-size: 15px;
     padding-right: 44px;
 }
 
-.bloquedescripcion{
+.bloquedescripcion {
     width: 500px;
     height: 70px;
 }
 
 
 
-.subheader_adjuntos{
+.subheader_adjuntos {
     border-radius: 0px 0px 0px 0px !important;
     max-width: 767px;
 }
 
-.zona_de_adjuntos{
+.zona_de_adjuntos {
     margin-left: 20px;
     border-radius: 0px 0px 0px 0px !important;
     max-width: 747px;
@@ -842,24 +864,24 @@ body::-webkit-scrollbar-thumb {
 
 .mat-tab-label-active {
     width: 300px !important;
-    background-color: #05C65D!important;
+    background-color: #05C65D !important;
     border-radius: 7px 7px 0px 0px;
 }
 
-.mat-tab-group{
+.mat-tab-group {
     padding-top: 20px;
 }
 
-.mat-tab-label{
+.mat-tab-label {
     width: 250px;
     background-color: #959595;
     border-radius: 10px 10px 0px 0px;
-    color:#fff;
+    color: #fff;
     height: 35px !important;
     font-size: 15px;
 }
 
-.texto{
+.texto {
     display: flex;
 }
 
@@ -867,25 +889,25 @@ body::-webkit-scrollbar-thumb {
     background-color: aqua;
     height: 200px;
     width: 500px;
- }
- 
- .hideDiv {
+}
+
+.hideDiv {
     display: none;
- }
+}
 
 
 /* Evaluador */
 
-.cartas{
+.cartas {
     width: 450px;
     max-height: 980px;
     padding-left: 0px !important;
     padding-right: 0px !important;
     padding-top: 0px !important;
     padding-bottom: 0px !important;
-  }
+}
 
-.cartas_header{
+.cartas_header {
     padding-left: 16px;
     padding-top: 14px;
     padding-bottom: 8px;
@@ -893,14 +915,14 @@ body::-webkit-scrollbar-thumb {
     color: #fff;
 }
 
-.cartas_contenido{
+.cartas_contenido {
     padding-left: 16px;
     padding-top: 16px;
     padding-right: 16px;
     padding-bottom: 16px;
 }
 
-.cartas_footer{
+.cartas_footer {
     padding-left: 16px !important;
     padding-top: 16px !important;
     padding-right: 16px !important;
@@ -910,35 +932,35 @@ body::-webkit-scrollbar-thumb {
 
 .cartas_footer {
     display: table;
-  }
-  
-  .cartafooter_label {
+}
+
+.cartafooter_label {
     display: table-cell;
     font-size: 14px;
     margin-left: 8px;
     min-width: 120px;
     vertical-align: middle;
-  }
-  
-  .footerbutton {
+}
+
+.footerbutton {
     display: table-cell;
     vertical-align: middle;
     align-items: right !important;
-    
-  }
 
-.cartasfoottertext{
+}
+
+.cartasfoottertext {
     display: flex !important;
 }
 
-.tabladecarta{
+.tabladecarta {
     box-shadow:
-    0px 0px 0px 0px rgba(0, 0, 0, 0),
-    0px 0px 0px 0px rgba(0, 0, 0, 0),
-    0px 0px 0px 0px rgba(0, 0, 0, 0);
+        0px 0px 0px 0px rgba(0, 0, 0, 0),
+        0px 0px 0px 0px rgba(0, 0, 0, 0),
+        0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
-.tabladecarta .mat-row{
+.tabladecarta .mat-row {
     min-height: 48px;
 }
 
@@ -952,36 +974,47 @@ body::-webkit-scrollbar-thumb {
     .col-xs-1 {
         width: 8.33%;
     }
+
     .col-xs-2 {
         width: 16.66%;
     }
+
     .col-xs-3 {
         width: 25%;
     }
+
     .col-xs-4 {
         width: 33.33%;
     }
+
     .col-xs-5 {
         width: 41.66%;
     }
+
     .col-xs-6 {
         width: 50%;
     }
+
     .col-xs-7 {
         width: 58.33%;
     }
+
     .col-xs-8 {
         width: 66.66%;
     }
+
     .col-xs-9 {
         width: 75%;
     }
+
     .col-xs-10 {
         width: 83.33%;
     }
+
     .col-xs-11 {
         width: 91.66%;
     }
+
     .col-xs-12 {
         width: 100%;
     }
@@ -991,40 +1024,52 @@ body::-webkit-scrollbar-thumb {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 
 @media only screen and (min-width: 600px) {
+
     /* For tablets: */
     .col-s-1 {
         width: 8.33%;
     }
+
     .col-s-2 {
         width: 16.66%;
     }
+
     .col-s-3 {
         width: 25%;
     }
+
     .col-s-4 {
         width: 33.33%;
     }
+
     .col-s-5 {
         width: 41.66%;
     }
+
     .col-s-6 {
         width: 50%;
     }
+
     .col-s-7 {
         width: 58.33%;
     }
+
     .col-s-8 {
         width: 66.66%;
     }
+
     .col-s-9 {
         width: 75%;
     }
+
     .col-s-10 {
         width: 83.33%;
     }
+
     .col-s-11 {
         width: 91.66%;
     }
+
     .col-s-12 {
         width: 100%;
     }
@@ -1037,36 +1082,47 @@ body::-webkit-scrollbar-thumb {
     .col-m-1 {
         width: 8.33%;
     }
+
     .col-m-2 {
         width: 16.66%;
     }
+
     .col-m-3 {
         width: 25%;
     }
+
     .col-m-4 {
         width: 33.33%;
     }
+
     .col-m-5 {
         width: 41.66%;
     }
+
     .col-m-6 {
         width: 50%;
     }
+
     .col-m-7 {
         width: 58.33%;
     }
+
     .col-m-8 {
         width: 66.66%;
     }
+
     .col-m-9 {
         width: 75%;
     }
+
     .col-m-10 {
         width: 83.33%;
     }
+
     .col-m-11 {
         width: 91.66%;
     }
+
     .col-m-12 {
         width: 100%;
     }
@@ -1076,40 +1132,52 @@ body::-webkit-scrollbar-thumb {
 /* Large devices (laptops/desktops, 992px and up) */
 
 @media only screen and (min-width: 992px) {
+
     /* For desktop: */
     .col-l-1 {
         width: 8.33% !important;
     }
+
     .col-l-2 {
         width: 16.66%;
     }
+
     .col-l-3 {
         width: 25%;
     }
+
     .col-l-4 {
         width: 33.33%;
     }
+
     .col-l-5 {
         width: 41.66%;
     }
+
     .col-l-6 {
         width: 50%;
     }
+
     .col-l-7 {
         width: 58.33%;
     }
+
     .col-l-8 {
         width: 66.66%;
     }
+
     .col-l-9 {
         width: 75%;
     }
+
     .col-l-10 {
         width: 83.33%;
     }
+
     .col-l-11 {
         width: 91.66% !important;
     }
+
     .col-l-12 {
         width: 100%;
     }
@@ -1119,40 +1187,52 @@ body::-webkit-scrollbar-thumb {
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 
 @media only screen and (min-width: 1200px) {
+
     /* For wide desktop: */
     .col-xl-1 {
         width: 8.33%;
     }
+
     .col-xl-2 {
         width: 16.66%;
     }
+
     .col-xl-3 {
         width: 25%;
     }
+
     .col-xl-4 {
         width: 33.33%;
     }
+
     .col-xl-5 {
         width: 41.66%;
     }
+
     .col-xl-6 {
         width: 50%;
     }
+
     .col-xl-7 {
         width: 58.33%;
     }
+
     .col-xl-8 {
         width: 66.66%;
     }
+
     .col-xl-9 {
         width: 75%;
     }
+
     .col-xl-10 {
         width: 83.33%;
     }
+
     .col-xl-11 {
         width: 91.66%;
     }
+
     .col-xl-12 {
         width: 100%;
     }
@@ -1163,78 +1243,189 @@ body::-webkit-scrollbar-thumb {
 
 @media (max-width: 768px) {
     .mat-table[matTableResponsive] {
-      .mat-header-row {
-        display: flex;
-        flex-wrap: wrap;
-        height: auto;
-        position: sticky;
-        top: 0;
-        z-index: 2;
-  
-        th.mat-header-cell {
-          display: flex;
-          flex: 1;
-          align-items: center;
-          padding: 1rem 0.5rem;
-          justify-content: space-around;
-  
-          & > .mat-sort-header-container {
-            padding-left: 15px; // padding is used to center the header table cells, due to the width of the sort icon
-          }
-  
-          &:not([mat-sort-header]),
-          &.mat-sort-header-disabled,
-          &.mat-column-actions {
-            display: none;
-          }
+        .mat-header-row {
+            display: flex;
+            flex-wrap: wrap;
+            height: auto;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+
+            th.mat-header-cell {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                padding: 1rem 0.5rem;
+                justify-content: space-around;
+
+                &>.mat-sort-header-container {
+                    padding-left: 15px; // padding is used to center the header table cells, due to the width of the sort icon
+                }
+
+                &:not([mat-sort-header]),
+                &.mat-sort-header-disabled,
+                &.mat-column-actions {
+                    display: none;
+                }
+            }
         }
-      }
-  
-      .mat-row {
-        height: auto;
-  
-        td.mat-cell:not(.mat-column-actions) {
-          display: grid;
-          grid-template-columns: 50% 50%;
-          padding: 0.5rem;
-          text-align: right;
-          word-break: break-word;
-  
-          & > * {
-            grid-column: 2;
-          }
-  
-          &:before {
-            content: attr(data-column-name);
-            text-align: left;
-          }
+
+        .mat-row {
+            height: auto;
+
+            td.mat-cell:not(.mat-column-actions) {
+                display: grid;
+                grid-template-columns: 50% 50%;
+                padding: 0.5rem;
+                text-align: right;
+                word-break: break-word;
+
+                &>* {
+                    grid-column: 2;
+                }
+
+                &:before {
+                    content: attr(data-column-name);
+                    text-align: left;
+                }
+            }
+
+            td.mat-column-actions {
+                display: flex;
+                justify-content: center;
+                padding: 0 0.5rem;
+
+                &>button {
+                    margin: 0.5rem 0;
+                }
+            }
+
+            &:last-of-type td:last-of-type {
+                border: none;
+            }
+
+            &:not(:last-of-type) td:last-of-type {
+                border-bottom: 0.5rem solid #fafafa;
+            }
         }
-  
-        td.mat-column-actions {
-          display: flex;
-          justify-content: center;
-          padding: 0 0.5rem;
-  
-          & > button {
-            margin: 0.5rem 0;
-          }
-        }
-  
-        &:last-of-type td:last-of-type {
-          border: none;
-        }
-  
-        &:not(:last-of-type) td:last-of-type {
-          border-bottom: 0.5rem solid #fafafa;
-        }
-      }
     }
-  
+
     .mat-card,
     .mat-expansion-panel {
-      .mat-table[matTableResponsive] {
-        border: 0.5rem solid #fafafa;
-      }
+        .mat-table[matTableResponsive] {
+            border: 0.5rem solid #fafafa;
+        }
     }
-  }
-  
+}
+
+/* Sustento de Evaluación */
+
+.filtros_susevaluacion {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+.contenidoFormEvaluacion {
+    background-color: #fff;
+    height: 100%;
+}
+
+.expansioncards {
+    display: grid;
+    gap: 5rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 480px));
+    justify-content: center;
+}
+
+.headercards {
+    background-color: #05C65D;
+    color: #fff;
+    align-self: start;
+}
+
+.textheadercards {
+    margin-top: 12px;
+}
+.contentalign{
+    align-self: start;
+    min-height: 490px;
+}
+
+.cardcontent {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    display: grid !important;
+    grid-auto-rows: 35px;
+    grid-template-columns: 65% 35%;
+    align-items: center;
+
+}
+
+.cards {
+    display: grid !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    max-height: 700px !important;
+}
+
+.labelcard {
+    display: grid;
+    font-weight: bold;
+    align-items: center;
+}
+
+.datocard {
+    align-self: end;
+}
+
+.reprecard {
+
+    .mat-form-field-wrapper {
+        height: 25px;
+    }
+
+    .mat-form-field-label {
+        display: none !important;
+    }
+
+    .mat-select-arrow-wrapper {
+        padding-top: 15px;
+    }
+
+    .mat-form-field-infix {
+        border-top: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        align-content: center;
+    }
+
+    .mat-form-field-flex {
+        height: 25px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+
+    height: 25px !important;
+    width: 100px !important;
+}
+
+.actionscard {
+    display: grid !important;
+    grid-template-columns: 70% 30%;
+    padding-top: 16px !important; 
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 16px !important;
+    margin-bottom: 0px !important;
+    padding-bottom: 16px !important;
+    align-self: end;
+    }
+

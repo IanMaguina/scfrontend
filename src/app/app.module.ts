@@ -31,6 +31,9 @@ import { map } from 'rxjs/operators';
 
 import { MatTableResponsiveModule } from './shared/tables/mat-table-responsive.module';
 
+
+
+
 export function initConfig(appConfig: AppConfigService) {
   return () => appConfig.loadConfig();
 }
@@ -54,10 +57,12 @@ export function socialConfigFactory(restService: AppConfigService) {
 };
 
 @NgModule({
+  
   declarations: [
     AppComponent,
     LoginComponent,
     NopagefoundComponent,
+    
 
   ],
   imports: [
@@ -76,7 +81,7 @@ export function socialConfigFactory(restService: AppConfigService) {
     MatCardModule,
     SocialLoginModule,
     CookieModule.forRoot(),
-    MatTableResponsiveModule
+    MatTableResponsiveModule,
   ],
   exports: [MatTableResponsiveModule
   ],

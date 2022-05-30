@@ -1,10 +1,36 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { Observer } from 'rxjs';
 import { MenuNode } from 'src/app/models/menu.interface';
 import { SidebarService } from 'src/app/services/sidebar.service';
+import { MatSidenav } from '@angular/material/sidenav';
+
+
+@Injectable()
+export class SideNavService {
+  constructor() { }
+  private sidenav: MatSidenav;
+
+  public setSidenav(sidenav: MatSidenav) {
+    this.sidenav = sidenav;
+  }
+
+  public open() {
+    this.sidenav.opened = true;
+    return this.sidenav.open();
+  }
+
+  public close() {
+    console.log('close')
+    return this.sidenav.close();
+  }
+
+  public toggle() {
+    return this.sidenav.toggle();
+  }
+}
 
 
 interface ExampleFlatNode {
@@ -16,12 +42,16 @@ interface ExampleFlatNode {
 }
 
 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styles: [
   ]
 })
+
+
+
 
 export class SidebarComponent implements OnInit {
   @Input() collapse: Observer<boolean>;
@@ -35,7 +65,24 @@ export class SidebarComponent implements OnInit {
     };
   };
 
+  @Output() sidenavLayoutToggle = new EventEmitter<boolean>();
+
+  lineadecredito:boolean =false;
+  opened:boolean=true;
+  isExpanded:boolean=false;
+  
+  openMenu = false;
+  clickMenu() {
+    this.openMenu = !this.openMenu;
+    this.sidenavLayoutToggle.emit(this.openMenu);
+  }
+  
+  
   // menuItems: MenuNode[];
+
+
+
+
 
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
@@ -62,14 +109,20 @@ export class SidebarComponent implements OnInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    this.treeControl.collapseAll();
+  this.treeControl.collapseAll();
 
-    this.collapse ? this.treeControl.collapseAll() : console.log("nothing to do");
+   this.collapse ? this.treeControl.collapseAll() : console.log("nothing to do");
   }
+  
+  
   async irUrl(url: any) {
     console.log(url);
-    await this.router.navigate(['/']);
-    await this.router.navigateByUrl(url);
+await this.router.navigate(['/']);
+await this.router.navigateByUrl(url);
   }
 
+ 
+
+
 }
+

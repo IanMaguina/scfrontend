@@ -13,13 +13,20 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTreeModule } from '@angular/material/tree';
 
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent, SideNavService } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+
+import { RouterModule } from '@angular/router';
+
+import { MatSidenav } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -45,13 +52,24 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatExpansionModule,
     MatTooltipModule,
     MatTreeModule,
+    MatSidenavModule,
+    MatListModule,
+    RouterModule,
+    MatSidenavModule,
   ],
   exports: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
     ConfirmDialogComponent,
+    MatSidenavModule,
+    MatListModule,
+    RouterModule
     //MatToolbarModule
+  ],
+
+  providers:[
+    SideNavService,
   ]
 })
 export class SharedModule { }
