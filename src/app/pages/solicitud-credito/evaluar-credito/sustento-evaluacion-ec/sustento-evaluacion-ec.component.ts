@@ -52,6 +52,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     this.listarEmpresas();
     this.listarSociedades();
     this.dataRiesgoCliente = this.mapeoRiesgoCliente({});
+    this.reporteMorosidad = this.mapeoReporteBI({});
 
   }
 
@@ -70,6 +71,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
 
   async listarReportes() {
     this.dataRiesgoCliente = this.mapeoRiesgoCliente({});
+    this.reporteMorosidad = this.mapeoReporteBI({});
     let item = {
       id_solicitud: this.id_solicitud,
       sociedad_codigo_sap: (this.formulary.get('sociedad').value ? this.formulary.get('sociedad').value : "E"),
@@ -77,7 +79,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     }
     this.listarReporteRiesgos(item);
     this.listarReporteMorosidad(item);
-    await this.listarReportePoderJudicial(item);
+    this.listarReportePoderJudicial(item);
   }
 
   async listarReporteRiesgos(item: any) {
@@ -112,20 +114,58 @@ export class SustentoEvaluacionEcComponent implements OnInit {
 
   }
 
-
   async listarReporteMorosidad(item: any) {
+    console.log("puto item--->"+JSON.stringify(item));
     await this.reporteSustentoEvaluacionService.listarReporteMorosidad(item).then((data) => {
-      this.reporteMorosidad = data.payload[0];
-      console.log("listar reporte morosidad:" + JSON.stringify(this.reporteMorosidad));
+      this.reporteMorosidad = this.mapeoReporteBI(data.payload[0]);
+      console.log("listar reporte morosidad:" + JSON.stringify(data));
     })
   }
+
+  mapeoReporteBI(data: ReporteMorosidad) {
+    return {
+      "estado": (data && data.estado ? data.estado : ""),
+      "sociedad_codigo_sap": (data && data.sociedad_codigo_sap ? data.sociedad_codigo_sap : ""),
+      "numero_documento": (data && data.numero_documento ? data.numero_documento : ""),
+      "anexo_sap": (data && data.anexo_sap ? data.anexo_sap : ""),
+      "calificacion": (data && data.calificacion ? data.calificacion : ""),
+      "promedio_mora_partida_abierta": (data && data.promedio_mora_partida_abierta ? data.promedio_mora_partida_abierta : ""),
+      "promedio_mora_0_meses": (data && data.promedio_mora_0_meses ? data.promedio_mora_0_meses : ""),
+      "promedio_mora_1_meses": (data && data.promedio_mora_1_meses ? data.promedio_mora_1_meses : ""),
+      "promedio_mora_3_meses": (data && data.promedio_mora_3_meses ? data.promedio_mora_3_meses : ""),
+      "promedio_mora_6_meses": (data && data.promedio_mora_6_meses ? data.promedio_mora_6_meses : ""),
+      "promedio_mora_12_meses": (data && data.promedio_mora_12_meses ? data.promedio_mora_12_meses : ""),
+      "adjunto": (data && data.adjunto ? data.adjunto : ""),
+     
+    };
+
+  }
+
   async listarReportePoderJudicial(item: any) {
     await this.reporteSustentoEvaluacionService.listarReportePoderJudicial(item).then((data) => {
       console.log("listar reporte poder judicial:" + JSON.stringify(data));
-      this.reportePoderJudicial = data.payload[0];
+      this.reportePoderJudicial = this.mapeoReportePoderJudicial(data.payload[0]);
     })
   }
 
+  mapeoReportePoderJudicial(data: ReportePoderJudicial) {
+    return {
+      "id_solicitud": (data && data.id_solicitud ? data.id_solicitud : ""),
+      "cliente_codigo_sap": (data && data.cliente_codigo_sap ? data.cliente_codigo_sap : ""),
+      "sociedad_codigo_sap": (data && data.sociedad_codigo_sap ? data.sociedad_codigo_sap : ""),
+      "sociedad": (data && data.sociedad ? data.sociedad : ""),
+      "id_tipo_documento": (data && data.id_tipo_documento ? data.id_tipo_documento : ""),
+      "numero_documento": (data && data.numero_documento ? data.numero_documento : ""),
+      "razon_social": (data && data.razon_social ? data.razon_social : ""),
+      "fecha_consulta": (data && data.fecha_consulta ? data.fecha_consulta : ""),
+      "activo": (data && data.activo ? data.activo : ""),
+      "estado_rpa": (data && data.estado_rpa ? data.estado_rpa : ""),
+      "fecha_sistema": (data && data.fecha_sistema ? data.fecha_sistema : ""),
+      "adjunto": (data && data.adjunto ? data.adjunto : ""),
+     
+    };
+
+  }
 
   filtrarRepresentante() {
     this.dataRiesgoCliente = this.mapeoRiesgoCliente({});

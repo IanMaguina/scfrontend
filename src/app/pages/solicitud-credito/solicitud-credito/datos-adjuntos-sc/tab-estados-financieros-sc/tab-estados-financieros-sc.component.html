@@ -20,6 +20,22 @@
             <div class="descripcion_adjuntos"><span class="descripcion_1">Adjuntar:</span><button mat-raised-button
                     class="boton-adjuntos">Seleccionar Archivo</button><span>Ningun archivo seleccionado...</span></div>
             <div>
+<!--                 <div class="izquierda">
+                    <input type="file" class="file-input" formControlName="fileAnexoSolicitud" name="fileAnexoSolicitud" #fileUpload4 (change)="onSelectAnexoSolicitud($event)">
+                    <div class="file-upload">
+                        <span class="fontLabel"> Cargar anexo:</span>
+                        &nbsp;&nbsp;
+                        <button mat-icon-button color="accent" type="button" 
+                        class="upload-btn" 
+                        (click)="fileUpload4.click()"  
+                        matTooltip="Cargar Anexo" 
+                        >
+                            <mat-icon>upload</mat-icon>
+                        </button>
+                        
+                    </div>
+                </div> -->
+    
                 <span class="descripcion">Descripción:</span>
                 <mat-form-field class="bloquedescripcion" appearance="outline">
                     <mat-label>Escriba una descripción</mat-label>
