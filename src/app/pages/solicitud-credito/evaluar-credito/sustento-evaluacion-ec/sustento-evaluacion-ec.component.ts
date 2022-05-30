@@ -111,6 +111,42 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     };
 
   }
+  mapeoReporteBI(data: ReporteMorosidad) {
+    return {
+      "estado": (data && data.estado ? data.estado : ""),
+      "sociedad_codigo_sap": (data && data.sociedad_codigo_sap ? data.sociedad_codigo_sap : ""),
+      "numero_documento": (data && data.numero_documento ? data.numero_documento : ""),
+      "anexo_sap": (data && data.anexo_sap ? data.anexo_sap : ""),
+      "calificacion": (data && data.calificacion ? data.calificacion : ""),
+      "promedio_mora_partida_abierta": (data && data.promedio_mora_partida_abierta ? data.promedio_mora_partida_abierta : ""),
+      "promedio_mora_0_meses": (data && data.promedio_mora_0_meses ? data.promedio_mora_0_meses : ""),
+      "promedio_mora_1_meses": (data && data.promedio_mora_1_meses ? data.promedio_mora_1_meses : ""),
+      "promedio_mora_3_meses": (data && data.promedio_mora_3_meses ? data.promedio_mora_3_meses : ""),
+      "promedio_mora_6_meses": (data && data.promedio_mora_6_meses ? data.promedio_mora_6_meses : ""),
+      "promedio_mora_12_meses": (data && data.promedio_mora_12_meses ? data.promedio_mora_12_meses : ""),
+      "adjunto": (data && data.adjunto ? data.adjunto : ""),
+     
+    };
+
+  }
+  mapeoReportePoderJudicial(data: ReportePoderJudicial) {
+    return {
+      "id_solicitud": (data && data.id_solicitud ? data.id_solicitud : ""),
+      "cliente_codigo_sap": (data && data.cliente_codigo_sap ? data.cliente_codigo_sap : ""),
+      "sociedad_codigo_sap": (data && data.sociedad_codigo_sap ? data.sociedad_codigo_sap : ""),
+      "sociedad": (data && data.sociedad ? data.sociedad : ""),
+      "id_tipo_documento": (data && data.id_tipo_documento ? data.id_tipo_documento : ""),
+      "numero_documento": (data && data.numero_documento ? data.numero_documento : ""),
+      "razon_social": (data && data.razon_social ? data.razon_social : ""),
+      "fecha_consulta": (data && data.fecha_consulta ? data.fecha_consulta : ""),
+      "activo": (data && data.activo ? data.activo : ""),
+      "estado_rpa": (data && data.estado_rpa ? data.estado_rpa : ""),
+      "fecha_sistema": (data && data.fecha_sistema ? data.fecha_sistema : ""),
+      "adjunto": (data && data.adjunto ? data.adjunto : ""),
+     
+    };
+
+  }
 
 
   async listarReporteMorosidad(item: any) {
