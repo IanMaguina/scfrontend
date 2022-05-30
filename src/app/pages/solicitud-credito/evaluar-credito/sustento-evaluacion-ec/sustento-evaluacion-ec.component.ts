@@ -52,6 +52,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     this.listarEmpresas();
     this.listarSociedades();
     this.dataRiesgoCliente = this.mapeoRiesgoCliente({});
+    this.reporteMorosidad = this.mapeoReporteBI({});
 
   }
 
@@ -70,6 +71,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
 
   async listarReportes() {
     this.dataRiesgoCliente = this.mapeoRiesgoCliente({});
+    this.reporteMorosidad = this.mapeoReporteBI({});
     let item = {
       id_solicitud: this.id_solicitud,
       sociedad_codigo_sap: (this.formulary.get('sociedad').value ? this.formulary.get('sociedad').value : "E"),
@@ -77,7 +79,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     }
     this.listarReporteRiesgos(item);
     this.listarReporteMorosidad(item);
-    await this.listarReportePoderJudicial(item);
+    this.listarReportePoderJudicial(item);
   }
 
   async listarReporteRiesgos(item: any) {
@@ -111,6 +113,15 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     };
 
   }
+
+  async listarReporteMorosidad(item: any) {
+    console.log("puto item--->"+JSON.stringify(item));
+    await this.reporteSustentoEvaluacionService.listarReporteMorosidad(item).then((data) => {
+      this.reporteMorosidad = this.mapeoReporteBI(data.payload[0]);
+      console.log("listar reporte morosidad:" + JSON.stringify(data));
+    })
+  }
+
   mapeoReporteBI(data: ReporteMorosidad) {
     return {
       "estado": (data && data.estado ? data.estado : ""),
@@ -129,6 +140,14 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     };
 
   }
+
+  async listarReportePoderJudicial(item: any) {
+    await this.reporteSustentoEvaluacionService.listarReportePoderJudicial(item).then((data) => {
+      console.log("listar reporte poder judicial:" + JSON.stringify(data));
+      this.reportePoderJudicial = this.mapeoReportePoderJudicial(data.payload[0]);
+    })
+  }
+
   mapeoReportePoderJudicial(data: ReportePoderJudicial) {
     return {
       "id_solicitud": (data && data.id_solicitud ? data.id_solicitud : ""),
@@ -147,21 +166,6 @@ export class SustentoEvaluacionEcComponent implements OnInit {
     };
 
   }
-
-
-  async listarReporteMorosidad(item: any) {
-    await this.reporteSustentoEvaluacionService.listarReporteMorosidad(item).then((data) => {
-      this.reporteMorosidad = data.payload[0];
-      console.log("listar reporte morosidad:" + JSON.stringify(this.reporteMorosidad));
-    })
-  }
-  async listarReportePoderJudicial(item: any) {
-    await this.reporteSustentoEvaluacionService.listarReportePoderJudicial(item).then((data) => {
-      console.log("listar reporte poder judicial:" + JSON.stringify(data));
-      this.reportePoderJudicial = data.payload[0];
-    })
-  }
-
 
   filtrarRepresentante() {
     this.dataRiesgoCliente = this.mapeoRiesgoCliente({});

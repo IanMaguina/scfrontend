@@ -176,8 +176,7 @@
                                         <div class="labelcard">Clasificación Mora:</div>
 
                                         <div>
-                                            <div class="datocard">{{(reporteMorosidad?reporteMorosidad.calificacion:"No
-                                                registra")}}</div>
+                                            <div class="datocard">{{reporteMorosidad.calificacion}}</div>
                                         </div>
 
 
@@ -192,8 +191,7 @@
 
                                         <div class="datocard">
                                             <div>
-                                                {{(reporteMorosidad?reporteMorosidad.promedio_mora_partida_abierta:"No
-                                                registra")}}</div>
+                                                {{reporteMorosidad.promedio_mora_partida_abierta}}</div>
                                         </div>
 
 
@@ -202,8 +200,7 @@
 
                                         <div class="datocard">
                                             <div>
-                                                {{(reporteMorosidad?reporteMorosidad.promedio_mora_0_meses:"No
-                                                registra")}}</div>
+                                                {{reporteMorosidad.promedio_mora_0_meses}}</div>
                                         </div>
 
 
@@ -212,8 +209,7 @@
 
                                         <div class="datocard">
                                             <div>
-                                                {{(reporteMorosidad?reporteMorosidad.promedio_mora_1_meses:"No
-                                                registra")}}</div>
+                                                {{reporteMorosidad.promedio_mora_1_meses}}</div>
                                         </div>
 
 
@@ -222,8 +218,7 @@
 
                                         <div class="datocard">
                                             <div>
-                                                {{(reporteMorosidad?reporteMorosidad.promedio_mora_3_meses:"No
-                                                registra")}}</div>
+                                                {{reporteMorosidad.promedio_mora_3_meses}}</div>
                                         </div>
 
 
@@ -232,8 +227,7 @@
 
                                         <div class="datocard">
                                             <div>
-                                                {{(reporteMorosidad?reporteMorosidad.promedio_mora_6_meses:"No
-                                                registra")}}</div>
+                                                {{reporteMorosidad.promedio_mora_6_meses}}</div>
                                         </div>
 
 
@@ -241,8 +235,7 @@
 
                                         <div class="datocard">
                                             <div>
-                                                {{(reporteMorosidad?reporteMorosidad.promedio_mora_12_meses:"No
-                                                registra")}}
+                                                {{reporteMorosidad.promedio_mora_12_meses}}
                                             </div>
                                         </div>
 
@@ -259,9 +252,8 @@
                                         <small>* Se obtendrá el reporte en formato pdf</small>
                                     </div>
                                     <div class="descargarbutton">
-                                        <button mat-raised-button
-                                            href="(reporteMorosidad?reporteMorosidad.adjunto:'nopagefound')"
-                                            target="_blank" mat-button class="boton-principal-light"> Descargar</button>
+                                        <button mat-raised-button class="boton-principal-light "
+                                            (click)=descargarAnexo(reporteMorosidad.adjunto)> Descargar</button>
                                     </div>
                                 </mat-card-actions>
                             </mat-card>
@@ -371,9 +363,8 @@
                                         <small>* Se obtendrá el reporte en formato pdf</small>
                                     </div>
                                     <div class="descargarbutton">
-                                        <button mat-raised-button
-                                            href="(reportePoderJudicial?reportePoderJudicial.adjunto:'nopagefound')"
-                                            target="_blank" class="boton-principal-light"> Descargar</button>
+                                        <button mat-raised-button class="boton-principal-light "
+                                            (click)=descargarAnexo(reportePoderJudicial.adjunto)> Descargar</button>
                                     </div>
                                 </mat-card-actions>
                             </mat-card>
