@@ -168,6 +168,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
     })
   }
 
+  //Inicio
   listarLineaProductos() {
     this.lineaProductoService.listar().then(data => {
       this.listadoLineaProducto = data.payload;
@@ -204,6 +205,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
     return this.formulary.get('lineaProductosArray') as FormArray;
   }
 
+  //fin
   listarDocumentosValorados() {
     this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoDocumentosValorados = data.payload;
