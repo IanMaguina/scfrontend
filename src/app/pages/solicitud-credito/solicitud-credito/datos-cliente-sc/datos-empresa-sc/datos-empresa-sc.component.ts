@@ -62,7 +62,15 @@ export class DatosEmpresaScComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.listarZonales();
   }
+
+  async listarZonales() {
+    await this.zonalService.listarZonales().then((dato) => {
+      this.listadoZonales = dato;
+    })
+  }
+
   guardarDatosEmpresa(form: any) {
     console.log("guardarDatosConsorcio..:" + JSON.stringify(form));
   }
