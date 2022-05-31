@@ -1,443 +1,442 @@
 <div class="contenidoFormEvaluacion">
     <form [formGroup]="formulary" (ngSubmit)="(formulary.value)">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Reportes de la Empresa
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
 
-        <div>
-            <div class="formElementoPlano">
-                <div>
-                    <div class="label">Empresa:</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Seleccionar Empresa</mat-label>
-                        <mat-select formControlName="empresa" (selectionChange)="listarReportes()" required>
-                            <mat-option *ngFor="let empresa of listadoEmpresaSolicitud" [value]="empresa">
-                                {{ empresa.razon_social }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+
+                <div class="formElementoPlano">
+                    <div class="formElementoPlano">
+                        <div class="label labelpadding">Empresa:</div>
+                        <mat-form-field class="labelpadding" appearance="fill">
+                            <mat-label>Seleccionar Empresa</mat-label>
+                            <mat-select formControlName="empresa" (selectionChange)="listarReportes()" required>
+                                <mat-option *ngFor="let empresa of listadoEmpresaSolicitud" [value]="empresa">
+                                    {{ empresa.razon_social }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="formElementoPlano">
+                        <div class="label labelpadding">Sociedad:</div>
+                        <mat-form-field class="labelpadding" appearance="fill">
+                            <mat-label>Seleccionar Sociedad</mat-label>
+                            <mat-select  formControlName="sociedad" (selectionChange)="listarReportes()" required>
+                                <mat-option value="E" selected>
+                                    ----Seleccionar Sociedad-----</mat-option>
+                                <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
+                                    {{ sociedad.nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div>
-                    <div class="label">Sociedad:</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Seleccionar Sociedad</mat-label>
-                        <mat-select formControlName="sociedad" (selectionChange)="listarReportes()" required>
-                            <mat-option value="E" selected>
-                                ----Seleccionar Sociedad-----</mat-option>
-                            <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad.codigo_sap">
-                                {{ sociedad.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
 
 
-            <mat-accordion>
-                <mat-expansion-panel [expanded]="true">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Reportes de la Empresa
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
+                <div class="expansioncards">
+                    <div>
+                        <mat-card class="cards">
+                            <mat-card-header class="headercards">
+                                <mat-card-title class="textheadercards">Reporte Central de Riesgos (Miles)
+                                </mat-card-title>
+                            </mat-card-header>
+                            <div class="contentalign">
+                                <mat-card-content class="cardcontent">
 
-                    <div class="expansioncards">
-                        <div>
-                            <mat-card class="cards">
-                                <mat-card-header class="headercards">
-                                    <mat-card-title class="textheadercards">Reporte Central de Riesgos (Miles)
-                                    </mat-card-title>
-                                </mat-card-header>
-                                <div class="contentalign">
-                                    <mat-card-content class="cardcontent">
+                                    <div class="labelcard">Empresa / Representante Legal:</div>
+                                    <div class="datocard">
+                                        <div *ngIf="listadoRepresentanteLegal.length>0">
+                                            <mat-form-field class="reprecard" appearance="fill">
+                                                <mat-label> Representante Legal </mat-label>
+                                                <mat-select formControlName="representante_legal" required
+                                                    (selectionChange)="filtrarRepresentante()">
+                                                    <mat-option value="E" selected>
+                                                        {{formulary.get("empresa").value.razon_social}}</mat-option>
 
-                                        <div class="labelcard">Empresa / Representante Legal:</div>
-                                        <div class="datocard">
-                                            <div *ngIf="listadoRepresentanteLegal.length>0">
-                                                <mat-form-field class="reprecard" appearance="fill">
-                                                    <mat-label> Representante Legal </mat-label>
-                                                    <mat-select formControlName="representante_legal" required
-                                                        (selectionChange)="filtrarRepresentante()">
-                                                        <mat-option value="E" selected>
-                                                            {{formulary.get("empresa").value.razon_social}}</mat-option>
-
-                                                        <mat-option *ngFor="let rep of listadoRepresentanteLegal"
-                                                            [value]="rep">
-                                                            {{rep.nombre}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
+                                                    <mat-option *ngFor="let rep of listadoRepresentanteLegal"
+                                                        [value]="rep">
+                                                        {{rep.nombre}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard">Fecha:</div>
-                                        <div class="datocard">
-                                            <div>{{
-                                                (listadoRiesgoCliente?listadoRiesgoCliente.fecha_consulta:"") |
-                                                date:
-                                                'dd/MM/yyyy' }}</div>
-                                        </div>
+                                    <div class="labelcard">Fecha:</div>
+                                    <div class="datocard">
+                                        <div>{{
+                                            (listadoRiesgoCliente?listadoRiesgoCliente.fecha_consulta:"") |
+                                            date:
+                                            'dd/MM/yyyy' }}</div>
+                                    </div>
 
-                                        <div class="labelcard">Semáforo Actual:</div>
-                                        <div class="datocard">
-                                            <div>
-                                                {{dataRiesgoCliente.semaforo_actual}}
-                                            </div>
+                                    <div class="labelcard">Semáforo Actual:</div>
+                                    <div class="datocard">
+                                        <div>
+                                            {{dataRiesgoCliente.semaforo_actual}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard">Deuda total SBS:</div>
-                                        <div class="datocard">
-                                            <div>
-                                                {{dataRiesgoCliente.deuda_total}}
-                                            </div>
+                                    <div class="labelcard">Deuda total SBS:</div>
+                                    <div class="datocard">
+                                        <div>
+                                            {{dataRiesgoCliente.deuda_total}}
                                         </div>
+                                    </div>
 
-                                        <div *ngIf="hiddenRrepresentanteLegal" class="labelcard">Reactiva:</div>
-                                        <div *ngIf="hiddenRrepresentanteLegal" class="datocard">
-                                            <div>{{ dataRiesgoCliente.reactiva}}
-                                            </div>
+                                    <div *ngIf="hiddenRrepresentanteLegal" class="labelcard">Reactiva:</div>
+                                    <div *ngIf="hiddenRrepresentanteLegal" class="datocard">
+                                        <div>{{ dataRiesgoCliente.reactiva}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard">Calificación SBS:</div>
-                                        <div class="datocard">
-                                            <div>
-                                                {{dataRiesgoCliente.peor_calificacion}}
-                                            </div>
+                                    <div class="labelcard">Calificación SBS:</div>
+                                    <div class="datocard">
+                                        <div>
+                                            {{dataRiesgoCliente.peor_calificacion}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard">% Calificacion Normal:</div>
-                                        <div class="datocard">
-                                            <div>
-                                                {{dataRiesgoCliente.calificacion_normal}}
-                                            </div>
+                                    <div class="labelcard">% Calificacion Normal:</div>
+                                    <div class="datocard">
+                                        <div>
+                                            {{dataRiesgoCliente.calificacion_normal}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Impagos:</div>
-                                        <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
-                                            <div>{{ dataRiesgoCliente.impagos}}
-                                            </div>
+                                    <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Impagos:</div>
+                                    <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
+                                        <div>{{ dataRiesgoCliente.impagos}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Protestos:</div>
-                                        <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
-                                            <div>{{ dataRiesgoCliente.protestos}}
-                                            </div>
+                                    <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Protestos:</div>
+                                    <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
+                                        <div>{{ dataRiesgoCliente.protestos}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Deuda Laboral:</div>
-                                        <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
-                                            <div>{{dataRiesgoCliente.deuda_laboral}}
-                                            </div>
+                                    <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Deuda Laboral:</div>
+                                    <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
+                                        <div>{{dataRiesgoCliente.deuda_laboral}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Deuda Tributaria:
+                                    <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Deuda Tributaria:
+                                    </div>
+                                    <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
+                                        <div>{{dataRiesgoCliente.deuda_tributaria}}
                                         </div>
-                                        <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
-                                            <div>{{dataRiesgoCliente.deuda_tributaria}}
-                                            </div>
-                                        </div>
+                                    </div>
 
-                                        <div class="labelcard">Deuda Vencida:</div>
-                                        <div class="datocard">
-                                            <div>
-                                                {{dataRiesgoCliente.deuda_vencida}}
-                                            </div>
+                                    <div class="labelcard">Deuda Vencida:</div>
+                                    <div class="datocard">
+                                        <div>
+                                            {{dataRiesgoCliente.deuda_vencida}}
                                         </div>
+                                    </div>
 
-                                        <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Otros Reportes
-                                            Negativos:</div>
-                                        <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
-                                            <div>
-                                                {{dataRiesgoCliente.otros_reportes_negativos}}
-                                            </div>
+                                    <div class="labelcard" *ngIf="hiddenRrepresentanteLegal">Otros Reportes
+                                        Negativos:</div>
+                                    <div class="datocard" *ngIf="hiddenRrepresentanteLegal">
+                                        <div>
+                                            {{dataRiesgoCliente.otros_reportes_negativos}}
                                         </div>
-                                    </mat-card-content>
+                                    </div>
+                                </mat-card-content>
+                            </div>
+
+                            <mat-card-actions class="actionscard">
+                                <mat-divider></mat-divider>
+                                <div>
+                                    <strong> Reporte de central de Riesgos</strong><br>
+                                    <small>* Se obtendrá el reporte en formato pdf</small>
                                 </div>
-
-                                <mat-card-actions class="actionscard">
-                                    <mat-divider></mat-divider>
-                                    <div>
-                                        <strong> Reporte de central de Riesgos</strong><br>
-                                        <small>* Se obtendrá el reporte en formato pdf</small>
-                                    </div>
-                                    <div class="descargarbutton">
-                                        <button mat-raised-button class="boton-principal-light "
-                                            (click)=descargarAnexo(listadoRiesgoCliente.adjunto)> Descargar</button>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </div>
-
-                        <div>
-                            <mat-card class="cards">
-                                <mat-card-header class="headercards">
-                                    <mat-card-title class="textheadercards">Morosidad</mat-card-title>
-                                </mat-card-header>
-                                <div class="contentalign">
-                                    <mat-card-content class="cardcontent">
-
-                                        <div class="labelcard">Clasificación Mora:</div>
-
-                                        <div>
-                                            <div class="datocard">{{reporteMorosidad.calificacion}}</div>
-                                        </div>
-
-
-                                        <div class="labelcard">Partida abierta mas antigua (SAP):</div>
-
-                                        <div class="datocard">
-                                            <div>No registra</div>
-                                        </div>
-
-
-                                        <div class="labelcard">Promedio mora partidas abiertas:</div>
-
-                                        <div class="datocard">
-                                            <div>
-                                                {{reporteMorosidad.promedio_mora_partida_abierta}}</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">promedio mora 0 meses:</div>
-
-                                        <div class="datocard">
-                                            <div>
-                                                {{reporteMorosidad.promedio_mora_0_meses}}</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">promedio mora 1 mes:</div>
-
-                                        <div class="datocard">
-                                            <div>
-                                                {{reporteMorosidad.promedio_mora_1_meses}}</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">promedio mora 3 meses:</div>
-
-                                        <div class="datocard">
-                                            <div>
-                                                {{reporteMorosidad.promedio_mora_3_meses}}</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">promedio mora 6 meses:</div>
-
-                                        <div class="datocard">
-                                            <div>
-                                                {{reporteMorosidad.promedio_mora_6_meses}}</div>
-                                        </div>
-
-
-                                        <div class="labelcard">promedio mora 12 meses:</div>
-
-                                        <div class="datocard">
-                                            <div>
-                                                {{reporteMorosidad.promedio_mora_12_meses}}
-                                            </div>
-                                        </div>
-
-
-
-                                    </mat-card-content>
-
-
+                                <div class="descargarbutton">
+                                    <button mat-raised-button class="boton-principal-light "
+                                        (click)=descargarAnexo(listadoRiesgoCliente.adjunto)> Descargar</button>
                                 </div>
-                                <mat-card-actions class="actionscard">
-                                    <mat-divider></mat-divider>
-                                    <div>
-                                        <strong> Reporte Morosidad y Deuda</strong><br>
-                                        <small>* Se obtendrá el reporte en formato pdf</small>
-                                    </div>
-                                    <div class="descargarbutton">
-                                        <button mat-raised-button class="boton-principal-light "
-                                            (click)=descargarAnexo(reporteMorosidad.adjunto)> Descargar</button>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </div>
-
-                        <div>
-                            <mat-card class="cards">
-                                <mat-card-header class="headercards">
-                                    <mat-card-title class="textheadercards">Detalle de cuentas por cobrar
-                                    </mat-card-title>
-                                </mat-card-header>
-                                <div class="contentalign">
-                                    <mat-card-content class="cardcontent">
-
-
-                                        <div class="labelcard">Cuenta por cobrar:</div>
-
-                                        <div>
-                                            <div class="datocard">s/. 13 800 663</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">Cuenta por cobrar(No vencida):</div>
-
-                                        <div>
-                                            <div class="datocard">s/. 2 474 212</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">Cuenta por cobrar(vencida):</div>
-
-                                        <div>
-                                            <div class="datocard">s/. 1 326 451</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">% Vencido:</div>
-
-                                        <div>
-                                            <div class="datocard">82%</div>
-                                        </div>
-
-
-                                        <div class="labelcard">Cuentas por cobrar (1-15 días):</div>
-
-                                        <div>
-                                            <div class="datocard">s/. 4 155 321</div>
-                                        </div>
-
-                                        <div>
-                                            <div class="labelcard">Cuentas por cobrar (16-30 días):</div>
-                                        </div>
-                                        <div>
-                                            <div class="datocard">s/. 1 671 810</div>
-                                        </div>
-
-
-                                        <div class="labelcard">Cuentas por cobrar (31-60 días):</div>
-
-                                        <div>
-                                            <div class="datocard">s/. 2 910 723</div>
-                                        </div>
-
-
-
-                                        <div class="labelcard">Cuentas por cobrar (61 a más días):</div>
-
-                                        <div>
-                                            <div class="datocard">s/. 2 588 598</div>
-                                        </div>
-
-
-
-
-
-                                    </mat-card-content>
-                                </div>
-                                <mat-card-actions class="actionscard">
-                                    <mat-divider></mat-divider>
-                                    <div>
-                                        <strong> Reporte de central de Riesgos</strong><br>
-                                        <small>* Se obtendrá el reporte en formato pdf</small>
-                                    </div>
-                                    <div class="descargarbutton">
-                                        <button mat-raised-button class="boton-principal-light"> Descargar</button>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </div>
-
-                        <div>
-                            <mat-card class="cards">
-                                <mat-card-header class="headercards">
-                                    <mat-card-title class="textheadercards">Reporte Judicial</mat-card-title>
-                                </mat-card-header>
-
-                                <mat-card-actions class="actionscard">
-                                    <div>
-                                        <strong> Reporte de Poder Judicial</strong><br>
-                                        <small>* Se obtendrá el reporte en formato pdf</small>
-                                    </div>
-                                    <div class="descargarbutton">
-                                        <button mat-raised-button class="boton-principal-light "
-                                            (click)=descargarAnexo(reportePoderJudicial.adjunto)> Descargar</button>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </div>
+                            </mat-card-actions>
+                        </mat-card>
                     </div>
 
-                    <mat-accordion>
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Facturación (Miles)
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                        </mat-expansion-panel>
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Comportamiento de Pago
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                        </mat-expansion-panel>
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Indicadores Financieros
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                        </mat-expansion-panel>
-                    </mat-accordion>
+                    <div>
+                        <mat-card class="cards">
+                            <mat-card-header class="headercards">
+                                <mat-card-title class="textheadercards">Morosidad</mat-card-title>
+                            </mat-card-header>
+                            <div class="contentalign">
+                                <mat-card-content class="cardcontent">
 
-                </mat-expansion-panel>
+                                    <div class="labelcard">Clasificación Mora:</div>
 
-                
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            
-                                Flujo de Caja
-                            
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel>
+                                    <div>
+                                        <div class="datocard">{{reporteMorosidad.calificacion}}</div>
+                                    </div>
 
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            
-                            Solicitud de Línea de Crédito
-                            
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel>
-                
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            
-                            Propuesta de Créditos y Cobranzas
-                            
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel>
 
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            
-                            Información Adicional
-                            
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel>
-       
+                                    <div class="labelcard">Partida abierta mas antigua (SAP):</div>
 
-            </mat-accordion>
+                                    <div class="datocard">
+                                        <div>No registra</div>
+                                    </div>
 
-        </div>
+
+                                    <div class="labelcard">Promedio mora partidas abiertas:</div>
+
+                                    <div class="datocard">
+                                        <div>
+                                            {{reporteMorosidad.promedio_mora_partida_abierta}}</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">promedio mora 0 meses:</div>
+
+                                    <div class="datocard">
+                                        <div>
+                                            {{reporteMorosidad.promedio_mora_0_meses}}</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">promedio mora 1 mes:</div>
+
+                                    <div class="datocard">
+                                        <div>
+                                            {{reporteMorosidad.promedio_mora_1_meses}}</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">promedio mora 3 meses:</div>
+
+                                    <div class="datocard">
+                                        <div>
+                                            {{reporteMorosidad.promedio_mora_3_meses}}</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">promedio mora 6 meses:</div>
+
+                                    <div class="datocard">
+                                        <div>
+                                            {{reporteMorosidad.promedio_mora_6_meses}}</div>
+                                    </div>
+
+
+                                    <div class="labelcard">promedio mora 12 meses:</div>
+
+                                    <div class="datocard">
+                                        <div>
+                                            {{reporteMorosidad.promedio_mora_12_meses}}
+                                        </div>
+                                    </div>
+
+
+
+                                </mat-card-content>
+
+
+                            </div>
+                            <mat-card-actions class="actionscard">
+                                <mat-divider></mat-divider>
+                                <div>
+                                    <strong> Reporte Morosidad y Deuda</strong><br>
+                                    <small>* Se obtendrá el reporte en formato pdf</small>
+                                </div>
+                                <div class="descargarbutton">
+                                    <button mat-raised-button class="boton-principal-light "
+                                        (click)=descargarAnexo(reporteMorosidad.adjunto)> Descargar</button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+
+                    <div>
+                        <mat-card class="cards">
+                            <mat-card-header class="headercards">
+                                <mat-card-title class="textheadercards">Detalle de cuentas por cobrar
+                                </mat-card-title>
+                            </mat-card-header>
+                            <div class="contentalign">
+                                <mat-card-content class="cardcontent">
+
+
+                                    <div class="labelcard">Cuenta por cobrar:</div>
+
+                                    <div>
+                                        <div class="datocard">s/. 13 800 663</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">Cuenta por cobrar(No vencida):</div>
+
+                                    <div>
+                                        <div class="datocard">s/. 2 474 212</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">Cuenta por cobrar(vencida):</div>
+
+                                    <div>
+                                        <div class="datocard">s/. 1 326 451</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">% Vencido:</div>
+
+                                    <div>
+                                        <div class="datocard">82%</div>
+                                    </div>
+
+
+                                    <div class="labelcard">Cuentas por cobrar (1-15 días):</div>
+
+                                    <div>
+                                        <div class="datocard">s/. 4 155 321</div>
+                                    </div>
+
+                                    <div>
+                                        <div class="labelcard">Cuentas por cobrar (16-30 días):</div>
+                                    </div>
+                                    <div>
+                                        <div class="datocard">s/. 1 671 810</div>
+                                    </div>
+
+
+                                    <div class="labelcard">Cuentas por cobrar (31-60 días):</div>
+
+                                    <div>
+                                        <div class="datocard">s/. 2 910 723</div>
+                                    </div>
+
+
+
+                                    <div class="labelcard">Cuentas por cobrar (61 a más días):</div>
+
+                                    <div>
+                                        <div class="datocard">s/. 2 588 598</div>
+                                    </div>
+
+
+
+
+
+                                </mat-card-content>
+                            </div>
+                            <mat-card-actions class="actionscard">
+                                <mat-divider></mat-divider>
+                                <div>
+                                    <strong> Reporte de central de Riesgos</strong><br>
+                                    <small>* Se obtendrá el reporte en formato pdf</small>
+                                </div>
+                                <div class="descargarbutton">
+                                    <button mat-raised-button class="boton-principal-light"> Descargar</button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+
+                    <div>
+                        <mat-card class="cards">
+                            <mat-card-header class="headercards">
+                                <mat-card-title class="textheadercards">Reporte Judicial</mat-card-title>
+                            </mat-card-header>
+
+                            <mat-card-actions class="actionscard">
+                                <div>
+                                    <strong> Reporte de Poder Judicial</strong><br>
+                                    <small>* Se obtendrá el reporte en formato pdf</small>
+                                </div>
+                                <div class="descargarbutton">
+                                    <button mat-raised-button class="boton-principal-light "
+                                        (click)=descargarAnexo(reportePoderJudicial.adjunto)> Descargar</button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Facturación (Miles)
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Comportamiento de Pago
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Indicadores Financieros
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+            </mat-expansion-panel>
+
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+
+                        Flujo de Caja
+
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+
+                        Solicitud de Línea de Crédito
+
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+
+                        Propuesta de Créditos y Cobranzas
+
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+
+                        Información Adicional
+
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+
+        </mat-accordion>
+
+
     </form>
 
 
