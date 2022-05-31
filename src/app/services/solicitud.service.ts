@@ -591,6 +591,29 @@ export class SolicitudService {
     );
 
   }
+/* este servicio es momentáneo */
+  obtenerSolicitudDatosUrl(id: string): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/solicitud/id=" + id).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no perfiles encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+
+  }
 
 
 
