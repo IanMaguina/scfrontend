@@ -1,5 +1,5 @@
 {
-  "BASE_API_URL": "http://localhost:8080/",
+  "BASE_API_URL": "https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com/",
   "clientId": "311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com",
   "CLIENT_ID": "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",
   "CLIENT_KEY": "311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com" 

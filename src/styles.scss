@@ -481,6 +481,7 @@ body {
     width: 150px;
     font-weight: bold;
     float: left;
+    align-self: center;
 }
 
 .dato {
@@ -1339,9 +1340,11 @@ body::-webkit-scrollbar-thumb {
 
 .expansioncards {
     display: grid;
+    padding-top: 25px;
     gap: 5rem;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 480px));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 480px));
     justify-content: center;
+    padding-bottom: 35px;
 }
 
 .headercards {
@@ -1366,7 +1369,12 @@ body::-webkit-scrollbar-thumb {
     grid-auto-rows: 35px;
     grid-template-columns: 65% 35%;
     align-items: center;
+}
 
+@media screen and (max-width: 480px) {
+    .cardcontent{
+      grid-template-columns: 1fr;
+}
 }
 
 .cards {
@@ -1375,7 +1383,7 @@ body::-webkit-scrollbar-thumb {
     padding-right: 0px !important;
     padding-top: 0px !important;
     padding-bottom: 0px !important;
-    max-height: 700px !important;
+    max-height: 1200px !important;
 }
 
 .labelcard {
@@ -1428,6 +1436,19 @@ body::-webkit-scrollbar-thumb {
     padding-left: 16px !important;
     margin-bottom: 0px !important;
     padding-bottom: 16px !important;
+    padding-right: 16px !important;
     align-self: end;
+    max-height: 200px !important;
+    }
+
+    @media screen and (max-width: 480px) {
+        .actionscard{
+          grid-template-columns: 1fr;
+    }
+    }
+
+    .labelpadding{
+        padding-top: 10px !important;
+        padding-left: 10px !important;
     }
 

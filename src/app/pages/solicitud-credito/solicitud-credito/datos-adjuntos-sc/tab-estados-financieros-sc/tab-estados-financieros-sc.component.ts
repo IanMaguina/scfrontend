@@ -52,6 +52,7 @@ export class TabEstadosFinancierosScComponent implements OnInit {
     const { description } = this.formFinancialState.value;
     this.file_list = [];
 
+    
     formData.append("tabla", 'tsolicitud');
     formData.append("activo", `${true}`);
     formData.append("id_tipo_adjunto", `${1}`);
