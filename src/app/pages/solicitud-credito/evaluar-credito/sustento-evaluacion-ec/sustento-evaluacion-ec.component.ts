@@ -106,7 +106,7 @@ export class SustentoEvaluacionEcComponent implements OnInit {
       "otros_reportes_negativos": (data && data.otros_reportes_negativos ? data.otros_reportes_negativos : ""),
       "impagos": (data && data.impagos ? data.impagos : ""),
       "protestos": (data && data.protestos ? data.protestos : ""),
-      "deuda_laboral": (data && data.deuda_laboral ? data.protestos : ""),
+      "deuda_laboral": (data && data.deuda_laboral ? data.deuda_laboral : ""),
       "deuda_tributaria": (data && data.deuda_tributaria ? data.deuda_tributaria : ""),
       "fecha_consulta": (data && data.fecha_consulta ? data.fecha_consulta : ""),
       "adjunto": (data && data.adjunto ? data.adjunto : "")
