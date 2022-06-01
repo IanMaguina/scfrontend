@@ -2,7 +2,7 @@ import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-pl
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { LineaProductoService } from 'src/app/services/linea-producto.service';
@@ -11,6 +11,7 @@ import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
+import { DlgSolicitudCondicionPagoComponent } from '../dlg-solicitud-condicion-pago/dlg-solicitud-condicion-pago.component';
 
 
 
@@ -26,7 +27,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   displayedColumnsDocumentoValorado: string[] = ['nombre', 'importe'];
 
 
-  displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre','valor_nuevo'];
+  displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre'];
 
 
 
@@ -107,8 +108,8 @@ export class DlgNuevoPlanScComponent implements OnInit {
     private documentoValoradoService: DocumentoValoradoService,
     private lineaProductoService: LineaProductoService,
     private tipoMonedaService: TipoMonedaService,
-    private solicitudPlanService: SolicitudPlanService
-
+    private solicitudPlanService: SolicitudPlanService,
+    private matDialog: MatDialog,
   ) {
     this.id_solicitud_editar = data;
     console.log("PENELOPE-->" + JSON.stringify(this.id_solicitud_editar));
@@ -271,5 +272,25 @@ export class DlgNuevoPlanScComponent implements OnInit {
 
   onNoClick(res: string) {
     this.dialogRef.close(res);
+  }
+
+  solicitarNuevaCondicionPago(){
+    let data= {
+      arrayProductos : this.formulary.get('lineaProductosArray'),
+      id_solicitud:this.id_solicitud_editar
+    }
+
+    const dialogRef = this.matDialog.open(DlgSolicitudCondicionPagoComponent, {
+      disableClose: true,
+      width:"750px",
+      data:data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === 'CONFIRM_DLG_YES'){
+        
+        console.log("se agregó el plan correctamente");
+      }
+    }); 
   }
 }

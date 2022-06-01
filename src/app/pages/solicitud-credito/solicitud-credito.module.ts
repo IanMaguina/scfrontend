@@ -65,6 +65,7 @@ import { DlgDetalleSolicitudConsorcioComponent } from './solicitud-credito/dlg-d
 import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
 import { EvaluarCreditoComponent } from './evaluar-credito/evaluar-credito.component';
 import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evaluacion-ec/sustento-evaluacion-ec.component';
+import { DlgSolicitudCondicionPagoComponent } from './solicitud-credito/datos-planes-sc/dlg-solicitud-condicion-pago/dlg-solicitud-condicion-pago.component';
 
 
 @NgModule({
@@ -104,7 +105,7 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     DlgDetalleSolicitudGrupoComponent,
     EvaluarCreditoComponent,
     SustentoEvaluacionEcComponent,
-
+    DlgSolicitudCondicionPagoComponent
   ],
   imports: [
     RouterModule,

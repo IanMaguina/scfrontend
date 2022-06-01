@@ -1,0 +1,100 @@
+<div class="content-form-dialog">
+    <br>
+    <div class="titledialog color-title">Nuevo Plan de Crédito</div>
+    <br>
+    <div class="body-dialog">
+        <div class="contenidoForm">
+            <br>
+            <form [formGroup]="formulary" (ngSubmit)="agregar(formulary.value)">
+
+                <div class="objetoNuevoPlan">
+                    <strong>Codigo SAP :</strong>
+                </div>
+
+                <div class="objetoNuevoPlan">
+                    <strong>Razón Social:</strong>
+                </div>
+
+                <div class="objetoNuevoPlan">
+                    <strong>Grupo Cliente:</strong>
+                </div>
+
+                <div class="objetoNuevoPlan">
+                    <strong>Canal Comercial :</strong>
+                </div>
+
+                <div class="objetoNuevoPlan">
+                    <strong>Zonal:</strong>
+                </div>
+
+
+                
+                <!-- <div class="objetoNuevoPlan">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Línea de Productos</mat-label>
+                        <mat-select formControlName="linea_producto" multiple
+                            (selectionChange)="llenarLineaProductoGrilla()">
+                            <mat-option *ngFor="let linea_producto of listadoLineaProducto" [value]="linea_producto">
+                                {{ linea_producto.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> -->
+
+
+               <!--  <div formArrayName="lineaProductosArray">
+                    <table mat-table [dataSource]="lineaProductosArray.controls" class="tableforms mat-elevation-z8">
+                        <caption title="tabla reactiva de linea de productos & condición de pago"></caption>
+                        <ng-container matColumnDef="codigo_sap">
+                            <th mat-header-cell *matHeaderCellDef> Código SAP </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('codigo_sap').value}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef> Linea Producto </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('nombre').value}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="valor_nuevo">
+                            <th mat-header-cell *matHeaderCellDef> Nuevo </th>
+                            <td mat-cell *matCellDef="let element" [formGroup]="element">
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="valor_nuevo">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="fecha_vigencia">
+                            <th mat-header-cell *matHeaderCellDef> Nuevo </th>
+                            <td mat-cell *matCellDef="let element" [formGroup]="element">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Fecha Vigencia</mat-label>
+                                    <input matInput [matDatepicker]="picker1" formControlName="fecha_vigencia">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsLineaProducto"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsLineaProducto;"></tr>
+                    </table>
+
+                </div> -->
+
+
+
+
+
+
+
+
+                <div class="objetoBoton">
+                    <button mat-raised-button class="boton-secundario_popup"
+                        (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
+                    <button mat-raised-button class="boton-principal_popup" type="submit">Aplicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
