@@ -97,7 +97,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   checkReemplazoPlan: boolean = false;
-
+  sociedad_codigo_sap_solicitud="6012"
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
