@@ -7,13 +7,10 @@ import { DocumentoValoradoService } from 'src/app/services/documento-valorado.se
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import { PlanService } from 'src/app/services/plan.service';
-import { TipoMonedaService } from 'src/app/services/tipo-moneda.service'; 
+import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
-
-
-
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -21,12 +18,13 @@ import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-do
   styles: [
   ]
 })
+
 export class DlgNuevoPlanScComponent implements OnInit {
 
   displayedColumnsDocumentoValorado: string[] = ['nombre', 'importe'];
 
 
-  displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre','valor_nuevo'];
+  displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre', 'valor_nuevo'];
 
 
 
@@ -135,7 +133,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
     this.listarPlan();
     this.listarDocumentosValorados();
     this.listarLineaProductos();
-    this.listarMoneda(); 
+    this.listarMoneda();
   }
 
   listarPlan() {
@@ -182,7 +180,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   }
 
   //fin
-/* comienza Doc valorado */
+  /* comienza Doc valorado */
   listarDocumentosValorados() {
     this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoDocumentosValorados = data.payload;
@@ -217,8 +215,8 @@ export class DlgNuevoPlanScComponent implements OnInit {
   get documentoValoradoArray(): FormArray {
     return this.formulary.get('documentoValoradoArray') as FormArray;
   }
-/* D valorados */
-  
+  /* D valorados */
+
 
 
   listarMoneda() {
@@ -238,19 +236,11 @@ export class DlgNuevoPlanScComponent implements OnInit {
     console.log(JSON.stringify(valor));
   }
 
+  private destructuringAssigment(form) {
 
-  async agregar(form: any) {
-    console.log("solicitud plan-->" + JSON.stringify(form));
-    let solicitud: SolicitudPlan = await this.mapeoData(form)
-    this.solicitudPlanService.crear(solicitud).then(data => {
-      this.onNoClick(data);
-    })
-  }
+    const { lineaProductosArray, documentoValoradoArray } = this.formulary.value;
 
-  async mapeoData(form: any) {
-    let solicitud: SolicitudPlan =
-    {
-      "id": null,
+    const params = {
       "id_solicitud": this.id_solicitud_editar,
       "id_tipo_linea": form.tipo_linea.id,
       "id_plan": form.plan_credito.id,
@@ -264,9 +254,21 @@ export class DlgNuevoPlanScComponent implements OnInit {
       "fecha_fin": null,
       "comentario": form.informacion_adicional,
       "id_plan_referencia": null,
-      "tipo_calculo": null
+      "tipo_calculo": null,
+      "codicion_pago": lineaProductosArray,
+      "documento_valorado": documentoValoradoArray
     }
-    return solicitud;
+
+    return params;
+  }
+
+  async agregar(form: any) {
+
+    const params = this.destructuringAssigment(form);
+
+    this.solicitudPlanService.crear(params).then(data => {
+      this.onNoClick(data);
+    })
   }
 
   onNoClick(res: string) {
