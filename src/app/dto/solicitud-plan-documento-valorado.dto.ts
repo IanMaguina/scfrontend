@@ -4,7 +4,7 @@ export class SolicitudPlanDocumentoValoradoDTO {
     id?: number;
     id_solicitud_plan?: number;
     nombre?:string;
-    id_tipo_documento_valorado?:number;
+    id_documento_valorado?:number;
     importe?:number;
     porcentaje?:number;
     
@@ -14,7 +14,7 @@ export class SolicitudPlanDocumentoValoradoDTO {
         id: new FormControl(modeloDTO.id),
         id_solicitud_plan: new FormControl(modeloDTO.id_solicitud_plan),
         nombre: new FormControl(modeloDTO.nombre),
-        id_tipo_documento_valorado: new FormControl(modeloDTO.id_tipo_documento_valorado),
+        id_documento_valorado: new FormControl(modeloDTO.id_documento_valorado),
         importe: new FormControl(modeloDTO.importe),
         porcentaje: new FormControl(modeloDTO.porcentaje)
       

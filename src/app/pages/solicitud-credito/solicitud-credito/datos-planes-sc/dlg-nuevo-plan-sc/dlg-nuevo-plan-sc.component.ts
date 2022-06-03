@@ -202,7 +202,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       id: data.id,
       id_solicitud_plan: data.id_solicitud_plan,
       nombre: data.nombre,
-      id_tipo_documento_valorado: data.id_tipo_documento_valorado,
+      id_documento_valorado: data.id_documento_valorado,
       importe: data.importe,
       porcentaje: data.porcentaje
 
