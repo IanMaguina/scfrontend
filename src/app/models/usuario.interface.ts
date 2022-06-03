@@ -3,12 +3,10 @@ import { Sociedad } from "./sociedad.interface";
 
 export interface Usuario{
     id?: number,
-    nombre:string,
-    correo: string,
-    id_perfil:number,
-    sociedad_codigo_sap:string,
-    perfil?: Perfil,
-    sociedad?:Sociedad,
+    nombre?:string,
+    correo?: string,
+    id_perfil?:number, 
+    perfil?: Perfil, 
     activo?:boolean
 }
 
