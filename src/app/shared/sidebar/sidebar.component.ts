@@ -8,6 +8,8 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { SideNavService } from './side-nav.service';
 
+
+
 interface ExampleFlatNode {
   expandable?: boolean;
   name: string;
@@ -71,12 +73,14 @@ export class SidebarComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private router: Router,
-    private sideNavService: SideNavService,
-  ) {
+    private sideNavService: SideNavService,) {
     this.dataSource.data = this.sidebarService.menu;
 
     console.log("los datos son: " + JSON.stringify(this.dataSource.data));
   }
+  
+
+
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
