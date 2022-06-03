@@ -35,7 +35,7 @@
         <mat-form-field appearance="outline">
             <mat-label>Oficina de Venta</mat-label>
             <mat-select formControlName="id_zonal" required>
-                <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal.id">{{ zonal.nombre }}
+                <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal.codigo_sap">{{ zonal.nombre }}
                 </mat-option>
             </mat-select>
         </mat-form-field>

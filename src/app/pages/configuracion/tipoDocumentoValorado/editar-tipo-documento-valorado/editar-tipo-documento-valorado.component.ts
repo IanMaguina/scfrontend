@@ -36,7 +36,7 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
     private tipoDocumentoValoradoService: TipoDocumentoValoradoService
   ) {
     this.tipoDocumentoValoradoData = data;
-    console.log("info del id_tipo_documento_valorado: " + JSON.stringify(data));
+    console.log("info del id_documento_valorado: " + JSON.stringify(data));
     this.editarFormDialog = this.formBuilder.group({
       nombre: [this.tipoDocumentoValoradoData.nombre, Validators.required],
     })

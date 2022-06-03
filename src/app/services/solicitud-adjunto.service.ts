@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
-import { Adjunto } from '../models/adjunto.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolicitudAdjuntoService {
+
   constructor(
-    private resourceService: ResourceService
+    private readonly resourceService: ResourceService
   ) {
+  }
+
+  public onAddAttached(formData:FormData):Observable<any>{
+    return this.resourceService.postMultipartResource('api/adjunto', formData);
   }
 
   crear(archivo: File, id_solicitud: any, filename: string): Promise<any> {

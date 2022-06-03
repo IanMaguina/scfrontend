@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~12.2.16",
     "@angular/router": "~12.2.16",
     "angularx-social-login": "^3.5.7",
+    "bootstrap": "^5.2.0-beta1",
     "chart.js": "^2.9.3",
     "exceljs": "^4.2.1",
     "file-saver": "^2.0.5",

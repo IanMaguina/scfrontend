@@ -4,15 +4,32 @@
 </mat-card>
 
 <mat-card class="zona_de_adjuntos">
-    <form>
-        <div class="descripcion_adjuntos"><span class="descripcion_1">Adjuntar:</span><button mat-raised-button
-                class="boton-adjuntos">Seleccionar Archivo</button><span>Ningun archivo seleccionado...</span></div>
-        <div>
-            <span class="descripcion">Descripción:</span>
-            <mat-form-field class="bloquedescripcion" appearance="outline">
-                <mat-label>Escriba una descripción</mat-label>
-                <textarea matInput placeholder="Escribir..."></textarea>
-            </mat-form-field>
+    <form [formGroup]="formDocumentAdditional" (ngSubmit)="onSaveForm()">
+        <div class="row g-4">
+            <div class="col-12">
+                <label>Adjuntar documento: </label>
+                <mat-form-field appearance="outline" (click)="f_input.click()">
+                    <button mat-icon-button matPrefix type="button">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <input type="text" placeholder="Seleccione el archivo a adjuntar" readonly matInput
+                        formControlName="file" />
+                    <input type="file" hidden #f_input (change)="onInputFileChange(f_input.files)" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <label>Descripción:</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Escriba una descripción</mat-label>
+                    <textarea formControlName="description" matInput placeholder="Escribir..."></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="d-flex flex-row justify-content-end">
+                <button mat-raised-button class="boton-principal-light" [disabled]="!formDocumentAdditional.valid"
+                    type="submit" matStepperNext>Guardar</button>
+            </div>
         </div>
     </form>
 </mat-card>
