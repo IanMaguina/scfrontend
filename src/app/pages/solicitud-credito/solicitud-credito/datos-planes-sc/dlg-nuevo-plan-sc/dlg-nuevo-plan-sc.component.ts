@@ -1,6 +1,6 @@
 import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-plan-condicion-pago.dto';
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
@@ -9,8 +9,9 @@ import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import { PlanService } from 'src/app/services/plan.service';
 import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
-import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
+import { Subject } from 'rxjs';
+import { SolicitudService } from '@services/solicitud.service';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -19,14 +20,16 @@ import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-do
   ]
 })
 
-export class DlgNuevoPlanScComponent implements OnInit {
+export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
+
+  private destroy$ = new Subject<unknown>();
+  private grupo_cliente_codigo_sap!: string;
+  private sociedad_codigo_sap!: string;
 
   displayedColumnsDocumentoValorado: string[] = ['nombre', 'importe'];
 
 
   displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre', 'valor_nuevo'];
-
-
 
   solicitudData: any;
   id_solicitud_editar: any;
@@ -95,7 +98,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   checkReemplazoPlan: boolean = false;
-  sociedad_codigo_sap_solicitud="6012"
+  sociedad_codigo_sap_solicitud = "6012"
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
@@ -105,7 +108,8 @@ export class DlgNuevoPlanScComponent implements OnInit {
     private documentoValoradoService: DocumentoValoradoService,
     private lineaProductoService: LineaProductoService,
     private tipoMonedaService: TipoMonedaService,
-    private solicitudPlanService: SolicitudPlanService
+    private solicitudPlanService: SolicitudPlanService,
+    private solicitudService: SolicitudService
 
   ) {
     this.id_solicitud_editar = data;
@@ -134,6 +138,12 @@ export class DlgNuevoPlanScComponent implements OnInit {
     this.listarDocumentosValorados();
     this.listarLineaProductos();
     this.listarMoneda();
+    this.getIdRequest();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
   }
 
   listarPlan() {
@@ -192,7 +202,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
       id: data.id,
       id_solicitud_plan: data.id_solicitud_plan,
       nombre: data.nombre,
-      id_tipo_documento_valorado: data.id_tipo_documento_valorado,
+      id_documento_valorado: data.id_documento_valorado,
       importe: data.importe,
       porcentaje: data.porcentaje
 
@@ -244,7 +254,8 @@ export class DlgNuevoPlanScComponent implements OnInit {
       "id_solicitud": this.id_solicitud_editar,
       "id_tipo_linea": form.tipo_linea.id,
       "id_plan": form.plan_credito.id,
-      "grupo_cliente_codigo_sap": null,
+      "grupo_cliente_codigo_sap": this.grupo_cliente_codigo_sap,
+      "sociedad_codigo_sap": this.sociedad_codigo_sap,
       "id_cliente_agrupacion": null,
       "id_empresa": null,
       "fecha_vigencia": null,
@@ -273,5 +284,13 @@ export class DlgNuevoPlanScComponent implements OnInit {
 
   onNoClick(res: string) {
     this.dialogRef.close(res);
+  }
+
+  private getIdRequest() {
+    this.solicitudService.obtenerSolicitudCliente(this.id_solicitud_editar).then(({ payload}) => {
+      const { cliente_agrupacion:{grupo_cliente_codigo_sap, sociedad_codigo_sap }} = payload.shift();
+      this.sociedad_codigo_sap = sociedad_codigo_sap;
+      this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
+    });
   }
 }
