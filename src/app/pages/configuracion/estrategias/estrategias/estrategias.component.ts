@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { CrearEstrategiaSociedadComponent } from '../crear-estrategia-sociedad/crear-estrategia-sociedad.component';
-import {EstrategiaService} from '../../../../services/estrategia.service';
 import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad/editar-estrategia-sociedad.component';
-import { Estrategia } from 'src/app/models/estrategia.interface';
+import { RolUsuario } from 'src/app/models/rol-usuario.interface';
+import { RolUsuarioService } from '@services/rol-usuario.service';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -11,56 +13,64 @@ import { Estrategia } from 'src/app/models/estrategia.interface';
   ]
 })
 export class EstrategiasComponent implements OnInit {
-  listadoEstrategiasPorSociedad: Estrategia[] = [];
-  displayedColumnsSociedad: string[] = ['sociedad', 'rol', 'usuario', 'revisor', 'activo'];
+  listadoEstrategiaRolUsuario: RolUsuario[] = [];
+  displayedColumns: string[] = ['sociedad', 'grupo_cliente','rol', 'usuario', 'usuario_revisor', 'activo'];
   constructor(
-    private matDialog: MatDialog,
-    private estrategiaService:EstrategiaService
+    private matDialog: MatDialog, 
+    private rolUsuarioService:RolUsuarioService,
+    private _snack:MatSnackBar,
   ) { }
-g
+
   ngOnInit(): void {
-    console.log("ngInit");
-    this.listarEstrategias();
+    this.listarEstrategiaRolUsuario();
   }
 
-  async listarEstrategias() {
-    this.estrategiaService.listarEstrategias().then(data => {
-      console.log("listado estrategias "+JSON.stringify(data.payload));
-      this.listadoEstrategiasPorSociedad = data.payload;
-      console.log("ian observa: "+JSON.stringify(data.payload));
+  async listarEstrategiaRolUsuario() { 
+    this.rolUsuarioService.listarEstrategiaRolUsuario().then(data => {
+      this.listadoEstrategiaRolUsuario = data.payload;
     })
   }
 
-  openAgregarEstrategiaSociedad() {
-    const dialogRef = this.matDialog.open(CrearEstrategiaSociedadComponent, {
-      disableClose: true,
-      width:'300px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.listarEstrategias();
-    });
+  openAgregarEstrategiaRolUsuario() {
+    this.openDialog(CrearEstrategiaSociedadComponent,'Se registró la estrategia' );
   }
 
-  openEditarEstrategiaSociedad(element:any) {
-    const dialogRef2 = this.matDialog.open(EditarEstrategiaSociedadComponent, {
-      disableClose: true,
-      data: { estrategia: element }
-    });
-
-    dialogRef2.afterClosed().subscribe(result => {
-      this.listarEstrategias();
-      console.log("return function process");
-    });
+  openEditarEstrategiaRolUsuario(element:any) {
+    this.openDialog(EditarEstrategiaSociedadComponent,'Se modificó la estrategia',{ estrategiaRolUsuario: element } );
   }
     
 
-  async toggleEstrategiaEstadoPorSociedad(element:any) {
+  async toggleEstrategiaRolUsuario(element:any) {
     console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
-    await this.estrategiaService.inactivarEstrategia(element).then( (_) =>{
-      this.listarEstrategias();
+    await this.rolUsuarioService.editarEstrategiaRolUsuario(element).then( (data) =>{
+      if(data.header.exito){
+        this.listarEstrategiaRolUsuario();
+      }
     });
 
+  }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+
+  openDialog(componente: any, msg: string, data?: any) {
+    let dialogRef = this.matDialog.open(componente, {
+      disableClose: true,
+      width:'300px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack(msg);
+        this.listarEstrategiaRolUsuario();
+      }
+    });
   }
  
 

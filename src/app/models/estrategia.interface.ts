@@ -1,7 +1,7 @@
 import { EstadoRol } from "./estado-rol.interface";
 import { Sociedad } from "./sociedad.interface";
 import { Usuario } from "./usuario.interface";
-export interface Estrategia{
+export interface Estrategiafff{
     id?: number,
     sociedad?:Sociedad,
     id_estado_rol?:number,
