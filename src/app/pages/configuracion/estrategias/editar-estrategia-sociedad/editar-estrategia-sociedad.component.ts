@@ -31,7 +31,7 @@ import { RolUsuarioService } from '@services/rol-usuario.service';
 })
 export class EditarEstrategiaSociedadComponent implements OnInit {
 
-  estrategiaData: any;
+  
 
   formDialog!: FormGroup;
   formErrors = {
@@ -99,13 +99,14 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     private grupoClienteService: GrupoClienteService,
   ) {
     this.rolUsuarioData = data.estrategiaRolUsuario;
+    console.log("el rol usuario que viene es : "+JSON.stringify(this.rolUsuarioData));
     this.formDialog = this.formBuilder.group({
       id:[this.rolUsuarioData.id],
-      sociedad: ['', Validators.required],
-      grupo_cliente: ['', Validators.required],
-      usuario: ['', Validators.required],
-      rol: ['', Validators.required],
-      usuario_revisor: [''],
+      sociedad: [this.rolUsuarioData.sociedad, Validators.required],
+      grupo_cliente: [this.rolUsuarioData.grupo_cliente, Validators.required],
+      usuario: [this.rolUsuarioData.usuario, Validators.required],
+      rol: [this.rolUsuarioData.rol, Validators.required],
+      usuario_revisor: [this.rolUsuarioData.usuario_revisor],
     })
     this.formDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
@@ -120,6 +121,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     this.listarUsuarios();
     this.listarGrupos();
     this.listarSociedades();
+    this.listarRoles();
   }
 
 
@@ -127,7 +129,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   /*usuarios */
   async listarUsuariosNoAgregados() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuario = listado;
+    this.comboListadoUsuario = listado.payload;
     this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
@@ -148,7 +150,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   /* revisores */
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioRevisor = listado;
+    this.comboListadoUsuarioRevisor = listado.payload;
     this.filteredUsuarioRevisor = this.formDialog.get('revisor')?.valueChanges
       .pipe(
         startWith(''),
@@ -198,13 +200,19 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       this.listadoSociedades = data;
     })
   }
+  async listarRoles() {
+    this.rolUsuarioService.listarRoles().then(data => {
+      this.listadoRoles = data.payload;
+    })
+  }
 
 
 
 
   async mapeoRolUsuario(form: any) {
     let rolUsuario: RolUsuario = {
-      sociedad_codigo_sap: form.sociedad.sociedad_codigo_sap,
+      id:form.id,
+      sociedad_codigo_sap: form.sociedad.codigo_sap,
       grupo_cliente_codigo_sap: form.grupo_cliente.codigo_sap,
       id_usuario: form.usuario.id,
       id_rol: form.rol.id,
@@ -225,6 +233,12 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
     return o1.id === o2.id;
   }
+  
+  compareSociedad(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.codigo_sap === o2.codigo_sap;
+  }
+
 
 
  

@@ -14,6 +14,7 @@ import { RolUsuarioService } from '@services/rol-usuario.service';
 })
 export class EstrategiasComponent implements OnInit {
   listadoEstrategiaRolUsuario: RolUsuario[] = [];
+  estrategiaRolUsuario: RolUsuario = {};
   displayedColumns: string[] = ['sociedad', 'grupo_cliente','rol', 'usuario', 'usuario_revisor', 'activo'];
   constructor(
     private matDialog: MatDialog, 
@@ -35,7 +36,8 @@ export class EstrategiasComponent implements OnInit {
     this.openDialog(CrearEstrategiaSociedadComponent,'Se registró la estrategia' );
   }
 
-  openEditarEstrategiaRolUsuario(element:any) {
+  openEditarEstrategiaRolUsuario(element:RolUsuario) {
+   console.log("a editar: "+JSON.stringify(element));
     this.openDialog(EditarEstrategiaSociedadComponent,'Se modificó la estrategia',{ estrategiaRolUsuario: element } );
   }
     

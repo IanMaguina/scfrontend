@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit {
   ) {
     this.dataSource.data = this.sidebarService.menu;
 
-    console.log("los datos son: " + JSON.stringify(this.dataSource.data));
+   // console.log("los datos son: " + JSON.stringify(this.dataSource.data));
   }
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 

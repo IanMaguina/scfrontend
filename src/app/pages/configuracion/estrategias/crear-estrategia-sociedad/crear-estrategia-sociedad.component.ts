@@ -41,16 +41,16 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   }
   validationMessages = {
     'sociedad': {
-      'required': 'el usuario es requerido.',
+      'required': ' sociedad es requerida.',
     },
     'grupo_cliente': {
-      'required': 'el estado es requerido.',
+      'required': 'el grupo_cliente es requerido.',
     },
     'usuario': {
-      'required': 'el rol es requerido.',
+      'required': 'el usuario es requerido.',
     },
     'rol': {
-      'required': 'el revisor es requerido.',
+      'required': 'el rol es requerido.',
     },
     'usuario_revisor': {
       'required': 'el revisor es requerido.',
@@ -114,12 +114,12 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     this.listarRevisores();
     this.listarGrupos();
     this.listarSociedades();
+    this.listarRoles();
   }
 
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuario = listado;
-    console.log(JSON.stringify(listado));
+    this.comboListadoUsuario = listado.payload; 
     this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
@@ -142,7 +142,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   /* usuario revisor */
   async listarRevisores() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioRevisor = listado;
+    this.comboListadoUsuarioRevisor = listado.payload;
     this.filteredUsuarioRevisor = this.formDialog.get('usuario_revisor')?.valueChanges
       .pipe(
         startWith(''),
@@ -176,13 +176,13 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   }
 
   actualizarFormulario(){
-    let id_rol = this.formDialog.get('rol').value.id;
+   // let id_rol = this.formDialog.get('rol').value.id;
 
   }
 
   async listarRoles() {
     await this.rolUsuarioService.listarRoles().then(data => {
-      this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
+      this.listadoRoles = data.payload.length !== 0 ? data.payload : [];
   
     })
   }
