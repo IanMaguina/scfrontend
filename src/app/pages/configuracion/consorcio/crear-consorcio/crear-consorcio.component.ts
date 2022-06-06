@@ -59,11 +59,12 @@ carga: boolean = false;
     });
     
   }
-
+/* usuario usado rafa:12, se debe usar cookies para traer el usuario */
   async mapeoGrupo(form: any) {
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 2,
       "id_tipo_documento_identidad": 1,
+      "id_usuario_creacion": 12,
       "numero_documento": form.numero_documento,      
       "nombre": form.nombre,
       "activo": true

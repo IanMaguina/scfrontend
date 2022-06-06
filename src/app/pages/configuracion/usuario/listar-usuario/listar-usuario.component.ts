@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
@@ -7,16 +8,17 @@ import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.compone
 @Component({
   selector: 'app-listar-usuario',
   templateUrl: './listar-usuario.component.html',
-  styleUrls: ['./listar-usuario.component.css']
+  styleUrls: []
 })
 export class ListarUsuarioComponent implements OnInit {
-  displayedColumns: string[] = ['nombre', 'sociedad', 'perfil', 'correo', 'id'];
+  displayedColumns: string[] = ['nombre', 'perfil', 'correo', 'id'];
   listadoUsuarios: Usuario[] = [];
 
 
   constructor(
     private matDialog: MatDialog,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private _snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -26,22 +28,13 @@ export class ListarUsuarioComponent implements OnInit {
 
   async listarUsuarios() {
     this.usuarioService.listarUsuarios().then(data => {
-      this.listadoUsuarios = data;
-      console.log(JSON.stringify(this.listadoUsuarios));
+      this.listadoUsuarios = data.payload;
+      console.log("usuarios listados: " + JSON.stringify(data.payload));
 
     })
   }
   openAgregarUsuario(): void {
-    let dialogRef = this.matDialog.open(CrearUsuarioComponent, {
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.listarUsuarios();
-      console.log("return function process");
-    });
-
-
+    this.openDialog(CrearUsuarioComponent, 'se registró el usuario');
   }
 
   async toggleUsuarioEstado(element: Usuario) {
@@ -50,21 +43,32 @@ export class ListarUsuarioComponent implements OnInit {
     this.usuarioService.activarUsuario(element).then(data => {
       console.log("cuando actualiza esto pasa: " + JSON.stringify(data));
     });
-
   }
 
   async openEditarUsuario(form: any) {
-    console.log("al editar usuario: " + JSON.stringify(form));
-    let dialogRef = this.matDialog.open(EditarUsuarioComponent, {
+    this.openDialog(EditarUsuarioComponent, 'se actualizó el usuario', form);
+  }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+
+  openDialog(componente: any, msg: string, data?: any) {
+    let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
-      data: form
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("ACTUALIZOOOOOO");
-      this.listarUsuarios();
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack(msg);
+        this.listarUsuarios();
+      }
     });
-
   }
 
 

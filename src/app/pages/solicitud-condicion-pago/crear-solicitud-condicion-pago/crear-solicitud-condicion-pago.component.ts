@@ -1,23 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {  FormBuilder, FormGroup  } from '@angular/forms';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormValidatorService } from '@services/form-validator.service';
 import { LineaProductoService } from '@services/linea-producto.service';
 
-import { SolicitudPlanCondicionPagoDTO } from 'src/app/dto/solicitud-plan-condicion-pago.dto';
-
-
 @Component({
-  selector: 'app-dlg-solicitud-condicion-pago',
-  templateUrl: './dlg-solicitud-condicion-pago.component.html',
+  selector: 'app-crear-solicitud-condicion-pago',
+  templateUrl: './crear-solicitud-condicion-pago.component.html',
   styles: [
   ]
 })
-export class DlgSolicitudCondicionPagoComponent implements OnInit {
+export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
-
-
+  
+ 
   /*  displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre','valor_nuevo', 'fecha_vigencia'];
  
   */
@@ -43,7 +39,7 @@ export class DlgSolicitudCondicionPagoComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<DlgSolicitudCondicionPagoComponent>,
+    public dialogRef: MatDialogRef<CrearSolicitudCondicionPagoComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private lineaProductoService: LineaProductoService,

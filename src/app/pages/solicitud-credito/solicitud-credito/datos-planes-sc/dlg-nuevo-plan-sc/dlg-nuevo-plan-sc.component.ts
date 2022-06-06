@@ -1,20 +1,19 @@
 import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-plan-condicion-pago.dto';
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import { PlanService } from 'src/app/services/plan.service';
-import { TipoMonedaService } from 'src/app/services/tipo-moneda.service'; 
+import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
-import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
-import { DlgSolicitudCondicionPagoComponent } from '../dlg-solicitud-condicion-pago/dlg-solicitud-condicion-pago.component';
 
-
-
+import { Subject } from 'rxjs';
+import { SolicitudService } from '@services/solicitud.service';
+import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-condicion-pago/crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -22,12 +21,16 @@ import { DlgSolicitudCondicionPagoComponent } from '../dlg-solicitud-condicion-p
   styles: [
   ]
 })
-export class DlgNuevoPlanScComponent implements OnInit {
 
-  displayedColumnsDocumentoValorado: string[] = ['nombre', 'importe'];
+export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
 
+  private destroy$ = new Subject<unknown>();
+  private grupo_cliente_codigo_sap!: string;
+  private sociedad_codigo_sap!: string;
 
   displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre'];
+  //displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre', 'valor_nuevo'];
+  displayedColumnsDocumentoValorado: string[] = ['nombre', 'importe'];
 
 
 
@@ -98,7 +101,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   checkReemplazoPlan: boolean = false;
-
+  sociedad_codigo_sap_solicitud = "6012"
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
@@ -110,6 +113,8 @@ export class DlgNuevoPlanScComponent implements OnInit {
     private tipoMonedaService: TipoMonedaService,
     private solicitudPlanService: SolicitudPlanService,
     private matDialog: MatDialog,
+    private solicitudService: SolicitudService
+
   ) {
     this.id_solicitud_editar = data;
     console.log("PENELOPE-->" + JSON.stringify(this.id_solicitud_editar));
@@ -136,7 +141,13 @@ export class DlgNuevoPlanScComponent implements OnInit {
     this.listarPlan();
     this.listarDocumentosValorados();
     this.listarLineaProductos();
-    this.listarMoneda(); 
+    this.listarMoneda();
+    this.getIdRequest();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
   }
 
   listarPlan() {
@@ -183,7 +194,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   }
 
   //fin
-/* comienza Doc valorado */
+  /* comienza Doc valorado */
   listarDocumentosValorados() {
     this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoDocumentosValorados = data.payload;
@@ -195,7 +206,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
       id: data.id,
       id_solicitud_plan: data.id_solicitud_plan,
       nombre: data.nombre,
-      id_tipo_documento_valorado: data.id_tipo_documento_valorado,
+      id_documento_valorado: data.id_documento_valorado,
       importe: data.importe,
       porcentaje: data.porcentaje
 
@@ -218,8 +229,8 @@ export class DlgNuevoPlanScComponent implements OnInit {
   get documentoValoradoArray(): FormArray {
     return this.formulary.get('documentoValoradoArray') as FormArray;
   }
-/* D valorados */
-  
+  /* D valorados */
+
 
 
   listarMoneda() {
@@ -239,23 +250,16 @@ export class DlgNuevoPlanScComponent implements OnInit {
     console.log(JSON.stringify(valor));
   }
 
+  private destructuringAssigment(form) {
 
-  async agregar(form: any) {
-    console.log("solicitud plan-->" + JSON.stringify(form));
-    let solicitud: SolicitudPlan = await this.mapeoData(form)
-    this.solicitudPlanService.crear(solicitud).then(data => {
-      this.onNoClick(data);
-    })
-  }
+    const { lineaProductosArray, documentoValoradoArray } = this.formulary.value;
 
-  async mapeoData(form: any) {
-    let solicitud: SolicitudPlan =
-    {
-      "id": null,
+    const params = {
       "id_solicitud": this.id_solicitud_editar,
       "id_tipo_linea": form.tipo_linea.id,
       "id_plan": form.plan_credito.id,
-      "grupo_cliente_codigo_sap": null,
+      "grupo_cliente_codigo_sap": this.grupo_cliente_codigo_sap,
+      "sociedad_codigo_sap": this.sociedad_codigo_sap,
       "id_cliente_agrupacion": null,
       "id_empresa": null,
       "fecha_vigencia": null,
@@ -265,9 +269,21 @@ export class DlgNuevoPlanScComponent implements OnInit {
       "fecha_fin": null,
       "comentario": form.informacion_adicional,
       "id_plan_referencia": null,
-      "tipo_calculo": null
+      "tipo_calculo": null,
+      "codicion_pago": lineaProductosArray,
+      "documento_valorado": documentoValoradoArray
     }
-    return solicitud;
+
+    return params;
+  }
+
+  async agregar(form: any) {
+
+    const params = this.destructuringAssigment(form);
+
+    this.solicitudPlanService.crear(params).then(data => {
+      this.onNoClick(data);
+    })
   }
 
   onNoClick(res: string) {
@@ -280,7 +296,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
       id_solicitud:this.id_solicitud_editar
     }
 
-    const dialogRef = this.matDialog.open(DlgSolicitudCondicionPagoComponent, {
+    const dialogRef = this.matDialog.open(CrearSolicitudCondicionPagoComponent, {
       disableClose: true,
       width:"750px",
       data:data
@@ -292,5 +308,14 @@ export class DlgNuevoPlanScComponent implements OnInit {
         console.log("se agregó el plan correctamente");
       }
     }); 
-  }
+    
+}
+private getIdRequest() {
+  this.solicitudService.obtenerSolicitudCliente(this.id_solicitud_editar).then(({ payload}) => {
+    const { cliente_agrupacion:{grupo_cliente_codigo_sap, sociedad_codigo_sap }} = payload.shift();
+    this.sociedad_codigo_sap = sociedad_codigo_sap;
+    this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
+  });
+}
+
 }
