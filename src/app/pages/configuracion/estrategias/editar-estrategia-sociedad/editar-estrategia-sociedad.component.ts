@@ -1,3 +1,4 @@
+import { GlobalSettings } from 'src/app/shared/settings';
 import { EstrategiaService } from './../../../../services/estrategia.service';
 import { EstadoService } from './../../../../services/estado.service';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -33,7 +34,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
 
   
 
-  formDialog!: FormGroup;
+  formulary!: FormGroup;
   formErrors = {
     'sociedad': '',
     'grupo_cliente': '',
@@ -81,9 +82,8 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
 
-
-
-
+  ROL_CONTROL_GESTION=GlobalSettings.ROL_CONTROL_GESTION;
+  visibleRolSolicitante=true;
 
   constructor(
     public dialogRef: MatDialogRef<EditarEstrategiaSociedadComponent>,
@@ -100,7 +100,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   ) {
     this.rolUsuarioData = data.estrategiaRolUsuario;
     console.log("el rol usuario que viene es : "+JSON.stringify(this.rolUsuarioData));
-    this.formDialog = this.formBuilder.group({
+    this.formulary = this.formBuilder.group({
       id:[this.rolUsuarioData.id],
       sociedad: [this.rolUsuarioData.sociedad, Validators.required],
       grupo_cliente: [this.rolUsuarioData.grupo_cliente, Validators.required],
@@ -108,13 +108,10 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       rol: [this.rolUsuarioData.rol, Validators.required],
       usuario_revisor: [this.rolUsuarioData.usuario_revisor],
     })
-    this.formDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formulary.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formulary, this.formErrors, this.validationMessages, this.submitted);
     })
 
-    this.listarUsuarios();
-    this.listarGrupos();
-    this.listarSociedades();
   }
 
   ngOnInit(): void {
@@ -122,6 +119,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     this.listarGrupos();
     this.listarSociedades();
     this.listarRoles();
+    this.selectedRol();
   }
 
 
@@ -130,7 +128,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async listarUsuariosNoAgregados() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuario = listado.payload;
-    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
+    this.filteredUsuario = this.formulary.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -151,7 +149,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuarioRevisor = listado.payload;
-    this.filteredUsuarioRevisor = this.formDialog.get('revisor')?.valueChanges
+    this.filteredUsuarioRevisor = this.formulary.get('revisor')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -191,13 +189,15 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     await this.grupoClienteService.listarGrupoCliente().then((data) => {
 
       this.listadoGruposCliente = data.payload;
+      console.log("listadoGruposCliente-->"+JSON.stringify(this.listadoGruposCliente));
     })
-    // this.formDialog.get('grupo_revisor')?.valueChanges
+    // this.formulary.get('grupo_revisor')?.valueChanges
   }
 
   async listarSociedades() {
     this.sociedadService.listarSociedades().then(data => {
       this.listadoSociedades = data;
+      console.log("sociedades-->"+JSON.stringify(this.listadoSociedades));
     })
   }
   async listarRoles() {
@@ -222,8 +222,6 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     return rolUsuario;
   }
 
-
-
   compareRol(o1: any, o2: any) {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
     return o1.id === o2.id;
@@ -239,6 +237,10 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     return o1.codigo_sap === o2.codigo_sap;
   }
 
+  compareGrupoCliente(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.codigo_sap === o2.codigo_sap;
+  }
 
 
  
@@ -258,6 +260,10 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     });
   }
 
+  selectedRol(){
+    let rol:Rol=this.formulary.get("rol").value;
+    this.visibleRolSolicitante=(rol.id==this.ROL_CONTROL_GESTION?false:true);
+  }
 
 
 
