@@ -8,7 +8,8 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { SolicitudCreditoComponent } from './solicitud-credito/solicitud-credito.component';
-import { LoginComponent } from '../auth/login/login.component';
+
+import { SolicitudCondicionPagoComponent } from './solicitud-condicion-pago/solicitud-condicion-pago.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
           { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'}
           },            
           { path: 'solicitudcredito', component: SolicitudCreditoComponent, data:{titulo: 'Solicitud de Crédito', ruta: 'Solicitud de Crédito'}  },  
+          { path: 'solicitudcondicionpago', component: SolicitudCondicionPagoComponent, data:{titulo: 'Solicitud de Condición de Pago', ruta: 'Solicitud de Condición de Pago'}  },  
           /*    { path: 'usuarios',component: UsuariosComponent }, */
         ]
       },

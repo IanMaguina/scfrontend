@@ -54,9 +54,9 @@ export class RolUsuarioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/rol-usuario/" + rolUsuario.id, rolUsuario).toPromise().then((data) => {
-          if (data && Object.keys(data).length !== 0) {
+          //if (data && Object.keys(data).length !== 0) {
             resolve(data);
-          }
+          //}
         }
         ).catch(
           (error) => {

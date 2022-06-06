@@ -8,11 +8,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { ConfiguracionModule } from './configuracion/configuracion.module';
 import { SolicitudCreditoModule } from './solicitud-credito/solicitud-credito.module';
+import { SolicitudCondicionPagoModule } from './solicitud-condicion-pago/solicitud-condicion-pago.module';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    PagesComponent
+    PagesComponent,
+ 
 
   ],
   exports: [
@@ -27,6 +29,7 @@ import { SolicitudCreditoModule } from './solicitud-credito/solicitud-credito.mo
     
     ConfiguracionModule,
     SolicitudCreditoModule,
+    SolicitudCondicionPagoModule,
   ],
 })
 export class PagesModule { }

@@ -59,8 +59,6 @@ import { DlgNuevoProductoFlujoCajaScComponent } from './solicitud-credito/datos-
 import { DlgCuadroFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-cuadro-flujo-caja-sc/dlg-cuadro-flujo-caja-sc.component';
 import { EditarSolicitudCreditoComponent } from './solicitud-credito/editar-solicitud-credito/editar-solicitud-credito.component';
 import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-solicitud-credito/bandeja-solicitud-credito.component';
-import { BandejaSolicitudGrupoComponent } from './solicitud-credito/bandeja-solicitud-grupo/bandeja-solicitud-grupo.component';
-import { BandejaSolicitudConsorcioComponent } from './solicitud-credito/bandeja-solicitud-consorcio/bandeja-solicitud-consorcio.component';
 import { DlgDetalleSolicitudConsorcioComponent } from './solicitud-credito/dlg-detalle-solicitud-consorcio/dlg-detalle-solicitud-consorcio.component';
 import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
 import { EvaluarCreditoComponent } from './evaluar-credito/evaluar-credito.component';
@@ -98,13 +96,10 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     DlgCuadroFlujoCajaScComponent,
     EditarSolicitudCreditoComponent,
     BandejaSolicitudCreditoComponent,
-    BandejaSolicitudGrupoComponent,
-    BandejaSolicitudConsorcioComponent,
     DlgDetalleSolicitudConsorcioComponent,
     DlgDetalleSolicitudGrupoComponent,
     EvaluarCreditoComponent,
     SustentoEvaluacionEcComponent,
-
   ],
   imports: [
     RouterModule,

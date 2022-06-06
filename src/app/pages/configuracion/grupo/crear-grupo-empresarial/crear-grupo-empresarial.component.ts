@@ -48,11 +48,12 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then();
     this.onNoClick();
   }
-
+  /* usuario usado rafa:12, se debe usar cookies para traer el usuario */
   async mapeoGrupo(form: any) {
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 1,
       "id_tipo_documento_identidad": null,
+      "id_usuario_creacion": 12,
       "numero_documento": null,      
       "nombre": form.nombre,
       "activo": true

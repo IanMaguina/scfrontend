@@ -1,6 +1,6 @@
 <div class="title-add-element color-title">Editar Estrategia</div>
 <div class="contenidoForm">
-    <form [formGroup]="formDialog" (ngSubmit)="editarEstrategiaRolUsuario(formDialog.value)">
+    <form [formGroup]="formulary" (ngSubmit)="editarEstrategiaRolUsuario(formulary.value)">
         
 
         <div class="col-12">
@@ -15,7 +15,7 @@
         <div class="col-12">
             <mat-form-field appearance="outline">
                 <mat-label>Grupo Cliente</mat-label>
-                <mat-select formControlName="grupo_cliente" required>
+                <mat-select formControlName="grupo_cliente" [compareWith]="compareGrupoCliente" required>
                     <mat-option *ngFor="let grupo_cliente of listadoGruposCliente" [value]="grupo_cliente">{{ grupo_cliente.nombre }}
                     </mat-option>
                 </mat-select>
@@ -25,7 +25,7 @@
         <div class="col-12">
             <mat-form-field appearance="outline">
                 <mat-label>Rol</mat-label>
-                <mat-select formControlName="rol" [compareWith]="compareRol" required>
+                <mat-select formControlName="rol" [compareWith]="compareRol" (selectionChange)="selectedRol()" required>
                     <mat-option *ngFor="let rol of listadoRoles" [value]="rol">{{ rol.nombre }}
                     </mat-option>
                 </mat-select>
@@ -48,11 +48,11 @@
 
             </mat-form-field>
         </div>
-        <div class="col-12" >
+        <div class="col-12" *ngIf="visibleRolSolicitante">
             <b>Datos del Revisor:</b>
             <br><br>
         </div>
-        <div class="col-12" >
+        <div class="col-12" *ngIf="visibleRolSolicitante">
             <mat-form-field appearance="outline">
                 <mat-label>Revisor</mat-label>
                 <input type="text" matInput placeholder="Revisor" formControlName="usuario_revisor" [matAutocomplete]="autoRevisor">
@@ -72,6 +72,6 @@
        
       
         <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button> &nbsp;
-        <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="formDialog.invalid">Actualizar</button>
+        <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="formulary.invalid">Actualizar</button>
     </form>
 </div>

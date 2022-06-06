@@ -107,15 +107,11 @@
                             <th mat-header-cell *matHeaderCellDef> Linea Producto </th>
                             <td mat-cell *matCellDef="let element"> {{ element.get('nombre').value}} </td>
                         </ng-container>
-
-                        <ng-container matColumnDef="valor_nuevo">
-                            <th mat-header-cell *matHeaderCellDef> Nuevo </th>
-                            <td mat-cell *matCellDef="let element" [formGroup]="element">
-                                <mat-form-field appearance="outline">
-                                    <input matInput formControlName="valor_nuevo">
-                                </mat-form-field>
-                            </td>
-                        </ng-container>
+                        <!-- <ng-container matColumnDef="valor_nuevo">
+                            <th mat-header-cell *matHeaderCellDef> Nuevo valor </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('valor_nuevo').value}} </td>
+                        </ng-container> -->
+                        
             
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsLineaProducto"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumnsLineaProducto;"></tr>
@@ -123,6 +119,9 @@
 
                 </div>
 
+                <div class="objetoNuevoPlan">
+                    <button mat-raised-button (click)="solicitarNuevaCondicionPago()">Nueva Condición</button>
+                </div>
 
                 <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
@@ -135,8 +134,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-
-
+              
                 <div formArrayName="documentoValoradoArray">
                 <table mat-table [dataSource]="documentoValoradoArray.controls" class="tableforms mat-elevation-z8">
 
@@ -164,6 +162,7 @@
                 </table>
                 </div>
 
+                
                 <div class="objetoNuevoPlan">
                     <mat-form-field appearance="outline">
                         <mat-label>Información Adicional</mat-label>

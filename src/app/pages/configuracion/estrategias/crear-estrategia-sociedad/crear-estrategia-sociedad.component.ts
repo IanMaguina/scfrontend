@@ -1,9 +1,6 @@
-
-import { EstadoService } from './../../../../services/estado.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Estado } from 'src/app/models/estado.interface';
 import { Rol } from 'src/app/models/rol.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
@@ -13,13 +10,13 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
 import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
 import { RolUsuarioService } from '@services/rol-usuario.service';
 import { RolUsuario } from 'src/app/models/rol-usuario.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-crear-estrategia-sociedad',
@@ -31,7 +28,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
 
 
-  formDialog: FormGroup;
+  formulary: FormGroup;
   formErrors = {
     'sociedad': '',
     'grupo_cliente': '',
@@ -84,7 +81,8 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
 
-
+  ROL_CONTROL_GESTION = GlobalSettings.ROL_CONTROL_GESTION;
+  visibleRolSolicitante = true;
   constructor(
     public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
     private matDialog: MatDialog,
@@ -92,20 +90,20 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     private _snack: MatSnackBar,
     private formValidatorService: FormValidatorService,
 
-    private usuarioService: UsuarioService, 
+    private usuarioService: UsuarioService,
     private rolUsuarioService: RolUsuarioService,
     private sociedadService: SociedadService,
     private grupoClienteService: GrupoClienteService,
   ) {
-    this.formDialog = this.formBuilder.group({
+    this.formulary = this.formBuilder.group({
       sociedad: ['', Validators.required],
       grupo_cliente: ['', Validators.required],
       usuario: ['', Validators.required],
       rol: ['', Validators.required],
       usuario_revisor: [''],
     })
-    this.formDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formulary.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formulary, this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
@@ -115,12 +113,13 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     this.listarGrupos();
     this.listarSociedades();
     this.listarRoles();
+    this.selectedRol();
   }
 
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuario = listado.payload; 
-    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
+    this.comboListadoUsuario = listado.payload;
+    this.filteredUsuario = this.formulary.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -143,7 +142,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   async listarRevisores() {
     let listado = await this.usuarioService.listarUsuarios().then();
     this.comboListadoUsuarioRevisor = listado.payload;
-    this.filteredUsuarioRevisor = this.formDialog.get('usuario_revisor')?.valueChanges
+    this.filteredUsuarioRevisor = this.formulary.get('usuario_revisor')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -162,44 +161,44 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   /* grupo  */
   async listarGrupos() {
-   await this.grupoClienteService.listarGrupoCliente().then((data)=>{
+    await this.grupoClienteService.listarGrupoCliente().then((data) => {
 
-     this.listadoGruposCliente = data.payload;
-   })
-    // this.formDialog.get('grupo_revisor')?.valueChanges
+      this.listadoGruposCliente = data.payload;
+    })
+    // this.formulary.get('grupo_revisor')?.valueChanges
   }
 
   async listarSociedades() {
     this.sociedadService.listarSociedades().then(data => {
-      this.listadoSociedades  = data;
+      this.listadoSociedades = data;
     })
   }
 
-  actualizarFormulario(){
-   // let id_rol = this.formDialog.get('rol').value.id;
+  actualizarFormulario() {
+    // let id_rol = this.formulary.get('rol').value.id;
 
   }
 
   async listarRoles() {
     await this.rolUsuarioService.listarRoles().then(data => {
       this.listadoRoles = data.payload.length !== 0 ? data.payload : [];
-  
+
     })
   }
 
   async crearEstrategiaRolUsuario(form: any) {
 
     let rolUsuario = await this.mapeoRolUsuario(form);
-      if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
-        this.rolUsuarioService.crearEstrategiaRolUsuario(rolUsuario).then((data) => {
-          if(data.header.exito){
-            this.onNoClick('CONFIRM_DLG_YES');
-          }
-        });
-      } else {
-        this.callErrorDialog('Debe seleccionar el usuario de la estrategia');
-      }
-   
+    if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
+      this.rolUsuarioService.crearEstrategiaRolUsuario(rolUsuario).then((data) => {
+        if (data.header.exito) {
+          this.onNoClick('CONFIRM_DLG_YES');
+        }
+      });
+    } else {
+      this.callErrorDialog('Debe seleccionar el usuario de la estrategia');
+    }
+
   }
 
   callErrorDialog(mensaje: string) {
@@ -210,7 +209,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     });
   }
 
-  onNoClick(msg:string): void {
+  onNoClick(msg: string): void {
     this.dialogRef.close(msg);
   }
 
@@ -233,6 +232,11 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     });
   }
 
-  
- 
+  selectedRol() {
+    let rol: Rol = this.formulary.get("rol").value;
+    this.visibleRolSolicitante = (rol.id == this.ROL_CONTROL_GESTION ? false : true);
+  }
+
+
+
 }
