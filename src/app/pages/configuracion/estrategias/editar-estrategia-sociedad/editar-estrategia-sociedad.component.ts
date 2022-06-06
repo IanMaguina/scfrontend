@@ -176,8 +176,12 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     let mensaje = "¡Nombre de usuario no válido!";
 
     if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
-      this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then(() => {
-        this.onNoClick('CONFIRM_DLG_YES');
+      this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then((data) => {
+        if(data.header.exito){
+          this.onNoClick('CONFIRM_DLG_YES');
+        }else{
+          this.callErrorDialog(data.header.mensaje);
+        }
       });
     } else {
       this.callErrorDialog(mensaje);
