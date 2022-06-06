@@ -216,7 +216,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   async mapeoRolUsuario(form: any) {
     let rolUsuario: RolUsuario = {
-      sociedad_codigo_sap: form.sociedad.sociedad_codigo_sap,
+      sociedad_codigo_sap: form.sociedad.codigo_sap,
       grupo_cliente_codigo_sap: form.grupo_cliente.codigo_sap,
       id_usuario: form.usuario.id,
       id_rol: form.rol.id,
