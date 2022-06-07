@@ -70,7 +70,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     private matDialog: MatDialog,
   ) {
     this.grupoData = data;
-    console.log("trayendo del listado--->" + JSON.stringify(this.grupoData));
+   // console.log("trayendo del listado--->" + JSON.stringify(this.grupoData));
     this.id_cliente_agrupacion = this.grupoData.id;
 
     /*  */
@@ -92,18 +92,18 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   async listarSociedades() {
     this.sociedadService.listarSociedades().then(data => {
-      console.log("listarSociedad:" + JSON.stringify(data));
       this.listadoSociedades = data;
     })
   }
 
   async listarClienteEmpresa() {
     this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
-      console.log("listarClienteEmpresas:" + JSON.stringify(data));
       this.listadoIntegrantes = data.payload;
     })
 
   }  
+
+
   asignarEmpresaGrupo(form: any) {
     console.log("asignarEmpresaGrupo-->" + JSON.stringify(form));
     this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
@@ -112,9 +112,15 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
-          "id_empresa": data.payload.id
+          "id_empresa": data.payload[0].id,
+          "id_usuario_creacion": 12
         }
-        this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
+        console.log("se manda--->" + JSON.stringify(clienteEmpresa));
+        
+        this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res=>{
+          console.log("resultado de la asignación: "+ JSON.stringify(res));
+        });
+
       } else {
         let mensaje:string = "Empresa no registrada";
         if (data.payload.tiene_cliente ){

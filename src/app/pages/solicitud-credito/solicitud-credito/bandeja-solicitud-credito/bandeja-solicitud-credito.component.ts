@@ -77,13 +77,21 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   ngOnInit() {
     console.log("ngOnInit  bandeja de pendientes");
     this.listarSolicitud();
+    this.listarEstadosSolicitud();
   }
 
   listarSolicitud() {
     this.solicitudService.listarSolicitudes().then(data => {
-      console.log(JSON.stringify(data));
+      console.log("solicitudes:"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
     })
+  }
+
+  listarEstadosSolicitud(){
+    this.solicitudService.listarEstadosSolicitud().then(data => {
+        this.listadoEstadosSolicitud = data.payload;
+    });
+
   }
 
   editarSolicitud(element: any) {
