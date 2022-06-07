@@ -76,7 +76,7 @@ export class SidebarComponent implements OnInit {
     private sideNavService: SideNavService,) {
     this.dataSource.data = this.sidebarService.menu;
 
-    console.log("los datos son: " + JSON.stringify(this.dataSource.data));
+   // console.log("los datos son: " + JSON.stringify(this.dataSource.data));
   }
   
 

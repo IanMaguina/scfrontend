@@ -1,10 +1,6 @@
-import { EstrategiaService } from './../../../../services/estrategia.service';
-import { EstadoService } from './../../../../services/estado.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EstadoRol } from 'src/app/models/estado-rol.interface';
-import { Estado } from 'src/app/models/estado.interface';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Rol } from 'src/app/models/rol.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
@@ -14,126 +10,116 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { EstadoRolUsuario } from 'src/app/models/estado-rol-usuario.interface';
-import { EstadoRolUsuarioAsignado } from 'src/app/models/estado-rol-usuario-asignado.interface';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
 import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
+import { RolUsuarioService } from '@services/rol-usuario.service';
+import { RolUsuario } from 'src/app/models/rol-usuario.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-crear-estrategia-sociedad',
   templateUrl: './crear-estrategia-sociedad.component.html',
   styles: []
-  /* no acepta './crear-estrategia-sociedad.component.css' */
-  
+
 })
 export class CrearEstrategiaSociedadComponent implements OnInit {
 
 
 
-  formDialog: FormGroup;
+  formulary: FormGroup;
   formErrors = {
+    'sociedad': '',
+    'grupo_cliente': '',
     'usuario': '',
-    'estado': '',
     'rol': '',
-    'revisor': '',
-    'grupo_revisor': '',
-    'sociedad_revisor': '',
+    'usuario_revisor': '',
   }
   validationMessages = {
+    'sociedad': {
+      'required': ' sociedad es requerida.',
+    },
+    'grupo_cliente': {
+      'required': 'el grupo_cliente es requerido.',
+    },
     'usuario': {
       'required': 'el usuario es requerido.',
-    },
-    'estado': {
-      'required': 'el estado es requerido.',
     },
     'rol': {
       'required': 'el rol es requerido.',
     },
-    'revisor': {
+    'usuario_revisor': {
       'required': 'el revisor es requerido.',
-    },
-    'grupo_revisor': {
-      'required': 'el revisor es requerido.',
-    },
-    'sociedad_revisor': {
-      'required': 'el revisor es requerido.',
-    },
+    }
   };
   //Submitted form
   submitted = false;
   carga: boolean = false;
 
-  //poner el tipado correcto => es data dummy
 
-  listadoSociedadRevisor: Sociedad[] = [];
 
-  /* poner el tipo del modelo Rol */
 
   listadoRoles: Rol[] = [];
-  /*    { id: 1, nombre: 'rol 1' },
-     { id: 2, nombre: 'rol 2' },
-   ];
-  */
-  listadoEstados: Estado[] = [];
-  /*     { id: 1, nombre: 'Estado 1' },
-      { id: 2, nombre: 'Estado 2' },
-    ]; */
+  listadoSociedades: Sociedad[] = [];
+  listadoGruposCliente: GrupoCliente[] = [];
+
+
+
+
 
   id_estado: number = 0;
   id_estado_rol: number = 0;
+  /* usuarios */
   myControl = new FormControl();
   filteredUsuario!: Observable<Usuario[]>;
   comboListadoUsuario: Usuario[] = [];
   selectedUsuario: any;
-
+  /* revisores */
   myControlRevisor = new FormControl();
   filteredUsuarioRevisor!: Observable<Usuario[]>;
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
 
-  myControlGrupoRevisor = new FormControl();
-  filteredGrupoRevisor!: Observable<GrupoCliente[]>;
-  comboListadoGrupoRevisor: GrupoCliente[] = [];
-  selectedGrupoRevisor: any;
-
+  ROL_CONTROL_GESTION = GlobalSettings.ROL_CONTROL_GESTION;
+  visibleRolSolicitante = true;
   constructor(
     public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
     private matDialog: MatDialog,
     private formBuilder: FormBuilder,
+    private _snack: MatSnackBar,
     private formValidatorService: FormValidatorService,
+
     private usuarioService: UsuarioService,
-    private estadoService: EstadoService,
-    private estrategiaService: EstrategiaService,
+    private rolUsuarioService: RolUsuarioService,
     private sociedadService: SociedadService,
-    private grupoService: GrupoClienteService,
+    private grupoClienteService: GrupoClienteService,
   ) {
-    this.formDialog = this.formBuilder.group({
+    this.formulary = this.formBuilder.group({
+      sociedad: ['', Validators.required],
+      grupo_cliente: ['', Validators.required],
       usuario: ['', Validators.required],
-      estado: ['', Validators.required],
       rol: ['', Validators.required],
-      revisor: [''],
-      grupo_revisor: [''],
-      sociedad_revisor: [''],
+      usuario_revisor: [''],
     })
-    this.formDialog.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.formDialog, this.formErrors, this.validationMessages, this.submitted);
+    this.formulary.valueChanges.subscribe(() => {
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formulary, this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
   ngOnInit(): void {
-    this.listarEstados();
     this.listarUsuarios();
+    this.listarRevisores();
     this.listarGrupos();
     this.listarSociedades();
+    this.listarRoles();
+    this.selectedRol();
   }
 
-  async listarUsuariosNoAgregados() {
-    let listado = await this.estrategiaService.listarUsuariosNoAgregados(this.id_estado_rol).then();
-    this.comboListadoUsuario = listado;
-    console.log(JSON.stringify(listado));
-    this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
+  async listarUsuarios() {
+    let listado = await this.usuarioService.listarUsuarios().then();
+    this.comboListadoUsuario = listado.payload;
+    this.filteredUsuario = this.formulary.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -153,10 +139,10 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
 
   /* usuario revisor */
-  async listarUsuarios() {
+  async listarRevisores() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioRevisor = listado;
-    this.filteredUsuarioRevisor = this.formDialog.get('revisor')?.valueChanges
+    this.comboListadoUsuarioRevisor = listado.payload;
+    this.filteredUsuarioRevisor = this.formulary.get('usuario_revisor')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
@@ -173,86 +159,46 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   }
 
 
-  /* grupo revisor */
+  /* grupo  */
   async listarGrupos() {
-    let listado = await this.grupoService.listarGrupoCliente().then()
-    this.comboListadoGrupoRevisor = listado;
-    this.filteredGrupoRevisor = this.formDialog.get('grupo_revisor')?.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.nombre),
-        map(nombre => nombre ? this._filterGrupoRevisor(nombre) : this.comboListadoGrupoRevisor.slice())
-      );
-  }
+    await this.grupoClienteService.listarGrupoCliente().then((data) => {
 
-  displayFnGrupoRevisor(grupo: GrupoCliente): string {
-    return grupo && grupo.nombre ? grupo.nombre : '';
-  }
-
-  private _filterGrupoRevisor(nombre: string): GrupoCliente[] {
-    let filterValue = nombre.toLowerCase();
-    return this.comboListadoGrupoRevisor.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+      this.listadoGruposCliente = data.payload;
+    })
+    // this.formulary.get('grupo_revisor')?.valueChanges
   }
 
   async listarSociedades() {
     this.sociedadService.listarSociedades().then(data => {
-      this.listadoSociedadRevisor = data;
+      this.listadoSociedades = data;
     })
   }
 
+  actualizarFormulario() {
+    // let id_rol = this.formulary.get('rol').value.id;
 
-
-
-  async listarEstados() {
-    this.estadoService.listarParaEstrategia().then(data => {
-      this.listadoEstados = data.payload;
-    })
   }
 
   async listarRoles() {
-    let estado: Estado = this.formDialog.get('estado').value;
-    this.id_estado = estado.id;
-    if (estado.id === 1) {
-      this.formDialog.get('revisor')?.setValidators([Validators.required]);
-      this.formDialog.get('revisor').setValue("");
-    } else {
-      this.formDialog.get('revisor')?.setValidators([]);
-      this.formDialog.get('revisor').setValue("");
-    }
-    this.formDialog.get("revisor")?.updateValueAndValidity();
-    await this.estadoService.obtenerRolesPorEstado(estado.id).then(data => {
-      //console.log("obtener roles por estado: "+ JSON.stringify(data));
-      this.listadoRoles = data.payload.length !== 0 ? [data.payload[0].rol] : [];
-      this.id_estado_rol = data.payload.length !== 0 ? data.payload[0].id : null;
-      this.listarUsuariosNoAgregados();
-      console.log(JSON.stringify(this.id_estado_rol));
-    })
+    await this.rolUsuarioService.listarRoles().then(data => {
+      this.listadoRoles = data.payload.length !== 0 ? data.payload : [];
 
+    })
   }
 
-  async crearEstrategiaSociedad(form: any) {
-    console.log("Crear EstadoRolUsuario:" + JSON.stringify(form));
-    let estadoRolUsuario = await this.mapeoEstadoRolUsuario(form)
-    let mensaje = "¡Nombre de usuario no válido!";
+  async crearEstrategiaRolUsuario(form: any) {
 
-    if (form.estado.id === 1) {
-      if (form.usuario && form.usuario.id && form.revisor && form.revisor.id) {
-        this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
-          this.onNoClick();
-        });
-      } else {
-        this.callErrorDialog(mensaje);
-      }
+    let rolUsuario = await this.mapeoRolUsuario(form);
+    if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
+      this.rolUsuarioService.crearEstrategiaRolUsuario(rolUsuario).then((data) => {
+        if (data.header.exito) {
+          this.onNoClick('CONFIRM_DLG_YES');
+        }
+      });
     } else {
-      if (form.usuario && form.usuario.id) {
-        this.estrategiaService.crearEstrategia(estadoRolUsuario).then(() => {
-          this.onNoClick();
-        });
-      } else {
-        this.callErrorDialog(mensaje);
-
-      }
+      this.callErrorDialog('Debe seleccionar el usuario de la estrategia');
     }
+
   }
 
   callErrorDialog(mensaje: string) {
@@ -263,18 +209,34 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     });
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg: string): void {
+    this.dialogRef.close(msg);
   }
 
-  async mapeoEstadoRolUsuario(form: any) {
-    let estadoRolUsuario: EstadoRolUsuario = {
-      id_estado_rol: this.id_estado_rol,
+  async mapeoRolUsuario(form: any) {
+    let rolUsuario: RolUsuario = {
+      sociedad_codigo_sap: form.sociedad.codigo_sap,
+      grupo_cliente_codigo_sap: form.grupo_cliente.codigo_sap,
       id_usuario: form.usuario.id,
-      id_usuario_revisor: form.revisor.id
+      id_rol: form.rol.id,
+      id_usuario_revisor: form.usuario_revisor.id,
     }
-    return estadoRolUsuario;
+    return rolUsuario;
   }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+
+  selectedRol() {
+    let rol: Rol = this.formulary.get("rol").value;
+    this.visibleRolSolicitante = (rol.id == this.ROL_CONTROL_GESTION ? false : true);
+  }
+
 
 
 }

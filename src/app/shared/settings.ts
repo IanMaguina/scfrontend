@@ -20,6 +20,7 @@ export const GlobalSettings = Object.freeze({
     //Roles
     ROL_SOLICITANTE: 10,
     ROL_REVISOR: 20,
+    ROL_CONTROL_GESTION: 21,
     ROL_RPA: 30,
     ROL_EVALUADOR: 40,
     ROL_APROBADOR: 50,

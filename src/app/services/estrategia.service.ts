@@ -12,7 +12,7 @@ export class EstrategiaService {
     
   }
 
-  listarEstrategias(): Promise<any> {
+ /*  listarEstrategias(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/estrategia").toPromise().then((data) => {
@@ -32,9 +32,9 @@ export class EstrategiaService {
 
       }
     );
-  }
+  } */
 
-  listarUsuariosNoAgregados(id_estado_rol:number): Promise<any> {
+/*   listarUsuariosNoAgregados(id_estado_rol:number): Promise<any> {
     console.log("enviando id_estado_rol-->"+id_estado_rol);
     return new Promise(
       (resolve, reject) => {
@@ -55,9 +55,9 @@ export class EstrategiaService {
 
       }
     );
-  }
+  } */
 
-  crearEstrategia(estadoRolUsuario: EstadoRolUsuario): Promise<any> {
+  /* crearEstrategia(estadoRolUsuario: EstadoRolUsuario): Promise<any> {
     console.log("sending Usuario..." + JSON.stringify(estadoRolUsuario));
     return new Promise(
       (resolve, reject) => {
@@ -91,7 +91,7 @@ export class EstrategiaService {
       }
     );
 
-  }
+  } */
 
 
   crearRevisor(id_estado_rol_usuario:number,estadoRolUsuarioAsignado: EstadoRolUsuarioAsignado): Promise<any> {
@@ -110,7 +110,7 @@ export class EstrategiaService {
       });
   }
 
-  actualizarEstrategia(id_estado_rol_usuario:number,estadoRolUsuario: EstadoRolUsuario): Promise<any> {
+  /* actualizarEstrategia(id_estado_rol_usuario:number,estadoRolUsuario: EstadoRolUsuario): Promise<any> {
     console.log("enviando-->"+id_estado_rol_usuario+"-----"+JSON.stringify(estadoRolUsuario))
     return new Promise(
       (resolve, reject) => {
@@ -124,8 +124,8 @@ export class EstrategiaService {
         });
 
       });
-  }
-  inactivarEstrategia(estrategia:any): Promise<any> {
+  } */
+ /*  inactivarEstrategia(estrategia:any): Promise<any> {
     console.log("enviando-->"+estrategia+"-----");
     let item ={
       activo:estrategia.activo
@@ -158,6 +158,6 @@ export class EstrategiaService {
         });
 
       });
-  }
+  } */
 
 }
