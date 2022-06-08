@@ -31,6 +31,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 
 import { CrearSolicitudCondicionPagoComponent } from './crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
+import { ListarSolicitudCondicionPagoComponent } from './listar-solicitud-condicion-pago/listar-solicitud-condicion-pago.component';
 
 
 
@@ -38,6 +39,7 @@ import { CrearSolicitudCondicionPagoComponent } from './crear-solicitud-condicio
   declarations: [
     SolicitudCondicionPagoComponent,
     CrearSolicitudCondicionPagoComponent,
+    ListarSolicitudCondicionPagoComponent,
   ],
   imports: [
     CommonModule,
