@@ -634,6 +634,28 @@ export class SolicitudService {
 
       }
     );
+  }
+
+  listarEstadosSolicitud(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/estado/solicitudes").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("obras de la solicitud no encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
 
   }
 

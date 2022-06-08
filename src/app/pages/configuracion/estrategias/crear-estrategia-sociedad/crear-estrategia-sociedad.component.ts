@@ -81,7 +81,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   comboListadoUsuarioRevisor: Usuario[] = [];
   selectedUsuarioRevisor: any;
 
-  ROL_CONTROL_GESTION = GlobalSettings.ROL_CONTROL_GESTION;
+  ROL_SOLICITANTE = GlobalSettings.ROL_SOLICITANTE;
   visibleRolSolicitante = true;
   constructor(
     public dialogRef: MatDialogRef<CrearEstrategiaSociedadComponent>,
@@ -96,10 +96,10 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     private grupoClienteService: GrupoClienteService,
   ) {
     this.formulary = this.formBuilder.group({
-      sociedad: ['', Validators.required],
-      grupo_cliente: ['', Validators.required],
-      usuario: ['', Validators.required],
       rol: ['', Validators.required],
+      sociedad: [''],
+      grupo_cliente: [''],
+      usuario: ['', Validators.required],
       usuario_revisor: [''],
     })
     this.formulary.valueChanges.subscribe(() => {
@@ -191,7 +191,10 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     let rolUsuario = await this.mapeoRolUsuario(form);
     if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
       this.rolUsuarioService.crearEstrategiaRolUsuario(rolUsuario).then((data) => {
-        if (data.header.exito) {
+        if (data.payload.warning){
+          this.callErrorDialog(data.payload.warning.mensaje);
+        }else{
+          console.log("response : "+JSON.stringify(data.payload));
           this.onNoClick('CONFIRM_DLG_YES');
         }
       });
@@ -234,7 +237,15 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
 
   selectedRol() {
     let rol: Rol = this.formulary.get("rol").value;
-    this.visibleRolSolicitante = (rol.id == this.ROL_CONTROL_GESTION ? false : true);
+    if(rol.id===this.ROL_SOLICITANTE){
+      this.formulary.get("sociedad").setValidators(Validators.required);
+      this.formulary.get("grupo_cliente").setValidators(Validators.required);
+    }else{
+      this.formulary.get("sociedad").removeValidators(Validators.required);
+      this.formulary.get("grupo_cliente").removeValidators(Validators.required);
+    }
+
+    this.visibleRolSolicitante = (rol.id == this.ROL_SOLICITANTE ? true : false);
   }
 
 

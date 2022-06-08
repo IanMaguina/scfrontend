@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatTableResponsiveModule } from 'src/app/shared/tables/mat-table-responsive.module';
 /* componentes */
 
 import { CrearSolicitudCreditoComponent } from './solicitud-credito/crear-solicitud-credito/crear-solicitud-credito.component';
@@ -130,11 +131,13 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,
+    MatTableResponsiveModule
   ],
   exports: [
     CdkStepperModule,
     MatStepperModule,
-    SolicitudCreditoComponent
+    SolicitudCreditoComponent,
+    MatTableResponsiveModule
 
   ],
 })

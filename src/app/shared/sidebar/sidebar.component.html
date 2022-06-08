@@ -19,9 +19,10 @@
   </mat-tree-node>
 </mat-tree>-->
 
+
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" role="navigation" [opened]="sidenavLayout" (mouseenter)="isExpanded = true" (mouseleave)="isExpanded = false"
-    (mouseleave)=" lineadecredito=false">
+  <mat-sidenav #sidenav mode="side" role="navigation" [opened]="sidenavLayout" (mouseenter)="isExpanded = true"
+    (mouseleave)="isExpanded = false" (mouseleave)=" lineadecredito=false">
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="with-icon padded">
       <!--This is the tree node template for leaf nodes-->
@@ -34,20 +35,21 @@
       </mat-tree-node>
       <!--This is the tree node template for expandable nodes-->
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle class="color-secundario"
-          [attr.aria-label]="'Toggle ' + node.name">
+        <button mat-icon-button matTreeNodeToggle class="color-secundario" [attr.aria-label]="'Toggle ' + node.name">
           <mat-icon class="mat-icon-rtl-mirror color-secundario">
             {{ node.icono }}
           </mat-icon>
         </button>
-        <a *ngIf="isExpanded"[click]="'Toggle ' + node.name">{{node.name}} </a>
+        <a *ngIf="isExpanded" [click]="'Toggle ' + node.name">{{node.name}} </a>
       </mat-tree-node>
     </mat-tree>
 
-
+    
+     
+    
 
     <mat-nav-list>
-  
+      
       <mat-list-item (click)="lineadecredito=!lineadecredito" mat-button (click)="sidenav.toggle()">
 
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
@@ -89,7 +91,7 @@
 
         <span *ngIf="isExpanded" class="Linea">Lineas de Crédito</span>
 
-        
+
       </mat-list-item>
 
       <mat-list-item class="interior" *ngIf="lineadecredito">
@@ -429,3 +431,7 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+
+

@@ -518,15 +518,6 @@ table {
     display: none !important;
 }
 
-.label-info {
-    color: #3482A1;
-    font-size: 9pt;
-}
-
-.label-info mat-icon {
-    font-size: 8pt !important;
-}
-
 
 /* Para componentes corrección defaults. */
 
@@ -1244,7 +1235,7 @@ body::-webkit-scrollbar-thumb {
 
 /* END - Grid responsive */
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .mat-table[matTableResponsive] {
         .mat-header-row {
             display: flex;
@@ -1451,4 +1442,43 @@ body::-webkit-scrollbar-thumb {
         padding-top: 10px !important;
         padding-left: 10px !important;
     }
+
+
+/* Bandejas */
+
+.filtros{
+    display: grid;
+}
+
+.buscarBandejas {
+    display: flex;
+    position: relative;
+    align-items: center !important;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}
+
+.formBandejas{
+    padding-top: 10px;
+}
+
+.label-info {
+    display: flex;
+    flex-wrap: wrap;
+    color: #70707070;
+    font-size: 10pt;
+    line-height: 40px;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.labelEstadoCP{
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
 

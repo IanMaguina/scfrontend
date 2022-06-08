@@ -15,7 +15,7 @@ import { RolUsuarioService } from '@services/rol-usuario.service';
 export class EstrategiasComponent implements OnInit {
   listadoEstrategiaRolUsuario: RolUsuario[] = [];
   estrategiaRolUsuario: RolUsuario = {};
-  displayedColumns: string[] = ['sociedad', 'grupo_cliente','rol', 'usuario', 'usuario_revisor', 'activo'];
+  displayedColumns: string[] = ['rol','sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
   constructor(
     private matDialog: MatDialog, 
     private rolUsuarioService:RolUsuarioService,
