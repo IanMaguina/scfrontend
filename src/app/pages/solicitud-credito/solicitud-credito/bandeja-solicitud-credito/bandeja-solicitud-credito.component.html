@@ -1,114 +1,123 @@
-<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
+<div class="titlesection">
     Bandeja de Pendientes
     <br><br>
     <mat-divider></mat-divider>
 </div>
-<br>
-<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+<div>
     <form [formGroup]="formulary" (ngSubmit)="buscarSolicitudes(formulary.value)">
-        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+        <div class="buscarBandejas">
+            <mat-form-field appearance="fill" class="formBandejas">
+                <mat-label>Tipo de Cliente</mat-label>
+                <input matInput formControlName="tipo_cliente">
+            </mat-form-field>
 
 
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>Tipo de Cliente</mat-label>
-                    <input matInput formControlName="tipo_cliente">
-                </mat-form-field>
-            </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>RUC</mat-label>
-                    <input matInput formControlName="numero_documento">
-                </mat-form-field>
-            </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <mat-select formControlName="estado" required>
-                        <mat-option *ngFor="let estado of listadoEstadosSolicitud" [value]="estado.id">{{ estado.nombre }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>N° Solicitud</mat-label>
-                    <input matInput formControlName="solicitud">
-                </mat-form-field>
-            </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
-                <mat-form-field appearance="outline">
-                    <mat-label>Fecha</mat-label>
-                    <input matInput formControlName="fecha">
-                </mat-form-field>
-            </div>
+            <mat-form-field appearance="fill" class="formBandejas">
+                <mat-label>RUC</mat-label>
+                <input matInput formControlName="numero_documento">
+            </mat-form-field>
 
-            <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-2">
-                <button mat-mini-fab color="primary" aria-label="Buscar" class="boton-principal-light"
-                    type="submit">
+
+            <mat-form-field appearance="fill" class="formBandejas">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado" required>
+                    <mat-option *ngFor="let estado of listadoEstadosSolicitud" [value]="estado.id">{{ estado.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="formBandejas">
+                <mat-label>N° Solicitud</mat-label>
+                <input matInput formControlName="solicitud">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="formBandejas">
+                <mat-label>Fecha</mat-label>
+                <input matInput formControlName="fecha">
+            </mat-form-field>
+
+
+            <div class="formBandejas">
+                <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="submit">
                     <mat-icon>search</mat-icon>
                 </button>
             </div>
         </div>
     </form>
-
-
-
 </div>
-<br>
-<div class="content-table col-s-12 col-m-12 col-xl-12 col-l-12">
-    <span class="label-info">Estados Condición de Pago:&nbsp;&nbsp;
-        <mat-icon class="color-aprobacion">fiber_manual_record</mat-icon> &nbsp;En Aprobación&nbsp;
-        <mat-icon class="color-aprobado">fiber_manual_record</mat-icon> &nbsp;Aprobado&nbsp;
-        <mat-icon class="color-activado">fiber_manual_record</mat-icon> &nbsp;Activado&nbsp;
-        <mat-icon class="color-retirado">fiber_manual_record</mat-icon> &nbsp;Retirado&nbsp;
-        <mat-icon class="color-rechazado">fiber_manual_record</mat-icon> &nbsp;Rechazado&nbsp;
 
-    </span>
-    <table mat-table [dataSource]="listadoSolicitudes" class="mat-elevation-z8 ">
+
+
+<div class="label-info">
+    <div class="labelEstadoCP">Estados Condición de Pago:&nbsp;&nbsp;</div>
+    <div class="labelEstadoCP">
+        <mat-icon class="color-aprobacion">fiber_manual_record</mat-icon> &nbsp;En Aprobación&nbsp;
+    </div >
+    <div class="labelEstadoCP">
+        <mat-icon class="color-aprobado">fiber_manual_record</mat-icon> &nbsp;Aprobado&nbsp;
+    </div>
+    <div class="labelEstadoCP">
+        <mat-icon class="color-activado">fiber_manual_record</mat-icon> &nbsp;Activado&nbsp;
+    </div>
+    <div class="labelEstadoCP">
+        <mat-icon class="color-retirado">fiber_manual_record</mat-icon> &nbsp;Retirado&nbsp;
+    </div>
+    <div class="labelEstadoCP">
+        <mat-icon class="color-rechazado">fiber_manual_record</mat-icon> &nbsp;Rechazado&nbsp;
+    </div>
+</div>
+
+
+
+
+<div class="content-table">
+    <table mat-table matTableResponsive [dataSource]="listadoSolicitudes" class="mat-elevation-z8 ">
         <caption title="Table estrategias - por sociedad"></caption>
-        
+
         <!-- Column -->
         <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef> estado</th>
+            <th mat-header-cell *matHeaderCellDef> Estado</th>
             <td mat-cell *matCellDef="let element" (dblclick)="editarSolicitud(element)"><u>
                     {{element.estado.nombre}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="correlativo">
-            <th mat-header-cell *matHeaderCellDef> correlativo</th>
-            <td mat-cell *matCellDef="let element" ><u>
+            <th mat-header-cell *matHeaderCellDef> Correlativo</th>
+            <td mat-cell *matCellDef="let element"><u>
                     {{element.correlativo}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="numero_documento">
             <th mat-header-cell *matHeaderCellDef> RUC</th>
-            <td mat-cell *matCellDef="let element" ><u>
+            <td mat-cell *matCellDef="let element"><u>
                     {{element.numero_documento}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="cliente">
             <th mat-header-cell *matHeaderCellDef> Razón Social</th>
-            <td mat-cell *matCellDef="let element" ><u>
+            <td mat-cell *matCellDef="let element"><u>
                     {{element.cliente.nombre}} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="fecha_creacion">
-            <th mat-header-cell *matHeaderCellDef> fecha solicitud</th>
-            <td mat-cell *matCellDef="let element" ><u>
+            <th mat-header-cell *matHeaderCellDef> Fecha solicitud</th>
+            <td mat-cell *matCellDef="let element"><u>
                     {{element.fecha_creacion | date: 'dd/MM/yyyy' }} </u></td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef> usuario</th>
-            <td mat-cell *matCellDef="let element" ><u>
+            <th mat-header-cell *matHeaderCellDef> Usuario</th>
+            <td mat-cell *matCellDef="let element"><u>
                     {{element.usuario.nombre}} </u></td>
         </ng-container>
         <!-- Columna a eliminar -->
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Accion </th>
+            <th mat-header-cell *matHeaderCellDef> Acción </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-button class="boton-secundario" (click)="evaluar(element)" matTooltip="este botón es solo de prueba">Evaluador</button>    
+                <button mat-button class="boton-secundario" (click)="evaluar(element)"
+                    matTooltip="este botón es solo de prueba">Evaluador</button>
             </td>
         </ng-container>
 
