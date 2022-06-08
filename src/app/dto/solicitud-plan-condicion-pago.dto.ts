@@ -5,7 +5,7 @@ export class SolicitudPlanCondicionPagoDTO {
     id_solicitud_plan?: number;
     codigo_sap?:string;
     nombre?:string;
-    id_condicion_pago_linea_producto?:number;
+    id_condicion_pago?:number;
     valor?:number;
     valor_nuevo?:number;
     fecha_vigencia?:Date;
@@ -18,7 +18,7 @@ export class SolicitudPlanCondicionPagoDTO {
         id_solicitud_plan: new FormControl(modeloDTO.id_solicitud_plan),
         codigo_sap: new FormControl(modeloDTO.codigo_sap),
         nombre: new FormControl(modeloDTO.nombre),
-        id_condicion_pago_linea_producto: new FormControl(modeloDTO.id_condicion_pago_linea_producto),
+        id_condicion_pago: new FormControl(modeloDTO.id_condicion_pago),
         valor: new FormControl(modeloDTO.valor),
         valor_nuevo: new FormControl(modeloDTO.valor_nuevo),
         fecha_vigencia: new FormControl(modeloDTO.fecha_vigencia),
