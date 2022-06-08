@@ -17,7 +17,6 @@ export class RolUsuarioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.postResource("/api/rol-usuario", rolUsuario).toPromise().then((data) => {
-          console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
         }).catch((error) => {

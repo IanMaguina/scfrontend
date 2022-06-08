@@ -191,7 +191,10 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     let rolUsuario = await this.mapeoRolUsuario(form);
     if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
       this.rolUsuarioService.crearEstrategiaRolUsuario(rolUsuario).then((data) => {
-        if (data.header.exito) {
+        if (data.payload.warning){
+          this.callErrorDialog(data.payload.warning.mensaje);
+        }else{
+          console.log("response : "+JSON.stringify(data.payload));
           this.onNoClick('CONFIRM_DLG_YES');
         }
       });

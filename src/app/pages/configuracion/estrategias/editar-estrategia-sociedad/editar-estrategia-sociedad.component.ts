@@ -175,8 +175,8 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
 
     if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
       this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then((data) => {
-        if (data.mensaje) {
-          this.callErrorDialog(data.mensaje);
+        if (data.payload.warning) {
+          this.callErrorDialog(data.payload.warning.mensaje);
         } else {
           console.log("response modificación: "+JSON.stringify(data.payload));
           this.onNoClick('CONFIRM_DLG_YES');
