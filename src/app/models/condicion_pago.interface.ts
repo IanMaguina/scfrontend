@@ -7,5 +7,4 @@ export interface CondicionPago{
     valor?:string,
     estado?:string,
 
-
 }
