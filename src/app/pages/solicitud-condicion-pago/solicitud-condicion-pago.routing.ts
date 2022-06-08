@@ -29,4 +29,4 @@ const routes: Routes = [
     RouterModule,
   ]
 })
-export class SolicitudCreditoRoutingModule { }
+export class SolicitudCondicionPagoRoutingModule { }

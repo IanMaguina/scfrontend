@@ -20,8 +20,7 @@ export class BandejaSolicitudCondicionPagoComponent implements OnInit {
     'sociedad',
     'linea_producto',
     'fecha',
-    'estado',
-    'id',
+    'estado', 
   ]
 
   listadoSolicitudCondicionPago: CondicionPagoCliente[] = [];

@@ -10,6 +10,7 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
 import { SolicitudCreditoComponent } from './solicitud-credito/solicitud-credito.component';
 
 import { SolicitudCondicionPagoComponent } from './solicitud-condicion-pago/solicitud-condicion-pago.component';
+import { SolicitudCondicionPagoRoutingModule } from './solicitud-condicion-pago/solicitud-condicion-pago.routing';
 
 
 const routes: Routes = [
@@ -21,11 +22,10 @@ const routes: Routes = [
 /*           { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'},
           loadChildren:()=>ConfiguracionRoutingModule
           },   */
-          { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'}
-          },            
+          { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'} },            
           { path: 'solicitudcredito', component: SolicitudCreditoComponent, data:{titulo: 'Solicitud de Crédito', ruta: 'Solicitud de Crédito'}  },  
           { path: 'solicitudcondicionpago', component: SolicitudCondicionPagoComponent, data:{titulo: 'Solicitud de Condición de Pago', ruta: 'Solicitud de Condición de Pago'}  },  
-          /*    { path: 'usuarios',component: UsuariosComponent }, */
+          
         ]
       },
    
@@ -36,6 +36,7 @@ const routes: Routes = [
       RouterModule.forRoot(routes), 
       ConfiguracionRoutingModule,
       SolicitudCreditoRoutingModule,
+      SolicitudCondicionPagoRoutingModule,
     ],
     exports: [RouterModule]
 })
