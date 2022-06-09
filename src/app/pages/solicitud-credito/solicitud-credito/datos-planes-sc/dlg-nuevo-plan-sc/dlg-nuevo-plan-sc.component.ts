@@ -1,6 +1,6 @@
 import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-plan-condicion-pago.dto';
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
@@ -22,11 +22,11 @@ import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-co
   ]
 })
 
-export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
+export class DlgNuevoPlanScComponent implements OnInit {
 
-  private destroy$ = new Subject<unknown>();
   private grupo_cliente_codigo_sap!: string;
-  private sociedad_codigo_sap!: string;
+  private id_cliente_agrupacion!: number;
+  private id_empresa!: number;
 
   displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre'];
   //displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre', 'valor_nuevo'];
@@ -145,11 +145,6 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     this.getIdRequest();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next({});
-    this.destroy$.complete();
-  }
-
   listarPlan() {
     this.planService.listarPlan().then(data => {
       this.listadoPlanesCredito = data.payload;
@@ -158,14 +153,11 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
 
   //Inicio
   listarLineaProductos() {
-    this.lineaProductoService.listar().then(data => {
-      this.listadoLineaProducto = data.payload;
-    })
+    this.lineaProductoService.listarCondicionPago().then((data) => this.listadoLineaProducto = data);
   }
 
   async mapeoLineaProducto(data: SolicitudPlanCondicionPagoDTO) {
     let solicitudPlanCondicionPago: SolicitudPlanCondicionPagoDTO = {
-      id: data.id,
       id_solicitud_plan: data.id_solicitud_plan,
       id_condicion_pago: data.id_condicion_pago,
       valor: data.valor,
@@ -259,9 +251,8 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       "id_tipo_linea": form.tipo_linea.id,
       "id_plan": form.plan_credito.id,
       "grupo_cliente_codigo_sap": this.grupo_cliente_codigo_sap,
-      "sociedad_codigo_sap": this.sociedad_codigo_sap,
-      "id_cliente_agrupacion": null,
-      "id_empresa": null,
+      "id_cliente_agrupacion": this.id_cliente_agrupacion,
+      "id_empresa": this.id_empresa,
       "fecha_vigencia": null,
       "id_tipo_moneda": form.moneda.id,
       "importe": form.importe,
@@ -290,32 +281,34 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     this.dialogRef.close(res);
   }
 
-  solicitarNuevaCondicionPago(){
-    let data= {
-      arrayProductos : this.formulary.get('lineaProductosArray'),
-      id_solicitud:this.id_solicitud_editar
+  solicitarNuevaCondicionPago() {
+    let data = {
+      arrayProductos: this.formulary.get('lineaProductosArray'),
+      id_solicitud: this.id_solicitud_editar
     }
 
     const dialogRef = this.matDialog.open(CrearSolicitudCondicionPagoComponent, {
       disableClose: true,
-      width:"750px",
-      data:data
+      width: "750px",
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result === 'CONFIRM_DLG_YES'){
-        
+      if (result === 'CONFIRM_DLG_YES') {
+
         console.log("se agregó el plan correctamente");
       }
-    }); 
-    
-}
-private getIdRequest() {
-  this.solicitudService.obtenerSolicitudCliente(this.id_solicitud_editar).then(({ payload}) => {
-    const { cliente_agrupacion:{grupo_cliente_codigo_sap, sociedad_codigo_sap }} = payload.shift();
-    this.sociedad_codigo_sap = sociedad_codigo_sap;
-    this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
-  });
-}
+    });
+
+  }
+  private getIdRequest() {
+    this.solicitudService.obtenerSolicitudCliente(this.id_solicitud_editar).then(({ payload }) => {
+      const { id_empresa, cliente_agrupacion: { id, grupo_cliente_codigo_sap } } = payload.shift();
+
+      this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
+      this.id_cliente_agrupacion = id;
+      this.id_empresa = id_empresa;
+    });
+  }
 
 }
