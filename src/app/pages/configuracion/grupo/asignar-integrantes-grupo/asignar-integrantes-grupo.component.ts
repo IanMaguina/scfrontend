@@ -59,6 +59,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   ];
 
   id_cliente_agrupacion: number = null;
+  id_usuario:number = 12;
+
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -158,9 +160,11 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa);
+        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then( data =>{
+          
+          this.listarClienteEmpresa();
+        });
       }
-      this.listarClienteEmpresa();
     });
 
 
