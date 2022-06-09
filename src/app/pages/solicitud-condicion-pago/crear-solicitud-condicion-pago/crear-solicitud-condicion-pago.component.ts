@@ -74,7 +74,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
     let solicitudPlanCondicionPago: SolicitudPlanCondicionPagoDTO = {
       id: data.id,
       id_solicitud_plan: data.id_solicitud_plan,
-      id_condicion_pago_linea_producto: data.id_condicion_pago_linea_producto,
+      id_condicion_pago: data.id_condicion_pago,
       valor: data.valor,
       valor_nuevo: data.valor_nuevo,
       fecha_vigencia: data.fecha_vigencia,

@@ -167,7 +167,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     let solicitudPlanCondicionPago: SolicitudPlanCondicionPagoDTO = {
       id: data.id,
       id_solicitud_plan: data.id_solicitud_plan,
-      id_condicion_pago_linea_producto: data.id_condicion_pago_linea_producto,
+      id_condicion_pago: data.id_condicion_pago,
       valor: data.valor,
       valor_nuevo: data.valor_nuevo,
       fecha_vigencia: data.fecha_vigencia,
@@ -270,7 +270,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       "comentario": form.informacion_adicional,
       "id_plan_referencia": null,
       "tipo_calculo": null,
-      "codicion_pago": lineaProductosArray,
+      "condicion_pago": lineaProductosArray,
       "documento_valorado": documentoValoradoArray
     }
 
