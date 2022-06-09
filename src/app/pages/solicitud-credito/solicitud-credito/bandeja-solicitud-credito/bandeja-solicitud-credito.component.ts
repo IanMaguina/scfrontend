@@ -82,7 +82,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
 
   listarSolicitud() {
     this.solicitudService.listarSolicitudes().then(data => {
-      console.log("solicitudes:"+JSON.stringify(data));
+      //console.log("solicitudes:"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
     })
   }
@@ -100,8 +100,15 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
 
 
   }
-  buscarSolicitudes(form: any) {
+  async buscarSolicitudes(form: any) {
+    this.listadoSolicitudes = [];
+    
     console.log("buscarSolicitudes:.." + JSON.stringify(form));
+    
+    await this.solicitudService.listarSolicitudesxFiltros(form).then( data => {
+      console.log("solicitudes filtradas:"+JSON.stringify(data));
+      this.listadoSolicitudes = data.payload;
+    });
   }
 
   /* Se eliminará la siguiente función */

@@ -48,16 +48,14 @@ export class ClienteEmpresaService {
       });
   }
 
-  eliminarClienteEmpresa(id_cliente_agrupacion: number,id_cliente_empresa:number): Promise<any> {
+  eliminarClienteEmpresa(id_cliente_agrupacion: number,id_cliente_empresa:number, usuario_modificacion:any): Promise<any> {
+    let item ={
+      "usuario_modificacion":usuario_modificacion
+    }
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/cliente-agrupacion/" + id_cliente_agrupacion+"/empresa/"+id_cliente_empresa).toPromise().then((data) => {
-          if (data && Object.keys(data).length !== 0) {
+        this.resourceService.deleteResource3("/api/cliente-agrupacion2/" + id_cliente_agrupacion+"/empresa/"+id_cliente_empresa, item).toPromise().then((data) => {
             resolve(data);
-          } else {
-            console.log("no hay datos Usuario encontrado...");
-            resolve([]);
-          }
         }
         ).catch(
           (error) => {

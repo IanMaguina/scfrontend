@@ -105,6 +105,17 @@ export class ResourceService {
         catchError((error: any) => throwError(error || 'Server error'))
       );
   }
+  deleteResource3(resourceUrl: string,data:any): Observable<any> {
+    //var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': 'Bearer '+this.cookieService.get("access_token")});
+    var headers = new HttpHeaders({ 'Content-type': 'application/json' });
+    return this.http.delete(this.apiURL + resourceUrl , { headers: headers, body: data })
+      //return this.http.delete(this.apiURL + resourceUrl+"/"+id )
+      .pipe(
+        map((res) => res)
+      ).pipe(
+        catchError((error: any) => throwError(error || 'Server error'))
+      );
+  }
 
   // Resources without oauth2 token
   headResourceNoAuth(resourceUrl: string): Observable<any> {
