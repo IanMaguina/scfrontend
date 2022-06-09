@@ -174,11 +174,6 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     })
   }
 
-  actualizarFormulario() {
-    // let id_rol = this.formulary.get('rol').value.id;
-
-  }
-
   async listarRoles() {
     await this.rolUsuarioService.listarRoles().then(data => {
       this.listadoRoles = data.payload.length !== 0 ? data.payload : [];
@@ -192,9 +187,9 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
       this.rolUsuarioService.crearEstrategiaRolUsuario(rolUsuario).then((data) => {
         if (data.payload.warning){
-          this.callErrorDialog(data.payload.warning.mensaje);
-        }else{
           console.log("response : "+JSON.stringify(data.payload));
+          this.callErrorDialog(data.payload.warning.mensaje);
+        }else{ 
           this.onNoClick('CONFIRM_DLG_YES');
         }
       });

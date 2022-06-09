@@ -38,15 +38,17 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    console.log("ngOnInit");
+  ngOnInit(): void { 
   }
 
   async crearGrupo(form: any) {
     console.log("crearUsuario:" + JSON.stringify(form));
     let clienteAgrupacion = await this.mapeoGrupo(form)
-    this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then();
-    this.onNoClick();
+    this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then( data =>{
+      if(data.header.exito){
+        this.onNoClick('CONFIRM_DLG_YES');
+      }
+    });
   }
   /* usuario usado rafa:12, se debe usar cookies para traer el usuario */
   async mapeoGrupo(form: any) {
@@ -61,8 +63,8 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     return clienteAgrupacion;
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
 }

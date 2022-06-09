@@ -99,7 +99,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
 
   async listarClienteEmpresa() {
-    this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
+    await this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
+      console.log("listado de empresas: "+ JSON.stringify(data));
       this.listadoIntegrantes = data.payload;
     })
 
@@ -161,8 +162,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
         this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then( data =>{
-          
-          this.listarClienteEmpresa();
+          if(data.header.exito){
+            this.listarClienteEmpresa();
+          }
         });
       }
     });
@@ -171,8 +173,14 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   }
 
-  SolicitarActualizarGrupo(){
+/*   SolicitarActualizarGrupo(){
     console.log("SolicitarActualizarGrupo");
+  } */
+  AprobarGrupo(){
+    console.log("AprobarGrupo");
+  }
+  RechazarGrupo(){
+    console.log("RechazarGrupo");
   }
 
   onNoClick(): void {

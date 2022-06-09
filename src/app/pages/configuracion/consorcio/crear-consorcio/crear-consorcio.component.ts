@@ -54,8 +54,10 @@ carga: boolean = false;
   async crearConsorcio(form: any) {
     console.log("crearConsorcio:" + JSON.stringify(form));
     let clienteAgrupacion = await this.mapeoGrupo(form)
-    this.consorcioService.crearConsorcio(clienteAgrupacion).then(()=>{
-      this.onNoClick();
+    this.consorcioService.crearConsorcio(clienteAgrupacion).then((data)=>{
+      if(data.header.exito){
+        this.onNoClick('CONFIRM_DLG_YES');
+      }
     });
     
   }
@@ -72,8 +74,8 @@ carga: boolean = false;
     return clienteAgrupacion;
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
 }

@@ -16,7 +16,7 @@ import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-so
 export class GrupoEmpresarialComponent implements OnInit {
   listadoGrupos:AgrupacionClienteSolicitud[] = [];
     
-  displayedColumns: string[] = ['nombre', 'pendiente','usuario_creacion', 'estado', 'id'];
+  displayedColumns: string[] = ['nombre', 'estado_cliente_agrupacion','usuario_creacion', 'estado', 'id'];
   
   constructor(
     private matDialog: MatDialog,
@@ -40,11 +40,14 @@ export class GrupoEmpresarialComponent implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe((res) => {
+      if(res === 'CONFIRM_DLG_YES'){
         this.listarGruposEmpresariales();
+      }
     });
 
   }
+
   openAsignarIntegrantesGrupo(id:any){
     const dialogRef2 = this.matDialog.open(AsignarIntegrantesGrupoComponent, {
       disableClose: true,
@@ -56,6 +59,7 @@ export class GrupoEmpresarialComponent implements OnInit {
       this.listarGruposEmpresariales();
     });
   }
+
   toggleGrupoActivo(element:any){
     let mensaje:string;
     
@@ -81,7 +85,5 @@ export class GrupoEmpresarialComponent implements OnInit {
       }
     });
   }
-  editarGrupo(element:any){
-    console.log("editarGrupo: "+ JSON.stringify(element));
-  }
+
 }

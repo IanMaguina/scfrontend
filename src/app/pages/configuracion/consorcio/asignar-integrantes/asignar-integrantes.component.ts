@@ -151,7 +151,8 @@ export class AsignarIntegrantesComponent implements OnInit {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
-          "id_empresa": data.payload.id
+          "id_empresa": data.payload.id,
+          "id_usuario_creacion": this.id_usuario
         }
         let mensaje: string = "";
         if (data.payload.tiene_cliente) {
@@ -160,8 +161,9 @@ export class AsignarIntegrantesComponent implements OnInit {
           this.callWarningDialog(mensaje);
 
         } else {
-
-          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa);
+          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
+            if(res.header.exito){this.listarClienteEmpresa();}
+          });
         }
 
       } else {
@@ -187,9 +189,12 @@ export class AsignarIntegrantesComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa,this.id_usuario);
+        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa,this.id_usuario).then(data=>{
+          if(data.header.exito){
+          this.listarClienteEmpresa();
+          }
+        });
       }
-      this.listarClienteEmpresa();
     });
 
 
@@ -206,5 +211,16 @@ export class AsignarIntegrantesComponent implements OnInit {
   onFileSelected(any) {
     console.log("");
   }
+
+  /* SolicitarActualizarConsorcio(){
+    console.log("SolicitarActualizarConsorcio");
+  } */
+  AprobarConsorcio(){
+    console.log("AprobarConsorcio");
+  }
+  RechazarConsorcio(){
+    console.log("RechazarConsorcio");
+  }
+
 }
 
