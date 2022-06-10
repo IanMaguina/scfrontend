@@ -151,7 +151,7 @@ export class AsignarIntegrantesComponent implements OnInit {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
-          "id_empresa": data.payload.id,
+          "id_empresa": data.payload[0].id,
           "id_usuario_creacion": this.id_usuario
         }
         let mensaje: string = "";
@@ -162,7 +162,8 @@ export class AsignarIntegrantesComponent implements OnInit {
 
         } else {
           this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
-            if(res.header.exito){this.listarClienteEmpresa();}
+            this.listarClienteEmpresa();
+            /* if(res.header.exito){this.listarClienteEmpresa();} */
           });
         }
 
