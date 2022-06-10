@@ -434,7 +434,6 @@ body {
 } */
 
 .objetoNuevoPlan {
-    display: flex;
     padding-left: 10px;
     padding-top: 8px;
 }
@@ -1603,4 +1602,64 @@ u {
 
 th.mat-header-cell {
     text-align: center !important;
+}
+
+
+/* Nuevo Plan de Crédito */
+
+.Dialog_NuevoPlan{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "a b"
+    "c d"
+    "e f"
+    "g g"
+    "h h"
+    "i i" 
+    ". j";
+    row-gap:10px;
+    
+}
+
+.content1{
+    grid-area: a;
+}
+
+.content2{
+    grid-area: b;
+}
+
+.content3{
+    grid-area: c;
+}
+
+.content4{
+    grid-area: d;
+}
+
+.content5{
+    grid-area: e;
+}
+
+.content6{
+    grid-area:f;
+}
+
+.content7{
+    grid-area: g;
+}
+
+.content8{
+    grid-area:h;
+}
+
+.content9{
+    grid-area: i;
+}
+
+.content10{
+    justify-self: end;
+    grid-area:j;
 }
