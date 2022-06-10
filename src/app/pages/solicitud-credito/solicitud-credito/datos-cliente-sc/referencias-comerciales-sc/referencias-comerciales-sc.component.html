@@ -1,7 +1,7 @@
 <div class="contenidoForm">
     <form [formGroup]="formulary" (ngSubmit)="agregar(formulary.value)">
         <div class="objeto objetoEmpresa">
-            <div class="objeto formElementoPlano ">
+            <div class="objeto formElementoPlano">
                 <div class="label">Empresa:</div>
                 <div class="dato">
                     <mat-form-field appearance="fill">
@@ -67,7 +67,7 @@
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="numero_documento">
-            <th mat-header-cell *matHeaderCellDef> Ruc </th>
+            <th mat-header-cell *matHeaderCellDef> RUC </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.numero_documento}} </u></td>
         </ng-container>
         <!-- Column -->
@@ -85,7 +85,6 @@
             <th mat-header-cell *matHeaderCellDef> Telefono </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.telefono}} </u></td>
         </ng-container>
-
 
         <!-- Column -->
         <ng-container matColumnDef="id">

@@ -1,5 +1,5 @@
 <div class="content-body-step">
-    <div class="contenidoForm">
+    <div class="Seleccion_TCliente">
         <form [formGroup]="firstFormGroup" (ngSubmit)="openBuscarCoincidentes(firstFormGroup.value)">
             <div class="seleccionclientes">
                 <mat-radio-group aria-label="Select an option" (change)="seleccionCliente()"
@@ -42,21 +42,21 @@
             </div>
 
             <div class="buscar" *ngIf="ClientSelectorControl.value === radioEmpresa">
-                <div class="formInput">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Código Cliente SAP</mat-label>
-                        <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
-                    </mat-form-field>
-                </div>
+
+                <mat-form-field class="formInput" appearance="fill">
+                    <mat-label>Código Cliente SAP</mat-label>
+                    <input matInput formControlName="clienteCodigoSapEmpresa" placeholder="Código Cliente SAP">
+                </mat-form-field>
+
 
                 <span class="formInput">O</span>
 
-                <div class="formInput">
-                    <mat-form-field appearance="fill">
-                        <mat-label>RUC</mat-label>
-                        <input matInput formControlName="rucEmpresa" placeholder="RUC de la empresa">
-                    </mat-form-field>
-                </div>
+
+                <mat-form-field class="formInput" appearance="fill">
+                    <mat-label>RUC</mat-label>
+                    <input matInput formControlName="rucEmpresa" placeholder="RUC de la empresa">
+                </mat-form-field>
+
                 <div class="formInput">
                     <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar">
                         <mat-icon>search</mat-icon>
@@ -65,21 +65,21 @@
             </div>
 
             <div class="buscar" *ngIf="ClientSelectorControl.value === radioConsorcio">
-                <div class="formInput">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Código Cliente SAP</mat-label>
-                        <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
-                    </mat-form-field>
-                </div>
+
+                <mat-form-field class="formInput" appearance="fill">
+                    <mat-label>Código Cliente SAP</mat-label>
+                    <input matInput formControlName="clienteCodigoSapConsorcio" placeholder="Código Cliente SAP">
+                </mat-form-field>
+
 
                 <span class="formInput">O</span>
 
-                <div class="formInput">
-                    <mat-form-field appearance="fill">
-                        <mat-label>RUC</mat-label>
-                        <input matInput formControlName="rucConsorcio" placeholder="RUC del Consorcio">
-                    </mat-form-field>
-                </div>
+
+                <mat-form-field class="formInput" appearance="fill">
+                    <mat-label>RUC</mat-label>
+                    <input matInput formControlName="rucConsorcio" placeholder="RUC del Consorcio">
+                </mat-form-field>
+
                 <div class="formInput">
                     <button mat-mini-fab aria-label="Buscar" color="white" class="boton-buscar">
                         <mat-icon>search</mat-icon>
@@ -87,10 +87,10 @@
                 </div>
             </div>
 
-            <mat-divider class="divisor"></mat-divider>
+            
         </form>
     </div>
-
+    <mat-divider class="divisor"></mat-divider>
     <div class="acordeon">
         <mat-accordion>
             <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">

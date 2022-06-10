@@ -133,7 +133,6 @@ export class DatosClienteScComponent implements OnInit {
 
         const dialogRef1 = this.matDialog.open(GruposCoincidentesDialogComponent, {
           disableClose: true,
-          width: "500px",
           data: data
         });
         dialogRef1.afterClosed().subscribe(async result => {
@@ -161,7 +160,7 @@ export class DatosClienteScComponent implements OnInit {
         }
         const dialogRef2 = this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
           disableClose: true,
-          width: "500px",
+          //width: "500px",
           data: data
         });
         dialogRef2.afterClosed().subscribe(async result => {

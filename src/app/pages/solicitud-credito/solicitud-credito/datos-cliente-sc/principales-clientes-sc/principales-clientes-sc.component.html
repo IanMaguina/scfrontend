@@ -1,21 +1,26 @@
 <div class="contenidoForm">
     <form [formGroup]="formulary" (ngSubmit)="agregar(formulary.value)">
-        <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>RUC</mat-label>
-                    <input matInput formControlName="numero_documento">
-                </mat-form-field>
+        <div class="objeto objetoEmpresa">
+            <div class="objeto formElementoPlano">
+                <div class="label">RUC:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>RUC</mat-label>
+                        <input matInput formControlName="numero_documento">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                <mat-form-field appearance="outline">
-                    <mat-label>Razón Social</mat-label>
-                    <input matInput formControlName="razon_social">
-                </mat-form-field>
+            <div class="objeto formElementoPlano ">
+                <div class="label">Razón Social:</div>
+                <div class="dato">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Razón Social</mat-label>
+                        <input matInput formControlName="razon_social">
+                    </mat-form-field>
+                </div>
             </div>
 
-            <div class="objetoBoton col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
+            <div class="objetoBoton">
                 <button mat-flat-button aria-label="agregarCliente" class="boton-principal-light " type="submit">
                     Agregar
                 </button>
@@ -25,14 +30,13 @@
 
 </div>
 
-<div class="content-table col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+<div class="content-table">
     <table mat-table matTableResponsive [dataSource]="listadoPrincipalesClientes" class="mat-elevation-z8 ">
         <caption title="tabla Principales Clientes"></caption>
 
-
         <!-- Column -->
         <ng-container matColumnDef="numero_documento">
-            <th mat-header-cell *matHeaderCellDef> Ruc </th>
+            <th mat-header-cell *matHeaderCellDef> RUC </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.numero_documento}} </u></td>
         </ng-container>
         <!-- Column -->
@@ -40,8 +44,6 @@
             <th mat-header-cell *matHeaderCellDef> Razón Social </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.razon_social}} </u></td>
         </ng-container>
-
-
 
         <!-- Column -->
         <ng-container matColumnDef="id">

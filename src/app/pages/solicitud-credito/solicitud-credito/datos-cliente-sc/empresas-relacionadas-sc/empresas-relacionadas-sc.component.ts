@@ -14,9 +14,10 @@ export class EmpresasRelacionadasScComponent implements OnInit {
   @Input() id_solicitud: number;
   formulary: FormGroup;
   displayedColumns: string[] = [
-    'id',
+    
     'razon_social',
-    'numero_documento'
+    'numero_documento',
+    'id',
   ]
   listadoEmpresaRelacionadas: any[] = [
     {
