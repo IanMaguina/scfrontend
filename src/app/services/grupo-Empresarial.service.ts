@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { ClienteAgrupacion } from '../models/cliente-agrupacion.interface';
+import { AutenticacionService } from './autenticacion.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GrupoEmpresarialService {
+  userInfo:any;
   constructor(
-    private resourceService: ResourceService
+    private resourceService: ResourceService,
+    private autenticacionService: AutenticacionService
   ) {
   }
 
@@ -33,6 +36,8 @@ export class GrupoEmpresarialService {
     );
   }
   crearGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    this.userInfo = this.autenticacionService.getUserInfo();
+    clienteAgrupacion.id_usuario_creacion=this.userInfo.id;
     console.log("sending Grupo Empresarial..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
@@ -69,6 +74,8 @@ export class GrupoEmpresarialService {
   }
 
   actualizarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    this.userInfo = this.autenticacionService.getUserInfo();
+    clienteAgrupacion.id_usuario_modificacion=this.userInfo.id;
     console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {

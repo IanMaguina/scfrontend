@@ -31,7 +31,7 @@ export class AutenticacionService {
       this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
         this.usuarioService.listarUsuarioPorFiltros({correo:data.email}).then((u) => {
           this.cookieService.put("_user_session", JSON.stringify(u['payload'][0]));
-          console.log("user info was saved....");
+          console.log("user info was saved...."+JSON.stringify(u['payload'][0]));
           resolve(u['payload'][0]);
 
         })

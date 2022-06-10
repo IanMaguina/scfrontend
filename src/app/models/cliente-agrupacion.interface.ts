@@ -7,6 +7,7 @@ export interface ClienteAgrupacion{
     id_tipo_cliente?:number,
     tipo_cliente?:TipoCliente,
     id_usuario_creacion?:number,
+    id_usuario_modificacion?:number,
     id_tipo_documento_identidad?:number,
     tipo_documento_identidad?:TipoDocumentoIdentidad,
     numero_documento?:string,
