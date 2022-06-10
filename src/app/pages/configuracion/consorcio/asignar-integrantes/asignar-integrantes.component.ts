@@ -58,21 +58,17 @@ export class AsignarIntegrantesComponent implements OnInit {
   carga2: boolean = false;
 
   //poner el tipado correcto => es data dummy
-  listadoSociedades: Sociedad[] = [
-    { codigo_sap: '0011', nombre: 'sociedad 1' },
-    { codigo_sap: '0012', nombre: 'sociedad 2' },
-  ];
+  listadoSociedades: Sociedad[] = [];
+   
 
   listadoIntegrantes: any[] = [];
 
   displayedColumns: string[] = [
     'sociedad',
-    'codigocliente',
+    'grupo_cliente',
     'razonsocial',
     'ruc',
-    'canal',
-    'zonal',
-    'grupo_cliente',
+    'canal', 
     'id',
   ];
 
@@ -97,6 +93,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     this.asignarEmpresaFormDialog = this.formBuilder.group({
       sociedad: ['', Validators.required],
       ruc: ['', Validators.required],
+      participacion: ['', Validators.required],
     })
     this.asignarEmpresaFormDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.asignarEmpresaFormDialog, this.formErrors, this.validationMessages, this.submitted);
@@ -151,7 +148,7 @@ export class AsignarIntegrantesComponent implements OnInit {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
-          "id_empresa": data.payload.id,
+          "id_empresa": data.payload[0].id,
           "id_usuario_creacion": this.id_usuario
         }
         let mensaje: string = "";
@@ -162,7 +159,8 @@ export class AsignarIntegrantesComponent implements OnInit {
 
         } else {
           this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
-            if(res.header.exito){this.listarClienteEmpresa();}
+            this.limpiarCampos();
+            this.listarClienteEmpresa();
           });
         }
 
@@ -190,9 +188,9 @@ export class AsignarIntegrantesComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
         this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa,this.id_usuario).then(data=>{
-          if(data.header.exito){
+         
           this.listarClienteEmpresa();
-          }
+          
         });
       }
     });
@@ -220,6 +218,9 @@ export class AsignarIntegrantesComponent implements OnInit {
   }
   RechazarConsorcio(){
     console.log("RechazarConsorcio");
+  }
+  limpiarCampos(){
+    this.asignarEmpresaFormDialog.reset();
   }
 
 }

@@ -122,6 +122,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res=>{
           console.log("resultado de la asignación: "+ JSON.stringify(res));
+          this.listarClienteEmpresa();
         });
 
       } else {
@@ -162,9 +163,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
         this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then( data =>{
-          if(data.header.exito){
+         
             this.listarClienteEmpresa();
-          }
+          
         });
       }
     });
