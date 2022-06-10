@@ -122,6 +122,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res=>{
           console.log("resultado de la asignación: "+ JSON.stringify(res));
+          this.limpiarCampos();
           this.listarClienteEmpresa();
         });
 
@@ -186,5 +187,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  limpiarCampos(){
+    this.asignarEmpresaFormDialog.reset();
   }
 }

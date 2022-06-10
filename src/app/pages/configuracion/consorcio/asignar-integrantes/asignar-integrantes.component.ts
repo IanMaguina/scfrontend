@@ -24,13 +24,17 @@ export class AsignarIntegrantesComponent implements OnInit {
   formErrors = {
     'sociedad': '',
     'ruc': '',
+    'participacion': '',
   }
   validationMessages = {
     'sociedad': {
-      'required': 'el nombre es requerido.'
+      'required': 'Sociedad es requerida.'
     },
     'ruc': {
       'required': 'el Número de documento es requerido.',
+    },
+    'participacion': {
+      'required': 'la participación es requerida.',
     }
   };
   /* Participacion */
@@ -69,6 +73,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     'razonsocial',
     'ruc',
     'canal', 
+    'participacion', 
     'id',
   ];
 

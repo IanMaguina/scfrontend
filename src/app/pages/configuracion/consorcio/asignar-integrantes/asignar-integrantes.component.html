@@ -35,6 +35,18 @@
 
                                 </mat-form-field>
                             </div>
+                            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Participación</mat-label>
+                                    <input matInput placeholder="ingrese " formControlName="participacion" >
+                                    <mat-hint>
+                                        <mat-error [hidden]="!(formErrors.participacion)">
+                                            {{formErrors.participacion}}
+                                        </mat-error>
+                                    </mat-hint>
+
+                                </mat-form-field>
+                            </div>
 
 
 
@@ -82,6 +94,11 @@
                             <ng-container matColumnDef="canal">
                                 <th mat-header-cell *matHeaderCellDef> Canal Comercial </th>
                                 <td mat-cell *matCellDef="let element"> {{element.empresa.tipo_canal.nombre}} </td>
+                            </ng-container>
+                            <!-- Column -->
+                            <ng-container matColumnDef="participacion">
+                                <th mat-header-cell *matHeaderCellDef> Participacion </th>
+                                <td mat-cell *matCellDef="let element"> {{element.participacion}} </td>
                             </ng-container>
 
                             
