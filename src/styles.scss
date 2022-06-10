@@ -1623,6 +1623,23 @@ th.mat-header-cell {
     
 }
 
+@media screen and (max-width: 700px) {
+    .Dialog_NuevoPlan {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        "a" 
+        "b"
+        "c" 
+        "d"
+        "e" 
+        "f"
+        "g" 
+        "h"
+        "i"
+        "j";
+    }
+}
+
 .content1{
     grid-area: a;
 }
