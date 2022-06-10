@@ -122,6 +122,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res=>{
           console.log("resultado de la asignación: "+ JSON.stringify(res));
+          this.listarClienteEmpresa();
         });
 
       } else {

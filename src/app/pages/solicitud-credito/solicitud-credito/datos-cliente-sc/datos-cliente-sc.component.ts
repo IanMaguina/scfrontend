@@ -165,7 +165,6 @@ export class DatosClienteScComponent implements OnInit {
           data: data
         });
         dialogRef2.afterClosed().subscribe(async result => {
-          console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
@@ -199,7 +198,8 @@ export class DatosClienteScComponent implements OnInit {
                 //this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             } else {
-              this.actualizarSolicitud(result.grupo).then(async (id) => {
+              console.log("return Individual dialogs-->" + JSON.stringify(result));
+              this.actualizarSolicitud(result.payload).then(async (id) => {
                 this.id_solicitud_editar = id;
                 this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
@@ -281,7 +281,7 @@ export class DatosClienteScComponent implements OnInit {
       id_rol: this.ROL_SOLICITANTE,
       id_usuario: 12,
       id_usuario_creacion: 12,
-      sociedad_codigo_sap: "2020",
+      sociedad_codigo_sap: cliente.sociedad_codigo_sap,
       id_cliente_agrupacion: (this.cliente_seleccionado !== 3 ? cliente.id : null),
       id_empresa: (this.cliente_seleccionado === 3 ? cliente.id : null),
       id_tipo_cliente: this.cliente_seleccionado,

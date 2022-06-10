@@ -49,6 +49,7 @@ export class ClienteEmpresaService {
   }
 
   eliminarClienteEmpresa(id_cliente_agrupacion: number,id_cliente_empresa:number, usuario_modificacion:any): Promise<any> {
+    console.log("/api/cliente-agrupacion2/" + id_cliente_agrupacion+"/empresa/"+id_cliente_empresa);
     let item ={
       "usuario_modificacion":usuario_modificacion
     }
