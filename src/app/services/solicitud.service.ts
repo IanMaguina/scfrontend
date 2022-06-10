@@ -39,28 +39,6 @@ export class SolicitudService {
 
   }
 
-  public obtenerSolicitudCliente(id: number): Promise<any>{
-    return new Promise(
-      (resolve, reject) => {
-        this.resourceService.getResource(`/api/solicitud-cliente?id_solicitud=${id}`).toPromise().then((data) => {
-          if (data.header.exito) {
-            resolve(data);
-          } else {
-            console.log("solicitud no encontrada...");
-            resolve([]);
-          }
-        }
-        ).catch(
-          (error) => {
-            console.log("error status=" + error.status + ", msg=" + error.message);
-            reject(error);
-          }
-        );
-
-      }
-    );
-  }
-
   obtenerSolicitud(id: number): Promise<any> {
     return new Promise(
       (resolve, reject) => {

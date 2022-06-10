@@ -33,10 +33,10 @@ export class LineaProductoService {
     );
   }
 
-  listarCondicionPago(): Promise<lineaCondicionPago[]> {
+  listarCondicionPago(sociedad_codigo_sap:string,grupo_cliente_codigo_sap:string): Promise<lineaCondicionPago[]> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/condicion-pago").toPromise().then(({ header: { exito }, payload }) => {
+        this.resourceService.getResource(`/api/condicion-pago?sociedad_codigo_sap=${sociedad_codigo_sap}&grupo_cliente_codigo_sap=${grupo_cliente_codigo_sap}`).toPromise().then(({ header: { exito }, payload }) => {
           if (exito) {
             const condicionPago = payload.map(function (data) {
 
