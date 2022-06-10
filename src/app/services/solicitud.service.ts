@@ -634,6 +634,65 @@ export class SolicitudService {
 
       }
     );
+  }
+/* servicio filtrado */
+  listarSolicitudesxFiltros(filtros: any): Promise<any> {
+    let id_estado = null;
+    //let cliente_codigo_sap = null;
+    let query = "";
+
+    if (filtros['estado']) {
+      id_estado = filtros['estado'];
+      query = "id_estado=" + id_estado;
+
+    }
+   /*  if (filtros['cliente_codigo_sap']) {
+      cliente_codigo_sap = filtros['cliente_codigo_sap'];
+      query = query != "" ? "&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
+    } */
+  
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/solicitud?" + query).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay usuarios encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
+
+  listarEstadosSolicitud(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/estado/solicitudes").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("obras de la solicitud no encontradas...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
 
   }
 

@@ -13,7 +13,7 @@ export class SolicitudAdjuntoService {
   }
 
   public onAddAttached(formData:FormData):Observable<any>{
-    return this.resourceService.postMultipartResource('api/adjunto', formData);
+    return this.resourceService.postMultipartResource('/api/adjunto', formData);
   }
 
   crear(archivo: File, id_solicitud: any, filename: string): Promise<any> {

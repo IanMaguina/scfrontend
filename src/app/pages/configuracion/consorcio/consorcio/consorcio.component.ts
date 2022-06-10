@@ -14,22 +14,22 @@ import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.comp
   ]
 })
 export class ConsorcioComponent implements OnInit {
-  listadoConsorcios:AgrupacionClienteSolicitud[] = [];
-   /*  {
-      'razonsocial':'010101',
-      
-      'ruc':'654321987564',
-      'id':1, 
-      'estado':'activo'
-    }
-  ]; */
-  displayedColumns: string[] = ['razonsocial','pendiente','solicitante', 'ruc', 'estado', 'id'];
+  listadoConsorcios: AgrupacionClienteSolicitud[] = [];
+  /*  {
+     'razonsocial':'010101',
+     
+     'ruc':'654321987564',
+     'id':1, 
+     'estado':'activo'
+   }
+ ]; */
+  displayedColumns: string[] = ['razonsocial', 'pendiente', 'solicitante', 'ruc', 'estado', 'id'];
 
-  
+
   constructor(
     private matDialog: MatDialog,
-    private consorcioService:ConsorcioService
-    ) { }
+    private consorcioService: ConsorcioService
+  ) { }
 
   ngOnInit(): void {
     this.listarConsorcios();
@@ -41,52 +41,52 @@ export class ConsorcioComponent implements OnInit {
     })
   }
 
-  openAgregarConsorcio(){
+  openAgregarConsorcio() {
     const dialogRef = this.matDialog.open(CrearConsorcioComponent, {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe((_) => {
-      this.listarConsorcios();
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res === 'CONFIRM_DLG_YES') {
+        this.listarConsorcios();
+      }
     });
 
   }
-  openAsignarIntegrantes(id:any){
+  openAsignarIntegrantes(id: any) {
     const dialogRef2 = this.matDialog.open(AsignarIntegrantesComponent, {
       disableClose: true,
       width: '80%',
-      data:id
+      data: id
     });
 
-    dialogRef2.afterClosed().subscribe((_)  => {
+    dialogRef2.afterClosed().subscribe((_) => {
       this.listarConsorcios();
     });
 
   }
 
-  toggleConsorcioActivo(element:any){
-    let mensaje:string;
-    
-    if(element.activo){
+  toggleConsorcioActivo(element: any) {
+    let mensaje: string;
+
+    if (element.activo) {
       mensaje = "¿Desea habilitar el plan?";
-    }else{
+    } else {
       mensaje = "¿Desea deshabilitar el plan?";
     }
     element.mensaje = mensaje;
 
-    const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
+    const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      width:"400px",
-      data:element
+      width: "400px",
+      data: element
     });
 
     dialogRef3.afterClosed().subscribe(result => {
-      console.log("return result: "+result);
-    if(result==='CONFIRM_DLG_YES'){
-        let clienteAgrupacion:ClienteAgrupacion=element;
-        console.log("return function process-->"+JSON.stringify(clienteAgrupacion));
+      if (result === 'CONFIRM_DLG_YES') {
+        let clienteAgrupacion: ClienteAgrupacion = element;
         this.consorcioService.activarConsorcio(clienteAgrupacion).then((data) => {
-          if(data.header.exito === true){
+          if (data.header.exito === true) {
             this.listarConsorcios();
           }
         });
@@ -94,7 +94,7 @@ export class ConsorcioComponent implements OnInit {
     });
   }
 
- 
 
-  
+
+
 }

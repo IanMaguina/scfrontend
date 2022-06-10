@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { RolUsuario } from '../models/rol-usuario.interface';
 import { ResourceService } from './resource.service';
 
@@ -16,7 +17,6 @@ export class RolUsuarioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.postResource("/api/rol-usuario", rolUsuario).toPromise().then((data) => {
-          console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
         }).catch((error) => {
@@ -54,9 +54,7 @@ export class RolUsuarioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/rol-usuario/" + rolUsuario.id, rolUsuario).toPromise().then((data) => {
-          //if (data && Object.keys(data).length !== 0) {
-            resolve(data);
-          //}
+          resolve(data);
         }
         ).catch(
           (error) => {
@@ -64,10 +62,12 @@ export class RolUsuarioService {
             reject(error);
           }
         );
-
       }
     );
+  }
 
+  editarEstrategiaRolUsuario2(rolUsuario: RolUsuario): Observable<any> {
+    return this.resourceService.putResource("/api/rol-usuario/" + rolUsuario.id, rolUsuario);
   }
 
   listarRoles(): Promise<any> {

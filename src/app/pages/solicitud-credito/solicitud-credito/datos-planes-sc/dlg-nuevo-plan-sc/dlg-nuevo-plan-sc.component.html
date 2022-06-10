@@ -127,6 +127,10 @@
 
                 
 
+                        <ng-container matColumnDef="codigo_sap">
+                            <th mat-header-cell *matHeaderCellDef> Código SAP </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('linea_producto').value}}</td>
+                        </ng-container>
 
                 <div class="objetoNuevoPlan content8">
                     <div>Documentos Valorados:</div>

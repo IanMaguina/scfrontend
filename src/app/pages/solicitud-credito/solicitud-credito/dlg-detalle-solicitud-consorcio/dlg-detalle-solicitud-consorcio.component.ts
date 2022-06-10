@@ -77,6 +77,7 @@ export class DlgDetalleSolicitudConsorcioComponent implements OnInit {
   ];
 
   id_cliente_agrupacion: number = null;
+  id_usuario: number = 12;
   constructor(
     public dialogRef: MatDialogRef<DlgDetalleSolicitudConsorcioComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
@@ -186,7 +187,7 @@ export class DlgDetalleSolicitudConsorcioComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa);
+        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario);
       }
       this.listarClienteEmpresa();
     });
