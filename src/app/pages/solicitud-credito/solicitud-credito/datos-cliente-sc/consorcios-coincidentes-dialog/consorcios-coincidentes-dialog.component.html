@@ -23,7 +23,6 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="expansion-body">
-                            <div *ngFor="let empresa of obj.empresa">
                                 <br>
                                 <table mat-table [dataSource]="obj.empresa" class="mat-elevation-z8 ">
                                     <caption title="tabla empresas del consorcio"></caption>
@@ -44,8 +43,6 @@
                                 </table>
 
 
-
-                            </div>
                         </div>
                     </mat-expansion-panel>
 
