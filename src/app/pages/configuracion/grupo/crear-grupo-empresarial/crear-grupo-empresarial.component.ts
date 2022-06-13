@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { GrupoEmpresarialService} from '../../../../services/grupo-empresarial.service';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 @Component({
   selector: 'app-crear-grupo-empresarial',
   templateUrl: './crear-grupo-empresarial.component.html',
@@ -28,6 +29,8 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   userInfo:any;
   id_userLogueo:number=0;
   id_perfilLogueo:number=0;
+  PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
+  isPerfilAdmin:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<CrearGrupoEmpresarialComponent>,
     private formBuilder: FormBuilder,
@@ -48,7 +51,8 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   ngOnInit(): void { 
     console.log("logueo-->"+JSON.stringify(this.userInfo));
     this.id_userLogueo=this.userInfo.id;
-    this.id_perfilLogueo==this.userInfo.id_perfil;    
+    this.id_perfilLogueo=this.userInfo.id_perfil;   
+    this.isAdmin();
   }
 
   async crearGrupo(form: any) {
@@ -65,7 +69,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 1,
       "id_tipo_documento_identidad": null,
-      "id_usuario_creacion": 12,
+      "id_usuario_creacion": this.id_userLogueo,
       "numero_documento": null,      
       "nombre": form.nombre,
       "activo": true
@@ -75,6 +79,12 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
 
   onNoClick(msg:string): void {
     this.dialogRef.close(msg);
+  }
+
+  isAdmin(){
+    if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
+      this.isPerfilAdmin = true;
+    }
   }
 
 }
