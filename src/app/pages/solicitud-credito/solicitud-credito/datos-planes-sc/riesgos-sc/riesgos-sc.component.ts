@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PlanService } from '@services/plan.service';
-import { PlanRiesgo, ResponsePlanRiesgo } from 'src/app/models/plan-riesgo.interface';
+import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { PlanRiesgo, ResponsePlanRiesgo } from 'src/app/models/plan-riesgo.inter
 })
 export class RiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
-  listadoRiesgos:  PlanRiesgo[] =[];
+  listadoRiesgos:  SolicitudPlan[] =[];
 
   displayedColumns: string[] = [
     'sociedad',
@@ -26,8 +26,7 @@ export class RiesgosScComponent implements OnInit {
     'tipo_linea',
     'vigencia',
     'plan_control',
-    'id',
-
+    'id'
   ]
   constructor(
     private planService:PlanService

@@ -2,11 +2,11 @@
     <div class="Cabecera_PC">
         <div class="Datos_PC">
             <div class="Razon_PC">Razón Social:</div>
-            <div class="Dato_PC">{{empresaPlan[0].nombre_cliente_agrupacion}}</div>
+            <div class="Dato_PC">{{ (miGrupo?miGrupo.nombre_cliente_agrupacion:'') }}</div>
         </div>
         <div class="Datos_PC">
             <div class="Razon_PC">RUC:</div>
-            <div class="Dato_PC">{{empresaPlan[0].numero_documento_cliente_agrupacion}}</div>
+            <div class="Dato_PC">{{ (miGrupo?miGrupo.numero_documento_cliente_agrupacion:'') }}</div>
 
         </div>
         <div class="aplicarLC Datos_PC">
@@ -17,61 +17,61 @@
 
 
     <div class="content-body-step">
-      
-            <mat-accordion>
-                <!--  Planes - Riesgos -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Riesgos
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar"></app-riesgos-sc>
-                </mat-expansion-panel>
-                <!--  Planes - Hipotecas -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Hipotecas
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-hipotecas-sc></app-hipotecas-sc>
-                </mat-expansion-panel>
-                <!--  Planes - Garantía Liquida -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Garantía Liquida
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-garantia-liquida-sc></app-garantia-liquida-sc>
-                </mat-expansion-panel>
-                <!--  Planes - Cesión de Derecho con Proveedores -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Cesión de Derecho con Proveedores
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-cesion-derechos-proveedores-sc></app-cesion-derechos-proveedores-sc>
-                </mat-expansion-panel>
-                <!--  Planes - Resumen de Riesgos -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Resumen de Riesgos
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <app-resumen-riesgos-sc></app-resumen-riesgos-sc>
-                </mat-expansion-panel>
+
+        <mat-accordion>
+            <!--  Planes - Riesgos -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Riesgos
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar"></app-riesgos-sc>
+            </mat-expansion-panel>
+            <!--  Planes - Hipotecas -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Hipotecas
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-hipotecas-sc></app-hipotecas-sc>
+            </mat-expansion-panel>
+            <!--  Planes - Garantía Liquida -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Garantía Liquida
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-garantia-liquida-sc></app-garantia-liquida-sc>
+            </mat-expansion-panel>
+            <!--  Planes - Cesión de Derecho con Proveedores -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Cesión de Derecho con Proveedores
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-cesion-derechos-proveedores-sc></app-cesion-derechos-proveedores-sc>
+            </mat-expansion-panel>
+            <!--  Planes - Resumen de Riesgos -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Resumen de Riesgos
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-resumen-riesgos-sc></app-resumen-riesgos-sc>
+            </mat-expansion-panel>
 
         </mat-accordion>
-      
+
     </div>
     <mat-divider></mat-divider>
     <div class="botonera-step">
         <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
         <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
     </div>
-   
+
 </div>

@@ -4,7 +4,7 @@ import { Zonal } from "./zonal.interface";
 import { Sociedad } from "./sociedad.interface";
 export interface Empresa{
     id?: number,
-    razon_social:string,
+    razon_social?:string,
     alias_razon_social?:string,
     sociedad_codigo_sap?:string,
     cliente_codigo_sap?:string,
@@ -15,7 +15,7 @@ export interface Empresa{
     id_zonal?:number,
     zonal_codigo_sap?:string,
     id_tipo_documento_identidad?:number,
-    numero_documento:string,
+    numero_documento?:string,
     tipo_canal?:TipoCanal,
     grupo_cliente?:GrupoCliente,
     zonal?:Zonal

@@ -1,5 +1,9 @@
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
+import { Empresa } from './empresa.interface';
 import { GrupoCliente } from './grupo-cliente.interface';
+import { Plan } from './plan.interface';
+import { Solicitud } from './solicitud.interface';
+import { TipoMoneda } from './tipo-moneda.interface';
 export interface SolicitudPlan{
     id?: number,
     id_solicitud?: number,
@@ -17,5 +21,9 @@ export interface SolicitudPlan{
     fecha_fin?: Date,
     comentario?: string,
     id_plan_referencia?: number,
-    tipo_calculo?: string  
+    tipo_calculo?: string,
+    solicitud?: Solicitud,
+    plan?: Plan,
+    empresa?: Empresa,
+    tipo_moneda?: TipoMoneda,
 }

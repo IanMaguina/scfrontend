@@ -11,7 +11,7 @@
         <!-- Column -->
         <ng-container matColumnDef="plan">
             <th mat-header-cell *matHeaderCellDef> Plan</th>
-            <td mat-cell *matCellDef="let element"> {{element.solicitud_plan.plan.tipo_plan_credito.nombre}}  </td>
+            <td mat-cell *matCellDef="let element">-  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="razon_social">
@@ -41,7 +41,7 @@
         <!-- Column -->
         <ng-container matColumnDef="moneda_solicitada">
             <th mat-header-cell *matHeaderCellDef> Moneda Solicitada</th>
-            <td mat-cell *matCellDef="let element"> {{element.solicitud_plan.tipo_moneda.nombre}}  </td>
+            <td mat-cell *matCellDef="let element"> {{ (element.solicitud_plan.tipo_moneda?element.solicitud_plan.tipo_moneda.nombre:'') }}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="documento_valorado_propuesto">
@@ -61,7 +61,7 @@
         <!-- Column -->
         <ng-container matColumnDef="plan_control">
             <th mat-header-cell *matHeaderCellDef> Plan Control</th>
-            <td mat-cell *matCellDef="let element"> {{element.solicitud_plan.plan.tipo_plan_credito.nombre}}  </td>
+            <td mat-cell *matCellDef="let element">-  </td>
         </ng-container>
 
        <!-- Column -->
