@@ -6,6 +6,7 @@ import { CrearGrupoEmpresarialComponent } from '../crear-grupo-empresarial/crear
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
+import { AutenticacionService } from '@services/autenticacion.service';
 
 @Component({
   selector: 'app-grupo-empresarial',
@@ -17,11 +18,17 @@ export class GrupoEmpresarialComponent implements OnInit {
   listadoGrupos:AgrupacionClienteSolicitud[] = [];
     
   displayedColumns: string[] = ['nombre', 'estado_cliente_agrupacion','usuario_creacion', 'estado', 'id'];
-  
+  userInfo:any;
+  id_userLogueo:number=0;
+  id_perfilLogueo:number=0;
+
   constructor(
     private matDialog: MatDialog,
-    private grupoEmpresarialService:GrupoEmpresarialService
-    ) { }
+    private grupoEmpresarialService:GrupoEmpresarialService,
+    private autenticacionService: AutenticacionService
+    ) { 
+      this.userInfo = this.autenticacionService.getUserInfo();
+    }
 
   ngOnInit(): void {
     console.log("ngInit");

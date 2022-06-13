@@ -15,6 +15,7 @@
         </div>
     </div>
 
+
     <div class="content-body-step">
         <mat-accordion>
             <!--  Planes - Riesgos -->
@@ -24,7 +25,7 @@
                         Riesgos
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <app-riesgos-sc></app-riesgos-sc>
+                <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar" ></app-riesgos-sc>
             </mat-expansion-panel>
             <!--  Planes - Hipotecas -->
             <mat-expansion-panel>
@@ -62,6 +63,7 @@
                 </mat-expansion-panel-header>
                 <app-resumen-riesgos-sc></app-resumen-riesgos-sc>
             </mat-expansion-panel>
+
 
 
         </mat-accordion>
