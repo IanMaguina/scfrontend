@@ -16,9 +16,7 @@ export class DatosPlanesScComponent implements OnInit {
   constructor( 
     private matDialog: MatDialog,
   ){
-   /* this.secondFormGroup = this._formBuilder.group({
-     secondCtrl: ['', Validators.required],
-   }); */
+ 
   }
   ngOnInit(): void {
   }

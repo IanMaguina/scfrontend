@@ -1,66 +1,67 @@
 <div class="content-table col-s-12 col-m-12 col-xl-12 col-l-12">
    <br>
     <table mat-table [dataSource]="listadoRiesgos" class="mat-elevation-z8 " >
+        <caption title="listado de plan riesgo"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
         <ng-container matColumnDef="sociedad">
             <th mat-header-cell *matHeaderCellDef> Sociedad </th>
-            <td mat-cell *matCellDef="let element" >{{element.sociedad}} </td>
+            <td mat-cell *matCellDef="let element" >{{element.data.solicitud_plan.solicitud.sociedad_codigo_sap}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="plan">
             <th mat-header-cell *matHeaderCellDef> Plan</th>
-            <td mat-cell *matCellDef="let element"> {{element.plan}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.plan.tipo_plan_credito.nombre}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="razon_social">
             <th mat-header-cell *matHeaderCellDef> Razón Social</th>
-            <td mat-cell *matCellDef="let element"> {{element.razon_social}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.empresa.razon_social}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="grupo_cliente">
             <th mat-header-cell *matHeaderCellDef> Grupo del Cliente</th>
-            <td mat-cell *matCellDef="let element"> {{element.grupo_cliente}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.grupo_cliente}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="linea_credito_actual">
             <th mat-header-cell *matHeaderCellDef> Linea Crédito Actual</th>
-            <td mat-cell *matCellDef="let element"> {{element.linea_credito_actual}}  </td>
+            <td mat-cell *matCellDef="let element"> -  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="documento_valorado_actual">
             <th mat-header-cell *matHeaderCellDef> Documento Valorado Actual</th>
-            <td mat-cell *matCellDef="let element"> {{element.documento_valorado_actual}}  </td>
+            <td mat-cell *matCellDef="let element"> -  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="linea_solicitada">
             <th mat-header-cell *matHeaderCellDef>| Línea Solicitada</th>
-            <td mat-cell *matCellDef="let element"> {{element.linea_solicitada}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.importe}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="moneda_solicitada">
             <th mat-header-cell *matHeaderCellDef> Moneda Solicitada</th>
-            <td mat-cell *matCellDef="let element"> {{element.moneda_solicitada}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.tipo_moneda.nombre}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="documento_valorado_propuesto">
             <th mat-header-cell *matHeaderCellDef> Documento Valorado Propuesto |</th>
-            <td mat-cell *matCellDef="let element"> {{element.documento_valorado_propuesto}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.documento_valorado_propuesto[0]}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="tipo_linea">
             <th mat-header-cell *matHeaderCellDef> Tipo Línea</th>
-            <td mat-cell *matCellDef="let element"> {{element.tipo_linea}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.id_tipo_linea}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="vigencia">
             <th mat-header-cell *matHeaderCellDef> Vigencia</th>
-            <td mat-cell *matCellDef="let element"> {{element.vigencia}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.fecha_vigencia}}  </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="plan_control">
             <th mat-header-cell *matHeaderCellDef> Plan Control</th>
-            <td mat-cell *matCellDef="let element"> {{element.plan_control}}  </td>
+            <td mat-cell *matCellDef="let element"> {{element.data.solicitud_plan.plan.tipo_plan_credito.nombre}}  </td>
         </ng-container>
 
        <!-- Column -->

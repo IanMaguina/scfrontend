@@ -17,7 +17,7 @@
       <div class="content-stepper">
         <ng-template matStepLabel>Planes de Crédito</ng-template>
         <hr>
-        <app-datos-planes-sc ></app-datos-planes-sc>
+        <app-datos-planes-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)"></app-datos-planes-sc>
       </div>
     </mat-step>
     <mat-step [stepControl]="thirdForm">

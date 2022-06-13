@@ -1,20 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PlanService } from '@services/plan.service';
+import { ResponsePlanRiesgo } from 'src/app/models/plan-riesgo.interface';
 
-export interface PlanRiesgo{
-  id?: number,
-  sociedad:string,
-  plan?: string,
-  razon_social?:string,
-  grupo_cliente?:string,
-  linea_credito_actual?:string,
-  documento_valorado_actual?:string,
-  linea_solicitada?:string,
-  moneda_solicitada?:string,
-  documento_valorado_propuesto?:string,
-  tipo_linea?:string,
-  vigencia?:string,
-  plan_control?:string,
-};
+
 @Component({
   selector: 'app-riesgos-sc',
   templateUrl: './riesgos-sc.component.html',
@@ -22,38 +10,9 @@ export interface PlanRiesgo{
   ]
 })
 export class RiesgosScComponent implements OnInit {
-  listadoRiesgos: PlanRiesgo[] =[
-    {
-      id:1,
-      sociedad:'2020',
-      plan:'Fuera de plan',
-      razon_social:'XYZ SA',
-      grupo_cliente:'KAM',
-      linea_credito_actual:'s/.20000',
-      documento_valorado_actual:'Cheque',
-      linea_solicitada:'',
-      moneda_solicitada:'Sol',
-      documento_valorado_propuesto:'Cheque',
-      tipo_linea:'regular',
-      vigencia:'20/01/2021 - 15/05/2022',
-      plan_control:'',
-    },
-    {
-      id:2,
-      sociedad:'2020',
-      plan:'Fuera de plan',
-      razon_social:'XYZ SA',
-      grupo_cliente:'KAM',
-      linea_credito_actual:'s/.20000',
-      documento_valorado_actual:'Cheque',
-      linea_solicitada:'',
-      moneda_solicitada:'Sol',
-      documento_valorado_propuesto:'Cheque',
-      tipo_linea:'regular',
-      vigencia:'20/01/2021 - 15/05/2022',
-      plan_control:'',
-    },
-  ];
+  @Input() id_solicitud_editar: number;
+  listadoRiesgos: ResponsePlanRiesgo[] =[];
+  
   displayedColumns: string[] = [
     'sociedad',
     'plan',
@@ -70,10 +29,19 @@ export class RiesgosScComponent implements OnInit {
     'id',
 
   ]
-  constructor() { }
+  constructor(
+    private planService:PlanService
+    ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
+    this.listarPlanSolicitudRiesgo();
+  }
 
+  listarPlanSolicitudRiesgo(){
+    this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
+      this.listadoRiesgos = data.payload;
+      console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
+    })
   }
   editarPlan() {
     console.log("editarPlan");

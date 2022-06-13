@@ -291,6 +291,28 @@ export class PlanService {
   }
 
 
+  listarPlanSolicitudRiesgo(id_solicitud:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource(`/api/solicitud-plan/solicitud?id_solicitud=${id_solicitud}&id_tipo_documento_valorado=1`).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay plan de riesgo encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
+
 }
 
 
