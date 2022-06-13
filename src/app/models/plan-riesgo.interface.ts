@@ -7,7 +7,7 @@ import { TipoPlanCredito } from "./tipo-plan-credito.interface";
 export interface ResponsePlanRiesgo {
 
     documento_valorado_propuesto?: string[],
-    data?: PlanRiesgo,
+    data?: PlanRiesgo[],
 }
 export interface PlanRiesgo {
     solicitud_plan?: SolicitudPlan,
@@ -39,13 +39,13 @@ export interface SolicitudPlan {
 }
 
 export interface Plan {
-    id: 1,
-    id_tipo_plan_credito: 1,
-    id_tipo_moneda: 1,
-    bolsa: 1,
-    camiones: 1,
-    activo: true,
-    carta_fianza: 1,
-    revision_mensual: 1,
-    tipo_plan_credito: TipoPlanCredito
+    id?: number,
+    id_tipo_plan_credito?: number,
+    id_tipo_moneda?: number,
+    bolsa?: number,
+    camiones?: number,
+    activo?: boolean,
+    carta_fianza?: number,
+    revision_mensual?: number,
+    tipo_plan_credito?: TipoPlanCredito
 }
