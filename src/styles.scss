@@ -395,7 +395,8 @@ body {
 }
 
 .botonera-step {
-    float: left;
+    display: flex;
+    justify-content: end;
     padding: 18px 0px 0px 0px;
 }
 
@@ -1553,7 +1554,7 @@ font-size: 22px;
 }
 
 .mat-elevation-z8{
-    margin-top: 25px;
+   /* margin-top: 25px;*/
 }
 
 /* Bandejas */
@@ -1682,4 +1683,41 @@ th.mat-header-cell {
 .content10{
     justify-self: end;
     grid-area:j;
+}
+
+
+/* Content Planes de Crédito */
+
+.Planes_Credito{
+    display: grid;
+}
+
+.Cabecera_PC{
+    display: grid;
+    padding-top: 7px;
+    padding-bottom: 13px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+}
+
+.Datos_PC{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.Razon_PC{
+    width: 100px;
+    font-weight: bold;
+    align-self: center;
+}
+.Dato_PC{
+    width: 200px;
+    align-self: center;
+}
+
+.aplicarLC{
+    justify-self: end;
+    align-self: center;
 }
