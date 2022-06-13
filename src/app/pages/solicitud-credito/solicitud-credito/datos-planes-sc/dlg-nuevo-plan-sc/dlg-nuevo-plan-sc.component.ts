@@ -1,6 +1,6 @@
 import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-plan-condicion-pago.dto';
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentoValoradoService } from 'src/app/services/documento-valorado.service';
@@ -11,9 +11,10 @@ import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
 
-import { Subject } from 'rxjs';
-import { SolicitudService } from '@services/solicitud.service';
 import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-condicion-pago/crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
+import { takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -22,11 +23,12 @@ import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-co
   ]
 })
 
-export class DlgNuevoPlanScComponent implements OnInit {
+export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
 
   private grupo_cliente_codigo_sap!: string;
   private id_cliente_agrupacion!: number;
   private id_empresa!: number;
+  private destroy$ = new Subject<unknown>();
 
   displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre'];
   //displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre', 'valor_nuevo'];
@@ -38,6 +40,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   id_solicitud_editar: any;
   listadoTipoLinea: any[] = [{ id: 1, nombre: "Regular" }, { id: 2, nombre: "Temporal" }];
   listadoPlanesCredito: any[] = [];
+  listadoPlanesCreditoEmpresa: any[] = [];
   listadoVigencias: any[] = [{ id: 1, nombre: "Pico de demanda" }, { id: 2, nombre: "DV en curso" }, { id: 1, nombre: "Fecha" }];
   listadoLineaProducto: any[] = [];
   listadoLineaProductoSeleccionados: any[] = [];
@@ -101,7 +104,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   checkReemplazoPlan: boolean = false;
-  sociedad_codigo_sap_solicitud = "6012"
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
@@ -112,8 +115,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
     private lineaProductoService: LineaProductoService,
     private tipoMonedaService: TipoMonedaService,
     private solicitudPlanService: SolicitudPlanService,
-    private matDialog: MatDialog,
-    private solicitudService: SolicitudService
+    private matDialog: MatDialog
 
   ) {
     this.id_solicitud_editar = data;
@@ -127,7 +129,7 @@ export class DlgNuevoPlanScComponent implements OnInit {
       plan_credito: [''],
       importe: [''],
       vigencia: [''],
-      linea_producto: [''],
+      linea_producto: [{ value: '', disabled: true }],
       documento_valorado: [''],
       documentoValoradoArray: this.formBuilder.array([]),
       informacion_adicional: [''],
@@ -139,11 +141,17 @@ export class DlgNuevoPlanScComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarPlan();
+    this.listarPlanEmpresa();
+    this.onChangelistarPlanEmpresa();
     this.listarDocumentosValorados();
-    this.listarLineaProductos();
     this.listarMoneda();
-    this.getIdRequest();
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
+  }
+
 
   listarPlan() {
     this.planService.listarPlan().then(data => {
@@ -151,9 +159,41 @@ export class DlgNuevoPlanScComponent implements OnInit {
     })
   }
 
-  //Inicio
-  listarLineaProductos() {
-    this.lineaProductoService.listarCondicionPago().then((data) => this.listadoLineaProducto = data);
+  private listarPlanEmpresa() {
+    this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(({ payload }) => this.listadoPlanesCreditoEmpresa = payload)
+  }
+
+  private onChangelistarPlanEmpresa() {
+    this.formulary.get('empresa')?.valueChanges.pipe(
+      tap((data) => {
+
+        if (data) {
+
+          this.lineaProductosArray.controls = [];
+
+          const { id_cliente_agrupacion, id_empresa,
+            solicitud: { sociedad_codigo_sap },
+            cliente_agrupacion: { grupo_cliente_codigo_sap } } = data;
+
+          this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
+          this.id_cliente_agrupacion = id_cliente_agrupacion;
+          this.id_empresa = id_empresa;
+
+          this.formulary.controls.linea_producto.enable();
+          this.listarLineaProductos(sociedad_codigo_sap, grupo_cliente_codigo_sap)
+          return;
+        }
+
+        this.formulary.controls.linea_producto.disable();
+
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe();
+  }
+
+  listarLineaProductos(sociedad: string, grupo_cliente: string) {
+    this.lineaProductoService.listarCondicionPago(sociedad, grupo_cliente)
+      .then((data) => this.listadoLineaProducto = data);
   }
 
   async mapeoLineaProducto(data: SolicitudPlanCondicionPagoDTO) {
@@ -300,15 +340,6 @@ export class DlgNuevoPlanScComponent implements OnInit {
       }
     });
 
-  }
-  private getIdRequest() {
-    this.solicitudService.obtenerSolicitudCliente(this.id_solicitud_editar).then(({ payload }) => {
-      const { id_empresa, cliente_agrupacion: { id, grupo_cliente_codigo_sap } } = payload.shift();
-
-      this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
-      this.id_cliente_agrupacion = id;
-      this.id_empresa = id_empresa;
-    });
   }
 
 }

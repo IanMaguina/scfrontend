@@ -12,6 +12,28 @@ export class PlanService {
   ) {
   }
 
+
+  listarPlanEmpresa(id_solicitud:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource(`/api/solicitud-cliente?id_solicitud=${id_solicitud}`).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay planes encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
   listarPlan(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
