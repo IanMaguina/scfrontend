@@ -51,10 +51,12 @@ export class DatosPlanesScComponent implements OnInit {
   }
 
   async listarPlan() {
+    if(this.id_solicitud_editar){
     this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(data => {
       this.miGrupo = this.mapeoAgrupacion(data.payload[0]);
       
     });
+  }
 
   }
 

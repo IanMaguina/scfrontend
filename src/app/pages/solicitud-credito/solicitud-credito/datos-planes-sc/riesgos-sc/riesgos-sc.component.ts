@@ -37,15 +37,14 @@ export class RiesgosScComponent implements OnInit {
   }
 
   listarPlanSolicitudRiesgo(){
+    if(this.id_solicitud_editar){
     this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
-      this.listadoRiesgos = data.payload.data;
+      this.listadoRiesgos = data.payload.data?data.payload.data:[];
       console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
     })
   }
-
-  mapeoPlan(){
-     
   }
+
   editarPlan() {
     console.log("editarPlan");
   }
