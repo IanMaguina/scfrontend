@@ -667,6 +667,7 @@ th.mat-header-cell {
     display: flex;
     position: relative;
     margin-top: 10px !important;
+    align-items: center !important;
 
 }
 
@@ -1697,6 +1698,12 @@ th.mat-header-cell {
     color: #AEAEAE ;
 }
 
+.Subtitle_NPC_Reemplazo{
+    font-size: 15px;
+    font-weight: 400;
+    color: #AEAEAE ;
+}
+
 .titledialog_NPC {
     font-size: 20pt;
     font-weight: bold;
@@ -1791,10 +1798,55 @@ th.mat-header-cell {
 }
 
 .info_NPC{
-    mat-form-field-wrapper ng-tns-c90-47{
-    mat-form-field-flex ng-tns-c90-47{
-        width: 450px !important;
-        height: 150px !important;
+    .mat-form-field-wrapper{
+    .mat-form-field-flex{
+     /*   width: 491px !important;
+        .mat-form-field-infix{
+            .mat-input-element{
+                height: 100px !important;
+            }
+        }*/
     }
 }
+}
+
+.icon_help{
+    font-size: 22px;
+    padding-left: 6px;
+}
+.TooltipReemplazo{
+    background-color: rgba(0, 0, 0, 0.767);
+    color: #FFF;
+    font-size: 12px;
+    border: 1px solid black;
+    text-align: center;
+    
+}
+
+.ReemplazoPlanHelp{
+    display: flex;
+    align-content: center;
+    padding-top: 6px;
+}
+
+.ConsorcioTooltip{
+    align-items: center !important;
+
+    .mat-radio-label-content{
+        display: flex;
+        align-items: center;
+        .mat-icon{
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+        }
+    }
+}
+.TooltipConsorcio{
+    background-color: rgba(0, 0, 0, 0.767);
+    color: #FFF;
+    font-size: 12px;
+    border: 1px solid black;
+    text-align: center;
+    
 }

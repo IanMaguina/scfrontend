@@ -6,14 +6,14 @@
                     [formControl]="ClientSelectorControl">
                     <mat-radio-button [(value)]="radioGrupo">Grupo Empresarial</mat-radio-button>
 
-                    <mat-radio-button [(value)]="radioConsorcio">Consorcio
-
-                        <mat-icon class="tip" #tooltip="matTooltip"
-                            matTooltip="Conjunto de empresas que se consideran como una empresa con RUC"
-                            [matTooltipPosition]="positionOption">info</mat-icon>
-
+                    <mat-radio-button class="ConsorcioTooltip" [(value)]="radioConsorcio">Consorcio
+                        
+                        <mat-icon matTooltipClass="TooltipConsorcio" #tooltip="matTooltip"
+                        matTooltip="Conjunto de empresas que se consideran como una empresa con RUC"
+                        [matTooltipPosition]="positionOption">info</mat-icon>
+                    
                     </mat-radio-button>
-
+                    
                     <mat-radio-button [(value)]="radioEmpresa">Empresa Individual</mat-radio-button>
                 </mat-radio-group>
             </div>
