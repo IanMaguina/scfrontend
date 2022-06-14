@@ -31,7 +31,8 @@ export class DatosPlanesScComponent implements OnInit {
     const dialogRef = this.matDialog.open(DlgNuevoPlanScComponent, {
       disableClose: true,
       width: "750px",
-      data: this.id_solicitud_editar
+      data: this.id_solicitud_editar,
+      panelClass: 'custom_NPC'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
