@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanService } from '@services/plan.service';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 
@@ -29,7 +30,8 @@ export class RiesgosScComponent implements OnInit {
     'id'
   ]
   constructor(
-    private planService:PlanService
+    private planService:PlanService,
+    private _snack:MatSnackBar,
     ) { }
 
   ngOnInit(): void {   
@@ -48,5 +50,14 @@ export class RiesgosScComponent implements OnInit {
   editarPlan() {
     console.log("editarPlan");
   }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+
 
 }

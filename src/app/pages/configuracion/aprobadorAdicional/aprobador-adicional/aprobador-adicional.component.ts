@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AprobadorAdicional } from 'src/app/models/aprobador-adicional.interface';
 import { AprobadorAdicionalService } from 'src/app/services/aprobador-adicional.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -18,6 +19,7 @@ export class AprobadorAdicionalComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private aprobadorAdicionalService: AprobadorAdicionalService,
   ) {
 
@@ -35,19 +37,10 @@ export class AprobadorAdicionalComponent implements OnInit {
   }
   
   openAgregarAprobadorAdicional(){
-    const dialogRef = this.matDialog.open(CrearAprobadorAdicionalComponent, {
-      disableClose: true,
-      width:"300px",
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.listarAprobadorAdicionales();
-      if(result === 'CONFIRM_DLG_YES'){
-        
-        console.log("se agregó el Aprobador correctamente");
-      }
-    });
+    this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó el Aprobador correctamente",'300px','' );
   }
+
+
   onchangeActividad(element:any){
     let mensaje:string = ""
     if (element.activo) {
@@ -68,7 +61,7 @@ export class AprobadorAdicionalComponent implements OnInit {
       if(result === 'CONFIRM_DLG_YES'){
         this.aprobadorAdicionalService.activarDesactivarAprobadorAdicional(element).then( activado =>{
           if(activado.header.exito){
-            console.log("se cambió la actividad correctamente");
+            this.enviarMensajeSnack("se cambió la actividad correctamente");
             this.listarAprobadorAdicionales();
           }
         })
@@ -77,6 +70,27 @@ export class AprobadorAdicionalComponent implements OnInit {
     });
   }
 
-  
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+
+  openDialog(componente: any, msg: string, width:string, data?: any) {
+    let dialogRef = this.matDialog.open(componente, {
+      disableClose: true,
+      width:width,
+      data: data?data:''
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack(msg);
+        this.listarAprobadorAdicionales();
+      }
+    });
+  }
 
 }
