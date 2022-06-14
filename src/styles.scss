@@ -1698,7 +1698,7 @@ th.mat-header-cell {
 }
 
 .titledialog_NPC {
-    font-size: 18pt;
+    font-size: 20pt;
     font-weight: bold;
     color: #fff;
     padding-left: 34px;
@@ -1708,7 +1708,7 @@ th.mat-header-cell {
     display: flex;
     width: 100%;
     background-color: #05C65D;
-    height: 50px;
+    height: 55px;
     align-items: center;
 }
 
@@ -1741,7 +1741,7 @@ th.mat-header-cell {
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background:#05C65D; 
-    border-radius: 0px;
+    border-radius: 0px 5px 5px 0px;
     box-shadow: inset 0 0 2px grey; 
 }
 
