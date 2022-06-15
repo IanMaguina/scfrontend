@@ -10,7 +10,7 @@
 
         </div>
         <div class="aplicarLC Datos_PC">
-            <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()">Aplicar a nuevo
+            <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Aplicar a nuevo
                 crédito</button>
         </div>
     </div>
@@ -26,7 +26,7 @@
                         Riesgos
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar"></app-riesgos-sc>
+                <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar" [listadoRiesgos]="listadoRiesgos"></app-riesgos-sc>
             </mat-expansion-panel>
             <!--  Planes - Hipotecas -->
             <mat-expansion-panel>

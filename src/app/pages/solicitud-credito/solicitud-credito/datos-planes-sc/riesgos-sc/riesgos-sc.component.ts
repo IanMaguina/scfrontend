@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanService } from '@services/plan.service';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 
@@ -11,7 +12,8 @@ import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 })
 export class RiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
-  listadoRiesgos:  SolicitudPlan[] =[];
+  @Input() listadoRiesgos: SolicitudPlan[];
+  //listadoRiesgos:  SolicitudPlan[] =[];
 
   displayedColumns: string[] = [
     'sociedad',
@@ -26,28 +28,46 @@ export class RiesgosScComponent implements OnInit {
     'tipo_linea',
     'vigencia',
     'plan_control',
-    'id'
+   /*  'id' */
   ]
   constructor(
-    private planService:PlanService
-    ) { }
+    private planService:PlanService,
+    private _snack:MatSnackBar,
+    ) {
+
+     }
 
   ngOnInit(): void {   
-    this.listarPlanSolicitudRiesgo();
+  
+      this.listarPlanSolicitudRiesgo(); 
+
   }
 
   listarPlanSolicitudRiesgo(){
+    if(this.id_solicitud_editar){
     this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
-      this.listadoRiesgos = data.payload.data;
+      this.listadoRiesgos = data.payload;
       console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
     })
   }
-
-  mapeoPlan(){
-     
   }
+
   editarPlan() {
     console.log("editarPlan");
   }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+  updateRiesgos(data:any) {
+    if(data=='CONFIRM_DLG_YES'){
+      this.listarPlanSolicitudRiesgo();
+    }
+  }
+
 
 }

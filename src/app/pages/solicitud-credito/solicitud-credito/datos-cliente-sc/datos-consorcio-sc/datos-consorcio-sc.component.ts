@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 import { Empresa } from 'src/app/models/empresa.interface';
 import { SolicitudCliente } from 'src/app/models/solicitud-cliente.interface';
@@ -52,6 +53,7 @@ export class DatosConsorcioScComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private zonalService: ZonalService,
+    private _snack: MatSnackBar,
     private solicitudService: SolicitudService,
   ) {
     this.formularyForm = this.formBuilder.group({
@@ -88,7 +90,14 @@ export class DatosConsorcioScComponent implements OnInit {
 
   async guardarDatosConsorcio(form: any) {
     console.log("OBJ--->" + JSON.stringify(form));
-
+    this.enviarMensajeSnack("Se guardaron los cambios del consorcio");
   }
-
+ 
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
 }

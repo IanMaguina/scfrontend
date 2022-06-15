@@ -1,4 +1,6 @@
 <div class="botonera-superior">
+  <button mat-raised-button class="boton-secundario" (click)="aprobar()" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Aprobar</button>
+  &nbsp;
     <button mat-raised-button class="boton-secundario">Anular Solicitud</button>
     </div>
     <div class="body-dialog">

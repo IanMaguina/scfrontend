@@ -21,8 +21,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     'numero_documento',
     'cliente',
     'fecha_creacion',
-    'usuario',
-    'id'
+    'usuario'
   ];
 
   formErrors = {
@@ -111,8 +110,5 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     });
   }
 
-  /* Se eliminará la siguiente función */
-  evaluar(element:any) {
-    this.router.navigate(['app/solicitudcredito/evaluarSolicitud', element.id])
-  }
+ 
 }

@@ -675,7 +675,20 @@ export class SolicitudService {
 
   }
 
+  aprobar(id_solicitud: number,body:any): Promise<any> {
+    console.log("aprobar solicitud..." + JSON.stringify(id_solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud/"+id_solicitud,body).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
 
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
 
+      });
+  }
 
 }

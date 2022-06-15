@@ -11,6 +11,7 @@ import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AutenticacionService } from '@services/autenticacion.service';
 @Component({
   selector: 'app-datos-cliente-sc',
   templateUrl: './datos-cliente-sc.component.html',
@@ -40,18 +41,26 @@ export class DatosClienteScComponent implements OnInit {
   cliente_seleccionado: number = 1;
   id_solicitud_dc: number = 0;
   ID_TIPO_CLIENTE: number;
-  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  
   ROL_SOLICITANTE = GlobalSettings.ROL_SOLICITANTE;
+
+  userInfo:any;
+  solicitud:Solicitud;
+  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
     private formValidatorService: FormValidatorService,
-    private solicitudService: SolicitudService,
     private router: Router,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private solicitudService: SolicitudService,    
+    private autenticacionService: AutenticacionService
     /* breakpointObserver: BreakpointObserver */
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
     this.firstFormGroup = this._formBuilder.group({
       tipo_cliente: [this.cliente, this.ClientSelectorControl, Validators.required],
       nombreGrupo: [''],
@@ -94,6 +103,8 @@ export class DatosClienteScComponent implements OnInit {
   async obtenerSolicitud() {
     this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
       console.log("datos cliente--->" + JSON.stringify(data));
+      this.solicitud= data.payload;
+      this.ESTADO_SOLICITUD=this.solicitud.id_estado;
       let solicitud: Solicitud = data.payload;
       switch (solicitud.id_tipo_cliente) {
         case 1:
@@ -223,7 +234,8 @@ export class DatosClienteScComponent implements OnInit {
     return new Promise(
       (resolve, reject) => {
         this.solicitudService.crear(solicitud).then(async data => {
-          console.log("se creo la solicitud-->" + JSON.stringify(data));
+         
+          this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
           id_solicitud = data.payload.id;
           this.id_solicitud_hija.emit(id_solicitud);
           resolve(id_solicitud)
@@ -261,6 +273,7 @@ export class DatosClienteScComponent implements OnInit {
       (resolve, reject) => {
         this.solicitudService.actualizarSolicitud(this.id_solicitud_editar, solicitud).then(async data => {
           console.log("se actualizo la solicitud-->" + JSON.stringify(data));
+          this.enviarMensajeSnack("se actualizo la solicitud");
           id_solicitud = this.id_solicitud_editar;
           this.id_solicitud_hija.emit(this.id_solicitud_editar);
           resolve(id_solicitud)
@@ -289,7 +302,7 @@ export class DatosClienteScComponent implements OnInit {
     return solicitud;
   }
 
-  snack(mensaje:string){
+  enviarMensajeSnack(mensaje:string){
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",

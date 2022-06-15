@@ -64,7 +64,7 @@ export class EstrategiasComponent implements OnInit {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
       width:'300px',
-      data: data
+      data: data?data:''
     });
 
     dialogRef.afterClosed().subscribe(result => {

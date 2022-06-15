@@ -175,8 +175,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
 
     if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
       this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then((data) => {
-        if (data.payload.warning) {
-          console.log("response : "+JSON.stringify(data.payload));
+        if (data.payload.warning) { 
           this.callErrorDialog(data.payload.warning.mensaje);
         } else {
           this.onNoClick('CONFIRM_DLG_YES');
@@ -187,37 +186,12 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     }
 
   }
-  /* async editarEstrategiaRolUsuario(form: any) {
-    console.log("Actualizar RolUsuario:" + JSON.stringify(form));
-    let rolUsuario = await this.mapeoRolUsuario(form)
-    let mensaje = "¡Nombre de usuario no válido!";
 
-    if (form.usuario && form.usuario.id || form.usuario && form.usuario.id && form.usuario_revisor && form.usuario_revisor.id) {
-      this.rolUsuarioService.editarEstrategiaRolUsuario2(rolUsuario)
-        .pipe(
-          tap( (data)  => {
-            console.log(JSON.stringify(data));
-            if(data.mensaje){
-              this.callErrorDialog(data.mensaje);
-            }
-            this.onNoClick('CONFIRM_DLG_YES');
-
-          }),
-          catchError((err: HttpErrorResponse) => {
-          console.log("error sistema: "+err.error.header.mensaje);
-          return throwError(() => err)
-        }))
-        .subscribe();
-    } else {
-      this.callErrorDialog(mensaje);
-    }
-  } */
 
   async listarGrupos() {
     await this.grupoClienteService.listarGrupoCliente().then((data) => {
 
       this.listadoGruposCliente = data.payload;
-      console.log("listadoGruposCliente-->" + JSON.stringify(this.listadoGruposCliente));
     })
     // this.formulary.get('grupo_revisor')?.valueChanges
   }
@@ -225,7 +199,6 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
   async listarSociedades() {
     this.sociedadService.listarSociedades().then(data => {
       this.listadoSociedades = data;
-      console.log("sociedades-->" + JSON.stringify(this.listadoSociedades));
     })
   }
   async listarRoles() {
@@ -246,7 +219,6 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       id_rol: form.rol.id,
       id_usuario_revisor: form.usuario_revisor.id,
     }
-    console.log("mapeo--->" + JSON.stringify(rolUsuario));
     return rolUsuario;
   }
 

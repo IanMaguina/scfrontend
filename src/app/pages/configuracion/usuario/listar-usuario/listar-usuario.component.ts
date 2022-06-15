@@ -60,7 +60,7 @@ export class ListarUsuarioComponent implements OnInit {
   openDialog(componente: any, msg: string, data?: any) {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
-      data: data
+      data: data?data:''
     });
 
     dialogRef.afterClosed().subscribe(result => {

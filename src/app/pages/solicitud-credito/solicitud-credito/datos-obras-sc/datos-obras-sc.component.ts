@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { SolicitudClienteObraDTO } from 'src/app/dto/solicitud-cliente-obra.dto';
 import { Obra } from 'src/app/models/obra.interface';
+import { Solicitud } from 'src/app/models/solicitud.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-datos-obras-sc',
@@ -39,36 +42,22 @@ export class DatosObrasScComponent implements OnInit {
 
   };
   listadoObras: SolicitudClienteObraDTO[] = [];
-  /* {
-    id: 1,
-    id_solicitud: 1,
-    obra_codigo_isicom: '1515',
-    dueno: 'jack O neil',
-    ubicacion: 'Lima',
-    plazo_obra: '48 Meses',
-    nombre_obra: 'Obra Las Bambas',
-    fecha_inicio_obra: '15/01/2020',
-    fecha_fin_obra: '20/06/2023'
-  },
-  {
-    id: 2,
-    id_solicitud: 1,
-    obra_codigo_isicom: '1516',
-    dueno: 'jack O neil',
-    ubicacion: 'Lima',
-    plazo_obra: '48 Meses',
-    nombre_obra: 'Obra Vichapampa',
-    fecha_inicio_obra: '15/01/2020',
-    fecha_fin_obra: '20/06/2023'
-  },
-]; */
+
+  userInfo: any;
+  solicitud: Solicitud;
+  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   constructor(
     private formBuilder: FormBuilder,
-    private solicitudService: SolicitudService,
     private formValidatorService: FormValidatorService,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private solicitudService: SolicitudService,    
+    private autenticacionService: AutenticacionService
+
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
     this.thirdFormGroup = this.formBuilder.group({
       codigo_obra: ['', Validators.required],
     });
@@ -82,18 +71,23 @@ export class DatosObrasScComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("id solicitud en obras: " + this.id_solicitud_editar);
-    if (this.id_solicitud_editar) {
+    if (this.id_solicitud_editar !== null) {
       this.listarObras();
-
+      this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+        this.solicitud = data.payload;
+        this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+        console.log("peru qatar--->" + JSON.stringify(this.solicitud));
+      })
     }
+
   }
 
   listarObras() {
     this.solicitudService.listarSolicitudObras(this.id_solicitud_editar).then(data => {
       this.listadoObras = data.payload;
-      console.log("data fechas "+ JSON.stringify(data.payload));
+      console.log("data fechas " + JSON.stringify(data.payload));
       this.formulary.setControl('obrasArray', this.mapearObra(this.listadoObras));
-     // console.log("las obras listadas de la solicitud " + this.id_solicitud_editar + " son :" + JSON.stringify(data.payload));
+      // console.log("las obras listadas de la solicitud " + this.id_solicitud_editar + " son :" + JSON.stringify(data.payload));
     });
   }
 
@@ -102,7 +96,7 @@ export class DatosObrasScComponent implements OnInit {
       let obra_solicitud: Obra = await this.mapeoObra(data);
       this.solicitudService.asignarObra(obra_solicitud).then((response) => {
         if (response.header.exito) {
-          this.generarMensaje("Se agregó la Obra");
+          this.enviarMensajeSnack("Se agregó la Obra");
           this.listarObras();
         }
       })
@@ -139,7 +133,7 @@ export class DatosObrasScComponent implements OnInit {
   eliminarSolicitudObra(id_solicitud_obra: number) {
     this.solicitudService.eliminarSolicitudObra(id_solicitud_obra).then((data) => {
       if (data.header.exito) {
-        this.generarMensaje("se eliminó la obra correctamente");
+        this.enviarMensajeSnack("se eliminó la obra correctamente");
       }
     });
   }
@@ -150,12 +144,12 @@ export class DatosObrasScComponent implements OnInit {
     let solicitudObra: SolicitudClienteObraDTO = await this.mapeoObra(form)
     this.solicitudService.actualizarSolicitudObra(solicitudObra).then((data) => {
       if (data.header.exito) {
-        this.generarMensaje("se actualizó la obra correctamente");
+        this.enviarMensajeSnack("se actualizó la obra correctamente");
       }
     })
   }
 
-  generarMensaje(mensaje: string) {
+  enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",
