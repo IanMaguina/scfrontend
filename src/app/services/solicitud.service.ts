@@ -616,8 +616,9 @@ export class SolicitudService {
   }
 /* servicio filtrado */
   listarSolicitudesxFiltros(filtros: any): Promise<any> {
+    
     let id_estado = null;
-    //let cliente_codigo_sap = null;
+    let id_usuario = null;
     let query = "";
 
     if (filtros['estado']) {
@@ -625,11 +626,11 @@ export class SolicitudService {
       query = "id_estado=" + id_estado;
 
     }
-   /*  if (filtros['cliente_codigo_sap']) {
-      cliente_codigo_sap = filtros['cliente_codigo_sap'];
-      query = query != "" ? "&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
-    } */
-  
+     if (filtros['id_usuario']) {
+      id_usuario = filtros['id_usuario'];
+      query = query != "" ? query+"&id_usuario=" + id_usuario: "id_usuario=" + id_usuario;
+    } 
+    console.log(query+"--bandeja-->"+JSON.stringify(filtros));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/solicitud?" + query).toPromise().then((data) => {
@@ -679,7 +680,7 @@ export class SolicitudService {
     console.log("aprobar solicitud..." + JSON.stringify(id_solicitud));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/solicitud/"+id_solicitud,body).toPromise().then((data) => {
+        this.resourceService.postResource("/api/solicitud/"+id_solicitud+"/aprobar",body).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
 
@@ -691,4 +692,19 @@ export class SolicitudService {
       });
   }
 
+  rechazar(id_solicitud: number,body:any): Promise<any> {
+    console.log("rechazar solicitud..." + JSON.stringify(id_solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud/"+id_solicitud+"/rechazar",body).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
 }

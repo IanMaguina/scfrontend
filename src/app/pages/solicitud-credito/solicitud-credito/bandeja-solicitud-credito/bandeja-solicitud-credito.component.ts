@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { Solicitud } from 'src/app/models/solicitud.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-bandeja-solicitud-credito',
@@ -53,14 +55,20 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   //Submitted form
   submitted = false;
   carga: boolean = false;
+  userInfo: any;
+  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   constructor(
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private solicitudService: SolicitudService,
+    private autenticacionService: AutenticacionService,
     private router: Router,
 
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
     this.formulary = this.formBuilder.group({
       tipo_cliente: ['',],
       numero_documento: [''],
@@ -103,6 +111,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     this.listadoSolicitudes = [];
     
     console.log("buscarSolicitudes:.." + JSON.stringify(form));
+    form.id_usuario=this.userInfo.id;
     
     await this.solicitudService.listarSolicitudesxFiltros(form).then( data => {
       console.log("solicitudes filtradas:"+JSON.stringify(data));
