@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { SolicitudAdjuntoService } from '@services/solicitud-adjunto.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Adjunto } from 'src/app/models/adjunto.interface';
 
 @Component({
   selector: 'app-tab-documentos-adicionales-sc',
@@ -16,7 +17,12 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
   private file_store: FileList;
   private file_list: Array<string> = [];
   private idRequest: number = 0;
-
+  @Input() id_solicitud_editar: number;
+  displayedColumns:string[]=[
+    'informacion_adicional',
+    'adjunto',
+  ];
+  listadoDocumentosAdicionales:Adjunto[];
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -26,6 +32,7 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.getIdRequest();
+    this.listarAdjuntos();
   }
 
   public onInputFileChange(fileList: FileList): void {
@@ -61,6 +68,7 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
     this.solicitudAdjuntoService.onAddAttached(formData).subscribe(data => {
       if(data.header.exito){
         this.enviarMensajeSnack(`Se guardo el archivo: ${data.payload.informacion_adicional} `);
+        this.listarAdjuntos();
       }
    
     });
@@ -79,6 +87,21 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
       tap(({ id }) => (this.idRequest = id)))
       .subscribe();
   }
+
+  listarAdjuntos(){
+    if(this.id_solicitud_editar){
+      this.solicitudAdjuntoService.listarAdjuntosAdicionales(this.id_solicitud_editar).then(data =>{
+        console.log("adjuntos: "+JSON.stringify(data));
+        if(data.header.exito){
+          this.listadoDocumentosAdicionales = data.payload;
+        }
+      })
+    }
+  }
+  openURL(url:string){
+    window.open(url);
+  }
+
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
@@ -86,6 +109,7 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
       verticalPosition: "top"
     });
   }
+
 
 
 }

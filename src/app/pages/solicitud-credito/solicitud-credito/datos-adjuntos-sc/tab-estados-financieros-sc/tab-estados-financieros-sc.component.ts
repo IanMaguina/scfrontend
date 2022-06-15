@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Adjunto } from 'src/app/models/adjunto.interface';
 
 @Component({
   selector: 'app-tab-estados-financieros-sc',
@@ -14,10 +15,15 @@ export class TabEstadosFinancierosScComponent implements OnInit {
 
   public formFinancialState!: FormGroup;
   private file_store: FileList;
+  listadoEstadosFinancieros: Adjunto[];
+  displayedColumns:string[]=[
+    'informacion_adicional',
+    'adjunto',
+  ];
   private file_list: Array<string> = [];
   private idRequest: number = 0;
 
-  @Input() id_solicitud: string;
+  @Input() id_solicitud_editar: number;
 
   adjuntarfinancieros: number = 1;
   motivofinancieros: number = 2;
@@ -30,8 +36,10 @@ export class TabEstadosFinancierosScComponent implements OnInit {
     private readonly solicitudAdjuntoService: SolicitudAdjuntoService) { }
 
   ngOnInit(): void {
+    console.log("id editar adjuntos: "+this.id_solicitud_editar);
     this.createForm();
     this.getIdRequest();
+    this.listarAdjuntos();
   }
 
 
@@ -70,6 +78,8 @@ export class TabEstadosFinancierosScComponent implements OnInit {
     .subscribe(data => {
       if(data.header.exito){
         this.enviarMensajeSnack(`Se guardo el archivo: ${data.payload.informacion_adicional} `);
+        
+        this.listarAdjuntos();
       }
    
     });
@@ -86,26 +96,24 @@ export class TabEstadosFinancierosScComponent implements OnInit {
   private getIdRequest() {
     this.activatedRoute.params.pipe(
       tap(({ id }) => (this.idRequest = id)))
-      .subscribe();
+      .subscribe(_ =>{
+        this.listarAdjuntos();
+      });
   }
 
-  /*async grabarAnexo(archivo: File, filename: string) {
-   this.solicitudAdjuntoService.crear(archivo, this.id_solicitud, filename)
-     .then(result => {
-       if (result.resultado == 1) {
-         this._snack.open(this.MENSAJE_CARGAR_ANEXO_SOLICITUD, 'cerrar', {
-           duration: 1800,
-           horizontalPosition: "end",
-           verticalPosition: "top"
-         });
-
-         this.getListaAnexos(this.id_solicitud);
-         this.dialogForm.get('fileAnexoSolicitud').reset(); 
-       }
-     }).catch(error => {
-       console.debug("errors when trying to add Document....");
-     })
- }*/
+  listarAdjuntos(){
+    if(this.id_solicitud_editar){
+      this.solicitudAdjuntoService.listarEstadosFinancieros(this.id_solicitud_editar).then(data =>{
+        console.log("adjuntos: "+JSON.stringify(data));
+        if(data.header.exito){
+          this.listadoEstadosFinancieros = data.payload;
+        }
+      })
+    }
+  }
+  openURL(url:string){
+    window.open(url);
+  }
 
  enviarMensajeSnack(mensaje: string) {
   this._snack.open(mensaje, 'cerrar', {
