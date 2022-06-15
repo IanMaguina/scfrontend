@@ -299,7 +299,7 @@ export class PlanService {
             resolve(data);
           } else {
             console.log("no hay plan de riesgo encontrado...");
-            resolve([]);
+            resolve(data);
           }
         }
         ).catch(
