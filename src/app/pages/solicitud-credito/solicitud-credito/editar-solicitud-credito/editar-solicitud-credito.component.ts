@@ -3,8 +3,11 @@ import { Solicitud } from 'src/app/models/solicitud.interface';
 import { SolicitudService } from '@services/solicitud.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from 'src/app/shared/success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-editar-solicitud-credito',
@@ -33,6 +36,8 @@ export class EditarSolicitudCreditoComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private solicitudService: SolicitudService,
+    private matDialog: MatDialog,
+    private router: Router,
     private autenticacionService: AutenticacionService
   ) {
     console.log(this.activatedRoute.snapshot.params.id)
@@ -74,6 +79,15 @@ export class EditarSolicitudCreditoComponent implements OnInit {
     console.log(this.id_solicitud_editar + "----" + JSON.stringify(v));
     this.solicitudService.aprobar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then(data=>{
       console.log("resultado-->"+JSON.stringify(data));
+      if (data.payload.enviar_rpa){
+        let data = {
+          mensaje : "Su solicitud ha sido enviada a RPA con éxito !!!",
+        }
+        this.openDialog(SuccessDialogComponent,"se envió la solicitud a RPA!", data);
+      }else{
+        let mensaje : "Ocurrió un error durante el envio a RPA !"; 
+        this.openDialog(ErrorDialogComponent,"se envió la solicitud a RPA!", mensaje);
+      }
     });
   }
 
@@ -82,6 +96,28 @@ export class EditarSolicitudCreditoComponent implements OnInit {
     console.log(this.id_solicitud_editar + "----" + JSON.stringify(v));
     this.solicitudService.rechazar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then(data=>{
       console.log("resultado-->"+JSON.stringify(data));
+      if (data.payload){
+        let data = {
+          mensaje : "Su solicitud ha sido rechazada correctamente",
+        }
+        this.openDialog(SuccessDialogComponent,"se rechazó la solicitud correctamente", data);
+      }else{
+        let mensaje : "Ocurrió un error durante el rechazo !"; 
+        this.openDialog(ErrorDialogComponent,"no se rechazó la solicitud", mensaje);
+      }
     });
-  }  
+  }
+  
+  openDialog(componente: any, msg_exito: string, data?: any) {
+    let dialogRef = this.matDialog.open(componente, {
+      disableClose: true, 
+      data: data?data:''
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      console.log(msg_exito);
+      this.router.navigate(['app/solicitudcredito/bandejaMisPendiendes']);
+    });
+  }
+
 }
