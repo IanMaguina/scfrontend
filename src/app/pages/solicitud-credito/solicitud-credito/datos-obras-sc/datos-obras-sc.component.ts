@@ -39,29 +39,6 @@ export class DatosObrasScComponent implements OnInit {
 
   };
   listadoObras: SolicitudClienteObraDTO[] = [];
-  /* {
-    id: 1,
-    id_solicitud: 1,
-    obra_codigo_isicom: '1515',
-    dueno: 'jack O neil',
-    ubicacion: 'Lima',
-    plazo_obra: '48 Meses',
-    nombre_obra: 'Obra Las Bambas',
-    fecha_inicio_obra: '15/01/2020',
-    fecha_fin_obra: '20/06/2023'
-  },
-  {
-    id: 2,
-    id_solicitud: 1,
-    obra_codigo_isicom: '1516',
-    dueno: 'jack O neil',
-    ubicacion: 'Lima',
-    plazo_obra: '48 Meses',
-    nombre_obra: 'Obra Vichapampa',
-    fecha_inicio_obra: '15/01/2020',
-    fecha_fin_obra: '20/06/2023'
-  },
-]; */
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,7 +79,7 @@ export class DatosObrasScComponent implements OnInit {
       let obra_solicitud: Obra = await this.mapeoObra(data);
       this.solicitudService.asignarObra(obra_solicitud).then((response) => {
         if (response.header.exito) {
-          this.generarMensaje("Se agregó la Obra");
+          this.enviarMensajeSnack("Se agregó la Obra");
           this.listarObras();
         }
       })
@@ -139,7 +116,7 @@ export class DatosObrasScComponent implements OnInit {
   eliminarSolicitudObra(id_solicitud_obra: number) {
     this.solicitudService.eliminarSolicitudObra(id_solicitud_obra).then((data) => {
       if (data.header.exito) {
-        this.generarMensaje("se eliminó la obra correctamente");
+        this.enviarMensajeSnack("se eliminó la obra correctamente");
       }
     });
   }
@@ -150,12 +127,12 @@ export class DatosObrasScComponent implements OnInit {
     let solicitudObra: SolicitudClienteObraDTO = await this.mapeoObra(form)
     this.solicitudService.actualizarSolicitudObra(solicitudObra).then((data) => {
       if (data.header.exito) {
-        this.generarMensaje("se actualizó la obra correctamente");
+        this.enviarMensajeSnack("se actualizó la obra correctamente");
       }
     })
   }
 
-  generarMensaje(mensaje: string) {
+  enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",

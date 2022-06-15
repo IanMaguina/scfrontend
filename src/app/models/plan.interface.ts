@@ -15,6 +15,7 @@ export interface Plan{
     revision_mensual?:string,
     activo?:boolean,
     tipo_plancredito?:TipoPlanCredito,
+    tipo_plan_credito?:TipoPlanCredito,
     grupo_cliente?:GrupoCliente[],
     documento_valorado?:TipoDocumentoValorado[],
     linea_producto?:LineaProducto[],

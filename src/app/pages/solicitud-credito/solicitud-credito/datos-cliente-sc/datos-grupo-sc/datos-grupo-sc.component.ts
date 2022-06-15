@@ -105,8 +105,10 @@ export class DatosGrupoScComponent implements OnInit {
 
   async guardarSeccionGrupo(obj: any) {
     let solicitudCliente: SolicitudCliente = await this.mapeoData(obj)
-    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then(()=>{
-      this.snack("Se guardaron los cambios");
+    this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then((data)=>{
+      if(data.header.exito){
+        this.enviarMensajeSnack("Se guardaron los cambios");
+      }
     });
   }
 
@@ -121,7 +123,7 @@ export class DatosGrupoScComponent implements OnInit {
     return solicitudCliente;
   }
 
-  snack(mensaje:string){
+  enviarMensajeSnack(mensaje:string){
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",

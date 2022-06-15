@@ -74,7 +74,7 @@
 
 <div class="content-table">
     <table mat-table matTableResponsive [dataSource]="listadoSolicitudes" class="mat-elevation-z8 ">
-        <caption title="Table estrategias - por sociedad"></caption>
+        <caption title="bandeja de solicitud de creditos"></caption>
 
         <!-- Column -->
         <ng-container matColumnDef="estado">
@@ -112,14 +112,7 @@
             <td mat-cell *matCellDef="let element">
                     {{element.usuario.nombre}} </td>
         </ng-container>
-        <!-- Columna a eliminar -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Acción </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-button class="boton-secundario" (click)="evaluar(element)"
-                    matTooltip="este botón es solo de prueba">Evaluador</button>
-            </td>
-        </ng-container>
+   
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

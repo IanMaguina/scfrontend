@@ -41,7 +41,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   listadoTipoLinea: any[] = [{ id: 1, nombre: "Regular" }, { id: 2, nombre: "Temporal" }];
   listadoPlanesCredito: any[] = [];
   listadoPlanesCreditoEmpresa: any[] = [];
-  listadoVigencias: any[] = [{ id: 1, nombre: "Pico de demanda" }, { id: 2, nombre: "DV en curso" }, { id: 1, nombre: "Fecha" }];
+  listadoVigencias: any[] = [{ id: 1, nombre: "Pico de demanda" }, { id: 2, nombre: "DV en curso" }, { id: 3, nombre: "Fecha" }];
   listadoLineaProducto: any[] = [];
   listadoLineaProductoSeleccionados: any[] = [];
   listadoDocumentosValorados: any[] = [];
@@ -309,11 +309,11 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   }
 
   async agregar(form: any) {
-
     const params = this.destructuringAssigment(form);
-
     this.solicitudPlanService.crear(params).then(data => {
-      this.onNoClick(data);
+      if(data.header.exito){
+        this.onNoClick('CONFIRM_DLG_YES');
+      }
     })
   }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SolicitudReferenciaComercial } from 'src/app/models/solicitud-referencia_comercial.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
@@ -65,6 +66,7 @@ export class ReferenciasComercialesScComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _formValidatorService:FormValidatorService,
+    private _snack:MatSnackBar,
     private solicitudService:SolicitudService
   ) { 
     this.formulary = this._formBuilder.group({
@@ -98,8 +100,11 @@ export class ReferenciasComercialesScComponent implements OnInit {
     console.log("agregarReferencia"+JSON.stringify(form));
     let solicitud:SolicitudReferenciaComercial = await this.mapeoData(form)
     this.solicitudService.crearSolicitudReferenciaComercial(solicitud).then(data=>{
-      this.listar();
-      this.limpiarCampos();
+      if (data.header.exito) {
+        this.enviarMensajeSnack("Se agregó la referencia");
+        this.limpiarCampos();
+        this.listar(); 
+      }
 
     })
 
@@ -121,7 +126,10 @@ export class ReferenciasComercialesScComponent implements OnInit {
   eliminar(id:number){
     console.log("eliminarReferencia"+id);
     this.solicitudService.eliminarSolicitudReferenciaComercial(id).then(data=>{
-      this.listar();
+      if (data.header.exito) {
+        this.enviarMensajeSnack("Se eliminó la referencia");
+        this.listar(); 
+      }
     })
 
   }
@@ -132,6 +140,13 @@ export class ReferenciasComercialesScComponent implements OnInit {
     this.formulary.get("contacto").setValue("");
     this.formulary.get("cargo").setValue("");
     this.formulary.get("telefono").setValue("");
+  }
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
   }
 
 }
