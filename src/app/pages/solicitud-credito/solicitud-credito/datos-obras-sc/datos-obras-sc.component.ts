@@ -53,7 +53,7 @@ export class DatosObrasScComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private _snack: MatSnackBar,
-    private solicitudService: SolicitudService,    
+    private solicitudService: SolicitudService,
     private autenticacionService: AutenticacionService
 
   ) {
@@ -75,7 +75,7 @@ export class DatosObrasScComponent implements OnInit {
       this.listarObras();
       this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
         this.solicitud = data.payload;
-        this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+        this.ESTADO_SOLICITUD = this.solicitud.id_estado;
         console.log("peru qatar--->" + JSON.stringify(this.solicitud));
       })
     }
@@ -93,13 +93,18 @@ export class DatosObrasScComponent implements OnInit {
 
   async getDataObra(form: any) {
     await this.solicitudService.listarObra(form.codigo_obra).then(async data => {
-      let obra_solicitud: Obra = await this.mapeoObra(data);
-      this.solicitudService.asignarObra(obra_solicitud).then((response) => {
-        if (response.header.exito) {
-          this.enviarMensajeSnack("Se agregó la Obra");
-          this.listarObras();
-        }
-      })
+      
+      if (data) {
+        let obra_solicitud: Obra = await this.mapeoObra(data);
+        this.solicitudService.asignarObra(obra_solicitud).then((response) => {
+          if (response.header.exito) {
+            this.enviarMensajeSnack("Se agregó la Obra");
+            this.listarObras();
+          }
+        })
+      }else{
+        this.enviarMensajeSnack("No hay data en SAP");
+      }
     })
   }
 
@@ -113,6 +118,7 @@ export class DatosObrasScComponent implements OnInit {
   }
 
   async mapeoObra(data: any) {
+    console.log("arsaobra-->" + JSON.stringify(data));
     let obraSolicitud: SolicitudClienteObraDTO = {
       id: data.id,
       id_solicitud: this.id_solicitud_editar,
