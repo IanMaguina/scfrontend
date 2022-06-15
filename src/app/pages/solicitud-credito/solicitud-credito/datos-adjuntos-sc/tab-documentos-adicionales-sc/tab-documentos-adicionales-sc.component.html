@@ -24,4 +24,40 @@
         <button mat-raised-button class="boton-principal-light" [disabled]="!formDocumentAdditional.valid" type="submit"
             matStepperNext>Guardar</button>
     </form>
+
+
 </mat-card>
+<mat-card class="zona_de_adjuntos">
+    <br>
+     <table mat-table matTableResponsive [dataSource]="listadoDocumentosAdicionales" class="mat-elevation-z8 " >
+         <caption title="listado Documentos Adicionales"></caption>
+        
+         
+         <!-- Column -->
+         <ng-container matColumnDef="informacion_adicional">
+             <th mat-header-cell *matHeaderCellDef> informacion adicional</th>
+             <td mat-cell *matCellDef="let element"> {{element.informacion_adicional}}  </td>
+         </ng-container>
+         <!-- Column -->
+         <ng-container matColumnDef="adjunto">
+             <th mat-header-cell *matHeaderCellDef> Adjuntos</th>
+             <td mat-cell *matCellDef="let element">
+                <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="button" (click)="openURL(element.adjunto)">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                </td>
+         </ng-container>
+ 
+        <!-- Column -->
+         <!--  <ng-container matColumnDef="id">
+             <th mat-header-cell *matHeaderCellDef> Acciones </th>
+             <td mat-cell *matCellDef="let element">
+                 <button mat-icon-button (click)="editarPlan(element)"><mat-icon>edit</mat-icon></button>
+             </td>
+         </ng-container>   -->
+ 
+         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     </table>
+ 
+    </mat-card>

@@ -36,31 +36,7 @@
             <button mat-raised-button class="boton-principal-light" [disabled]="!formFinancialState.valid" type="submit"
                 matStepperNext>Guardar</button>
 
-            <!--  <div class="descripcion_adjuntos"><span class="descripcion_1">Adjuntar:</span><button mat-raised-button
-                    class="boton-adjuntos">Seleccionar Archivo</button><span>Ningun archivo seleccionado...</span></div>
-            <div>
-                <div class="izquierda">
-                    <input type="file" class="file-input" formControlName="fileAnexoSolicitud" name="fileAnexoSolicitud" #fileUpload4 (change)="onSelectAnexoSolicitud($event)">
-                    <div class="file-upload">
-                        <span class="fontLabel"> Cargar anexo:</span>
-                        &nbsp;&nbsp;
-                        <button mat-icon-button color="accent" type="button" 
-                        class="upload-btn" 
-                        (click)="fileUpload4.click()"  
-                        matTooltip="Cargar Anexo" 
-                        >
-                            <mat-icon>upload</mat-icon>
-                        </button>
-                        
-                    </div>
-                </div>
-    
-                <span class="descripcion">Descripción:</span>
-                <mat-form-field class="bloquedescripcion" appearance="outline">
-                    <mat-label>Escriba una descripción</mat-label>
-                    <textarea matInput placeholder="Escribir..."></textarea>
-                </mat-form-field>
-            </div> -->
+
         </form>
     </mat-card>
 </div>
@@ -90,3 +66,38 @@
         </mat-radio-group>
     </mat-card>
 </div>
+<mat-card class="zona_de_adjuntos">
+    <br>
+    <table mat-table matTableResponsive [dataSource]="listadoEstadosFinancieros" class="mat-elevation-z8 ">
+        <caption title="listado Estados Financieros"></caption>
+
+
+        <!-- Column -->
+        <ng-container matColumnDef="informacion_adicional">
+            <th mat-header-cell *matHeaderCellDef> informacion adicional</th>
+            <td mat-cell *matCellDef="let element"> {{element.informacion_adicional}} </td>
+        </ng-container>
+        <!-- Column -->
+        <ng-container matColumnDef="adjunto">
+            <th mat-header-cell *matHeaderCellDef> Adjunto</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="button"
+                    (click)="openURL(element.adjunto)">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <!-- Column -->
+        <!--  <ng-container matColumnDef="id">
+             <th mat-header-cell *matHeaderCellDef> Acciones </th>
+             <td mat-cell *matCellDef="let element">
+                 <button mat-icon-button (click)="editarPlan(element)"><mat-icon>edit</mat-icon></button>
+             </td>
+         </ng-container>   -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</mat-card>
