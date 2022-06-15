@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { ConsorcioService } from 'src/app/services/consorcio.service';
@@ -28,12 +29,14 @@ export class ConsorcioComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private consorcioService: ConsorcioService
   ) { }
 
   ngOnInit(): void {
     this.listarConsorcios();
   }
+
   async listarConsorcios() {
     this.consorcioService.listarConsorcios().then(data => {
       console.log(JSON.stringify(data.payload));
@@ -42,28 +45,11 @@ export class ConsorcioComponent implements OnInit {
   }
 
   openAgregarConsorcio() {
-    const dialogRef = this.matDialog.open(CrearConsorcioComponent, {
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe((res) => {
-      if (res === 'CONFIRM_DLG_YES') {
-        this.listarConsorcios();
-      }
-    });
-
+    this.openDialog(CrearConsorcioComponent, 'Se agregó el consorcio', '');
   }
+
   openAsignarIntegrantes(id: any) {
-    const dialogRef2 = this.matDialog.open(AsignarIntegrantesComponent, {
-      disableClose: true,
-      width: '80%',
-      data: id
-    });
-
-    dialogRef2.afterClosed().subscribe((_) => {
-      this.listarConsorcios();
-    });
-
+    this.openDialog(AsignarIntegrantesComponent, 'Se asignó el consorcio', '80%',id);
   }
 
   toggleConsorcioActivo(element: any) {
@@ -91,6 +77,30 @@ export class ConsorcioComponent implements OnInit {
           }
         });
       }
+    });
+    
+  }
+
+  openDialog(componente: any, msg: string, width:string, data?: any) {
+    let dialogRef = this.matDialog.open(componente, {
+      disableClose: true,
+      width:width,
+      data: data?data:''
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack(msg);
+        this.listarConsorcios();
+      }
+    });
+  }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
     });
   }
 

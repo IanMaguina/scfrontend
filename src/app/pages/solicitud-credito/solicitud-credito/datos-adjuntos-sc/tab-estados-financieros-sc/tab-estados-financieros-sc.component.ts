@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tab-estados-financieros-sc',
@@ -25,6 +26,7 @@ export class TabEstadosFinancierosScComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private _snack: MatSnackBar,
     private readonly solicitudAdjuntoService: SolicitudAdjuntoService) { }
 
   ngOnInit(): void {
@@ -64,7 +66,13 @@ export class TabEstadosFinancierosScComponent implements OnInit {
       this.file_list.push(this.file_store[i].name);
     }
 
-    this.solicitudAdjuntoService.onAddAttached(formData).subscribe();
+    this.solicitudAdjuntoService.onAddAttached(formData)
+    .subscribe(data => {
+      if(data.header.exito){
+        this.enviarMensajeSnack(`Se guardo el archivo: ${data.payload.informacion_adicional} `);
+      }
+   
+    });
 
   }
 
@@ -98,5 +106,13 @@ export class TabEstadosFinancierosScComponent implements OnInit {
        console.debug("errors when trying to add Document....");
      })
  }*/
+
+ enviarMensajeSnack(mensaje: string) {
+  this._snack.open(mensaje, 'cerrar', {
+    duration: 1800,
+    horizontalPosition: "end",
+    verticalPosition: "top"
+  });
+}
 
 }
