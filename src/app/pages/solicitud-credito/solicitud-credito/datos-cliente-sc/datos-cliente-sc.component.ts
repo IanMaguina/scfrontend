@@ -11,6 +11,7 @@ import { ClienteDatos } from 'src/app/models/cliente-datos.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AutenticacionService } from '@services/autenticacion.service';
 @Component({
   selector: 'app-datos-cliente-sc',
   templateUrl: './datos-cliente-sc.component.html',
@@ -40,18 +41,26 @@ export class DatosClienteScComponent implements OnInit {
   cliente_seleccionado: number = 1;
   id_solicitud_dc: number = 0;
   ID_TIPO_CLIENTE: number;
-  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  
   ROL_SOLICITANTE = GlobalSettings.ROL_SOLICITANTE;
+
+  userInfo:any;
+  solicitud:Solicitud;
+  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
     private formValidatorService: FormValidatorService,
-    private solicitudService: SolicitudService,
     private router: Router,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private solicitudService: SolicitudService,    
+    private autenticacionService: AutenticacionService
     /* breakpointObserver: BreakpointObserver */
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
     this.firstFormGroup = this._formBuilder.group({
       tipo_cliente: [this.cliente, this.ClientSelectorControl, Validators.required],
       nombreGrupo: [''],
@@ -94,6 +103,8 @@ export class DatosClienteScComponent implements OnInit {
   async obtenerSolicitud() {
     this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
       console.log("datos cliente--->" + JSON.stringify(data));
+      this.solicitud= data.payload;
+      this.ESTADO_SOLICITUD=this.solicitud.id;
       let solicitud: Solicitud = data.payload;
       switch (solicitud.id_tipo_cliente) {
         case 1:

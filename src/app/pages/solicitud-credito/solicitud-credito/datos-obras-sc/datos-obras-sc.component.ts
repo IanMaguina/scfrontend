@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { SolicitudClienteObraDTO } from 'src/app/dto/solicitud-cliente-obra.dto';
 import { Obra } from 'src/app/models/obra.interface';
+import { Solicitud } from 'src/app/models/solicitud.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-datos-obras-sc',
@@ -63,12 +66,21 @@ export class DatosObrasScComponent implements OnInit {
   },
 ]; */
 
+  userInfo: any;
+  solicitud: Solicitud;
+  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+
   constructor(
     private formBuilder: FormBuilder,
-    private solicitudService: SolicitudService,
     private formValidatorService: FormValidatorService,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private solicitudService: SolicitudService,    
+    private autenticacionService: AutenticacionService
+
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
     this.thirdFormGroup = this.formBuilder.group({
       codigo_obra: ['', Validators.required],
     });
@@ -82,18 +94,23 @@ export class DatosObrasScComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("id solicitud en obras: " + this.id_solicitud_editar);
-    if (this.id_solicitud_editar) {
+    if (this.id_solicitud_editar !== null) {
       this.listarObras();
-
+      this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+        this.solicitud = data.payload;
+        this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+        console.log("peru qatar--->" + JSON.stringify(this.solicitud));
+      })
     }
+
   }
 
   listarObras() {
     this.solicitudService.listarSolicitudObras(this.id_solicitud_editar).then(data => {
       this.listadoObras = data.payload;
-      console.log("data fechas "+ JSON.stringify(data.payload));
+      console.log("data fechas " + JSON.stringify(data.payload));
       this.formulary.setControl('obrasArray', this.mapearObra(this.listadoObras));
-     // console.log("las obras listadas de la solicitud " + this.id_solicitud_editar + " son :" + JSON.stringify(data.payload));
+      // console.log("las obras listadas de la solicitud " + this.id_solicitud_editar + " son :" + JSON.stringify(data.payload));
     });
   }
 

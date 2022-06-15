@@ -1,7 +1,11 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { PlanService } from '@services/plan.service';
+import { SolicitudService } from '@services/solicitud.service';
 import { EmpresaPlan } from 'src/app/models/empresa-plan.interface';
+import { Solicitud } from 'src/app/models/solicitud.interface';
+import { GlobalSettings } from 'src/app/shared/settings';
 import { DlgNuevoPlanScComponent } from './dlg-nuevo-plan-sc/dlg-nuevo-plan-sc.component';
 
 @Component({
@@ -16,14 +20,29 @@ export class DatosPlanesScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
   empresaPlan: EmpresaPlan[];
   miGrupo : EmpresaPlan;
+  userInfo:any;
+  solicitud:Solicitud;
+  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   constructor(
     private matDialog: MatDialog,
     private planService: PlanService,
+    private autenticacionService: AutenticacionService,
+    private solicitudService: SolicitudService,
   ) {
-
+    this.userInfo = this.autenticacionService.getUserInfo();
   }
   ngOnInit(): void {
+    if (this.id_solicitud_editar !== null) {
+      this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+        this.solicitud = data.payload;
+        this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+        console.log("peru qatar--->" + JSON.stringify(this.solicitud));
+      })
+    }
+
     this.listarPlan();
   }
 

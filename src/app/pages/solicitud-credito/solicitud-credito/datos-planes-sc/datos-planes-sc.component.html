@@ -10,7 +10,7 @@
 
         </div>
         <div class="aplicarLC Datos_PC">
-            <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()">Aplicar a nuevo
+            <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Aplicar a nuevo
                 crédito</button>
         </div>
     </div>
