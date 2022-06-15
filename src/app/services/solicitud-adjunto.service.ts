@@ -65,6 +65,50 @@ export class SolicitudAdjuntoService {
     );
   }
 
+  listarEstadosFinancieros(id_tabla: number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource(`/api/adjunto?tabla=tsolicitud&id_tabla=${id_tabla}&id_tipo_adjunto=1`).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay Estados Financieros encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+  
+  listarAdjuntosAdicionales(id_tabla: number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource(`/api/adjunto?tabla=tsolicitud&id_tabla=${id_tabla}&id_tipo_adjunto=2`).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay Adjuntos Adicionales encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
   eliminar(id_tabla: number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
