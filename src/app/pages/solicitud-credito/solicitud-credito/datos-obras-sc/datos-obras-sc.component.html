@@ -29,7 +29,7 @@
                 <div class="">
                     <mat-accordion>
                         <!--  Lista de Obras -->
-                        <mat-expansion-panel *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
+                        <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION" *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <div class="label">ID Obra:</div>

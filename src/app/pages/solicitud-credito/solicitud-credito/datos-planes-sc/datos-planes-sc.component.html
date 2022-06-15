@@ -18,9 +18,9 @@
 
     <div class="content-body-step">
 
-        <mat-accordion>
+        <mat-accordion [multi]="true">
             <!--  Planes - Riesgos -->
-            <mat-expansion-panel>
+            <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Riesgos
@@ -29,7 +29,7 @@
                 <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar" [listadoRiesgos]="listadoRiesgos"></app-riesgos-sc>
             </mat-expansion-panel>
             <!--  Planes - Hipotecas -->
-            <mat-expansion-panel>
+            <mat-expansion-panel >
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Hipotecas
