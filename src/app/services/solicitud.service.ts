@@ -616,8 +616,9 @@ export class SolicitudService {
   }
 /* servicio filtrado */
   listarSolicitudesxFiltros(filtros: any): Promise<any> {
+    
     let id_estado = null;
-    //let cliente_codigo_sap = null;
+    let id_usuario = null;
     let query = "";
 
     if (filtros['estado']) {
@@ -625,11 +626,11 @@ export class SolicitudService {
       query = "id_estado=" + id_estado;
 
     }
-   /*  if (filtros['cliente_codigo_sap']) {
-      cliente_codigo_sap = filtros['cliente_codigo_sap'];
-      query = query != "" ? "&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
-    } */
-  
+     if (filtros['id_usuario']) {
+      id_usuario = filtros['id_usuario'];
+      query = query != "" ? query+"&id_usuario=" + id_usuario: "id_usuario=" + id_usuario;
+    } 
+    console.log(query+"--bandeja-->"+JSON.stringify(filtros));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/solicitud?" + query).toPromise().then((data) => {
