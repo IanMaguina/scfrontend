@@ -1,145 +1,134 @@
 <div class="content-step">
+    <div class="FormDatosObra">
+        <form [formGroup]="thirdFormGroup" (ngSubmit)="getDataObra(thirdFormGroup.value)">
+            <div class="Boton_DatosObra" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
+                <div class="Boton_DatosObra">
+                    <div class="label" style="font-size: 14px">Código de Obra:</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Ingresar Código de obra</mat-label>
+                        <input matInput formControlName="codigo_obra" placeholder="ingrese el código de la obra">
+                    </mat-form-field>
+                </div>
+                <div class="Boton_DatosObra">
+                    &nbsp;&nbsp;&nbsp;
+                    <button mat-flat-button aria-label="Buscar" class="boton-principal_popup" type="submit">
+                        Agregar
+                    </button>
+
+                    <button mat-flat-button aria-label="Buscar" class="boton-secundario_popup">
+                        <span>Quitar</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="content-body-step">
-        <div class="contenidoForm">
-            <form [formGroup]="thirdFormGroup" (ngSubmit)="getDataObra(thirdFormGroup.value)">
-                <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"
-                    *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
-                    <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-3 col-xl-3">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Codigo Obra</mat-label>
-                            <input matInput formControlName="codigo_obra" placeholder="ingrese el código de la obra">
-                        </mat-form-field>
-
-                        <div class="label" style="font-size: 14px">Código de Obra:</div>
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Ingresar Código de obra</mat-label>
-                            <input matInput formControlName="codigo_obra" placeholder="ingrese el código de la obra">
-                        </mat-form-field>
-
-                        <div class="objetoBoton">
-                            &nbsp;&nbsp;&nbsp;
-                            <button mat-flat-button aria-label="Buscar" class="boton-principal_popup" type="submit">
-                                Agregar
-                            </button>
-
-                            <button mat-flat-button aria-label="Buscar" class="boton-secundario_popup">
-                                <span>Quitar</span>
-                            </button>
-                        </div>
-            </form>
-
-        </div>
-
-        <mat-divider style="padding-bottom: 10px;"></mat-divider>
-
-        <div class="content-body-step">
-            <form [formGroup]="formulary">
-                <div formArrayName="obrasArray">
-                    <div class="">
-                        <mat-accordion>
-                            <!--  Lista de Obras -->
-                            <mat-expansion-panel *ngFor="let obra of obrasArray.controls;let i=index"
-                                [formGroupName]="i">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        <div class="label">ID Obra:</div>
-                                        <div style="padding-right: 10px;" class="">
-                                            {{obra.get('obra_codigo_isicom').value}}</div>
-                                        <div class="label">Nombre Obra:</div>
-                                        <div style="padding-right: 10px;" class="">{{obra.get('nombre_obra').value}}
-                                        </div>
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-
-                                <div class="objeto objetoEmpresa formElementoPlano">
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Dueño:</div>
-                                        <div class="dato">{{obra.get('dueno').value}}</div>
+        <form [formGroup]="formulary">
+            <div formArrayName="obrasArray">
+                <div class="">
+                    <mat-accordion>
+                        <!--  Lista de Obras -->
+                        <mat-expansion-panel *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <div class="label">ID Obra:</div>
+                                    <div style="padding-right: 10px;" class="">
+                                        {{obra.get('obra_codigo_isicom').value}}</div>
+                                    <div class="label">Nombre Obra:</div>
+                                    <div style="padding-right: 10px;" class="">{{obra.get('nombre_obra').value}}
                                     </div>
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Plazo Obra:</div>
-                                        <div class="dato">{{obra.get('plazo_obra').value}}</div>
-                                    </div>
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Ubicación:</div>
-                                        <div class="dato">{{obra.get('ubicacion').value}}</div>
-                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
 
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Fecha Inicio de Obra:</div>
-                                        <div class="dato">{{obra.get('fecha_inicio_obra').value | date: 'dd/MM/yyyy'}}
-                                        </div>
-                                    </div>
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Fecha fin de Obra:</div>
-                                        <div class="dato">{{obra.get('fecha_fin_obra').value | date: 'dd/MM/yyyy'}}
-                                        </div>
-                                    </div>
+                            <div class="objeto objetoEmpresa formElementoPlano">
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Dueño:</div>
+                                    <div class="dato">{{obra.get('dueno').value}}</div>
+                                </div>
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Plazo Obra:</div>
+                                    <div class="dato">{{obra.get('plazo_obra').value}}</div>
+                                </div>
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Ubicación:</div>
+                                    <div class="dato">{{obra.get('ubicacion').value}}</div>
+                                </div>
 
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Fecha Inicio de Atenciones:</div>
-                                        <div class="dato">
-                                            <mat-form-field appearance="fill">
-                                                <mat-label>Seleccioanr Fecha</mat-label>
-                                                <input matInput [matDatepicker]="picker1"
-                                                    formControlName="fecha_inicio_atencion">
-                                                <mat-datepicker-toggle matSuffix [for]="picker1">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #picker1 color="primary"></mat-datepicker>
-                                                <mat-hint>
-                                                    <mat-error [hidden]="!(formErrors.fecha_inicio_atencion)">
-                                                        {{formErrors.fecha_inicio_atencion}}
-                                                    </mat-error>
-                                                </mat-hint>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Fecha Fin de Atenciones:</div>
-                                        <div class="dato">
-                                            <mat-form-field appearance="fill">
-                                                <mat-label>Seleccionar Fecha</mat-label>
-                                                <input matInput [matDatepicker]="picker2"
-                                                    formControlName="fecha_fin_atencion">
-                                                <mat-datepicker-toggle matSuffix [for]="picker2">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                                                <mat-hint>
-                                                    <mat-error [hidden]="!(formErrors.fecha_fin_atencion)">
-                                                        {{formErrors.fecha_fin_atencion}}
-                                                    </mat-error>
-                                                </mat-hint>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="objeto formElementoPlano">
-                                        <div class="label">Información Adicional:</div>
-                                        <div class="dato">
-                                            <mat-form-field appearance="fill">
-                                                <mat-label>Ingresar información adicional...</mat-label>
-                                                <input matInput formControlName="informacion_adicional">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="objeto formElementoPlano">
-                                        <button mat-flat-button class="boton-secundario" type="submit"
-                                            (click)="actualizarSolicitudObra(formulary.value['obrasArray'][i])"
-                                            [disabled]="formulary.invalid">Guardar</button>
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Fecha Inicio de Obra:</div>
+                                    <div class="dato">{{obra.get('fecha_inicio_obra').value | date: 'dd/MM/yyyy'}}
                                     </div>
                                 </div>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </div>
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Fecha fin de Obra:</div>
+                                    <div class="dato">{{obra.get('fecha_fin_obra').value | date: 'dd/MM/yyyy'}}
+                                    </div>
+                                </div>
+
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Fecha Inicio de Atenciones:</div>
+                                    <div class="dato">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccioanr Fecha</mat-label>
+                                            <input matInput [matDatepicker]="picker1"
+                                                formControlName="fecha_inicio_atencion">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                                            <mat-hint>
+                                                <mat-error [hidden]="!(formErrors.fecha_inicio_atencion)">
+                                                    {{formErrors.fecha_inicio_atencion}}
+                                                </mat-error>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Fecha Fin de Atenciones:</div>
+                                    <div class="dato">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Seleccionar Fecha</mat-label>
+                                            <input matInput [matDatepicker]="picker2"
+                                                formControlName="fecha_fin_atencion">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                                            <mat-hint>
+                                                <mat-error [hidden]="!(formErrors.fecha_fin_atencion)">
+                                                    {{formErrors.fecha_fin_atencion}}
+                                                </mat-error>
+                                            </mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+
+                                <div class="objeto formElementoPlano">
+                                    <div class="label">Información Adicional:</div>
+                                    <div class="dato">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Ingresar información adicional...</mat-label>
+                                            <input matInput formControlName="informacion_adicional">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="objeto formElementoPlano">
+                                    <button mat-flat-button class="boton-secundario" type="submit"
+                                        (click)="actualizarSolicitudObra(formulary.value['obrasArray'][i])"
+                                        [disabled]="formulary.invalid">Guardar</button>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
                 </div>
-            </form>
+            </div>
+        </form>
 
 
-        </div>
-        <mat-divider></mat-divider>
-        <div class="botonera-step ">
-            <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
-            <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
-        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="botonera-step ">
+        <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
+        <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
+    </div>

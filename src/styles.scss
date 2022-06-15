@@ -1858,10 +1858,14 @@ th.mat-header-cell {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 15px;
 .boton-secundario_popup{
     padding-left: 23px;
     padding-right: 23px;
+}
+.Boton_DatosObra{
+    display: flex;
+    align-items: center;
 }
 }
