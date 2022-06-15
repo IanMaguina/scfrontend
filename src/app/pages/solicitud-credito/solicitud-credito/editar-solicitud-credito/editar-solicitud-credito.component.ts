@@ -79,7 +79,7 @@ export class EditarSolicitudCreditoComponent implements OnInit {
     console.log(this.id_solicitud_editar + "----" + JSON.stringify(v));
     this.solicitudService.aprobar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then(data=>{
       console.log("resultado-->"+JSON.stringify(data));
-      if (data.payload.enviar_rpa){
+      if (data.payload){
         let data = {
           mensaje : "Su solicitud ha sido enviada a RPA con éxito !!!",
         }
