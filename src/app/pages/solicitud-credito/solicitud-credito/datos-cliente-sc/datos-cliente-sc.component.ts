@@ -104,7 +104,7 @@ export class DatosClienteScComponent implements OnInit {
     this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
       console.log("datos cliente--->" + JSON.stringify(data));
       this.solicitud= data.payload;
-      this.ESTADO_SOLICITUD=this.solicitud.id;
+      this.ESTADO_SOLICITUD=this.solicitud.id_estado;
       let solicitud: Solicitud = data.payload;
       switch (solicitud.id_tipo_cliente) {
         case 1:

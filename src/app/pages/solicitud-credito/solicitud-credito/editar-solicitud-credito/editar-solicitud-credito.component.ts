@@ -48,7 +48,6 @@ export class EditarSolicitudCreditoComponent implements OnInit {
         console.log("peru qatar--->" + JSON.stringify(this.solicitud));
       })
     }
-    throw new Error('Method not implemented.');
   }
 
 
