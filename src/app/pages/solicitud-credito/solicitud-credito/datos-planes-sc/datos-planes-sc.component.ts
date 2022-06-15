@@ -9,6 +9,7 @@ import { EmpresaPlan } from 'src/app/models/empresa-plan.interface';
 import { Solicitud } from 'src/app/models/solicitud.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { DlgNuevoPlanScComponent } from './dlg-nuevo-plan-sc/dlg-nuevo-plan-sc.component';
+import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 
 @Component({
   selector: 'app-datos-planes-sc',
@@ -28,7 +29,8 @@ export class DatosPlanesScComponent implements OnInit {
   ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
-  listarRiesgos:any=null;
+  listadoRiesgos:SolicitudPlan[]=[];
+
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -60,7 +62,7 @@ export class DatosPlanesScComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         this.enviarMensajeSnack("se agregó el plan correctamente");
-        this.sendRiesgo(result);
+        this.listarPlanSolicitudRiesgo();
       }
     });
   }
@@ -83,6 +85,14 @@ export class DatosPlanesScComponent implements OnInit {
   }
 
   }
+  listarPlanSolicitudRiesgo(){
+    if(this.id_solicitud_editar){
+    this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
+      this.listadoRiesgos = data.payload;
+      console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
+    })
+  }
+  }
 
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
@@ -91,8 +101,6 @@ export class DatosPlanesScComponent implements OnInit {
       verticalPosition: "top"
     });
   }
-  sendRiesgo(msg:string){
-    this.listarRiesgos=msg;
-  }
+  
 
 }

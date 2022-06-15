@@ -12,8 +12,8 @@ import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 })
 export class RiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
-  @Input() listarRiesgos: string;
-  listadoRiesgos:  SolicitudPlan[] =[];
+  @Input() listadoRiesgos: SolicitudPlan[];
+  //listadoRiesgos:  SolicitudPlan[] =[];
 
   displayedColumns: string[] = [
     'sociedad',
@@ -33,7 +33,9 @@ export class RiesgosScComponent implements OnInit {
   constructor(
     private planService:PlanService,
     private _snack:MatSnackBar,
-    ) { }
+    ) {
+
+     }
 
   ngOnInit(): void {   
   
@@ -60,6 +62,11 @@ export class RiesgosScComponent implements OnInit {
       horizontalPosition: "end",
       verticalPosition: "top"
     });
+  }
+  updateRiesgos(data:any) {
+    if(data=='CONFIRM_DLG_YES'){
+      this.listarPlanSolicitudRiesgo();
+    }
   }
 
 
