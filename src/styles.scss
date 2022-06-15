@@ -381,8 +381,10 @@ body {
 }
 
 .botonera-superior {
-    float: right;
-    display: block;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+    padding-right: 24px;
 }
 
 
@@ -490,7 +492,7 @@ body {
     box-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
     margin-bottom: 15px;
     background-color: #fff;
-    min-width: 100%;
+    /*min-width: 100%;*/
 }
 
 .label {
@@ -1554,9 +1556,9 @@ font-size: 22px;
     color: red;
 }
 
-.mat-elevation-z8{
+/*.mat-elevation-z8{*/
    /* margin-top: 25px;*/
-}
+/*}*/
 
 /* Bandejas */
 
@@ -1797,18 +1799,18 @@ th.mat-header-cell {
     align-self: center;
 }
 
-.info_NPC{
+/*.info_NPC{
     .mat-form-field-wrapper{
-    .mat-form-field-flex{
+    /*.mat-form-field-flex{*/
      /*   width: 491px !important;
         .mat-form-field-infix{
             .mat-input-element{
                 height: 100px !important;
             }
         }*/
-    }
-}
-}
+   /* }*/
+/*}*/
+/*}*/
 
 .icon_help{
     font-size: 22px;
@@ -1849,4 +1851,17 @@ th.mat-header-cell {
     border: 1px solid black;
     text-align: center;
     
+}
+
+/* Datos Obra */
+.FormDatosObra{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+.boton-secundario_popup{
+    padding-left: 23px;
+    padding-right: 23px;
+}
 }
