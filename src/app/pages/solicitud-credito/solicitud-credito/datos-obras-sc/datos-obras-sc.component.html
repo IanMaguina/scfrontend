@@ -34,9 +34,9 @@
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="label">ID Obra:</div>
-                            <div class="dato">{{obra.get('obra_codigo_isicom').value}}</div>
+                            <div style="padding-right: 10px;" class="">{{obra.get('obra_codigo_isicom').value}}</div>
                             <div class="label">Nombre Obra:</div>
-                            <div class="dato">{{obra.get('nombre_obra').value}}</div>
+                            <div style="padding-right: 10px;" class="">{{obra.get('nombre_obra').value}}</div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
@@ -64,20 +64,10 @@
                         </div>
 
                         <div class="objeto formElementoPlano">
-                            <div class="label">Ubicación:</div>
+                            <div class="label">Fecha Inicio de Atenciones:</div>
                             <div class="dato">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Información Adicional</mat-label>
-                                    <input matInput formControlName="informacion_adicional">
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="objeto formElementoPlano">
-                            <div class="label">Ubicación:</div>
-                            <div class="dato">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>fecha inicio de atenciones</mat-label>
+                                    <mat-label>Seleccioanr Fecha</mat-label>
                                     <input matInput [matDatepicker]="picker1" formControlName="fecha_inicio_atencion">
                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1 color="primary"></mat-datepicker>
@@ -90,10 +80,10 @@
                             </div>
                         </div>
                         <div class="objeto formElementoPlano">
-                            <div class="label">Ubicación:</div>
+                            <div class="label">Fecha Fin de Atenciones:</div>
                             <div class="dato">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>fecha final de atenciones </mat-label>
+                                    <mat-label>Seleccionar Fecha</mat-label>
                                     <input matInput [matDatepicker]="picker2" formControlName="fecha_fin_atencion">
                                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                     <mat-datepicker #picker2 color="primary"></mat-datepicker>
@@ -102,6 +92,17 @@
                                             {{formErrors.fecha_fin_atencion}}
                                         </mat-error>
                                     </mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="objeto formElementoPlano">
+                            <div class="label">Información Adicional:</div>
+                            <div class="dato">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Ingresar información adicional...</mat-label>
+                                    <input matInput formControlName="informacion_adicional">
                                 </mat-form-field>
                             </div>
                         </div>
