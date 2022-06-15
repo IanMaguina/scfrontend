@@ -19,7 +19,6 @@ export interface Solicitud{
     empresa?:Empresa,
     id_tipo_cliente?:number,
     tipo_cliente?:TipoCliente
-
     usuario?:Usuario,
     estado?:Estado,
     razon_social?:string,

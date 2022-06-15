@@ -12,6 +12,7 @@ import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 })
 export class RiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
+  @Input() listarRiesgos: string;
   listadoRiesgos:  SolicitudPlan[] =[];
 
   displayedColumns: string[] = [
@@ -27,7 +28,7 @@ export class RiesgosScComponent implements OnInit {
     'tipo_linea',
     'vigencia',
     'plan_control',
-    'id'
+   /*  'id' */
   ]
   constructor(
     private planService:PlanService,
@@ -35,13 +36,15 @@ export class RiesgosScComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {   
-    this.listarPlanSolicitudRiesgo();
+  
+      this.listarPlanSolicitudRiesgo(); 
+
   }
 
   listarPlanSolicitudRiesgo(){
     if(this.id_solicitud_editar){
     this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
-      this.listadoRiesgos = data.payload.data?data.payload.data:[];
+      this.listadoRiesgos = data.payload;
       console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
     })
   }

@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AutenticacionService } from '@services/autenticacion.service';
-import { PlanService } from '@services/plan.service';
 import { SolicitudService } from '@services/solicitud.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PlanService } from '@services/plan.service';
+import { send } from 'process';
 import { EmpresaPlan } from 'src/app/models/empresa-plan.interface';
 import { Solicitud } from 'src/app/models/solicitud.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
@@ -26,8 +28,10 @@ export class DatosPlanesScComponent implements OnInit {
   ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
+  listarRiesgos:any=null;
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private planService: PlanService,
     private autenticacionService: AutenticacionService,
     private solicitudService: SolicitudService,
@@ -55,7 +59,8 @@ export class DatosPlanesScComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
-        console.log("se agregó el plan correctamente");
+        this.enviarMensajeSnack("se agregó el plan correctamente");
+        this.sendRiesgo(result);
       }
     });
   }
@@ -77,6 +82,17 @@ export class DatosPlanesScComponent implements OnInit {
     });
   }
 
+  }
+
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
+  sendRiesgo(msg:string){
+    this.listarRiesgos=msg;
   }
 
 }

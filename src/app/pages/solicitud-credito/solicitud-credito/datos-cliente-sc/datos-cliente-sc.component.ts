@@ -234,7 +234,8 @@ export class DatosClienteScComponent implements OnInit {
     return new Promise(
       (resolve, reject) => {
         this.solicitudService.crear(solicitud).then(async data => {
-          console.log("se creo la solicitud-->" + JSON.stringify(data));
+         
+          this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
           id_solicitud = data.payload.id;
           this.id_solicitud_hija.emit(id_solicitud);
           resolve(id_solicitud)
@@ -272,6 +273,7 @@ export class DatosClienteScComponent implements OnInit {
       (resolve, reject) => {
         this.solicitudService.actualizarSolicitud(this.id_solicitud_editar, solicitud).then(async data => {
           console.log("se actualizo la solicitud-->" + JSON.stringify(data));
+          this.enviarMensajeSnack("se actualizo la solicitud");
           id_solicitud = this.id_solicitud_editar;
           this.id_solicitud_hija.emit(this.id_solicitud_editar);
           resolve(id_solicitud)
@@ -300,7 +302,7 @@ export class DatosClienteScComponent implements OnInit {
     return solicitud;
   }
 
-  snack(mensaje:string){
+  enviarMensajeSnack(mensaje:string){
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",
