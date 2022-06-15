@@ -72,6 +72,16 @@ export class EditarSolicitudCreditoComponent implements OnInit {
   aprobar() {
     let v = { id_usuario: this.userInfo.id };
     console.log(this.id_solicitud_editar + "----" + JSON.stringify(v));
-    //this.solicitudService.aprobar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then();
+    this.solicitudService.aprobar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then(data=>{
+      console.log("resultado-->"+JSON.stringify(data));
+    });
   }
+
+  rechazar() {
+    let v = { id_usuario: this.userInfo.id };
+    console.log(this.id_solicitud_editar + "----" + JSON.stringify(v));
+    this.solicitudService.rechazar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then(data=>{
+      console.log("resultado-->"+JSON.stringify(data));
+    });
+  }  
 }
