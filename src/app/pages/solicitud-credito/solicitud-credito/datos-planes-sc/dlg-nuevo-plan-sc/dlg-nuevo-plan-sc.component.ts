@@ -168,6 +168,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       tap((data) => {
 
         if (data) {
+          console.log("listado-->"+JSON.stringify(data))
 
           this.lineaProductosArray.controls = [];
 
@@ -175,12 +176,12 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
             solicitud: { sociedad_codigo_sap },
             cliente_agrupacion: { grupo_cliente_codigo_sap } } = data;
 
-          this.grupo_cliente_codigo_sap = grupo_cliente_codigo_sap;
+          this.grupo_cliente_codigo_sap = data.empresa.grupo_cliente_codigo_sap;
           this.id_cliente_agrupacion = id_cliente_agrupacion;
           this.id_empresa = id_empresa;
 
           this.formulary.controls.linea_producto.enable();
-          this.listarLineaProductos(sociedad_codigo_sap, grupo_cliente_codigo_sap)
+          this.listarLineaProductos(data.empresa.sociedad_codigo_sap, data.empresa.grupo_cliente_codigo_sap)
           return;
         }
 
