@@ -30,6 +30,7 @@ export class DatosPlanesScComponent implements OnInit {
   ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   listadoRiesgos:SolicitudPlan[]=[];
+  listadoHipotecas:SolicitudPlan[]=[];
 
   constructor(
     private matDialog: MatDialog,
@@ -63,6 +64,7 @@ export class DatosPlanesScComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         this.enviarMensajeSnack("se agregó el plan correctamente");
         this.listarPlanSolicitudRiesgo();
+        this.listarPlanSolicitudHipoteca();
       }
     });
   }
@@ -89,6 +91,15 @@ export class DatosPlanesScComponent implements OnInit {
     if(this.id_solicitud_editar){
     this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
       this.listadoRiesgos = data.payload;
+      console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
+    })
+  }
+  }
+
+  listarPlanSolicitudHipoteca(){
+    if(this.id_solicitud_editar){
+    this.planService.listarPlanSolicitudHipoteca(this.id_solicitud_editar).then(data=>{
+      this.listadoHipotecas = data.payload;
       console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
     })
   }
