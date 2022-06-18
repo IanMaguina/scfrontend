@@ -62,7 +62,6 @@ export function socialConfigFactory(restService: AppConfigService) {
     AppComponent,
     LoginComponent,
     NopagefoundComponent,
-    
 
   ],
   imports: [

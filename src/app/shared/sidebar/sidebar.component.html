@@ -1,34 +1,24 @@
 <mat-sidenav-container>
-
   <mat-sidenav #sidenav mode="side" role="navigation" [opened]="sidenavLayout" (mouseenter)="isExpanded = true"
-    (mouseleave)="isExpanded = false" (mouseleave)=" lineadecredito=false">
+    (mouseleave)="isExpanded = false" (mouseleave)="lineadecredito=false" (mouseleave)="IconSideNav.closeAll()">
+    <mat-nav-list>
+      <mat-accordion class="Sidenav_Accordion" multi>
+        <mat-expansion-panel class="Sidenav_Panel" #panel [disabled]="!isExpanded" *ngFor="let menu of dataSource.data"
+          (click)="lineadecredito=!lineadecredito">
+          <mat-expansion-panel-header class="Sidenav_Header">
+            <img [src]="menu.svg">
+              <span *ngIf="isExpanded" class="title">{{menu.name}}</span>
+          </mat-expansion-panel-header>
 
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="with-icon padded">
-      <!--This is the tree node template for leaf nodes-->
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <!--use a disabled button to provide padding for tree leaf-->
-        <button mat-icon-button disabled></button>
-        <p *ngIf="isExpanded">
-          <a [href]="node.url">{{node.name}}</a>
-        </p>
-      </mat-tree-node>
-      <!--This is the tree node template for expandable nodes-->
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle class="color-secundario" [attr.aria-label]="'Toggle ' + node.name">
-          <mat-icon class="mat-icon-rtl-mirror color-secundario">
-            {{ node.icono }}
-          </mat-icon>
-        </button>
-        <a *ngIf="isExpanded" [click]="'Toggle ' + node.name">{{node.name}} </a>
-      </mat-tree-node>
-    </mat-tree>
+          <mat-list-item (click)="url(submenu.url)" *ngFor="let submenu of menu.children">
+            <span *ngIf="isExpanded" class="subtitle">{{submenu.name}} </span>
+          </mat-list-item>
 
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-
-

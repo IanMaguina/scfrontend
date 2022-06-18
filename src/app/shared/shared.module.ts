@@ -36,6 +36,7 @@ import { SideNavService } from './sidebar/side-nav.service';
     ConfirmDialogComponent,
     ErrorDialogComponent,
     SuccessDialogComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -56,6 +57,7 @@ import { SideNavService } from './sidebar/side-nav.service';
     MatListModule,
     RouterModule,
     MatSidenavModule,
+    
   ],
   exports: [
     BreadcrumbsComponent,

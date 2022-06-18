@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"), url(./assets/Poppins-Regular.ttf) format("truetype");
+}
+*{
+    font-family: 'Poppins';
+}
 body {
-    font-family: Poppins-Regular, Arial, sans-serif;
+    font-family: "Poppins", Arial, sans-serif;
     margin: 0;
 }
 
@@ -272,6 +278,7 @@ body {
 .toolbar-color {
     background: #FFFFFF;
     color: #05C65D;
+    box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 12%), 0px 3px 3px 0px rgb(0 0 0 / 14%), 0px 1px 2px 0px rgb(0 0 0 / 12%);
 }
 
 .sidebar {
@@ -531,7 +538,7 @@ table {
 }
 
 .mensaje {
-    font-size: 13pt;
+    font-size: 16pt;
     text-align: center;
     padding: 5px 10px 20px 10px;
 }
@@ -1868,4 +1875,76 @@ th.mat-header-cell {
     display: flex;
     align-items: center;
 }
+}
+
+
+/*Mensaje Enviar a Revisor*/
+
+
+/* Sidenav */
+.SideNav_Accordio{
+    border-radius: 0px !important;
+}
+.Sidenav_Header{
+    display: flex !important;
+    align-self: center;
+    padding-left: 14px !important;
+    padding-right: 0px !important;
+    margin-bottom: 3px !important;
+    border-radius: 0px !important;
+    background-color: #FFFFFF !important;
+    .mat-expansion-panel-header-description
+{
+    color: #707070 !important;
+}
+.mat-expansion-indicator{
+    visibility: hidden;
+}
+   .mat-expansion-indicator::after{
+    color: #707070 !important;
+   }
+    .Icon{
+        display: flex;
+        align-self: center;
+    }
+    .title{
+        display: flex;
+        position: relative !important;
+        padding-left: 10px !important;
+        align-self: center;
+        color: #707070;
+        font-size: 16px;
+        
+    min-width: 300px !important;
+    }
+   
+}
+.Sidenav_Panel{
+    border-radius: 0px !important;
+    .mat-expansion-panel-body{
+        padding-right: 0px !important;
+    }
+}
+
+.subtitle{
+    display: flex !important;
+    color: #707070 !important;
+    font-size: 14px;
+
+}
+
+.Sidenav_Header.mat-expanded{
+    background-color: #f5f5f5 !important;
+    color: rgb(0, 0, 0) !important;
+    border-radius: 0px !important;
+    height: 48px!important;
+}
+
+.mat-sidenav{
+    width: 76px!important;
+    transition: width 300ms cubic-bezier(0.001, 0, 0.2, 1);
+}
+.mat-sidenav:hover{
+    width: 400px!important;
+    color: rgba(255, 255, 255, 0)
 }

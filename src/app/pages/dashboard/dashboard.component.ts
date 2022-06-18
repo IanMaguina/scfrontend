@@ -9,23 +9,21 @@ import { AutenticacionService } from 'src/app/services/autenticacion.service';
   ]
 })
 export class DashboardComponent implements OnInit {
-
   constructor(
     private router: Router,
     private autenticacionService: AutenticacionService,
   ) {
-    
-   }
 
-  ngOnInit(): void {
-    console.log("estoy logeado?.. :"+this.autenticacionService.loggedIn);
-  //  this.loginAuth();
   }
 
-  loginAuth(){
-    if(!this.autenticacionService.loggedIn){
+  ngOnInit(): void {
+    console.log("estoy logeado?.. :" + this.autenticacionService.loggedIn);
+    //  this.loginAuth();
+  }
+
+  loginAuth() {
+    if (!this.autenticacionService.loggedIn) {
       this.router.navigate(['login']);
     }
   }
-
 }

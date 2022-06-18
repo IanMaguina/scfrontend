@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { SideNavService } from '../sidebar/side-nav.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class HeaderComponent implements OnInit {
 
   @Output() sidenavToggle = new EventEmitter<void>();
 
-  constructor(private sidenav: SideNavService) { 
+  constructor(
+    private sidenav: SideNavService,
+    private autenticacionService: AutenticacionService,) 
+    { 
 
   }
 
@@ -22,6 +26,6 @@ onToggleSidenav(){
 
 
   ngOnInit(): void {
+  
   }
-
 }
