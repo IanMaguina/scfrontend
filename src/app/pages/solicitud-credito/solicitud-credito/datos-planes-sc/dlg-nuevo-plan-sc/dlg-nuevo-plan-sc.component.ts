@@ -15,6 +15,7 @@ import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-co
 import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatTable } from '@angular/material/table';
+import { TipoLinea } from 'src/app/models/tipo-linea.interface';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -38,7 +39,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
 
   solicitudData: any;
   id_solicitud_editar: any;
-  listadoTipoLinea: any[] = [{ id: 1, nombre: "Regular" }, { id: 2, nombre: "Temporal" }];
+  listadoTipoLinea: TipoLinea[] = [];
   listadoPlanesCredito: any[] = [];
   listadoPlanesCreditoEmpresa: any[] = [];
   listadoVigencias: any[] = [{ id: 1, nombre: "Pico de demanda" }, { id: 2, nombre: "DV en curso" }, { id: 3, nombre: "Fecha" }];
@@ -145,6 +146,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     this.onChangelistarPlanEmpresa();
     this.listarDocumentosValorados();
     this.listarMoneda();
+    this.listarTipoLinea();
   }
 
   ngOnDestroy(): void {
@@ -156,6 +158,11 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   listarPlan() {
     this.planService.listarPlan().then(data => {
       this.listadoPlanesCredito = data.payload;
+    })
+  }
+  listarTipoLinea() {
+    this.solicitudPlanService.listarTipoLinea(this.id_solicitud_editar).then(data => {
+      this.listadoTipoLinea = data.payload;
     })
   }
 

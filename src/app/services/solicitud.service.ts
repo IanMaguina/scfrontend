@@ -6,6 +6,7 @@ import { SolicitudCliente } from '../models/solicitud-cliente.interface';
 import { Observable } from 'rxjs';
 import { FormArray } from '@angular/forms';
 import { Obra } from '../models/obra.interface';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -137,7 +138,7 @@ export class SolicitudService {
     let numero_documento = null;
     let nombre = null;
     let query = "";
-    if (filtros['numero_documento']) {
+   /*  if (filtros['numero_documento']) {
       numero_documento = filtros['numero_documento'];
       query = "numero_documento=" + numero_documento;
 
@@ -146,11 +147,22 @@ export class SolicitudService {
       nombre = filtros['nombre'];
       query = query != "" ? "&nombre=" + nombre : "nombre=" + nombre;
     }
-    console.log("link-->" + "/api/cliente-agrupacion/buscar-empresa-individual?" + query);
+
+    if (filtros['sociedad_codigo_sap']) {
+      nombre = filtros['sociedad_codigo_sap'];
+      query = query != "" ? "&sociedad_codigo_sap=" + nombre : "sociedad_codigo_sap=" + nombre;
+    } */
+   
+    let params = new HttpParams()
+    .set('numero_documento',filtros.numero_documento)
+    .set('nombre', filtros.nombre)
+    .set('sociedad_codigo_sap', filtros.sociedad_codigo_sap );
+    
+    console.log("link-->" + "/api/cliente-agrupacion/buscar-empresa-individual?" + params);
 
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/buscar-empresa-individual?" + query).toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-empresa-individual", params).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
