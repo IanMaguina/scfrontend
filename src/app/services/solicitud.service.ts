@@ -155,7 +155,7 @@ export class SolicitudService {
    
     let params = new HttpParams()
     .set('numero_documento',filtros.numero_documento)
-    .set('nombre', filtros.nombre)
+    .set('razon_social', filtros.razon_social)
     .set('sociedad_codigo_sap', filtros.sociedad_codigo_sap );
     
     console.log("link-->" + "/api/cliente-agrupacion/buscar-empresa-individual?" + params);
@@ -182,7 +182,7 @@ export class SolicitudService {
   }
 
   crear(solicitud: Solicitud): Promise<any> {
-    console.log("adding suplencia..." + JSON.stringify(solicitud));
+    console.log("adding solicitud..." + JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.postResource("/api/solicitud", solicitud).toPromise().then((data) => {

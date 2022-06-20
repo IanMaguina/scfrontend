@@ -61,6 +61,7 @@ export class DatosClienteScComponent implements OnInit {
     /* breakpointObserver: BreakpointObserver */
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
+    console.log("user info : "+JSON.stringify(this.userInfo));
     this.firstFormGroup = this._formBuilder.group({
       tipo_cliente: [this.cliente, this.ClientSelectorControl, Validators.required],
       nombreGrupo: [''],
@@ -197,7 +198,8 @@ export class DatosClienteScComponent implements OnInit {
           break;
         }
         let filtro = {
-          numero_documento: data.rucEmpresa//"20225116458"
+          numero_documento: data.rucEmpresa,
+          sociedad_codigo_sap:this.userInfo.sociedad_codigo_sap
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
           if (result.payload !== null) {
