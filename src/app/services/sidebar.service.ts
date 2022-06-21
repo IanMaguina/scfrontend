@@ -47,7 +47,7 @@ export class SidebarService {
       icono: 'credit_card',
       toolTip: 'Solicitud de Condición de Pago',
       children: [
-        { name: 'Nueva Solicitud de Condición de Pago', url: 'app/solicitudcondicionpago/nuevasolicitudcredito' },
+        { name: 'Nueva Solicitud de Condición de Pago', url: 'app/solicitudcondicionpago/nuevasolicitudcondicionpago' },
         { name: 'bandeja de Solicitudes de Condición de Pago', url: 'app/solicitudcondicionpago/bandejacondicionpago' },
        
       ]

@@ -91,6 +91,27 @@ export class RolUsuarioService {
       }
     );
   }
+  listarEstrategiaRolUsuarioxUsuario(id_usuario:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/rol-usuario?id_usuario="+id_usuario).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("Registros no encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
 
 
 

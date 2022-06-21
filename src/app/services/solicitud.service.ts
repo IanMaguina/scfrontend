@@ -199,7 +199,7 @@ export class SolicitudService {
 
 
   actualizarSolicitud(id_solicitud, solicitud: Solicitud): Promise<any> {
-    console.log(id_solicitud+" arsa -->"+JSON.stringify(solicitud));
+    console.log("/api/solicitud/"+id_solicitud+" solicitud -->"+JSON.stringify(solicitud));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/solicitud/" + id_solicitud, solicitud).toPromise().then((data) => {
