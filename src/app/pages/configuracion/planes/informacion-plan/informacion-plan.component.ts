@@ -166,7 +166,7 @@ export class InformacionPlanComponent implements OnInit {
   async ngOnInit(){
     console.log("ngOnInit");
     console.log("Data del plan en información-->" + JSON.stringify(this.plan));
-    this.tipoFlujoAprobacion = { id: this.plan.tipo_plancredito.id_tipo_flujo_aprobacion, nombre: "" };
+    this.tipoFlujoAprobacion = { id: this.plan.tipo_plan_credito.id_tipo_flujo_aprobacion, nombre: "" };
     await this.listarGrupoCliente();
     await this.listarLineaProducto();
     await this.listarTipoDocumentoValorado();
