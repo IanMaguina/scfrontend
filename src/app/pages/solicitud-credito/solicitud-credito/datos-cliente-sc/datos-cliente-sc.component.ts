@@ -131,14 +131,16 @@ export class DatosClienteScComponent implements OnInit {
   }
 
   seleccionCliente() {
-    this.cliente_seleccionado = this.ClientSelectorControl.value;
-    console.log("RADIO BOTTON-->" + this.cliente_seleccionado)
+    //this.cliente_seleccionado = this.ClientSelectorControl.value;
+    //this.cliente_pre_seleccionado = this.firstFormGroup.get("ClientSelectorControl").value;
+    //console.log("RADIO BOTTON-->" + this.cliente_pre_seleccionado)
   }
 
   async openBuscarCoincidentes(data: any) {
+    data.tipo_cliente = this.ClientSelectorControl.value;
     console.log('openBuscarCoincidentes--->' + JSON.stringify(data));
-    data.tipo_cliente = this.cliente_seleccionado;
-    switch (this.cliente_seleccionado) {
+    //data.tipo_cliente = this.cliente_pre_seleccionado;
+    switch (data.tipo_cliente) { 
       case 1:
         console.log("Grupo Empresarial");
         if ((data.nombreGrupo === "" && data.rucGrupo === "")) {
@@ -153,6 +155,7 @@ export class DatosClienteScComponent implements OnInit {
         dialogRef1.afterClosed().subscribe(async result => {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
+            this.cliente_seleccionado=data.tipo_cliente;
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
@@ -180,6 +183,7 @@ export class DatosClienteScComponent implements OnInit {
         });
         dialogRef2.afterClosed().subscribe(async result => {
           if (result.resultado === 'CONFIRM_DLG_YES') {
+            this.cliente_seleccionado=data.tipo_cliente;
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
@@ -206,6 +210,7 @@ export class DatosClienteScComponent implements OnInit {
           sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
+          this.cliente_seleccionado=data.tipo_cliente;
           if (!result.payload.warning) {
             if (this.id_solicitud_editar === null) {
               console.log("validar empresa sociedad: " + JSON.stringify(result.payload));
@@ -218,7 +223,8 @@ export class DatosClienteScComponent implements OnInit {
               console.log("return Individual dialogs-->" + JSON.stringify(result));
               this.actualizarSolicitud(result.payload).then(async (id) => {
                 this.id_solicitud_editar = id;
-                this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
+                this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
+                //this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             }
 
