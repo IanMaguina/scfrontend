@@ -18,7 +18,7 @@ export class ConfigurarPlanComponent implements OnInit {
     
   ) { 
     console.log("configuracion data plan-->"+JSON.stringify(data));
-    this.nombreplan=data.tipo_plancredito.id+"-" +data.tipo_plancredito.nombre;
+    this.nombreplan=data.tipo_plan_credito.id+"-" +data.tipo_plan_credito.nombre;
 
   }
 
