@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { RolUsuario } from 'src/app/models/rol-usuario.interface';
 import { RolUsuarioService } from '@services/rol-usuario.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 @Component({
   selector: 'app-datos-cliente-sc',
   templateUrl: './datos-cliente-sc.component.html',
@@ -214,7 +215,7 @@ export class DatosClienteScComponent implements OnInit {
           sociedad_codigo_sap: this.rol_usuario.sociedad_codigo_sap
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
-          if (result.payload !== null) {
+          if (!result.payload.warning) {
             if (this.id_solicitud_editar === null) {
               console.log("validar empresa sociedad: " + JSON.stringify(result.payload));
 
@@ -231,6 +232,8 @@ export class DatosClienteScComponent implements OnInit {
               });
             }
 
+          }else{
+            this.openAlerta(result.payload.warning.mensaje);
           }
         })
 
@@ -247,15 +250,19 @@ export class DatosClienteScComponent implements OnInit {
     console.log("para crear solicitud-->" + JSON.stringify(cliente));
     let id_solicitud = null;
     let solicitud: Solicitud = this.mapeoSolicitud(cliente);
-    console.log("solicitud hector " + JSON.stringify(solicitud));
+  
     return new Promise(
       (resolve, reject) => {
         this.solicitudService.crear(solicitud).then(async data => {
-
+          console.log(" hector " + JSON.stringify(data));
+          if(data.payload.id){
           this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
           id_solicitud = data.payload.id;
           this.id_solicitud_hija.emit(id_solicitud);
           resolve(id_solicitud)
+          }else{
+            this.openAlerta(data.payload.warning.mensaje);
+          }
         }).catch(
           (error) => {
             console.log("error status=" + error.status + ", msg=" + error.message);
@@ -317,6 +324,14 @@ export class DatosClienteScComponent implements OnInit {
       crear_correlativo: false
     }
     return solicitud;
+  }
+
+  openAlerta(mensaje:string){
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      data: mensaje
+    });
+    
   }
 
   enviarMensajeSnack(mensaje: string) {

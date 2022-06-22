@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Plan } from 'src/app/models/plan.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfigurarPlanComponent } from '../configurar-plan/configurar-plan.component';
 import { CrearPlanComponent } from '../crear-plan/crear-plan.component';

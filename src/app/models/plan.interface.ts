@@ -8,7 +8,7 @@ import { TipoDocumentoValorado } from './tipo-documento-valorado.interface';
 export interface Plan{
     id?: number,
     id_tipo_plan_credito?:number,
-    carta_fianza:string,
+    carta_fianza?:string,
     id_tipo_moneda?:number,
     bolsa?:number,
     camiones?:number,
