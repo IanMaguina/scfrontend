@@ -45,7 +45,10 @@ export function socialConfigFactory(restService: AppConfigService) {
       providers.push({
         id: GoogleLoginProvider.PROVIDER_ID,
         provider: new GoogleLoginProvider(
-          config.clientId
+          config.clientId, {
+            scope: 'email',
+            plugin_name: 'loginARSA2'
+          }
         ),
       });
     }

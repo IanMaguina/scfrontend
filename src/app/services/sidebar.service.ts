@@ -119,7 +119,6 @@ export class SidebarService {
         { name: 'Aprobador adicional', url: 'app/configuracion/aprobadoradicional' },
       ]
     },
- 
   ];
 
 

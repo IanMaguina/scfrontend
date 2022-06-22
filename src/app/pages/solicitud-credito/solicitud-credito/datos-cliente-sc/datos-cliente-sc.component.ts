@@ -12,6 +12,9 @@ import { GlobalSettings } from 'src/app/shared/settings';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { RolUsuario } from 'src/app/models/rol-usuario.interface';
+import { RolUsuarioService } from '@services/rol-usuario.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 @Component({
   selector: 'app-datos-cliente-sc',
   templateUrl: './datos-cliente-sc.component.html',
@@ -41,26 +44,26 @@ export class DatosClienteScComponent implements OnInit {
   cliente_seleccionado: number = 1;
   id_solicitud_dc: number = 0;
   ID_TIPO_CLIENTE: number;
-  
+
   ROL_SOLICITANTE = GlobalSettings.ROL_SOLICITANTE;
 
-  userInfo:any;
-  solicitud:Solicitud;
-  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  userInfo: any;
+  solicitud: Solicitud;
+  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
-  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
-    private formValidatorService: FormValidatorService,
     private router: Router,
     private _snack: MatSnackBar,
-    private solicitudService: SolicitudService,    
-    private autenticacionService: AutenticacionService
+    private solicitudService: SolicitudService,
+    private autenticacionService: AutenticacionService,
     /* breakpointObserver: BreakpointObserver */
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
+    console.log("user info : " + JSON.stringify(this.userInfo));
     this.firstFormGroup = this._formBuilder.group({
       tipo_cliente: [this.cliente, this.ClientSelectorControl, Validators.required],
       nombreGrupo: [''],
@@ -77,8 +80,9 @@ export class DatosClienteScComponent implements OnInit {
     if (this.id_solicitud_editar !== null) {
       this.obtenerSolicitud();
     }
-    console.log("ngOnInit");
   }
+
+
 
   async listarGrupoEmpresarialxSolicitud(filtro: any) {
     this.solicitudService.listarGrupoEmpresarialxSolicitud(filtro).then(res => {
@@ -99,12 +103,12 @@ export class DatosClienteScComponent implements OnInit {
       console.log("listarEmpresaIndividualxSolicitud--->" + JSON.stringify(res.payload));
       this.clienteData = res.payload;
     })
-  }  
+  }
   async obtenerSolicitud() {
     this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
       console.log("datos cliente--->" + JSON.stringify(data));
-      this.solicitud= data.payload;
-      this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+      this.solicitud = data.payload;
+      this.ESTADO_SOLICITUD = this.solicitud.id_estado;
       let solicitud: Solicitud = data.payload;
       switch (solicitud.id_tipo_cliente) {
         case 1:
@@ -127,14 +131,16 @@ export class DatosClienteScComponent implements OnInit {
   }
 
   seleccionCliente() {
-    this.cliente_seleccionado = this.ClientSelectorControl.value;
-    console.log("RADIO BOTTON-->" + this.cliente_seleccionado)
+    //this.cliente_seleccionado = this.ClientSelectorControl.value;
+    //this.cliente_pre_seleccionado = this.firstFormGroup.get("ClientSelectorControl").value;
+    //console.log("RADIO BOTTON-->" + this.cliente_pre_seleccionado)
   }
 
   async openBuscarCoincidentes(data: any) {
+    data.tipo_cliente = this.ClientSelectorControl.value;
     console.log('openBuscarCoincidentes--->' + JSON.stringify(data));
-    data.tipo_cliente = this.cliente_seleccionado;
-    switch (this.cliente_seleccionado) {
+    //data.tipo_cliente = this.cliente_pre_seleccionado;
+    switch (data.tipo_cliente) { 
       case 1:
         console.log("Grupo Empresarial");
         if ((data.nombreGrupo === "" && data.rucGrupo === "")) {
@@ -149,6 +155,7 @@ export class DatosClienteScComponent implements OnInit {
         dialogRef1.afterClosed().subscribe(async result => {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
+            this.cliente_seleccionado=data.tipo_cliente;
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
@@ -176,6 +183,7 @@ export class DatosClienteScComponent implements OnInit {
         });
         dialogRef2.afterClosed().subscribe(async result => {
           if (result.resultado === 'CONFIRM_DLG_YES') {
+            this.cliente_seleccionado=data.tipo_cliente;
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
@@ -196,25 +204,32 @@ export class DatosClienteScComponent implements OnInit {
           console.log("esta vacio");
           break;
         }
+
         let filtro = {
-          numero_documento: data.rucEmpresa//"20225116458"
+          numero_documento: data.rucEmpresa,
+          sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
-          if (result.payload !== null) {
+          this.cliente_seleccionado=data.tipo_cliente;
+          if (!result.payload.warning) {
             if (this.id_solicitud_editar === null) {
+              console.log("validar empresa sociedad: " + JSON.stringify(result.payload));
+
               this.crearSolicitud(result.payload).then(async (id) => {
                 this.id_solicitud_editar = id;
                 this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
-                //this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             } else {
               console.log("return Individual dialogs-->" + JSON.stringify(result));
               this.actualizarSolicitud(result.payload).then(async (id) => {
                 this.id_solicitud_editar = id;
-                this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
+                this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
+                //this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             }
 
+          } else {
+            this.openAlerta(result.payload.warning.mensaje);
           }
         })
 
@@ -231,14 +246,21 @@ export class DatosClienteScComponent implements OnInit {
     console.log("para crear solicitud-->" + JSON.stringify(cliente));
     let id_solicitud = null;
     let solicitud: Solicitud = this.mapeoSolicitud(cliente);
+
     return new Promise(
       (resolve, reject) => {
         this.solicitudService.crear(solicitud).then(async data => {
-         
-          this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
-          id_solicitud = data.payload.id;
-          this.id_solicitud_hija.emit(id_solicitud);
-          resolve(id_solicitud)
+          console.log(" hector " + JSON.stringify(data));
+          if (data.payload) {
+            if (data.payload.id) {
+              this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
+              id_solicitud = data.payload.id;
+              this.id_solicitud_hija.emit(id_solicitud);
+              resolve(id_solicitud)
+            } else {
+              this.openAlerta(data.payload.warning.mensaje);
+            }
+          }
         }).catch(
           (error) => {
             console.log("error status=" + error.status + ", msg=" + error.message);
@@ -253,10 +275,10 @@ export class DatosClienteScComponent implements OnInit {
       correlativo: null,
       id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
       id_rol: this.ROL_SOLICITANTE,
-      id_usuario: 12,
-      id_usuario_creacion: 12,
+      id_usuario: this.userInfo.id,
+      id_usuario_creacion: this.userInfo.id,
       id_solicitud_referencia: null,
-      sociedad_codigo_sap: "2020",
+      sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap,
       id_cliente_agrupacion: (this.cliente_seleccionado !== 3 ? cliente.id : null),
       id_empresa: (this.cliente_seleccionado === 3 ? cliente.id : null),
       id_tipo_cliente: this.cliente_seleccionado,
@@ -273,10 +295,16 @@ export class DatosClienteScComponent implements OnInit {
       (resolve, reject) => {
         this.solicitudService.actualizarSolicitud(this.id_solicitud_editar, solicitud).then(async data => {
           console.log("se actualizo la solicitud-->" + JSON.stringify(data));
-          this.enviarMensajeSnack("se actualizo la solicitud");
-          id_solicitud = this.id_solicitud_editar;
-          this.id_solicitud_hija.emit(this.id_solicitud_editar);
-          resolve(id_solicitud)
+          if (data.payload) {
+            if (!data.payload.warning) {
+              this.enviarMensajeSnack("se actualizo la solicitud");
+              id_solicitud = this.id_solicitud_editar;
+              this.id_solicitud_hija.emit(this.id_solicitud_editar);
+              resolve(id_solicitud);
+            } else {
+              this.openAlerta(data.payload.warning.mensaje);
+            }
+          }
         }).catch(
           (error) => {
             console.log("error status=" + error.status + ", msg=" + error.message);
@@ -291,9 +319,9 @@ export class DatosClienteScComponent implements OnInit {
       id: this.id_solicitud_editar,
       id_estado: this.ESTADO_SOLICITUD_EN_SOLICITANTE,
       id_rol: this.ROL_SOLICITANTE,
-      id_usuario: 12,
-      id_usuario_creacion: 12,
-      sociedad_codigo_sap: cliente.sociedad_codigo_sap,
+      id_usuario: this.userInfo.id,
+      id_usuario_creacion: this.userInfo.id,
+      sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap,
       id_cliente_agrupacion: (this.cliente_seleccionado !== 3 ? cliente.id : null),
       id_empresa: (this.cliente_seleccionado === 3 ? cliente.id : null),
       id_tipo_cliente: this.cliente_seleccionado,
@@ -302,7 +330,15 @@ export class DatosClienteScComponent implements OnInit {
     return solicitud;
   }
 
-  enviarMensajeSnack(mensaje:string){
+  openAlerta(mensaje: string) {
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      data: mensaje
+    });
+
+  }
+
+  enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",

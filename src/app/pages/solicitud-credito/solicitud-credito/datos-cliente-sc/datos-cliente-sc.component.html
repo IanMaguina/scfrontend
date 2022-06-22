@@ -93,7 +93,7 @@
     <mat-divider class="divisor" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE"></mat-divider>
     <div class="acordeon">
         <mat-accordion>
-            <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioGrupo">
+            <mat-expansion-panel *ngIf="cliente_seleccionado==radioGrupo">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
@@ -103,7 +103,7 @@
                 </app-datos-grupo-sc>
             </mat-expansion-panel>
             <!-- Consorcio - Datos importantes -->
-            <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
+            <mat-expansion-panel *ngIf="cliente_seleccionado==radioConsorcio">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Consorcio: {{(clienteData?clienteData.nombre:'')}}
@@ -114,7 +114,7 @@
             </mat-expansion-panel>
 
             <!-- Consorcio - Consorciados -->
-            <mat-expansion-panel *ngIf="ClientSelectorControl.value==radioConsorcio">
+            <mat-expansion-panel *ngIf="cliente_seleccionado==radioConsorcio">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Consorciados
@@ -124,7 +124,7 @@
                 </app-datos-consorciados-sc>
             </mat-expansion-panel>
             <!--  Empresa - Datos importantes-->
-            <mat-expansion-panel *ngIf="ClientSelectorControl.value === radioEmpresa">
+            <mat-expansion-panel *ngIf="cliente_seleccionado === radioEmpresa">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Datos de la empresa

@@ -26,23 +26,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-
-    console.log("estoy logeado?.. :" + this.autenticacionService.loggedIn);
-    console.log("AAAAAAAAAAA"+JSON.stringify(this.usuarioLogueado));
     if (this.autenticacionService.isLoggedIn()){
       this.router.navigate(['app/dashboard']);
 
     }
     this.socialAuthService.authState.subscribe((user) => {
-      console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +JSON.stringify(user));
 
       this.usuarioLogueado = user;
       if (this.usuarioLogueado) {
-       // this.verifyPending();
         this.router.navigate(['app/dashboard']);
       }
-      console.log("super arsa -->" + JSON.stringify(user));
       this.loggedIn = (user != null);
     });
 

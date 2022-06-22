@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,16 +18,17 @@ export class ResourceService {
     private http: HttpClient,
     private appConfig: AppConfigService
     //private cookieService: CookieService
-  ) { 
+  ) {
     var vl_appConfig = this.appConfig.getConfig();
     this.apiURL = vl_appConfig.BASE_API_URL;
   }
 
 
-  getResource(resourceUrl: string): Observable<any> {
+  getResource(resourceUrl: string, paramsData?: HttpParams): Observable<any> {
     //var headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer '+this.cookieService.get("access_token")});
     var headers = new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8' });
-    return this.http.get(this.apiURL + resourceUrl, { headers: headers }).pipe(
+    var params: HttpParams = (paramsData) ? paramsData : null;
+    return this.http.get(this.apiURL + resourceUrl, { headers: headers, params:params }).pipe(
       //return this.http.get(this.apiURL + resourceUrl).pipe(      
       map((res) => res)
     ).pipe(
@@ -97,7 +98,7 @@ export class ResourceService {
   deleteResource2(resourceUrl: string): Observable<any> {
     //var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': 'Bearer '+this.cookieService.get("access_token")});
     var headers = new HttpHeaders({ 'Content-type': 'application/json' });
-    return this.http.delete(this.apiURL + resourceUrl , { headers: headers })
+    return this.http.delete(this.apiURL + resourceUrl, { headers: headers })
       //return this.http.delete(this.apiURL + resourceUrl+"/"+id )
       .pipe(
         map((res) => res)
@@ -105,10 +106,10 @@ export class ResourceService {
         catchError((error: any) => throwError(error || 'Server error'))
       );
   }
-  deleteResource3(resourceUrl: string,data:any): Observable<any> {
+  deleteResource3(resourceUrl: string, data: any): Observable<any> {
     //var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': 'Bearer '+this.cookieService.get("access_token")});
     var headers = new HttpHeaders({ 'Content-type': 'application/json' });
-    return this.http.delete(this.apiURL + resourceUrl , { headers: headers, body: data })
+    return this.http.delete(this.apiURL + resourceUrl, { headers: headers, body: data })
       //return this.http.delete(this.apiURL + resourceUrl+"/"+id )
       .pipe(
         map((res) => res)

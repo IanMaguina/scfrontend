@@ -84,5 +84,22 @@ export class SolicitudPlanService {
       });
   }
 
+  listarTipoLinea(id_solicitud: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/solicitud-plan/listar-tipo-linea/solicitud/" + id_solicitud).toPromise().then((data) => {
+            resolve(data);
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+
+  }
+
 
 }
