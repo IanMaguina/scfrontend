@@ -55,11 +55,11 @@ export class DatosClienteScComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private matDialog: MatDialog, 
+    private matDialog: MatDialog,
     private router: Router,
     private _snack: MatSnackBar,
     private solicitudService: SolicitudService,
-    private autenticacionService: AutenticacionService, 
+    private autenticacionService: AutenticacionService,
     /* breakpointObserver: BreakpointObserver */
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
@@ -200,7 +200,7 @@ export class DatosClienteScComponent implements OnInit {
           console.log("esta vacio");
           break;
         }
-     
+
         let filtro = {
           numero_documento: data.rucEmpresa,
           sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
@@ -245,13 +245,15 @@ export class DatosClienteScComponent implements OnInit {
       (resolve, reject) => {
         this.solicitudService.crear(solicitud).then(async data => {
           console.log(" hector " + JSON.stringify(data));
-          if (data.payload.id) {
-            this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
-            id_solicitud = data.payload.id;
-            this.id_solicitud_hija.emit(id_solicitud);
-            resolve(id_solicitud)
-          } else {
-            this.openAlerta(data.payload.warning.mensaje);
+          if (data.payload) {
+            if (data.payload.id) {
+              this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
+              id_solicitud = data.payload.id;
+              this.id_solicitud_hija.emit(id_solicitud);
+              resolve(id_solicitud)
+            } else {
+              this.openAlerta(data.payload.warning.mensaje);
+            }
           }
         }).catch(
           (error) => {
@@ -287,13 +289,15 @@ export class DatosClienteScComponent implements OnInit {
       (resolve, reject) => {
         this.solicitudService.actualizarSolicitud(this.id_solicitud_editar, solicitud).then(async data => {
           console.log("se actualizo la solicitud-->" + JSON.stringify(data));
-          if (!data.payload.warning) {
-            this.enviarMensajeSnack("se actualizo la solicitud");
-            id_solicitud = this.id_solicitud_editar;
-            this.id_solicitud_hija.emit(this.id_solicitud_editar);
-            resolve(id_solicitud);
-          } else {
-            this.openAlerta(data.payload.warning.mensaje);
+          if (data.payload) {
+            if (!data.payload.warning) {
+              this.enviarMensajeSnack("se actualizo la solicitud");
+              id_solicitud = this.id_solicitud_editar;
+              this.id_solicitud_hija.emit(this.id_solicitud_editar);
+              resolve(id_solicitud);
+            } else {
+              this.openAlerta(data.payload.warning.mensaje);
+            }
           }
         }).catch(
           (error) => {
