@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './token.service';
 import { UsuarioService } from './usuario.service';
-import { GoogleLoginProvider } from "angularx-social-login";
-import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider,SocialAuthService } from "angularx-social-login";
 import { CookieService } from 'ngx-cookie';
 
 @Injectable({
