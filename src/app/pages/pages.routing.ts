@@ -18,6 +18,7 @@ const routes: Routes = [
         path: 'app', 
         component: PagesComponent,
         children: [
+          
           { path: 'dashboard', component: DashboardComponent, data:{titulo: 'Dashboard', ruta: 'Dashboard'}}, 
 /*           { path: 'configuracion', component: ConfiguracionComponent, data:{titulo: 'Configuración', ruta: 'Configuración'},
           loadChildren:()=>ConfiguracionRoutingModule

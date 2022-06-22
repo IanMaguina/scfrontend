@@ -4,4 +4,5 @@ export interface MenuNode {
     url?: string;
     toolTip?: string;
     children?: MenuNode[];
+    svg?: string;
   }

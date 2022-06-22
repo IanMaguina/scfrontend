@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService,SocialUser } from "angularx-social-login";
 import { AutenticacionService } from 'src/app/services/autenticacion.service';
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   usuarioSocial: any = SocialUser;
   user: any = SocialUser;
   loggedIn: boolean = false;
+
 
 
   constructor(
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
       this.usuarioSocial = data;
       if (data && data.id) {
         this.autenticacionService.loggedIn = true;
+        localStorage.setItem('IDLOGIN', 'true')
         this.router.navigate(['app/dashboard']);
       } else {
         this.autenticacionService.loggedIn = false;

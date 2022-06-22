@@ -12,6 +12,7 @@ export class SideNavService {
   }
 
   public open() {
+    console.log('open')
     this.sidenav.opened = true;
     return this.sidenav.open();
   }
