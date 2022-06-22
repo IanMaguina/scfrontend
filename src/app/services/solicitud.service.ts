@@ -399,7 +399,7 @@ export class SolicitudService {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/grupo-empresarial").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/cliente-agrupacion").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -422,7 +422,7 @@ export class SolicitudService {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/grupo-empresarial").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/cliente-agrupacion").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -446,7 +446,7 @@ export class SolicitudService {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/consorcio").toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud/" + filtro.id_solicitud + "/cliente-agrupacion").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
