@@ -11,7 +11,7 @@ export class ResumenRiesgosScComponent implements OnInit {
   listadoResumenDino:ResumenRiesgo[]=[];
   listadoResumenDisac:ResumenRiesgo[]=[];
   listadoResumenTotalPacasmayo:ResumenRiesgo[]=[];
-  displayedColumns:string[]=[
+  displayedColumns1:string[]=[
     'sociedad_codigo_sap',
     'numero_documento_valorado',
     'razon_social',
@@ -20,6 +20,14 @@ export class ResumenRiesgosScComponent implements OnInit {
     'moneda_actual',
     'vigencia',
     'documento_valorado_actual',
+  ];
+  displayedColumns2:string[]=[
+    'total_categoria',
+    'linea_credito_actual_convertida',     
+    'linea_credito_solicitada_convertida',     
+    'variacion',     
+    'linea_credito_solicitada_convertida_dino',     
+    'linea_credito_solicitada_convertida_disac',     
   ];
 
   constructor() { }
