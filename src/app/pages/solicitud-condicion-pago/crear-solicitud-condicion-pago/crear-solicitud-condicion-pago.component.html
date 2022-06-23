@@ -1,101 +1,131 @@
-
 <div class="content-form-dialog">
     <br>
-    <div class="titledialog color-title">Nuevo Plan de Crédito</div>
-    <br>
+    <div class="titledialog color-title">Solicitud de Condiciones de Pago</div>
     <div class="body-dialog">
         <div class="contenidoForm">
-            <br>
-            <form [formGroup]="formulary" (ngSubmit)="agregar(formulary.value)">
 
-                <div class="objetoNuevoPlan">
-                    <strong>Codigo SAP :</strong>
-                </div>
-
-                <div class="objetoNuevoPlan">
-                    <strong>Razón Social:</strong>
-                </div>
-
-                <div class="objetoNuevoPlan">
-                    <strong>Grupo Cliente:</strong>
-                </div>
-
-                <div class="objetoNuevoPlan">
-                    <strong>Canal Comercial :</strong>
-                </div>
-
-                <div class="objetoNuevoPlan">
-                    <strong>Zonal:</strong>
-                </div>
-
-
-                
-                <!-- <div class="objetoNuevoPlan">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Línea de Productos</mat-label>
-                        <mat-select formControlName="linea_producto" multiple
-                            (selectionChange)="llenarLineaProductoGrilla()">
-                            <mat-option *ngFor="let linea_producto of listadoLineaProducto" [value]="linea_producto">
-                                {{ linea_producto.nombre }}
-                            </mat-option>
+            <form [formGroup]="formTemplate" (ngSubmit)="onSearch()">
+                <section class="inline-flex">
+                    <mat-form-field appearance="fill" class="formBandejas">
+                        <mat-label>Sociedad</mat-label>
+                        <mat-select formControlName="sociedad">
+                            <mat-option *ngFor="let society of society$ | async" [value]="society.codigo_sap">{{
+                                "("+society.codigo_sap+")" + " - " + society.nombre }}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div> -->
+
+                    <mat-form-field appearance="fill" class="formBandejas">
+                        <mat-label>Código SAP</mat-label>
+                        <input formControlName="codigo_sap" matInput>
+                    </mat-form-field>
 
 
-               <!--  <div formArrayName="lineaProductosArray">
-                    <table mat-table [dataSource]="lineaProductosArray.controls" class="tableforms mat-elevation-z8">
-                        <caption title="tabla reactiva de linea de productos & condición de pago"></caption>
-                        <ng-container matColumnDef="codigo_sap">
-                            <th mat-header-cell *matHeaderCellDef> Código SAP </th>
-                            <td mat-cell *matCellDef="let element"> {{ element.get('codigo_sap').value}}</td>
-                        </ng-container>
+                    <div class="formBandejas">
+                        <button mat-mini-fab color="white" [disabled]="!formTemplate.valid" aria-label="Buscar"
+                            class="boton-buscar" type="submit">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                </section>
 
-                        <ng-container matColumnDef="nombre">
-                            <th mat-header-cell *matHeaderCellDef> Linea Producto </th>
-                            <td mat-cell *matCellDef="let element"> {{ element.get('nombre').value}} </td>
-                        </ng-container>
+                <ng-container *ngIf="client">
+                    <div class="objetoNuevoPlan">
+                        <strong>Codigo SAP :</strong>
+                        <span>{{client?.sociedad}}</span>
+                    </div>
 
-                        <ng-container matColumnDef="valor_nuevo">
-                            <th mat-header-cell *matHeaderCellDef> Nuevo </th>
-                            <td mat-cell *matCellDef="let element" [formGroup]="element">
-                                <mat-form-field appearance="outline">
-                                    <input matInput formControlName="valor_nuevo">
-                                </mat-form-field>
-                            </td>
-                        </ng-container>
-                        <ng-container matColumnDef="fecha_vigencia">
-                            <th mat-header-cell *matHeaderCellDef> Nuevo </th>
-                            <td mat-cell *matCellDef="let element" [formGroup]="element">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Fecha Vigencia</mat-label>
-                                    <input matInput [matDatepicker]="picker1" formControlName="fecha_vigencia">
-                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                    <div class="objetoNuevoPlan">
+                        <strong>Razón Social:</strong>
+                        <span>{{client?.razon_social}}</span>
+                    </div>
 
-                                </mat-form-field>
-                            </td>
-                        </ng-container>
+                    <div class="objetoNuevoPlan">
+                        <strong>Grupo Cliente:</strong>
+                        <span>{{client?.grupo_cliente}}</span>
+                    </div>
 
-                        <tr mat-header-row *matHeaderRowDef="displayedColumnsLineaProducto"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsLineaProducto;"></tr>
-                    </table>
+                    <div class="objetoNuevoPlan">
+                        <strong>Canal Comercial :</strong>
+                        <span>{{client?.canal_comercial}}</span>
+                    </div>
 
-                </div> -->
+                    <div class="objetoNuevoPlan">
+                        <strong>Zonal:</strong>
+                        <span>{{client?.zonal}}</span>
+                    </div>
 
+                    <div class="objetoNuevoPlan">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Línea de Productos</mat-label>
+                            <mat-select formControlName="linea_producto" multiple>
+                                <mat-option (onSelectionChange)="change($event)" *ngFor="let conditionPayment of conditionPayment$ | async"
+                                    [value]="conditionPayment"> {{ conditionPayment.linea_producto.nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
+                    <article>
+                        <table #table mat-table [dataSource]="lineaProductoTable.controls" formArrayName="lineaProductoTable" class="tableforms mat-elevation-z8">
 
+                            <ng-container matColumnDef="productos">
+                                <th mat-header-cell *matHeaderCellDef> Productos </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.get('productos').value}}</td>
+                            </ng-container>
 
+                            <ng-container matColumnDef="condicion_pago_regular">
+                                <th mat-header-cell *matHeaderCellDef> Condición de Pago Regular </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.get('valor').value}} </td>
+                            </ng-container>
 
+                            <ng-container matColumnDef="condicion_pago_actual">
+                                <th mat-header-cell *matHeaderCellDef> Condición de Pago Actual </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.get('valor').value}} </td>
+                            </ng-container>
 
+                            <ng-container matColumnDef="nueva_condicion_pago">
+                                <th mat-header-cell *matHeaderCellDef> Nueva Condición de Pago </th>
+                                <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
+                                    <mat-form-field appearance="fill">
+                                        <input matInput formControlName="valor_nuevo"
+                                            placeholder="Ingrese nueva condición" type="number">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
 
+                            <ng-container matColumnDef="fecha_limite">
+                                <th mat-header-cell *matHeaderCellDef> Fecha límite </th>
+                                <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
+                                    <mat-form-field appearance="fill" (click)="picker.open()">
+                                        <input formControlName="fecha_vigencia" readonly matInput
+                                            [matDatepicker]="picker">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
 
-                <div class="objetoBoton">
-                    <button mat-raised-button class="boton-secundario_popup"
-                        (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
-                    <button mat-raised-button class="boton-principal_popup" type="submit">Aplicar</button>
-                </div>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </article>
+
+                    <div class="objetoNuevoPlan">
+                        <mat-form-field appearance="fill">
+                            <textarea matInput formControlName="observacion"
+                                placeholder="Llenar campo si la condición de pago es para un código de material en específico">
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="objetoBoton">
+                        <button mat-raised-button class="boton-secundario_popup" type="button">Cerrar</button>
+                        <button mat-raised-button class="boton-principal_popup" (click)="onSendConditionPayment()"
+                            type="button">Aplicar</button>
+                    </div>
+                </ng-container>
             </form>
+
         </div>
     </div>
 </div>

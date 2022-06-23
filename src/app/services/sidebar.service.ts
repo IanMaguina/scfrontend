@@ -35,7 +35,7 @@ export class SidebarService {
       svg: 'assets/CP.svg',
       toolTip: 'Solicitud de Condición de Pago',
       children: [
-        { name: 'Nueva Solicitud', url: 'app/solicitudcondicionpago/nuevasolicitudcredito' },
+        { name: 'Nueva Solicitud', url: 'app/solicitudcondicionpago/nuevasolicitudcondicionpago' },
         { name: 'Bandeja de Pendientes', url: 'app/solicitudcondicionpago/bandejacondicionpago' },
         { name: 'Consultas', url: '/' },
        

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SolicitudCondicionPagoComponent } from './solicitud-condicion-pago.component';
@@ -17,7 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -29,12 +30,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-
 import { CrearSolicitudCondicionPagoComponent } from './crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
 import { ListarSolicitudCondicionPagoComponent } from './listar-solicitud-condicion-pago/listar-solicitud-condicion-pago.component';
 import { BandejaSolicitudCondicionPagoComponent } from './bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
-
-
+import { CondicionPagoService } from '@services/condicion-pago.service';
 
 @NgModule({
   declarations: [
@@ -72,10 +71,15 @@ import { BandejaSolicitudCondicionPagoComponent } from './bandeja-solicitud-cond
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,
-
+    HttpClientModule
   ],
-  exports:[
+  exports: [
     SolicitudCondicionPagoComponent
+  ],
+  providers: [
+    CondicionPagoService,
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ]
 })
 export class SolicitudCondicionPagoModule { }
