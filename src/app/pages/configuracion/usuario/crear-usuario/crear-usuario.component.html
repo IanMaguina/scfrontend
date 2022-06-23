@@ -1,45 +1,51 @@
-<div class="title-add-element color-title">Nuevo Usuario </div>
-<div class="contenidoForm">
+<div class="Header_POPUPConfig">
+    <div class="titledialog_Config">Nuevo Usuario </div>
+</div>
+<div class="contenidoForm_Config">
     <form [formGroup]="crearFormDialog" (ngSubmit)="crearUsuario(crearFormDialog.value)">
-        <div class="col-12">
-            <mat-form-field appearance="outline">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Nombre" formControlName="nombre" required>
-                <mat-hint>
-                    <mat-error [hidden]="!(formErrors.nombre)">
-                        {{formErrors.nombre}}
-                    </mat-error>
-                </mat-hint>
 
-            </mat-form-field>
+        <div class="Title_POPUPConfig">Nombre:</div>
+        <mat-form-field appearance="fill">
+            <mat-label>Ingresar</mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre" required>
+            <mat-hint>
+                <mat-error [hidden]="!(formErrors.nombre)">
+                    {{formErrors.nombre}}
+                </mat-error>
+            </mat-hint>
+        </mat-form-field>
+
+
+        <div class="Title_POPUPConfig">Correo:</div>
+        <mat-form-field appearance="fill">
+            <mat-label>Ingresar</mat-label>
+            <input type="email" matInput placeholder="Correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                formControlName="correo" required>
+            <mat-hint>
+                <mat-error [hidden]="!(formErrors.correo)">
+                    {{formErrors.correo}}
+                </mat-error>
+            </mat-hint>
+
+        </mat-form-field>
+
+
+
+        <div class="Title_POPUPConfig">Perfil:</div>
+        <mat-form-field appearance="fill">
+            <mat-label>Seleccionar</mat-label>
+            <mat-select formControlName="perfil" required>
+                <mat-option *ngFor="let perfil of listadoPerfiles" [value]="perfil.id">{{ perfil.nombre }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <div class="botonera_PopUPConfig">
+            <button mat-raised-button class="color-secundario" type="button"
+                (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button>
+            <button mat-raised-button class="boton-principal-light" type="submit"
+                [disabled]="crearFormDialog.invalid">Agregar</button>
         </div>
-        <div class="col-12">
-            <mat-form-field appearance="outline">
-                <mat-label>Correo</mat-label>
-                <input type="email" matInput placeholder="Correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                    formControlName="correo" required>
-                <mat-hint>
-                    <mat-error [hidden]="!(formErrors.correo)">
-                        {{formErrors.correo}}
-                    </mat-error>
-                </mat-hint>
-
-            </mat-form-field>
-        </div>
-
- 
-        <div class="col-12">
-            <mat-form-field appearance="outline">
-                <mat-label>Perfil</mat-label>
-                <mat-select formControlName="perfil" required>
-                    <mat-option *ngFor="let perfil of listadoPerfiles" [value]="perfil.id">{{ perfil.nombre }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button> &nbsp;
-        <button mat-raised-button class="boton-principal-light" type="submit"
-            [disabled]="crearFormDialog.invalid">Agregar</button>
     </form>
 </div>
