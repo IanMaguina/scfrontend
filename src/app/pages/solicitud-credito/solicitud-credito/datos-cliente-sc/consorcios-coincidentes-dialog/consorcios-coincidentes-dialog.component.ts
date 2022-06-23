@@ -52,13 +52,12 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
         if(!data.payload.warning){
           this.listaConsorcios=data.payload;
         }else{
+          this.nodata=true;
           this.openAlerta(data.payload.warning.mensaje);
         }
       }
       
-      if (data.payload.length===0){
-        this.nodata=true;
-      }
+     
     })
   }
 

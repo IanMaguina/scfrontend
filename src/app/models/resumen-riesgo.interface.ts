@@ -1,20 +1,19 @@
 export interface ResumenRiesgo {
     id?: number;
-    sociedad_codigo_sap?: number;
+    tipo_linea?: string;
     numero_documento_valorado?: string;
-    total_categoria?: string;
-    categoria?: Categoria;
+    is_total?: boolean;
+    total_header_nombre?: string;
+    elemento?:Elemento[];
     linea_credito_actual?: string;
     linea_credito_actual_convertida?: string;
-    
     linea_credito_solicitada?: string;
-    
     linea_credito_solicitada_convertida?: string;
     variacion?: string;
 }
 
 
-export interface Categoria {
+export interface Elemento {
     id: number;
     nombre: string;
     linea_credito_actual?: string;
