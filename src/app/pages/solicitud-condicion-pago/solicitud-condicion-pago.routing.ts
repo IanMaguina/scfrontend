@@ -12,10 +12,8 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: '', redirectTo: 'nuevasolicitudcondicionpago', pathMatch: 'full' },
-      { path: 'nuevasolicitudcondicionpago', component: CrearSolicitudCondicionPagoComponent, data: { titulo: 'Solicitud de Condicion de Pago', ruta: 'Solicitud de Condición de Pago  /  Nueva', acceso:'solicitante' } },
-      { path: 'bandejacondicionpago', component: BandejaSolicitudCondicionPagoComponent, data: { titulo: 'Solicitud de Condicion de pago', ruta: 'Solicitud de Condición de Pago  ', acceso:'solicitante' } },
-     
-  
+      { path: 'nuevasolicitudcondicionpago', component: CrearSolicitudCondicionPagoComponent, data: { titulo: 'Solicitud de Condicion de Pago', ruta: 'Solicitud de Condición de Pago  /  Nueva', acceso: 'solicitante' } },
+      { path: 'bandejacondicionpago', component: BandejaSolicitudCondicionPagoComponent, data: { titulo: 'Solicitud de Condicion de pago', ruta: 'Solicitud de Condición de Pago  ', acceso: 'solicitante' } }
     ]
   },
 ];
