@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { HttpParams } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
@@ -8,7 +9,7 @@ import { MatTable } from '@angular/material/table';
 
 import { client, ClientSap, CondicionPago } from '../interfaces';
 import { CondicionPagoService } from '@services/condicion-pago.service';
-import { MatOptionSelectionChange } from '@angular/material/core';
+import { AutenticacionService } from '@services/autenticacion.service';
 
 @Component({
   selector: 'app-crear-solicitud-condicion-pago',
@@ -31,7 +32,8 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private condicionPagoService: CondicionPagoService) { }
+    private readonly condicionPagoService: CondicionPagoService,
+    private readonly autenticacionService:AutenticacionService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -111,6 +113,10 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
   }
 
   public onSendConditionPayment() {
+
+    //const test = this.autenticacionService.getUserInfo();
+
+   // console.log(test);
 
     const { observacion, lineaProductoTable } = this.formTemplate.value;
 
