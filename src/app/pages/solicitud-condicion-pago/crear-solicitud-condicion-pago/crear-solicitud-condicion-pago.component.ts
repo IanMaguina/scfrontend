@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { HttpParams } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
+import { FormGroup, FormBuilder, Validators, FormArray, FormGroupDirective } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { MatTable } from '@angular/material/table';
@@ -10,21 +10,24 @@ import { MatTable } from '@angular/material/table';
 import { client, ClientSap, CondicionPago } from '../interfaces';
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { SnackBarService } from '@services/snack-bar.service';
 
 @Component({
   selector: 'app-crear-solicitud-condicion-pago',
   templateUrl: './crear-solicitud-condicion-pago.component.html',
   styleUrls: ['./crear-solicitud-condicion-pago.scss']
 })
-export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
+export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
   public formTemplate: FormGroup;
   public society$: Observable<ClientSap[]>;
   public conditionPayment$: Observable<CondicionPago[]>;
-  public client: client;
+  public client: client = {} as client;
   public displayedColumns: string[] = ['productos', 'condicion_pago_regular', 'condicion_pago_actual', 'nueva_condicion_pago', 'fecha_limite'];
+  public minDate = new Date();
+
   @ViewChild(MatTable) table: MatTable<any>;
-  private destroy$ = new Subject<unknown>();
+  @ViewChild(FormGroupDirective) private formGroupDirective: FormGroupDirective;
 
   get lineaProductoTable(): FormArray {
     return this.formTemplate.get('lineaProductoTable') as FormArray;
@@ -33,22 +36,19 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private readonly condicionPagoService: CondicionPagoService,
-    private readonly autenticacionService:AutenticacionService) { }
+    private readonly autenticacionService: AutenticacionService,
+    private readonly snackBService: SnackBarService) {
+  }
 
   ngOnInit(): void {
     this.initForm();
     this.getSociety();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next({});
-    this.destroy$.complete();
-  }
-
   private initForm() {
     this.formTemplate = this.formBuilder.group({
-      sociedad: ['6012', [Validators.required]],
-      codigo_sap: ['50014506', [Validators.required]],
+      sociedad: ['', [Validators.required]],
+      codigo_sap: ['', [Validators.required]],
       linea_producto: [{ value: '', disabled: true }],
       lineaProductoTable: this.formBuilder.array([]),
       observacion: ['']
@@ -86,7 +86,14 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
 
   }
 
-  public change(event:MatOptionSelectionChange) {
+  private onClearForm() {
+    this.formTemplate.reset();
+    this.formGroupDirective.resetForm();
+    this.lineaProductoTable.controls = [];
+    this.client = {} as client;
+  }
+
+  public change(event: MatOptionSelectionChange) {
 
     if (event.isUserInput) {
 
@@ -114,9 +121,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
 
   public onSendConditionPayment() {
 
-    //const test = this.autenticacionService.getUserInfo();
-
-   // console.log(test);
+    const { id } = this.autenticacionService.getUserInfo();
 
     const { observacion, lineaProductoTable } = this.formTemplate.value;
 
@@ -124,17 +129,29 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
       sociedad_codigo_sap: this.client.sociedad,
       cliente_codigo_sap: this.client.codigo_sap,
       grupo_cliente_codigo_sap: this.client.grupo_cliente,
+      id_solicitud: null,
       observacion: observacion,
       detalle: lineaProductoTable,
-      id_usuario: 1
+      id_usuario: id
     }
 
-    console.log(params);
-    //this.condicionPagoService.addConditionPaymentClient(params).subscribe();
+    this.condicionPagoService.addConditionPaymentClient(params).pipe(
+      tap((request) => {
+
+        if (request) {
+          this.snackBService.openSnackBar('La solicitud ha sido enviada', 'cerrar');
+          this.onClearForm();
+          return;
+        }
+
+        this.snackBService.openSnackBar('Ha ocurrido un error al intentar enviar la solicitud', 'cerrar');
+
+      })).subscribe();
 
   }
 
   private createForms(item): FormGroup {
+
     return this.formBuilder.group({
       id_condicion_pago: [item.id],
       productos: [item.linea_producto.nombre],

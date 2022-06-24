@@ -20,7 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -34,6 +34,7 @@ import { CrearSolicitudCondicionPagoComponent } from './crear-solicitud-condicio
 import { ListarSolicitudCondicionPagoComponent } from './listar-solicitud-condicion-pago/listar-solicitud-condicion-pago.component';
 import { BandejaSolicitudCondicionPagoComponent } from './bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
 import { CondicionPagoService } from '@services/condicion-pago.service';
+import { SnackBarService } from '@services/snack-bar.service';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,8 @@ import { CondicionPagoService } from '@services/condicion-pago.service';
   ],
   providers: [
     CondicionPagoService,
+    FormGroupDirective,
+    SnackBarService,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
   ]

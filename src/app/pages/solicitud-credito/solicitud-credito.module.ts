@@ -138,7 +138,6 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     MatStepperModule,
     SolicitudCreditoComponent,
     MatTableResponsiveModule
-
   ],
 })
 export class SolicitudCreditoModule { }
