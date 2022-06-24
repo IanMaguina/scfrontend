@@ -12,7 +12,9 @@ import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
 export class HipotecasScComponent implements OnInit {
 
   @Input() id_solicitud_editar: number;
-  @Input() listadoHipotecas: SolicitudPlan[];
+  @Input() listadoHipotecas: SolicitudPlan[]=[
+    
+  ];
   displayedColumns: string[] = [
     'sociedad',
     'plan',
