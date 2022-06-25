@@ -1,7 +1,7 @@
 <div class="content-dialogConsorcio">
-    <br>
+    
     <div class="titledialog color-title">Asignar Integrantes</div>
-    <br>
+  
     <div class="body-dialog">
         <!-- tabs to make styles to support responsive... -->
         <mat-tab-group mat-align-tabs="start">
@@ -11,8 +11,8 @@
                         <form [formGroup]="asignarEmpresaFormDialog"
                             (ngSubmit)="asignarEmpresaConsorcio(asignarEmpresaFormDialog.value)">
 
-                            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
-                                <mat-form-field appearance="outline">
+                            <div class="objeto">
+                                <mat-form-field appearance="fill">
                                     <mat-label>Sociedad</mat-label>
                                     <mat-select formControlName="sociedad" required>
                                         <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
@@ -23,8 +23,8 @@
                             </div>
 
 
-                            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
-                                <mat-form-field appearance="outline">
+                            <div class="objeto">
+                                <mat-form-field appearance="fill">
                                     <mat-label>Ruc</mat-label>
                                     <input matInput placeholder="ingrese el RUC" formControlName="ruc" required>
                                     <mat-hint>
@@ -35,8 +35,8 @@
 
                                 </mat-form-field>
                             </div>
-                            <div class="objeto col-xs-12 col-s-6 col-m-4 col-l-4 col-xl-3">
-                                <mat-form-field appearance="outline">
+                            <div class="objeto">
+                                <mat-form-field appearance="fill">
                                     <mat-label>Participación</mat-label>
                                     <input matInput placeholder="ingrese " formControlName="participacion" >
                                     <mat-hint>
@@ -50,17 +50,15 @@
 
 
 
-                            <div class="objetoBoton col-xs-12 col-s-12 col-m-4 col-l-4 col-xl-6">
+                            <div class="objetoBoton">
                                 <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
                             </div>
                         </form>
 
                     </div>
 
-                    <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
 
-
-                    <div class="content-table col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                    <div class="content-table">
                         <!-- Table listadoIntegrantes  -->
                         <table mat-table [dataSource]="listadoIntegrantes" class="mat-elevation-z8">
 
@@ -130,7 +128,7 @@
                         <form [formGroup]="participacionFormDialog"
                             (ngSubmit)="adjuntarParticipacion(participacionFormDialog.value)">
 
-                            <div class="objetoBoton col-xs-12 col-s-12 col-m-12 col-l-4 col-xl-4">
+                            <div class="objetoBoton">
                                 <input type="file" class="file-input-insivible" formControlName="files"
                                     (change)="onFileSelected($event)" #fileUpload required>
                                 <div class="file-upload">
@@ -142,7 +140,7 @@
                             </div>
 
 
-                            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-8 col-xl-8">
+                            <div class="objeto">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Descripcion</mat-label>
                                     <input matInput placeholder="ingrese una descripción" formControlName="descripcion"
@@ -158,7 +156,7 @@
 
                             <br>
 
-                            <div class="objetoBoton col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+                            <div class="objetoBoton">
                                 <button mat-raised-button class="boton-principal-light" type="submit"
                                     [disabled]="participacionFormDialog.invalid">guardar adjunto</button>
                             </div>
