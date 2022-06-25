@@ -14,7 +14,7 @@ export class LineaProductoService {
   listar(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/condicion-pago").toPromise().then((data) => {
+        this.resourceService.getResource("/api/linea-producto").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
