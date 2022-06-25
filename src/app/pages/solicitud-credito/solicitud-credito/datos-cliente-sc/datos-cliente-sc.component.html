@@ -90,95 +90,98 @@
             
         </form>
     </div>
-    <mat-divider class="divisor" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE"></mat-divider>
-    <div class="acordeon">
-        <mat-accordion>
-            <mat-expansion-panel *ngIf="cliente_seleccionado==radioGrupo">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
-                </app-datos-grupo-sc>
-            </mat-expansion-panel>
-            <!-- Consorcio - Datos importantes -->
-            <mat-expansion-panel *ngIf="cliente_seleccionado==radioConsorcio">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Consorcio: {{(clienteData?clienteData.nombre:'')}}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-datos-consorcio-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
-                </app-datos-consorcio-sc>
-            </mat-expansion-panel>
-
-            <!-- Consorcio - Consorciados -->
-            <mat-expansion-panel *ngIf="cliente_seleccionado==radioConsorcio">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Consorciados
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-datos-consorciados-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
-                </app-datos-consorciados-sc>
-            </mat-expansion-panel>
-            <!--  Empresa - Datos importantes-->
-            <mat-expansion-panel *ngIf="cliente_seleccionado === radioEmpresa">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Datos de la empresa
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-datos-empresa-sc [clienteData]="clienteData"></app-datos-empresa-sc>
-
-            </mat-expansion-panel>
-            <!-- Grupo - Empresas Integrantes -->
-
-            <!-- Proveedores -->
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Referencias Comerciales (Proveedores)
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar"></app-referencias-comerciales-sc>
-            </mat-expansion-panel>
-
-            <!-- Principales Clientes -->
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Principales Clientes
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar"></app-principales-clientes-sc>
-            </mat-expansion-panel>
-
-            <!-- Empresas Relacionadas -->
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Empresas Relacionadas
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar"></app-empresas-relacionadas-sc>
-            </mat-expansion-panel>
-
-            <!-- <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Self aware panel
-            </mat-panel-title>
-            <mat-panel-description>
-              Currently I am {{panelOpenState ? 'open' : 'closed'}}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel> -->
-        </mat-accordion>
-    </div>
+    
+    <ng-container *ngIf="estadoSolicitud">
+        <mat-divider class="divisor" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE"></mat-divider>
+        <div class="acordeon">
+            <mat-accordion>
+                <mat-expansion-panel *ngIf="cliente_seleccionado==radioGrupo">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Grupo Empresarial: {{(clienteData?clienteData.nombre:'')}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-grupo-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
+                    </app-datos-grupo-sc>
+                </mat-expansion-panel>
+                <!-- Consorcio - Datos importantes -->
+                <mat-expansion-panel *ngIf="cliente_seleccionado==radioConsorcio">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Consorcio: {{(clienteData?clienteData.nombre:'')}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-consorcio-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
+                    </app-datos-consorcio-sc>
+                </mat-expansion-panel>
+    
+                <!-- Consorcio - Consorciados -->
+                <mat-expansion-panel *ngIf="cliente_seleccionado==radioConsorcio">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Consorciados
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-consorciados-sc [id_solicitud]="id_solicitud_editar" [clienteData]="clienteData">
+                    </app-datos-consorciados-sc>
+                </mat-expansion-panel>
+                <!--  Empresa - Datos importantes-->
+                <mat-expansion-panel *ngIf="cliente_seleccionado === radioEmpresa">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Datos de la empresa
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-datos-empresa-sc [clienteData]="clienteData"></app-datos-empresa-sc>
+    
+                </mat-expansion-panel>
+                <!-- Grupo - Empresas Integrantes -->
+    
+                <!-- Proveedores -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Referencias Comerciales (Proveedores)
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar"></app-referencias-comerciales-sc>
+                </mat-expansion-panel>
+    
+                <!-- Principales Clientes -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Principales Clientes
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar"></app-principales-clientes-sc>
+                </mat-expansion-panel>
+    
+                <!-- Empresas Relacionadas -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Empresas Relacionadas
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar"></app-empresas-relacionadas-sc>
+                </mat-expansion-panel>
+    
+                <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Self aware panel
+                </mat-panel-title>
+                <mat-panel-description>
+                  Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p>I'm visible because I am open</p>
+            </mat-expansion-panel> -->
+            </mat-accordion>
+        </div>
+    </ng-container>
 
 </div>
 <mat-divider class="divisor"></mat-divider>

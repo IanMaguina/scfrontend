@@ -53,6 +53,8 @@ export class DatosClienteScComponent implements OnInit {
   ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
+  public estadoSolicitud: boolean = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
@@ -256,13 +258,16 @@ export class DatosClienteScComponent implements OnInit {
               this.enviarMensajeSnack(`se creó el borrador: ${data.payload.id}`);
               id_solicitud = data.payload.id;
               this.id_solicitud_hija.emit(id_solicitud);
+              this.estadoSolicitud = true;
               resolve(id_solicitud)
             } else {
+              this.estadoSolicitud = false;
               this.openAlerta(data.payload.warning.mensaje);
             }
           }
         }).catch(
           (error) => {
+            this.estadoSolicitud = false;
             console.log("error status=" + error.status + ", msg=" + error.message);
             reject(error);
           }

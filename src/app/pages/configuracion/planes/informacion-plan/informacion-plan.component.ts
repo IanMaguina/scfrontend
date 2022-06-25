@@ -267,6 +267,7 @@ export class InformacionPlanComponent implements OnInit {
   }  
 
   marcarGrupoCiente() {
+    console.log("marcado-->"+JSON.stringify(this.listadoInformacionPlan));
     this.informacionForm.get("checkGrupos")?.setValue(false);
     let campo:any[] = this.listadoInformacionPlan.grupo_cliente
     let devuelve:any[]=[];
