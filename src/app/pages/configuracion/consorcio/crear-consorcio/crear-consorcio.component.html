@@ -4,10 +4,11 @@
 
 
 <div class="contenidoForm_Config">
-    <span>*Ingrese la información requerida</span>
+    
     <form [formGroup]="crearConsorcioFormDialog" (ngSubmit)="crearConsorcio(crearConsorcioFormDialog.value)">
 
         <div>
+            <span>*Ingrese la información requerida</span>
             <div class="Title_POPUPConfig">Razón Social:</div>
             <mat-form-field appearance="fill">
                 <mat-label>Ingresar</mat-label>

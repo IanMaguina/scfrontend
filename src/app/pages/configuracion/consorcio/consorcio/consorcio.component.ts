@@ -66,7 +66,6 @@ export class ConsorcioComponent implements OnInit {
       disableClose: true,
       width: "400px",
       data: element,
-      panelClass: 'custom_Config'
     });
 
     dialogRef3.afterClosed().subscribe(result => {

@@ -10,7 +10,7 @@ export class SidebarService {
     {
       name: 'Dashboard',
       icono: 'dashboard',
-     svg: 'assets/LC.svg', 
+     svg: 'assets/Home_Siscred.svg', 
      children: [
         { name: 'Principal', url: '/' },
       ]

@@ -1,31 +1,28 @@
-
-<div class="content-dialog">
-    <br>
-    <div class="titledialog color-title"><b>Nombre:</b> {{nombreplan}}</div>
-    <br>
-    <div class="body-dialog">
-    <mat-tab-group mat-align-tabs="start">
-        <mat-tab  label="Información del Plan">
-            <!-- formulario 1: Información del plan -->
-            <app-informacion-plan [plan]="data"></app-informacion-plan>
-        </mat-tab>
-        <mat-tab class="content-section" label="Cruce de Planes">
-            <app-cruce-planes [plan]="data"></app-cruce-planes>
-        </mat-tab>
-        <mat-tab class="content-section" label="Flujo de Aprobación">
-            <app-flujo-aprobacion [plan]="data"></app-flujo-aprobacion>
-        </mat-tab>
-        <mat-tab class="content-section" label="Máximo Línea de Crédito">
-            <app-maximo-linea-credito></app-maximo-linea-credito>
-        </mat-tab>
-
-    </mat-tab-group>
+<div class="Dialog_NuevoPlanConfig">
+    <div class="Header_NuevoPlanConfig">
+        <div class="titleNuevoPlan_Config">{{nombreplan}}123123123123123123123123123123123</div>
+        <div class="NuevoPlanConfigBotonera">
+            <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
+        </div>
     </div>
 
-    <div class="botonera">
-        <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
+
+    <div class="FormPlanConfig">
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Información del Plan">
+                <!-- formulario 1: Información del plan -->
+                <app-informacion-plan [plan]="data"></app-informacion-plan>
+            </mat-tab>
+            <mat-tab class="content-section" label="Cruce de Planes">
+                <app-cruce-planes [plan]="data"></app-cruce-planes>
+            </mat-tab>
+            <mat-tab class="content-section" label="Flujo de Aprobación">
+                <app-flujo-aprobacion [plan]="data"></app-flujo-aprobacion>
+            </mat-tab>
+            <mat-tab class="content-section" label="Máximo Línea de Crédito">
+                <app-maximo-linea-credito></app-maximo-linea-credito>
+            </mat-tab>
+
+        </mat-tab-group>
     </div>
-    
 </div>
-
-

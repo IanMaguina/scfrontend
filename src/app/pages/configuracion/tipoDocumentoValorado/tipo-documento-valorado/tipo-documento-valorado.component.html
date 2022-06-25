@@ -1,33 +1,39 @@
-<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
-    Administración de Tipo de Documentos Valorados
-    <br><br>
-    <mat-divider></mat-divider>
+<div class="titlesection">
+    <span>Administración de Tipo de Documentos Valorados</span>
 </div>
-<br>
-<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+
+<mat-divider class="divisorConfig"></mat-divider>
+
+<div class="botonera">
+
     <button mat-flat-button class="boton-principal-light" (click)="openAgregarTipoDV()">Agregar</button>
 </div>
 <br>
-<div class="content-table col-s-11 col- col-m-8 col-xl-6 col-l-6">
-    <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para configurar el documento valorado dar doble clic en el nombre.</span>
-    <table mat-table [dataSource]="listadoTipoDV" class="mat-elevation-z8 " >
+<div class="content-table">
+    <span class="label-info">
+        <mat-icon>info</mat-icon>Para configurar el documento valorado dar doble clic en el nombre.
+    </span>
+    <table mat-table matTableResponsive [dataSource]="listadoTipoDV" class="mat-elevation-z8 tablaAprobador ">
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
         <ng-container matColumnDef="tipo-documento-valorado">
-            <th mat-header-cell *matHeaderCellDef> Tipo Documento Valorado</th>
-            <td mat-cell *matCellDef="let element" (dblclick)="openEditarTipoDV(element)"><u>  {{element.nombre}}  </u></td>
+            <th class="PointerHand" mat-header-cell *matHeaderCellDef> Tipo Documento Valorado</th>
+            <td class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarTipoDV(element)"><u> {{element.nombre}}
+                </u>
+            </td>
         </ng-container>
 
-       <!-- Column -->
+        <!-- Column -->
         <ng-container matColumnDef="activo">
             <th mat-header-cell *matHeaderCellDef> Estado </th>
             <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="onchangeEstado(element)"></mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="onchangeEstado(element)">
+                </mat-slide-toggle>
             </td>
-        </ng-container> 
+        </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-</div> 
+</div>

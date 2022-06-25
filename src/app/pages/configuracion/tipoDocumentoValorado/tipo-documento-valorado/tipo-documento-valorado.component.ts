@@ -37,7 +37,8 @@ export class TipoDocumentoValoradoComponent implements OnInit {
   openAgregarTipoDV() {
     const dialogRef = this.matDialog.open(CrearTipoDocumentoValoradoComponent, {
       disableClose: true,
-      width: '20%',
+      width: '300px',
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -52,6 +53,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       disableClose: true,
       width: '300px',
       data: element,
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {

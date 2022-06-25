@@ -1,23 +1,24 @@
-<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
-    Configuración de Suplencia
-    <br><br>
-    <mat-divider></mat-divider>
-    
+
+
+<div class="titlesection">
+    <span>   Configuración de Suplencia</span>
 </div>
-<br>
-<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+
+<mat-divider class="divisorConfig"></mat-divider>
+
+<div class="botonera">
     <button mat-flat-button class="boton-principal-light" (click)="openAgregarSuplencia()">Agregar</button>
 </div>
 <br>
-<div class="content-table col-s-11 col- col-m-11 col-xl-11">
-    <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el registro dar doble clic en el nombre del usuario.</span>
-    <table mat-table [dataSource]="listadoSuplencias" class="mat-elevation-z8" >
+<div class="content-table">
+    <span class="label-info"><mat-icon>info</mat-icon> Para editar el registro dar doble clic en el nombre del usuario.</span>
+    <table mat-table matTableResponsive [dataSource]="listadoSuplencias" class="mat-elevation-z8 tablaSuplencia " >
 
      
         <!-- Column -->
         <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef> Usuario </th>
-            <td mat-cell *matCellDef="let element" (dblclick)="openEditarSuplencia(element)" ><u> {{element.usuario.nombre}} </u> </td>
+            <th class="PointerHand" mat-header-cell *matHeaderCellDef> Usuario </th>
+            <td  class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarSuplencia(element)" ><u> {{element.usuario.nombre}} </u> </td>
         </ng-container>
 
         <!-- Column -->

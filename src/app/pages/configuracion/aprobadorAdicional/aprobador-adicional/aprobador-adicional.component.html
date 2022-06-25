@@ -9,11 +9,11 @@
 </div>
 <br>
 <div class="content-table">
-    <table mat-table matTableResponsive [dataSource]="listadoAprobadoresAdicionales" class="tablaAprobador" >
+    <table mat-table matTableResponsive [dataSource]="listadoAprobadoresAdicionales" class="tablaAprobador mat-elevation-z8" >
         <caption title="tablaListadoAprobadores"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
-        <ng-container matColumnDef="usuario">
+        <ng-container cdkColumnDef="Columna" matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef> Asistente Facturacion </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.usuario.nombre}} </u></td>
         </ng-container>

@@ -271,6 +271,9 @@ body {
 .mat-header-cell {
     background-color: #05C65D !important;
     color: #ffffff !important;
+    text-align: center !important;
+    font-size: 16px !important;
+
 }
 
 .header {
@@ -422,13 +425,18 @@ body {
     position: relative;
     display: block;
     width: 100%;
-    display: flex;
-    flex-flow: row wrap;
 }
 
 .tablaAprobador {
-    max-width: 600px !important;
+    max-width: 650px !important;
+    
 }
+
+.tablaSuplencia {
+    max-width: 1050px !important;
+    
+}
+
 
 .content-section {
     margin-top: 10px;
@@ -546,9 +554,6 @@ table {
     width: 100%;
 }
 
-
-
-
 .mensaje {
     font-size: 16pt;
     text-align: center;
@@ -586,7 +591,6 @@ th.mat-header-cell {
 
 .mat-form-field {
     width: 250px;
-
     display: flex;
 }
 
@@ -1638,9 +1642,7 @@ u {
     text-decoration: none !important;
 }
 
-th.mat-header-cell {
-    text-align: center !important;
-}
+
 
 
 /* Nuevo Plan de Crédito */
@@ -1994,11 +1996,12 @@ th.mat-header-cell {
 }
 
 .custom_Config {
-
+    
     display: grid;
 
     mat-dialog-container {
         padding: 0px;
+        border-radius: 8px !important;
     }
 
     /* width */
@@ -2076,6 +2079,8 @@ th.mat-header-cell {
 }
 
 .contenidoForm_Config {
+    display: flex;
+    justify-content: center ;
     background-color: #fff;
     padding-left: 24px;
     padding-top: 10px;
@@ -2095,3 +2100,36 @@ th.mat-header-cell {
     padding: 24px;
     background-color: transparent;
 }
+
+/* Nuevo Plan PopUP Condiguración */
+
+.Dialog_NuevoPlanConfig{
+    .Header_NuevoPlanConfig{
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        padding: 24px;
+        justify-content: space-between;
+        background-color: #05C65D;
+    }
+}
+.FormPlanConfig{
+    width: 100%;
+}
+.ContentConfigPlanInfo{
+    display: grid;
+}
+
+.NuevoPlanConfigBotonera{
+    align-self: center;
+    justify-content: center;
+}
+
+.titleNuevoPlan_Config{
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 30px;
+    word-break: break-all;
+}
+

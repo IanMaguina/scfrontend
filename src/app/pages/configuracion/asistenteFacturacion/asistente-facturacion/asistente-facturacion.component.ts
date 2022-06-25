@@ -35,6 +35,7 @@ export class AsistenteFacturacionComponent implements OnInit {
     const dialogRef = this.matDialog.open(CrearAsistenteFacturacionComponent, {
       disableClose: true,
       width:"300px",
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -59,8 +60,8 @@ export class AsistenteFacturacionComponent implements OnInit {
 
     const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
       disableClose: true,
-      width:"250px",
-      data:form
+      width:"350px",
+      data:form,
     });
 
     dialogRef3.afterClosed().subscribe(result => {
@@ -83,6 +84,7 @@ export class AsistenteFacturacionComponent implements OnInit {
       disableClose: true,
       width:"300px",
       data:element,
+      panelClass: 'custom_Config'
     });
 
     dialogRef4.afterClosed().subscribe(result => {

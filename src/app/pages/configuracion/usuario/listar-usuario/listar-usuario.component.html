@@ -1,46 +1,52 @@
-<div class="titlesection">
-    <span>Configuración de Usuarios y Roles</span> 
-   
-</div>
- 
-<mat-divider class="divisorConfig"></mat-divider>
+<div class="ConfigContent">
+    <div class="titlesection">
+        <span>Configuración de Usuarios y Roles</span>
 
-<div class="botonera">
-    <button mat-flat-button class="boton-principal-light" (click)="openAgregarUsuario()">Agregar</button>
-</div>
-<br>
-<div class="content-table">
-    <span class="label-info"><mat-icon>info</mat-icon>Para editar el registro dar doble clic en el nombre del usuario.</span>
-    <table mat-table matTableResponsive [dataSource]="listadoUsuarios" class="mat-elevation-z8" >
-        <caption title="listado de usuarios"></caption>
-     
-        <!-- Column -->
-        <ng-container matColumnDef="nombre">
-            <th  class="PointerHand" mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td   class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarUsuario(element)" ><u> {{element.nombre}} </u> </td>
-        </ng-container>
+    </div>
 
-        
-        <!-- Column -->
-        <ng-container matColumnDef="perfil">
-            <th mat-header-cell *matHeaderCellDef> Perfil </th>
-            <td mat-cell *matCellDef="let element"> {{element.perfil.nombre}} </td>
-        </ng-container>
-        <!-- Column -->
-        <ng-container matColumnDef="correo">
-            <th mat-header-cell *matHeaderCellDef> Correo </th>
-            <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
-        </ng-container>
+    <mat-divider class="divisorConfig"></mat-divider>
+
+    <div class="botonera">
+        <button mat-flat-button class="boton-principal-light" (click)="openAgregarUsuario()">Agregar</button>
+    </div>
+    <br>
+    <div class="content-table">
+        <span class="label-info">
+            <mat-icon>info</mat-icon>Para editar el registro dar doble clic en el nombre del usuario.
+        </span>
+        <table mat-table matTableResponsive [dataSource]="listadoUsuarios" class="mat-elevation-z8">
+            <caption title="listado de usuarios"></caption>
+
+            <!-- Column -->
+            <ng-container matColumnDef="nombre">
+                <th class="PointerHand" mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td class="PointerHand" mat-cell *matCellDef="let element"
+                    (dblclick)="openEditarUsuario(element)"><u> {{element.nombre}} </u> </td>
+            </ng-container>
 
 
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Activo </th>
-            <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle class="color-principal-light" [(ngModel)]="element.activo" (ngModelChange)="toggleUsuarioEstado(element)"></mat-slide-toggle>
-            </td>
-        </ng-container>
+            <!-- Column -->
+            <ng-container matColumnDef="perfil">
+                <th class="ColumnWidths" mat-header-cell *matHeaderCellDef> Perfil </th>
+                <td class="ColumnWidths" mat-cell *matCellDef="let element"> {{element.perfil.nombre}} </td>
+            </ng-container>
+            <!-- Column -->
+            <ng-container matColumnDef="correo">
+                <th class="ColumnWidths" mat-header-cell *matHeaderCellDef> Correo </th>
+                <td class="ColumnWidths" mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+
+            <ng-container matColumnDef="id">
+                <th class="ColumnWidths" mat-header-cell *matHeaderCellDef> Activo </th>
+                <td class="ColumnWidths" mat-cell *matCellDef="let element">
+                    <mat-slide-toggle class="color-principal-light" [(ngModel)]="element.activo"
+                        (ngModelChange)="toggleUsuarioEstado(element)"></mat-slide-toggle>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
 </div>
