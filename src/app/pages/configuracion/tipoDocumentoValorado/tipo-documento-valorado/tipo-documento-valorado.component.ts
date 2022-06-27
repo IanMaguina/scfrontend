@@ -1,10 +1,10 @@
 import { TipoDocumentoValoradoService } from './../../../../services/tipo-documento-valorado.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { CrearTipoDocumentoValoradoComponent } from '../crear-tipo-documento-valorado/crear-tipo-documento-valorado.component';
 import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-valorado/editar-tipo-documento-valorado.component';
 import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tipo-documento-valorado',
@@ -18,6 +18,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
   displayedColumns: string[] = ['tipo-documento-valorado'];
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private tipoDocumentoValoradoService: TipoDocumentoValoradoService
 
   ) { }
@@ -92,7 +93,13 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       }
     });
   } */
-
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
 
 
 }
