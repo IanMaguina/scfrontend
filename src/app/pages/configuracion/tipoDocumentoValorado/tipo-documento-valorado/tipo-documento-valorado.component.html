@@ -14,9 +14,10 @@
         <mat-icon>info</mat-icon>Para configurar el documento valorado dar doble clic en el nombre.
     </span>
     <table mat-table matTableResponsive [dataSource]="listadoTipoDV" class="mat-elevation-z8 tablaAprobador ">
+        <caption title="listadoTipo Doc Valorado "></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
-        <ng-container matColumnDef="tipo-documento-valorado">
+        <ng-container matColumnDef="nombre">
             <th class="PointerHand" mat-header-cell *matHeaderCellDef> Tipo Documento Valorado</th>
             <td class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarTipoDV(element)"><u> {{element.nombre}}
                 </u>
