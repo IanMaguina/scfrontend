@@ -40,7 +40,6 @@ export class AprobadorAdicionalComponent implements OnInit {
     this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó el Aprobador correctamente",'300px','' );
   }
 
-
   onchangeActividad(element:any){
     let mensaje:string = ""
     if (element.activo) {

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { CrearTipoDocumentoValoradoComponent } from '../crear-tipo-documento-valorado/crear-tipo-documento-valorado.component';
 import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-valorado/editar-tipo-documento-valorado.component';
+import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.interface';
 
 @Component({
   selector: 'app-tipo-documento-valorado',
@@ -13,8 +14,8 @@ import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-v
 })
 export class TipoDocumentoValoradoComponent implements OnInit {
 
-  listadoTipoDV: any[]=[];
-  displayedColumns: string[] = ['tipo-documento-valorado', 'activo'];
+  listadoTipoDV: TipoDocumentoValorado[]=[];
+  displayedColumns: string[] = ['tipo-documento-valorado'];
   constructor(
     private matDialog: MatDialog,
     private tipoDocumentoValoradoService: TipoDocumentoValoradoService
