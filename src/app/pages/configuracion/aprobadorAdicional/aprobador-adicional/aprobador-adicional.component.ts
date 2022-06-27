@@ -55,7 +55,6 @@ export class AprobadorAdicionalComponent implements OnInit {
       disableClose: true,
       width:"300px",
       data:element,
-      panelClass: 'custom_Config'
       
     });
 

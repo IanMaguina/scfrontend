@@ -69,9 +69,9 @@ export class SuplenciaComponent implements OnInit {
 
     const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
       disableClose: true,
-      width:"400px",
+      width:"20%",
       data:element,
-      panelClass: 'custom_Config'
+      panelClass: 'SuplenciaPopUP'
     });
 
     dialogRef3.afterClosed().subscribe(result => {
