@@ -1,0 +1,29 @@
+<form [formGroup]="formularioBandejaSolicitudCondicionPago" (ngSubmit)="onBuscarCondicionPago()"> 
+    <div class="buscarBandejas">
+
+        <mat-form-field appearance="fill" class="formBandejas">
+            <mat-label>Ingrese RUC</mat-label>
+            <input formControlName="ruc" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="formBandejas">
+            <mat-label>N° de Solicitud</mat-label>
+            <input formControlName="solicitud" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="formBandejas" (click)="picker.open()">
+            <mat-label>Fecha</mat-label>
+            <input formControlName="fecha"  matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+        <div class="formBandejas">
+            <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="submit">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </div>
+</form>
+

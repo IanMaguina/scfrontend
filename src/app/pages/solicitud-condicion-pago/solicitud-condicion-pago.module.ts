@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import localeEs from '@angular/common/locales/es-PE';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { SolicitudCondicionPagoComponent } from './solicitud-condicion-pago.component';
 
 /* utils */
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
@@ -14,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
@@ -30,11 +30,20 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-import { CrearSolicitudCondicionPagoComponent } from './crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
-import { ListarSolicitudCondicionPagoComponent } from './listar-solicitud-condicion-pago/listar-solicitud-condicion-pago.component';
-import { BandejaSolicitudCondicionPagoComponent } from './bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
+import { getSpanishPaginatorIntl } from 'src/app/shared/language/spanish-paginator-intl';
+import { SharedModule } from 'src/app/shared/shared.module';
+
+import { SolicitudCondicionPagoComponent } from './solicitud-condicion-pago.component';
+import { CrearSolicitudCondicionPagoComponent } from './pages/crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
+import { ListarSolicitudCondicionPagoComponent } from './pages/listar-solicitud-condicion-pago/listar-solicitud-condicion-pago.component';
+import { BandejaSolicitudCondicionPagoComponent } from './pages/bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
+import { TablaBandejaSolicitudCondicionPagoComponent } from './components/tabla-bandeja-solicitud-condicion-pago/tabla-bandeja-solicitud-condicion-pago.component';
+
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { SnackBarService } from '@services/snack-bar.service';
+import { FormularioBandejaSolicitudCondicionPagoComponent } from './components/formulario-bandeja-solicitud-condicion-pago/formulario-bandeja-solicitud-condicion-pago.component';
+
+registerLocaleData(localeEs, 'es-PE');
 
 @NgModule({
   declarations: [
@@ -42,6 +51,8 @@ import { SnackBarService } from '@services/snack-bar.service';
     CrearSolicitudCondicionPagoComponent,
     ListarSolicitudCondicionPagoComponent,
     BandejaSolicitudCondicionPagoComponent,
+    TablaBandejaSolicitudCondicionPagoComponent,
+    FormularioBandejaSolicitudCondicionPagoComponent
   ],
   imports: [
     CommonModule,
@@ -65,6 +76,7 @@ import { SnackBarService } from '@services/snack-bar.service';
     MatSlideToggleModule,
     FormsModule,
     MatTableModule,
+    MatPaginatorModule,
     MatInputModule,
     MatStepperModule,
     MatExpansionModule,
@@ -81,8 +93,11 @@ import { SnackBarService } from '@services/snack-bar.service';
     CondicionPagoService,
     FormGroupDirective,
     SnackBarService,
+    DatePipe,
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
+    { provide: LOCALE_ID, useValue: 'es-PE' }
   ]
 })
 export class SolicitudCondicionPagoModule { }

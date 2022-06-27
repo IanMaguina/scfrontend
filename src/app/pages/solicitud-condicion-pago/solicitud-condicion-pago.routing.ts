@@ -2,8 +2,8 @@ import { PagesComponent } from './../pages.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CrearSolicitudCondicionPagoComponent } from './crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
-import { BandejaSolicitudCondicionPagoComponent } from './bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
+import { CrearSolicitudCondicionPagoComponent } from './pages/crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
+import { BandejaSolicitudCondicionPagoComponent } from './pages/bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
 
 
 const routes: Routes = [
