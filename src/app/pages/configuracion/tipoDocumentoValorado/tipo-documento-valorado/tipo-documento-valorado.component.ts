@@ -58,7 +58,6 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       mensaje = "¿Desea deshabilitar el documento valorado?";
     }
     form.mensaje = mensaje;
-    this.openDialog(ConfirmDialogComponent,'Se actualizó la actividad del Documento Valorado', '400px', form);
     const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       width: "400px",
