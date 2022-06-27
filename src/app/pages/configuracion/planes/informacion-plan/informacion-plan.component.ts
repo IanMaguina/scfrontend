@@ -202,14 +202,14 @@ export class InformacionPlanComponent implements OnInit {
   async listarGrupoCliente() {
     this.grupoClienteService.listarGrupoCliente().then(data => {
       this.listadoGrupoCliente = data.payload;
-      console.log(JSON.stringify(this.listadoGrupoCliente));
+      console.log("listarGrupoCliente-->"+JSON.stringify(this.listadoGrupoCliente));
     })
   }
 
   async listarClientes() {
     this.grupoClienteService.listarClientes().then(data => {
       this.listadoClientes = data.payload;
-      console.log("clientes--->"+JSON.stringify(this.listadoClientes));
+      console.log("listarClientes--->"+JSON.stringify(this.listadoClientes));
     })
   }
 
@@ -267,12 +267,11 @@ export class InformacionPlanComponent implements OnInit {
   }  
 
   marcarGrupoCiente() {
-    console.log("marcado-->"+JSON.stringify(this.listadoInformacionPlan));
     this.informacionForm.get("checkGrupos")?.setValue(false);
     let campo:any[] = this.listadoInformacionPlan.grupo_cliente
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
+      devuelve.push({codigo_sap:item.grupo_cliente.codigo_sap, nombre: item.grupo_cliente.nombre})
     })
     if (devuelve.length>0){
       this.informacionForm.get("checkGrupos")?.setValue(true);
@@ -291,7 +290,7 @@ export class InformacionPlanComponent implements OnInit {
     let campo:any[] = this.listadoInformacionPlan.lista_cliente;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.grupo_cliente.id, nombre: item.grupo_cliente.nombre})
+      devuelve.push({codigo_sap:item.grupo_cliente.codigo_sap, nombre: item.grupo_cliente.nombre})
     })
     if (devuelve.length>0){
       this.informacionForm.get("checkClientes")?.setValue(true);
@@ -369,7 +368,7 @@ export class InformacionPlanComponent implements OnInit {
     let campo:any[] = this.listadoInformacionPlan.linea_producto;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.linea_producto.id,nombre:item.linea_producto.nombre})
+      devuelve.push({codigo_sap:item.linea_producto.codigo_sap,nombre:item.linea_producto.nombre})
     })
     this.informacionForm.get("lineaProducto")?.setValue(devuelve);
   }  
@@ -428,7 +427,7 @@ export class InformacionPlanComponent implements OnInit {
     let grupoCliente: GrupoCliente[] = this.informacionForm.get("grupoCliente").value;
     let valor: any[] = [];
     grupoCliente.forEach(item => {
-      valor.push(item.id);
+      valor.push(item.codigo_sap);
     })
     return valor;
   }
@@ -437,7 +436,7 @@ export class InformacionPlanComponent implements OnInit {
     let cliente: GrupoCliente[] = this.informacionForm.get("cliente").value;
     let valor: any[] = [];
     cliente.forEach(item => {
-      valor.push(item.id);
+      valor.push(item.codigo_sap);
     })
     return valor;
   }
@@ -473,19 +472,19 @@ export class InformacionPlanComponent implements OnInit {
     let lineaProducto: LineaProducto[] = this.informacionForm.get("lineaProducto").value;
     let valor: any[] = [];
     lineaProducto.forEach(item => {
-      valor.push(item.id);
+      valor.push(item.codigo_sap);
     })
     return valor;
   }
 
   compareGrupoCliente(o1: any, o2: any) {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
-    return o1.id === o2.id;
+    return o1.codigo_sap === o2.codigo_sap;
   }
 
   compareClientes(o1: any, o2: any) {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
-    return o1.id === o2.id;
+    return o1.codigo_sap === o2.codigo_sap;
   }
 
 
@@ -511,7 +510,7 @@ export class InformacionPlanComponent implements OnInit {
 
   compareLineaProducto(o1: any, o2: any) {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
-    return o1.id === o2.id;
+    return o1.codigo_sap === o2.codigo_sap;
   }
 
 }
