@@ -169,7 +169,7 @@ export class InformacionPlanComponent implements OnInit {
     this.tipoFlujoAprobacion = { id: this.plan.tipo_plan_credito.id_tipo_flujo_aprobacion, nombre: "" };
     await this.listarGrupoCliente();
     await this.listarLineaProducto();
-    await this.listarTipoDocumentoValorado();
+    await this.listarDocumentoValorado();
     await this.listarNivelMora();
     await this.listarCentroRiesgo();
     await this.listarClientes();
@@ -191,7 +191,7 @@ export class InformacionPlanComponent implements OnInit {
       this.marcarCentroRiesgo();
       this.llenarCentroRiesgo();
       this.marcarDocumentoValorado();
-      this.llenarTipoDocumentoValorado();
+      this.llenarDocumentoValorado();
       this.marcarLineaProducto();
       this.llenarLineaProducto();
       this.marcarTipoMoneda();
@@ -227,7 +227,7 @@ export class InformacionPlanComponent implements OnInit {
     })
   }
 
-  async listarTipoDocumentoValorado() {
+  async listarDocumentoValorado() {
     this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoTipoDocumentoValorado = data.payload;
       console.log("Tipo DV--->"+JSON.stringify(this.listadoTipoDocumentoValorado));
@@ -344,7 +344,7 @@ export class InformacionPlanComponent implements OnInit {
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
   }  
 
-  llenarTipoDocumentoValorado() {
+  llenarDocumentoValorado() {
     let tipoDocumentoValorado = this.informacionForm.get("tipoDocumentoValorado").value;
     console.log("ARSA-->"+JSON.stringify(tipoDocumentoValorado));
     this.mostrarTipoDocumentoValorado = tipoDocumentoValorado;
