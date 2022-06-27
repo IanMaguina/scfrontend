@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Suplencia } from 'src/app/models/suplencia.interface';
@@ -100,20 +101,14 @@ export class EditarSuplenciaComponent implements OnInit {
     })
   }
 
-  async crearSuplencia(form: any) {
-    console.log("crearSuplencia");
-  }
-
-
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
   /*  auto complete*/
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuario = listado;
+    this.comboListadoUsuario = listado.payload;
     this.filteredUsuario = this.editarFormDialog.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
@@ -135,12 +130,12 @@ export class EditarSuplenciaComponent implements OnInit {
 
   async listarUsuariosSuplentes() {
     let listadoSuplentes = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioSuplente = listadoSuplentes;
+    this.comboListadoUsuarioSuplente = listadoSuplentes.payload;
     this.filteredUsuarioSuplente = this.editarFormDialog.get('usuario_suplente')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
-        map(nombre => nombre ? this._filterSuplente(nombre) : this.comboListadoUsuario.slice())
+        map(nombre => nombre ? this._filterSuplente(nombre) : this.comboListadoUsuarioSuplente.slice())
       );
   }
 
@@ -150,7 +145,7 @@ export class EditarSuplenciaComponent implements OnInit {
 
   private _filterSuplente(nombre: string): Usuario[] {
     let filterValue = nombre.toLowerCase();
-    return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+    return this.comboListadoUsuarioSuplente.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
   /*  */
   async editarSuplencia(form: any) {
@@ -162,12 +157,15 @@ export class EditarSuplenciaComponent implements OnInit {
       fecha_inicio: form.fecha_inicio,
       fecha_fin: form.fecha_fin
     }
-    this.suplenciaService.actualizarSuplencia(suplencia).then(() => {
-      this.onNoClick();
+    this.suplenciaService.actualizarSuplencia(suplencia).then((result) => {
+      if(result.header.exito){
+        this.onNoClick('CONFIRM_DLG_YES');
+      }
+      this.onNoClick('CONFIRM_DLG_NO');
     })
 
   }
-
+ 
 
 
 
