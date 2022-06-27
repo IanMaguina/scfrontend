@@ -13,6 +13,8 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { PlanService } from 'src/app/services/plan.service';
 import { Plan } from 'src/app/models/plan.interface';
+
+
 @Component({
   selector: 'app-asignar-aprobadores',
   templateUrl: './asignar-aprobadores.component.html',
