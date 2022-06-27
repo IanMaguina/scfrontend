@@ -433,6 +433,11 @@ body {
 
 }
 
+.tablaCrucePlan{
+    max-width: 500px !important;
+    margin-bottom: 25px !important;
+}
+
 .tablaSuplencia {
     max-width: 1050px !important;
 
@@ -2029,6 +2034,15 @@ u {
     }
 }
 
+
+@media only screen and (max-width: 500px){
+    .custom_ConfigPlan {
+        width: 80% !important;
+        min-width: 80% !important;
+}
+}
+
+
 .custom_ConfigPlan {
     width: 54.75%;
     min-width: 54.75%;
@@ -2195,8 +2209,7 @@ u {
 
 .InformaciónPlanConfig {
     display: grid;
-    padding-left: 24px;
-    padding-top: 24px;
+    padding: 24px;
     .InformaciónConfig{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 480px));
@@ -2212,6 +2225,8 @@ u {
 }
 
 .BotonInfoPlan{
+    padding-top: 24px;
+    padding-left: 24px;
     justify-self: end;
     align-self: end;
 }
