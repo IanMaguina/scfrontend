@@ -261,9 +261,9 @@ export class DatosClienteScComponent implements OnInit {
             //this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
           });
         } else {
-          this.actualizarSolicitud(result.grupo).then(async (id) => {
+          this.actualizarSolicitud(result.payload).then(async (id) => {
             this.id_solicitud_editar = id;
-            this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+            this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
           });
         }
       } else {
