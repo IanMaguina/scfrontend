@@ -58,7 +58,8 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Línea de Productos</mat-label>
                             <mat-select formControlName="linea_producto" multiple>
-                                <mat-option (onSelectionChange)="change($event)" *ngFor="let conditionPayment of conditionPayment$ | async"
+                                <mat-option (onSelectionChange)="change($event)"
+                                    *ngFor="let conditionPayment of conditionPayment$ | async"
                                     [value]="conditionPayment"> {{ conditionPayment.linea_producto.nombre }}
                                 </mat-option>
                             </mat-select>
@@ -66,7 +67,8 @@
                     </div>
 
                     <article>
-                        <table #table mat-table [dataSource]="lineaProductoTable.controls" formArrayName="lineaProductoTable" class="tableforms mat-elevation-z8">
+                        <table #table mat-table [dataSource]="lineaProductoTable.controls"
+                            formArrayName="lineaProductoTable" class="tableforms mat-elevation-z8">
 
                             <ng-container matColumnDef="productos">
                                 <th mat-header-cell *matHeaderCellDef> Productos </th>
@@ -120,7 +122,8 @@
 
                     <div class="objetoBoton">
                         <button mat-raised-button class="boton-secundario_popup" type="button">Cerrar</button>
-                        <button mat-raised-button class="boton-principal_popup" (click)="onSendConditionPayment()"
+                        <button mat-raised-button [disabled]="!formTemplate.get('lineaProductoTable.0')"
+                            class="boton-principal_popup" (click)="onSendConditionPayment()"
                             type="button">Aplicar</button>
                     </div>
                 </ng-container>
