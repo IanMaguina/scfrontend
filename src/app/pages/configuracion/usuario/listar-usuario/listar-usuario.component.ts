@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/models/usuario.interface';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
@@ -37,12 +38,37 @@ export class ListarUsuarioComponent implements OnInit {
     this.openDialog(CrearUsuarioComponent, 'se registró el usuario');
   }
 
-  async toggleUsuarioEstado(element: Usuario) {
-    console.log("objeto a inactivar" + JSON.stringify(element.id));
+  async toggleUsuarioEstado(element: any) {
+    let mensaje: string;
 
-    this.usuarioService.activarUsuario(element).then(data => {
-      console.log("cuando actualiza esto pasa: " + JSON.stringify(data));
+    if (element.activo) {
+      mensaje = "¿Desea habilitar el usuario?";
+    } else {
+      mensaje = "¿Desea deshabilitar el usuario?";
+    }
+    element.mensaje = mensaje;
+
+    const dialogRef2 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: element,
     });
+
+    dialogRef2.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        let usuario: Usuario = element;
+        this.usuarioService.activarUsuario(usuario).then(data => {
+          if(data.header.exito){
+            this.enviarMensajeSnack('Se modificó la actividad del usuario');
+            this.listarUsuarios();
+          }else{
+            this.listarUsuarios();
+          }
+        });
+      }else{
+        this.listarUsuarios();
+      }
+    }) 
   }
 
   async openEditarUsuario(form: any) {
@@ -68,6 +94,9 @@ export class ListarUsuarioComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         this.enviarMensajeSnack(msg);
         this.listarUsuarios();
+      }else{
+        this.listarUsuarios();
+
       }
     });
   }
