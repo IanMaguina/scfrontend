@@ -75,6 +75,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     'ruc',
     'canal', 
     'participacion', 
+    'estado_cliente_agrupacion', 
     'id',
   ];
 
@@ -128,7 +129,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   }
 
   async listarClienteEmpresa() {
-    await this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
+    await this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
       console.log("listarClienteEmpresas:" + JSON.stringify(data));
       this.listadoIntegrantes = data.payload;
     })

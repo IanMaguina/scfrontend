@@ -14,12 +14,34 @@ export class ClienteEmpresaService {
   listarEmpresas(id_cliente_agrupacion:number): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        console.log("api=> /api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa");
         this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
             console.log("no hay empresas encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
+  listarClienteAgrupacionEmpresa(id_cliente_agrupacion:number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        console.log("api=> /api/cliente-agrupacion-empresa?id_cliente_agrupacion="+id_cliente_agrupacion);
+        this.resourceService.getResource("/api/cliente-agrupacion-empresa?id_cliente_agrupacion="+id_cliente_agrupacion).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay empresas de la agrupacion encontrados...");
             resolve([]);
           }
         }

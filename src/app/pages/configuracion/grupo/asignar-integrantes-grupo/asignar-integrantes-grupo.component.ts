@@ -9,6 +9,7 @@ import { SociedadService } from 'src/app/services/sociedad.service';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { ClienteAgrupacionEmpresa } from 'src/app/models/cliente-agrupacion-empresa.interface';
 
 
 @Component({
@@ -22,6 +23,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   grupoData: any;
 
   asignarEmpresaFormDialog: any;
+
+
+
   formErrors = {
     'sociedad': '',
     'ruc': '',
@@ -45,16 +49,17 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   //poner el tipado correcto => es data dummy
   listadoSociedades: Sociedad[] = [];
 
-  listadoIntegrantes: any[] = [];
+  listadoIntegrantes: ClienteAgrupacionEmpresa[] = [];
 
   displayedColumns: string[] = [
-    /* 'sociedad', */
+   
     'codigocliente',
     'razonsocial',
     'ruc',
     'canal',
     'zonal',
     'grupo_cliente',
+    'estado_cliente_agrupacion',
     'id',
   ];
 
@@ -72,10 +77,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     private matDialog: MatDialog,
   ) {
     this.grupoData = data;
-   // console.log("trayendo del listado--->" + JSON.stringify(this.grupoData));
     this.id_cliente_agrupacion = this.grupoData.id;
 
-    /*  */
     this.asignarEmpresaFormDialog = this.formBuilder.group({
       sociedad: ['', Validators.required],
       ruc: ['', Validators.required],
@@ -99,8 +102,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
 
   async listarClienteEmpresa() {
-    await this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
-      console.log("listado de empresas: "+ JSON.stringify(data));
+    await this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
       this.listadoIntegrantes = data.payload;
     })
 

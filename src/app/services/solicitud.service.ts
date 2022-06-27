@@ -66,7 +66,9 @@ export class SolicitudService {
   listarGrupoEmpresarialxFiltros(filtros: any): Promise<any> {
     let numero_documento = null;
     let nombre = null;
+    let sociedad_codigo_sap = null;
     let query = "";
+    
     if (filtros['numero_documento']) {
       numero_documento = filtros['numero_documento'];
       query = "numero_documento=" + numero_documento;
@@ -76,6 +78,12 @@ export class SolicitudService {
       nombre = filtros['nombre'];
       query = query != "" ? "&nombre=" + nombre : "nombre=" + nombre;
     }
+
+    if (filtros['sociedad_codigo_sap']) {
+      sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
+      query = query != "" ? "&sociedad_codigo_sap=" + sociedad_codigo_sap : "sociedad_codigo_sap=" + sociedad_codigo_sap;
+    }
+
     console.log("link-->" + "/api/cliente-agrupacion/buscar-grupo-empresarial?" + query);
 
     return new Promise(
@@ -165,7 +173,7 @@ export class SolicitudService {
    
 /*     let params = new HttpParams()
     .set('numero_documento',filtros.numero_documento)
-    .set('razon_social', filtros.razon_social)
+    .set('cliente_codigo_sap', filtros.cliente_codigo_sap)
     .set('sociedad_codigo_sap', filtros.sociedad_codigo_sap );
  */    
     console.log("link-->" + "/api/cliente-agrupacion/buscar-empresa-individual?" + query);
@@ -206,7 +214,6 @@ export class SolicitudService {
 
       });
   }
-
 
   actualizarSolicitud(id_solicitud, solicitud: Solicitud): Promise<any> {
     console.log("/api/solicitud/"+id_solicitud+" solicitud -->"+JSON.stringify(solicitud));

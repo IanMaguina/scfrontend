@@ -81,6 +81,12 @@
                     <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
                     <td mat-cell *matCellDef="let element"> {{element.empresa.grupo_cliente.nombre}} </td>
                 </ng-container>
+                
+                <!-- Column -->
+                <ng-container matColumnDef="estado_cliente_agrupacion">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id_estado_cliente_agrupacion}} </td>
+                </ng-container>
 
 
 
