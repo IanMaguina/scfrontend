@@ -22,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatTableResponsiveModule } from 'src/app/shared/tables/mat-table-responsive.module';
 
 /* componentes */
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
@@ -122,7 +123,8 @@ import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-apr
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
-    DragDropModule
+    DragDropModule,
+    MatTableResponsiveModule
   ],
   exports: [
     ConfiguracionComponent,

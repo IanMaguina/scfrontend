@@ -37,9 +37,10 @@ export class AprobadorAdicionalComponent implements OnInit {
   }
   
   openAgregarAprobadorAdicional(){
-    this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó el Aprobador correctamente",'300px','' );
-  }
+    this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó el Aprobador correctamente",'300px','', );
 
+    
+  }
 
   onchangeActividad(element:any){
     let mensaje:string = ""
@@ -53,7 +54,9 @@ export class AprobadorAdicionalComponent implements OnInit {
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       width:"300px",
-      data:element
+      data:element,
+      panelClass: 'custom_Config'
+      
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,7 +85,8 @@ export class AprobadorAdicionalComponent implements OnInit {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
       width:width,
-      data: data?data:''
+      data: data?data:'',
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {

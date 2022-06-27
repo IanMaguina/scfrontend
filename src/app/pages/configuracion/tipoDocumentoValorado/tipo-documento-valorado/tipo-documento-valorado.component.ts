@@ -1,9 +1,10 @@
 import { TipoDocumentoValoradoService } from './../../../../services/tipo-documento-valorado.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { CrearTipoDocumentoValoradoComponent } from '../crear-tipo-documento-valorado/crear-tipo-documento-valorado.component';
 import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-valorado/editar-tipo-documento-valorado.component';
+import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tipo-documento-valorado',
@@ -13,10 +14,11 @@ import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-v
 })
 export class TipoDocumentoValoradoComponent implements OnInit {
 
-  listadoTipoDV: any[]=[];
-  displayedColumns: string[] = ['tipo-documento-valorado', 'activo'];
+  listadoTipoDV: TipoDocumentoValorado[]=[];
+  displayedColumns: string[] = ['nombre'];
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private tipoDocumentoValoradoService: TipoDocumentoValoradoService
 
   ) { }
@@ -28,7 +30,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
 
   async listarTipoDocumentoValorado() {
     this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
-      console.log(JSON.stringify(data.payload));
+      console.log("listado Tipo DV: "+JSON.stringify(data.payload));
       this.listadoTipoDV = data.payload;
     })
 
@@ -37,7 +39,8 @@ export class TipoDocumentoValoradoComponent implements OnInit {
   openAgregarTipoDV() {
     const dialogRef = this.matDialog.open(CrearTipoDocumentoValoradoComponent, {
       disableClose: true,
-      width: '20%',
+      width: '300px',
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -52,6 +55,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       disableClose: true,
       width: '300px',
       data: element,
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -63,7 +67,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     });
 
   }
-
+/* 
   onchangeEstado(form: any) {
     let mensaje: string;
     console.log("al editar activo el form: "+JSON.stringify(form));
@@ -88,8 +92,14 @@ export class TipoDocumentoValoradoComponent implements OnInit {
         })
       }
     });
+  } */
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
   }
-
 
 
 }

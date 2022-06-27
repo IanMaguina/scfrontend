@@ -61,7 +61,7 @@ export class CrearSuplenciaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
-    private suplenciaService:SuplenciaService
+    private suplenciaService:SuplenciaService,
   ) {
 
     this.formDialog = this.formBuilder.group({
@@ -107,21 +107,24 @@ export class CrearSuplenciaComponent implements OnInit {
       fecha_inicio:form.fecha_inicio,
       fecha_fin:form.fecha_fin
     }
-    this.suplenciaService.crearSuplencia(suplencia).then(()=>{
-      this.onNoClick();    
+    this.suplenciaService.crearSuplencia(suplencia).then((result)=>{
+      if(result.header.exito){
+        this.onNoClick('CONFIRM_DLG_YES');    
+      }
+      this.onNoClick('CONFIRM_DLG_NO');
     })
   }
 
 
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
   /*  auto complete*/
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuario = listado;
+    this.comboListadoUsuario = listado.payload;
     this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
     .pipe(
         startWith(''),
@@ -143,12 +146,12 @@ export class CrearSuplenciaComponent implements OnInit {
 
   async listarUsuariosSuplentes() {
     let listadoSuplentes = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioSuplente = listadoSuplentes;
+    this.comboListadoUsuarioSuplente = listadoSuplentes.payload;
     this.filteredUsuarioSuplente = this.formDialog.get('usuario_suplente')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
-        map(nombre => nombre ? this._filterSuplente(nombre) : this.comboListadoUsuario.slice())
+        map(nombre => nombre ? this._filterSuplente(nombre) : this.comboListadoUsuarioSuplente.slice())
       );
   }
 
@@ -158,10 +161,9 @@ export class CrearSuplenciaComponent implements OnInit {
 
   private _filterSuplente(nombre: string): Usuario[] {
     let filterValue = nombre.toLowerCase();
-    return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+    return this.comboListadoUsuarioSuplente.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
   /*  */
-
 
 
 

@@ -3,9 +3,11 @@
     font-family: "Poppins";
     src: local("Poppins"), url(./assets/Poppins-Regular.ttf) format("truetype");
 }
-*{
+
+* {
     font-family: 'Poppins';
 }
+
 body {
     font-family: "Poppins", Arial, sans-serif;
     margin: 0;
@@ -212,12 +214,13 @@ body {
     background-color: #05C65D;
     color: #FFFFFF;
 }
+
 .boton-warn {
     background-color: #FF0000;
     color: #FFFFFF;
 }
 
-.popup_registrar:hover{
+.popup_registrar:hover {
     color: #FFFFFF;
 }
 
@@ -253,7 +256,7 @@ body {
     text-align: center;
     align-content: center;
     flex-direction: column !important;
-   
+
 
 }
 
@@ -268,6 +271,9 @@ body {
 .mat-header-cell {
     background-color: #05C65D !important;
     color: #ffffff !important;
+    text-align: center !important;
+    font-size: 16px !important;
+
 }
 
 .header {
@@ -335,6 +341,7 @@ body {
     margin-top: 25px;
     font-size: 20pt;
     color: #B4B4B4;
+    line-height: 30px;
 }
 
 .titledocumento {
@@ -377,7 +384,7 @@ body {
 }
 
 .tableforms {
-   
+
     margin-top: 12px;
     width: 70% !important;
     min-width: 20% !important;
@@ -418,9 +425,18 @@ body {
     position: relative;
     display: block;
     width: 100%;
-    display: flex;
-    flex-flow: row wrap;
 }
+
+.tablaAprobador {
+    max-width: 650px !important;
+    
+}
+
+.tablaSuplencia {
+    max-width: 1050px !important;
+    
+}
+
 
 .content-section {
     margin-top: 10px;
@@ -535,7 +551,7 @@ body {
 }
 
 table {
-    min-width: 100%;
+    width: 100%;
 }
 
 .mensaje {
@@ -575,7 +591,6 @@ th.mat-header-cell {
 
 .mat-form-field {
     width: 250px;
-
     display: flex;
 }
 
@@ -632,6 +647,10 @@ th.mat-header-cell {
 
 .tdEditable .mat-form-field-wrapper {
     padding-bottom: 7px;
+}
+
+.mat-form-field-label {
+    height: 18px;
 }
 
 .mat-primary .mat-pseudo-checkbox-checked,
@@ -825,6 +844,10 @@ body::-webkit-scrollbar-thumb {
 
 .divisor {
     margin-top: 20px !important;
+}
+
+.divisorConfig {
+    margin-top: 10px !important
 }
 
 /*Adjuntos y Plantillas*/
@@ -1484,15 +1507,19 @@ body::-webkit-scrollbar-thumb {
     border-radius: 0px !important;
 
 }
-.GC_TOPPADDING{
+
+.GC_TOPPADDING {
     padding-top: 15px;
 }
-.GC{
+
+.GC {
     border-bottom: 25px;
-    .mat-expansion-panel{
+
+    .mat-expansion-panel {
         border-radius: 0px 0px 0px 0px !important;
     }
-    .mat-expansion-panel.mat-expanded{
+
+    .mat-expansion-panel.mat-expanded {
         margin-top: 0px !important;
     }
 }
@@ -1523,22 +1550,22 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
-.HeaderPopup{
-font-size: 22px;
+.HeaderPopup {
+    font-size: 22px;
 }
 
-.GEC_Cerrar{
+.GEC_Cerrar {
     padding-top: 15px;
     display: flex;
     align-self: center !important;
     gap: 20px;
 }
 
-.GEC_CCoincidentes{
+.GEC_CCoincidentes {
     display: flex;
     justify-content: flex-end;
     padding-top: 15px;
-    
+
 }
 
 .mat-expansion-panel {
@@ -1547,25 +1574,25 @@ font-size: 22px;
     margin-bottom: 25px;
 }
 
-.GEC_No{
+.GEC_No {
     text-align: center;
 }
 
-.mat-dialog-container{
+.mat-dialog-container {
     width: none !important;
 }
 
-.popup_cerrar{
+.popup_cerrar {
     padding-left: 9px + 16px !important;
     padding-right: 9px + 16px !important;
 }
 
-.warning_pop{
+.warning_pop {
     color: red;
 }
 
 /*.mat-elevation-z8{*/
-   /* margin-top: 25px;*/
+/* margin-top: 25px;*/
 /*}*/
 
 /* Bandejas */
@@ -1595,7 +1622,7 @@ font-size: 22px;
     flex-wrap: wrap;
     color: #70707070;
     font-size: 10pt;
-    line-height: 40px;
+    line-height: 20px;
     align-items: center;
     padding-bottom: 15px;
 }
@@ -1615,103 +1642,101 @@ u {
     text-decoration: none !important;
 }
 
-th.mat-header-cell {
-    text-align: center !important;
-}
+
 
 
 /* Nuevo Plan de Crédito */
 
-.Dialog_NuevoPlan{
+.Dialog_NuevoPlan {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-    "a b"
-    "c d"
-    "e f"
-    "g g"
-    "h h"
-    "i i" 
-    ". j";
-    row-gap:10px;
-    
+        "a b"
+        "c d"
+        "e f"
+        "g g"
+        "h h"
+        "i i"
+        ". j";
+    row-gap: 10px;
+
 }
 
 @media screen and (max-width: 700px) {
     .Dialog_NuevoPlan {
         grid-template-columns: 1fr;
         grid-template-areas:
-        "a" 
-        "b"
-        "c" 
-        "d"
-        "e" 
-        "f"
-        "g" 
-        "h"
-        "i"
-        "j";
+            "a"
+            "b"
+            "c"
+            "d"
+            "e"
+            "f"
+            "g"
+            "h"
+            "i"
+            "j";
     }
 }
 
-.content1{
+.content1 {
     grid-area: a;
 }
 
-.content2{
+.content2 {
     grid-area: b;
 }
 
-.content3{
+.content3 {
     grid-area: c;
 }
 
-.content4{
+.content4 {
     grid-area: d;
 }
 
-.content5{
+.content5 {
     grid-area: e;
 }
 
-.content6{
-    grid-area:f;
+.content6 {
+    grid-area: f;
 }
 
-.content7{
+.content7 {
     grid-area: g;
 }
 
-.content8{
-    grid-area:h;
+.content8 {
+    grid-area: h;
 }
 
-.content9{
+.content9 {
     grid-area: i;
 }
 
-.content10{
+.content10 {
     justify-self: end;
-    grid-area:j;
+    grid-area: j;
 }
 
-.Title_NPC{
+.Title_NPC {
     font-size: 16px;
     font-weight: 400;
     color: #AEAEAE;
 }
 
-.Subtitle_NPC{
+.Subtitle_NPC {
     font-size: 13px;
     font-weight: 400;
-    color: #AEAEAE ;
+    color: #AEAEAE;
 }
 
-.Subtitle_NPC_Reemplazo{
+.Subtitle_NPC_Reemplazo {
     font-size: 15px;
     font-weight: 400;
-    color: #AEAEAE ;
+    color: #AEAEAE;
 }
 
 .titledialog_NPC {
@@ -1721,7 +1746,7 @@ th.mat-header-cell {
     padding-left: 34px;
 }
 
-.Header_POPUPNPC{
+.Header_POPUPNPC {
     display: flex;
     width: 100%;
     background-color: #05C65D;
@@ -1740,44 +1765,45 @@ th.mat-header-cell {
 /* Content Planes de Crédito */
 
 
-.custom_NPC{
+.custom_NPC {
     mat-dialog-container {
-            padding: 0px;
+        padding: 0px;
     }
+
     /* width */
-::-webkit-scrollbar {
-    width: 14px;
+    ::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 0px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #05C65D;
+        border-radius: 0px 5px 5px 0px;
+        box-shadow: inset 0 0 2px grey;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #04a84e;
+    }
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 0px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background:#05C65D; 
-    border-radius: 0px 5px 5px 0px;
-    box-shadow: inset 0 0 2px grey; 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #04a84e; 
-}
-}
-
-.NuevoPlan-CreditoPOPUP{
+.NuevoPlan-CreditoPOPUP {
     height: 600px;
-    
+
 }
 
-.Planes_Credito{
+.Planes_Credito {
     display: grid;
 }
 
-.Cabecera_PC{
+.Cabecera_PC {
     display: grid;
     padding-top: 7px;
     padding-bottom: 13px;
@@ -1785,24 +1811,25 @@ th.mat-header-cell {
 
 }
 
-.Datos_PC{
+.Datos_PC {
     display: flex;
     flex-wrap: wrap;
     padding-top: 7px;
     padding-bottom: 7px;
 }
 
-.Razon_PC{
+.Razon_PC {
     width: 100px;
     font-weight: bold;
     align-self: center;
 }
-.Dato_PC{
+
+.Dato_PC {
     width: 200px;
     align-self: center;
 }
 
-.aplicarLC{
+.aplicarLC {
     justify-self: end;
     align-self: center;
 }
@@ -1810,72 +1837,77 @@ th.mat-header-cell {
 /*.info_NPC{
     .mat-form-field-wrapper{
     /*.mat-form-field-flex{*/
-     /*   width: 491px !important;
+/*   width: 491px !important;
         .mat-form-field-infix{
             .mat-input-element{
                 height: 100px !important;
             }
         }*/
-   /* }*/
+/* }*/
 /*}*/
 /*}*/
 
-.icon_help{
+.icon_help {
     font-size: 22px;
     padding-left: 6px;
 }
-.TooltipReemplazo{
+
+.TooltipReemplazo {
     background-color: rgba(0, 0, 0, 0.767);
     color: #FFF;
     font-size: 12px;
     border: 1px solid black;
     text-align: center;
-    
+
 }
 
-.ReemplazoPlanHelp{
+.ReemplazoPlanHelp {
     display: flex;
     align-content: center;
     padding-top: 6px;
 }
 
-.ConsorcioTooltip{
+.ConsorcioTooltip {
     align-items: center !important;
 
-    .mat-radio-label-content{
+    .mat-radio-label-content {
         display: flex;
         align-items: center;
-        .mat-icon{
+
+        .mat-icon {
             display: flex;
             align-items: center;
             padding-left: 5px;
         }
     }
 }
-.TooltipConsorcio{
+
+.TooltipConsorcio {
     background-color: rgba(0, 0, 0, 0.767);
     color: #FFF;
     font-size: 12px;
     border: 1px solid black;
     text-align: center;
-    
+
 }
 
 /* Datos Obra */
-.FormDatosObra{
+.FormDatosObra {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding-top: 3px;
     padding-bottom: 15px;
-.boton-secundario_popup{
-    padding-left: 23px;
-    padding-right: 23px;
-}
-.Boton_DatosObra{
-    display: flex;
-    align-items: center;
-}
+
+    .boton-secundario_popup {
+        padding-left: 23px;
+        padding-right: 23px;
+    }
+
+    .Boton_DatosObra {
+        display: flex;
+        align-items: center;
+    }
 }
 
 
@@ -1883,10 +1915,11 @@ th.mat-header-cell {
 
 
 /* Sidenav */
-.SideNav_Accordio{
+.SideNav_Accordio {
     border-radius: 0px !important;
 }
-.Sidenav_Header{
+
+.Sidenav_Header {
     display: flex !important;
     align-self: center;
     padding-left: 14px !important;
@@ -1894,58 +1927,209 @@ th.mat-header-cell {
     margin-bottom: 3px !important;
     border-radius: 0px !important;
     background-color: #FFFFFF !important;
-    .mat-expansion-panel-header-description
-{
-    color: #707070 !important;
-}
-.mat-expansion-indicator{
-    visibility: hidden;
-}
-   .mat-expansion-indicator::after{
-    color: #707070 !important;
-   }
-    .Icon{
+
+    .mat-expansion-panel-header-description {
+        color: #707070 !important;
+    }
+
+    .mat-expansion-indicator {
+        visibility: hidden;
+    }
+
+    .mat-expansion-indicator::after {
+        color: #707070 !important;
+    }
+
+    .Icon {
         display: flex;
         align-self: center;
     }
-    .title{
+
+    .title {
         display: flex;
         position: relative !important;
         padding-left: 10px !important;
         align-self: center;
         color: #707070;
         font-size: 16px;
-        
-    min-width: 300px !important;
+
+        min-width: 300px !important;
     }
-   
+
 }
-.Sidenav_Panel{
+
+.Sidenav_Panel {
     border-radius: 0px !important;
-    .mat-expansion-panel-body{
+
+    .mat-expansion-panel-body {
         padding-right: 0px !important;
     }
 }
 
-.subtitle{
+.subtitle {
     display: flex !important;
     color: #707070 !important;
     font-size: 14px;
 
 }
 
-.Sidenav_Header.mat-expanded{
+.Sidenav_Header.mat-expanded {
     background-color: #f5f5f5 !important;
     color: rgb(0, 0, 0) !important;
     border-radius: 0px !important;
-    height: 48px!important;
+    height: 48px !important;
 }
 
-.mat-sidenav{
-    width: 76px!important;
+.mat-sidenav {
+    width: 76px !important;
     transition: width 300ms cubic-bezier(0.001, 0, 0.2, 1);
 }
-.mat-sidenav:hover{
-    width: 400px!important;
+
+.mat-sidenav:hover {
+    width: 300px !important;
     color: rgba(255, 255, 255, 0)
 }
+
+
+.PointerHand {
+    cursor: pointer;
+}
+
+.custom_Config {
+    
+    display: grid;
+
+    mat-dialog-container {
+        padding: 0px;
+        border-radius: 8px !important;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 0px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #05C65D;
+        border-radius: 0px 5px 5px 0px;
+        box-shadow: inset 0 0 2px grey;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #04a84e;
+    }
+}
+
+.Header_POPUPConfig {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    background-color: #05C65D;
+    height: 60px;
+}
+
+.Header_POPUPEstrategias {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    background-color: #05C65D !important;
+    height: 80px;
+}
+
+.Title_POPUPConfig {
+    font-size: 16px;
+    font-weight: 400;
+    color: #AEAEAE;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+
+
+.titledialog_Config {
+    align-content: center;
+    font-size: 20pt;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 24px;
+    padding-right: 24px;
+    line-height: 30px;
+    text-align: center;
+
+}
+
+.titledialog_AprobadorAdicional {
+    align-content: center;
+    font-size: 20pt;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 24px;
+    padding-right: 24px;
+    line-height: 20px;
+    text-align: center;
+
+}
+
+.contenidoForm_Config {
+    display: flex;
+    justify-content: center ;
+    background-color: #fff;
+    padding-left: 24px;
+    padding-top: 10px;
+    padding-right: 24px;
+}
+
+.botonera_PopUPConfig {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    padding-top: 25px;
+    padding-bottom: 24px;
+    gap: 24px;
+}
+
+.content-dialogConsorcio {
+    padding: 24px;
+    background-color: transparent;
+}
+
+/* Nuevo Plan PopUP Condiguración */
+
+.Dialog_NuevoPlanConfig{
+    .Header_NuevoPlanConfig{
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        padding: 24px;
+        justify-content: space-between;
+        background-color: #05C65D;
+    }
+}
+.FormPlanConfig{
+    width: 100%;
+}
+.ContentConfigPlanInfo{
+    display: grid;
+}
+
+.NuevoPlanConfigBotonera{
+    align-self: center;
+    justify-content: center;
+}
+
+.titleNuevoPlan_Config{
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 30px;
+    word-break: break-all;
+}
+

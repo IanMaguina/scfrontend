@@ -203,7 +203,7 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
     this.matDialog.open(ErrorDialogComponent, {
       disableClose: true,
       width: "400px",
-      data: mensaje
+      data: mensaje,
     });
   }
 

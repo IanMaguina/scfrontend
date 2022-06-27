@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Suplencia } from 'src/app/models/suplencia.interface';
 import { SuplenciaService } from 'src/app/services/suplencia.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -20,6 +21,7 @@ export class SuplenciaComponent implements OnInit {
   
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private suplenciaService:SuplenciaService
   ) { }
 
@@ -41,11 +43,15 @@ export class SuplenciaComponent implements OnInit {
     let dialogRef = this.matDialog.open(CrearSuplenciaComponent, {
       disableClose: true,
       width:'400px',
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(result==='CONFIRM_DLG_YES'){
+        this.enviarMensajeSnack("Se creó la suplencia correctamente");
+      }
       this.listarSuplencias();
-      console.log("return function process");
+     
     });
 
 
@@ -64,7 +70,8 @@ export class SuplenciaComponent implements OnInit {
     const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
       disableClose: true,
       width:"400px",
-      data:element
+      data:element,
+      panelClass: 'custom_Config'
     });
 
     dialogRef3.afterClosed().subscribe(result => {
@@ -72,8 +79,11 @@ export class SuplenciaComponent implements OnInit {
         console.log("ACTUALIZAR EL ACTIVO");
         let suplencia:Suplencia=element;
         suplencia.activo=(element.activo?true:false);
-        this.suplenciaService.actualizarActivo(suplencia).then(()=>{
-          this.listarSuplencias();
+        this.suplenciaService.actualizarActivo(suplencia).then((result)=>{
+          if(result.header.exito){
+            this.enviarMensajeSnack("Se actualizó la suplencia");
+            this.listarSuplencias();
+          }
         });
       }else{
         this.listarSuplencias();
@@ -91,13 +101,20 @@ export class SuplenciaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("ACTUALIZÓ");
-
+      if(result==='CONFIRM_DLG_YES'){
+        this.enviarMensajeSnack("Se actualizó la suplencia correctamente");
+      }
       this.listarSuplencias();
     });
 
   }
-
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
 
 
 }

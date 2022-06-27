@@ -36,6 +36,7 @@ export class PlanesComponent implements OnInit {
   openAgregarPlan(){
     const dialogRef = this.matDialog.open(CrearPlanComponent, {
       disableClose: true,
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -46,8 +47,9 @@ export class PlanesComponent implements OnInit {
   openConfigurarPlan(element:any){
     const dialogRef2 = this.matDialog.open(ConfigurarPlanComponent, {
       disableClose: true,
-      width: '80%',
+      width: '50%',
       data:element,
+      panelClass: 'custom_Config'
     });
 
     dialogRef2.afterClosed().subscribe(result => {
@@ -69,7 +71,7 @@ export class PlanesComponent implements OnInit {
     const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
       disableClose: true,
       width:"400px",
-      data:form
+      data:form,
     });
 
     dialogRef3.afterClosed().subscribe(result => {
