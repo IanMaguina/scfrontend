@@ -807,13 +807,27 @@ body::-webkit-scrollbar-thumb {
 
 /* stepper scroll */
 
-.content-body-step::-webkit-scrollbar {
-    width: 3px;
+/* width */
+::-webkit-scrollbar {
+    width: 14px;
 }
 
-.content-body-step::-webkit-scrollbar-thumb {
-    background-color: #05C65D;
-    border-radius: 20px;
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 0px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #05C65D;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: inset 0 0 2px grey;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #04a84e;
 }
 
 .mat-radio-button mat-icon {
@@ -1852,6 +1866,13 @@ u {
 /* }*/
 /*}*/
 /*}*/
+
+.mat-input-element {
+    height: 18px;
+}
+.mat-select-value{
+    height: 18px;
+}
 
 .icon_help {
     font-size: 22px;
