@@ -62,13 +62,19 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
     });
   }
 
+  compareTipo(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
+
   async editarDocumentoValorado(form: any) {
     let documentoValorado: DocumentoValorado = {
       id: this.documentoValoradoData.id, 
       nombre: form.nombre,
-      id_tipo_documento_valorado:form.tipo_documento_valorado.value,
+      id_tipo_documento_valorado:form.tipo_documento_valorado.id,
     }; 
-    if (form.nombre != this.documentoValoradoData.nombre){
+    console.log("estoy actualizando DV: "+JSON.stringify(documentoValorado));
+    
       this.documentoValoradoService.actualizarDocumentoValorado(documentoValorado).then(data=>{
         if(data.header.exito){
           this.onNoClick('CONFIRM_DLG_YES');
@@ -76,7 +82,7 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
           this.onNoClick('CONFIRM_DLG_NO');
         }
       })
-    }
+    
   }
 
 

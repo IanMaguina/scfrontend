@@ -19,10 +19,10 @@
         <div class="Title_POPUPConfig">Tipo Documento valorado:</div>
         <mat-form-field appearance="fill">
             <mat-label>Seleccionar</mat-label>
-            <mat-select formControlName="tipo_documento_valorado" required>
-                <mat-option *ngFor="let tipoDocumentoValorado of listadoTipoDocumentoValorado"
-                    [value]="tipoDocumentoValorado">
-                    {{tipoDocumentoValorado.nombre}}
+            <mat-select formControlName="tipo_documento_valorado" [compareWith]="compareTipo" required>
+                <mat-option *ngFor="let tipo_documento_valorado of listadoTipoDocumentoValorado" 
+                    [value]="tipo_documento_valorado">
+                    {{tipo_documento_valorado.nombre}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

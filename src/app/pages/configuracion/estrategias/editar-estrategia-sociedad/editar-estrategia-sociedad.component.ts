@@ -207,8 +207,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
     })
   }
 
-
-
+  
 
   async mapeoRolUsuario(form: any) {
     let rolUsuario: RolUsuario = {
