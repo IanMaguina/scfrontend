@@ -9,7 +9,6 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { GrupoClienteService } from 'src/app/services/grupo-cliente.service';
 import { LineaProductoService } from 'src/app/services/linea-producto.service';
 import { NivelMoraService } from 'src/app/services/nivel-mora.service';
-import { TipoDocumentoValoradoService } from 'src/app/services/tipo-documento-valorado.service';
 import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { PlanService } from 'src/app/services/plan.service';
 import { GrupoCliente } from 'src/app/models/grupo-cliente.interface';
@@ -17,6 +16,7 @@ import { NivelMora } from 'src/app/models/nivel-mora.interface';
 import { CentroRiesgo } from 'src/app/models/centro-riesgo.interface';
 import { LineaProducto } from 'src/app/models/linea-producto.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DocumentoValoradoService } from '@services/documento-valorado.service';
 @Component({
   selector: 'app-informacion-plan',
   templateUrl: './informacion-plan.component.html',
@@ -131,7 +131,7 @@ export class InformacionPlanComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private centroRiesgoService: CentroRiesgoService,
     private nivelMoraService: NivelMoraService,
-    private tipoDocumentoValoradoService: TipoDocumentoValoradoService,
+    private documentoValoradoService: DocumentoValoradoService,
     private _snack: MatSnackBar
   ) {
     this.grupoClienteService = injector.get<GrupoClienteService>(GrupoClienteService);
@@ -190,7 +190,7 @@ export class InformacionPlanComponent implements OnInit {
       this.llenarNivelMora();
       this.marcarCentroRiesgo();
       this.llenarCentroRiesgo();
-      this.marcarTipoDocumentoValorado();
+      this.marcarDocumentoValorado();
       this.llenarTipoDocumentoValorado();
       this.marcarLineaProducto();
       this.llenarLineaProducto();
@@ -228,7 +228,7 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   async listarTipoDocumentoValorado() {
-    this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
+    this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoTipoDocumentoValorado = data.payload;
       console.log("Tipo DV--->"+JSON.stringify(this.listadoTipoDocumentoValorado));
     })
@@ -335,11 +335,11 @@ export class InformacionPlanComponent implements OnInit {
     this.mostrarCentroRiesgo = centroRiesgo;
   }
 
-  marcarTipoDocumentoValorado() {
-    let campo:any[] =this.listadoInformacionPlan.tipo_documentovalorado;
+  marcarDocumentoValorado() {
+    let campo:any[] =this.listadoInformacionPlan.documento_valorado;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.tipo_documentovalorado.id, nombre:item.tipo_documentovalorado.nombre})
+      devuelve.push({id:item.documento_valorado.id, nombre:item.documento_valorado.nombre})
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
   }  
@@ -354,7 +354,7 @@ export class InformacionPlanComponent implements OnInit {
     let campo:any[] = this.listadoInformacionPlan.documento_valorado;
     let devuelve:any[]=[];
     campo.forEach(item=>{
-      devuelve.push({id:item.id_tipo_documentovalorado})
+      devuelve.push({id:item.id_documento_valorado})
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
   }  
