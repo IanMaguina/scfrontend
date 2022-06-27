@@ -104,30 +104,27 @@ export class SolicitudService {
     let cliente_codigo_sap = null;
     let sociedad_codigo_sap=null;
     let query = "";
+    if (filtros['sociedad_codigo_sap']) {
+      sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
+      query ="sociedad_codigo_sap=" + sociedad_codigo_sap ;
+    }
+
     if (filtros['numero_documento']) {
       numero_documento = filtros['numero_documento'];
-      query = "numero_documento=" + numero_documento;
+      query = query != "" ? query+"&numero_documento=" + numero_documento : "numero_documento=" + numero_documento;
 
     }
     if (filtros['cliente_codigo_sap']) {
       cliente_codigo_sap = filtros['cliente_codigo_sap'];
-      query = query != "" ? "&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
+      query = query != "" ? query+"&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
     }
 
-    if (filtros['sociedad_codigo_sap']) {
-      sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
-      query = query != "" ? "&sociedad_codigo_sap=" + sociedad_codigo_sap : "sociedad_codigo_sap=" + sociedad_codigo_sap;
-    }
     
-    let params = new HttpParams()
-    .set('numero_documento',filtros.numero_documento)
-    .set('sociedad_codigo_sap', filtros.sociedad_codigo_sap)
-    .set((filtros.cliente_codigo_sap?'cliente_codigo_sap':''), (filtros.cliente_codigo_sap?filtros.cliente_codigo_sap:''));
-
-    console.log("link-->" + "/api/cliente-agrupacion/buscar-consorcio?" + params);
+    
+    console.log("link-->" + "/api/cliente-agrupacion/buscar-consorcio?" + query);
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcio?" + params).toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcio?" + query).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
