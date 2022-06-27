@@ -54,6 +54,7 @@ export class DatosClienteScComponent implements OnInit {
   ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
   public estadoSolicitud: boolean = false;
+  usuario_sociedad_codigo_sap:string="";
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -78,6 +79,7 @@ export class DatosClienteScComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usuario_sociedad_codigo_sap=this.userInfo.sociedad_codigo_sap;
     console.log("editar solicitud datos cliente--->" + this.id_solicitud_editar);
     if (this.id_solicitud_editar !== null) {
       this.obtenerSolicitud();
@@ -140,7 +142,10 @@ export class DatosClienteScComponent implements OnInit {
 
   async openBuscarCoincidentes(data: any) {
     data.tipo_cliente = this.ClientSelectorControl.value;
+    data.usuario_sociedad_codigo_sap=this.usuario_sociedad_codigo_sap;
+
     console.log('openBuscarCoincidentes--->' + JSON.stringify(data));
+    
     //data.tipo_cliente = this.cliente_pre_seleccionado;
     switch (data.tipo_cliente) {
       case 1:
@@ -181,16 +186,17 @@ export class DatosClienteScComponent implements OnInit {
         }
         let filtroConsorcio = {}
         if (data.rucConsorcio) {
+          console.log("entrooooooo")
           filtroConsorcio = {
             numero_documento: data.rucConsorcio,
-            sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
+            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap
           }
           this.listarConsorcioxFiltros(filtroConsorcio);
         }
         else {
           filtroConsorcio = {
             cliente_codigo_sap: data.clienteCodigoSapConsorcio,
-            sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
+            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap
           }
           this.listarConsorcioxFiltros(filtroConsorcio);
         }
@@ -202,9 +208,17 @@ export class DatosClienteScComponent implements OnInit {
           break;
         }
 
-        let filtro = {
-          numero_documento: data.rucEmpresa,
-          sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
+        let filtro = {}
+        if (data.rucEmpresa){
+          filtro={
+            numero_documento: data.rucEmpresa,
+            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap
+          }
+        }else{
+          filtro={
+            cliente_codigo_sap: data.clienteCodigoSapEmpresa,
+            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap
+          }
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
           this.cliente_seleccionado = data.tipo_cliente;
