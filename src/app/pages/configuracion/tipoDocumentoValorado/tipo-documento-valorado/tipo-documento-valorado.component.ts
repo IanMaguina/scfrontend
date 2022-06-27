@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class TipoDocumentoValoradoComponent implements OnInit {
 
   listadoTipoDV: TipoDocumentoValorado[]=[];
-  displayedColumns: string[] = ['tipo-documento-valorado'];
+  displayedColumns: string[] = ['nombre'];
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -30,7 +30,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
 
   async listarTipoDocumentoValorado() {
     this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
-      console.log(JSON.stringify(data.payload));
+      console.log("listado Tipo DV: "+JSON.stringify(data.payload));
       this.listadoTipoDV = data.payload;
     })
 

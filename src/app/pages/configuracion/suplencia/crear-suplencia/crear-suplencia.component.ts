@@ -121,7 +121,7 @@ export class CrearSuplenciaComponent implements OnInit {
   /*  auto complete*/
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuario = listado;
+    this.comboListadoUsuario = listado.payload;
     this.filteredUsuario = this.formDialog.get('usuario')?.valueChanges
     .pipe(
         startWith(''),
@@ -143,12 +143,12 @@ export class CrearSuplenciaComponent implements OnInit {
 
   async listarUsuariosSuplentes() {
     let listadoSuplentes = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioSuplente = listadoSuplentes;
+    this.comboListadoUsuarioSuplente = listadoSuplentes.payload;
     this.filteredUsuarioSuplente = this.formDialog.get('usuario_suplente')?.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.nombre),
-        map(nombre => nombre ? this._filterSuplente(nombre) : this.comboListadoUsuario.slice())
+        map(nombre => nombre ? this._filterSuplente(nombre) : this.comboListadoUsuarioSuplente.slice())
       );
   }
 
@@ -158,7 +158,7 @@ export class CrearSuplenciaComponent implements OnInit {
 
   private _filterSuplente(nombre: string): Usuario[] {
     let filterValue = nombre.toLowerCase();
-    return this.comboListadoUsuario.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+    return this.comboListadoUsuarioSuplente.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
   /*  */
 
