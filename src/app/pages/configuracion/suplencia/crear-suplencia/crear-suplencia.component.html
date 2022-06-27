@@ -1,13 +1,16 @@
-<div class="title-add-element color-title">Nueva Suplencia </div>
-<div class="contenidoForm">
+<div class="Header_POPUPConfig">
+    <div class="titledialog_Config">Nueva Suplencia </div>
+</div>
+
+<div class="contenidoForm_Config">
     <form [formGroup]="formDialog" (ngSubmit)="crearSuplencia(formDialog.value)">
 
 
-        <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
+        
 
-
-            <mat-form-field appearance="outline">
-                <mat-label>Usuario</mat-label>
+        <div class="Title_POPUPConfig">Usuario:</div>
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar</mat-label>
                 <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto"
                     required>
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
@@ -22,11 +25,10 @@
                 </mat-hint>
 
             </mat-form-field>
-        </div>
-        <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
-
-            <mat-form-field appearance="outline">
-                <mat-label>Usuario suplente</mat-label>
+  
+            <div class="Title_POPUPConfig">Usuario Suplente:</div>
+            <mat-form-field appearance="fill">
+                <mat-label>Ingresar</mat-label>
                 <input type="text" matInput placeholder="Usuario suplente" formControlName="usuario_suplente"
                     [matAutocomplete]="autoSuplente" required>
                 <mat-autocomplete #autoSuplente="matAutocomplete" [displayWith]="displayFnSuplente">
@@ -41,9 +43,9 @@
                 </mat-hint>
 
             </mat-form-field>
-        </div>
-        <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
-            <mat-form-field appearance="outline">
+     
+            <div class="Title_POPUPConfig">Fecha Inicio:</div>
+            <mat-form-field appearance="fill">
                 <mat-label>Fecha Inicio</mat-label>
                 <input matInput [matDatepicker]="picker1" formControlName="fecha_inicio">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -54,10 +56,10 @@
                     </mat-error>
                 </mat-hint>
             </mat-form-field>
-        </div>
-        <div class="objeto col-xl-12 col-l-12 col-m-12 col-s-12 col-xs-12">
-            <mat-form-field appearance="outline">
-                <mat-label>Fecha Fin</mat-label>
+     
+            <div class="Title_POPUPConfig">Fecha Fin:</div>
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar</mat-label>
                 <input matInput [matDatepicker]="picker2" formControlName="fecha_fin">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2 color="primary"></mat-datepicker>
@@ -67,9 +69,12 @@
                     </mat-error>
                 </mat-hint>
             </mat-form-field>
-        </div>
-        <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button> &nbsp;
+   
+
+            <div class="botonera_PopUPConfig">
+        <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button>
         <button mat-raised-button class="boton-principal-light" type="submit"
             [disabled]="formDialog.invalid">Agregar</button>
+            </div>
     </form>
 </div>

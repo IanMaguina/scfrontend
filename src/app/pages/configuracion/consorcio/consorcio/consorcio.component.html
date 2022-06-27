@@ -1,17 +1,16 @@
-<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
-    Consorcios
-    <br><br>
-    <mat-divider></mat-divider>
+<div class="titlesection">
+    <span>Consorcios</span>
 </div>
+<mat-divider class="divisorConfig"></mat-divider>
 
-<br>
-<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+
+<div class="botonera">
     <button mat-flat-button class="boton-principal-light" (click)="openAgregarConsorcio()">Agregar</button>
 </div>
 <br>
-<div class="content-table col-s-11 col- col-m-11 col-xl-11">
+<div class="content-table">
     
-    <table mat-table [dataSource]="listadoConsorcios" class="mat-elevation-z8" >
+    <table mat-table matTableResponsive [dataSource]="listadoConsorcios" class="mat-elevation-z8" >
         <caption title="lista de consorcios"></caption>
         
         <!-- Column -->

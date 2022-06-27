@@ -1,19 +1,19 @@
-<div class="titlesection col-s-11 col- col-m-11 col-xl-11">
-    Administración de Aprobadores Adicionales
-    <br><br>
-    <mat-divider></mat-divider>
+<div class="titlesection">
+    <span>Administración de Aprobadores Adicionales</span>
 </div>
-<br>
-<div class="botonera col-xl-12 col-l-12 col-m-12 col-s-12">
+
+<mat-divider class="divisorConfig"></mat-divider>
+
+<div class="botonera">
     <button mat-flat-button class="boton-principal-light" (click)="openAgregarAprobadorAdicional()">Agregar</button>
 </div>
 <br>
-<div class="content-table col-xs-11 col-s-11 col-m-8 col-l-6 col-xl-5">
-    <table mat-table [dataSource]="listadoAprobadoresAdicionales" class="mat-elevation-z8 " >
+<div class="content-table">
+    <table mat-table matTableResponsive [dataSource]="listadoAprobadoresAdicionales" class="tablaAprobador mat-elevation-z8" >
         <caption title="tablaListadoAprobadores"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
-        <ng-container matColumnDef="usuario">
+        <ng-container cdkColumnDef="Columna" matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef> Asistente Facturacion </th>
             <td mat-cell *matCellDef="let element"> <u> {{element.usuario.nombre}} </u></td>
         </ng-container>

@@ -138,7 +138,8 @@ export class AsignarIntegrantesComponent implements OnInit {
      this.matDialog.open(ErrorDialogComponent, {
       disableClose: true,
       width: "400px",
-      data: mensaje
+      data: mensaje,
+      panelClass: 'custom_Config'
     });
 
   }

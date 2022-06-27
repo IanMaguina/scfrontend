@@ -41,6 +41,7 @@ export class SuplenciaComponent implements OnInit {
     let dialogRef = this.matDialog.open(CrearSuplenciaComponent, {
       disableClose: true,
       width:'400px',
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -64,7 +65,8 @@ export class SuplenciaComponent implements OnInit {
     const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
       disableClose: true,
       width:"400px",
-      data:element
+      data:element,
+      panelClass: 'custom_Config'
     });
 
     dialogRef3.afterClosed().subscribe(result => {

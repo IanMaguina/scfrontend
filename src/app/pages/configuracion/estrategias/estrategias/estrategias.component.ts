@@ -33,7 +33,7 @@ export class EstrategiasComponent implements OnInit {
   }
 
   openAgregarEstrategiaRolUsuario() {
-    this.openDialog(CrearEstrategiaSociedadComponent,'Se registró la estrategia' );
+    this.openDialog(CrearEstrategiaSociedadComponent,'Se registró la estrategia');
   }
 
   openEditarEstrategiaRolUsuario(element:RolUsuario) {
@@ -64,7 +64,8 @@ export class EstrategiasComponent implements OnInit {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
       width:'300px',
-      data: data?data:''
+      data: data?data:'',      
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
