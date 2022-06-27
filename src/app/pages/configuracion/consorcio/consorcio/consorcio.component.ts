@@ -45,11 +45,11 @@ export class ConsorcioComponent implements OnInit {
   }
 
   openAgregarConsorcio() {
-    this.openDialog(CrearConsorcioComponent, 'Se agregó el consorcio', '');
+    this.openDialog(CrearConsorcioComponent, 'Se agregó el consorcio', '300px');
   }
 
   openAsignarIntegrantes(id: any) {
-    this.openDialog(AsignarIntegrantesComponent, 'Se asignó el consorcio', '80%',id);
+    this.openDialog(AsignarIntegrantesComponent, 'no', '80%', id);
   }
 
   toggleConsorcioActivo(element: any) {
@@ -72,27 +72,35 @@ export class ConsorcioComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let clienteAgrupacion: ClienteAgrupacion = element;
         this.consorcioService.activarConsorcio(clienteAgrupacion).then((data) => {
-          if (data.header.exito === true) {
+          if (data.header.exito) {
+            this.listarConsorcios();
+            this.enviarMensajeSnack("se modificó la actividad del Consorcio");
+          } else {
             this.listarConsorcios();
           }
         });
       }
     });
-    
+
   }
 
-  openDialog(componente: any, msg: string, width:string, data?: any) {
+  openDialog(componente: any, msg: string, width: string, data?: any) {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
-      width:width,
-      data: data?data:'',
+      width: width,
+      data: data ? data : '',
       panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
-        this.enviarMensajeSnack(msg);
+        if (msg != 'no') {
+          this.enviarMensajeSnack(msg);
+        }
         this.listarConsorcios();
+      } else {
+        this.listarConsorcios();
+
       }
     });
   }

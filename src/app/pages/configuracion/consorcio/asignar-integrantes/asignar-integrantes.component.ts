@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { ClienteEmpresaService } from 'src/app/services/cliente-empresa.service';
@@ -65,7 +66,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   listadoSociedades: Sociedad[] = [];
    
 
-  listadoIntegrantes: any[] = [];
+  listadoIntegrantes: AgrupacionClienteSolicitud[] = [];
 
   displayedColumns: string[] = [
     'sociedad',
@@ -216,9 +217,6 @@ export class AsignarIntegrantesComponent implements OnInit {
     console.log("");
   }
 
-  /* SolicitarActualizarConsorcio(){
-    console.log("SolicitarActualizarConsorcio");
-  } */
   AprobarConsorcio(){
     console.log("AprobarConsorcio");
   }

@@ -28,4 +28,14 @@ export interface AgrupacionClienteSolicitud {
     tipo_canal?: TipoCanal;
     sociedad_codigo_sap?: string;
     sociedad?: Sociedad;
+    fecha_creacion?: string;
+    fecha_modificacion?: string;
+
+
+
+
+
+
+
+
 }

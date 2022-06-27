@@ -9,6 +9,8 @@ export interface ClienteEmpresa{
     participacion?:string,
     cliente_agrupacion?:ClienteAgrupacion,
     id_usuario_creacion?:number,
-    activo?:boolean
+    activo?:boolean      
 }
+
+
 

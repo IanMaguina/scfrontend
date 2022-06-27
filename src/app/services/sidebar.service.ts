@@ -113,7 +113,7 @@ export class SidebarService {
         { name: 'Consorcios', url: 'app/configuracion/consorcios' },
         { name: 'Grupos', url: 'app/configuracion/grupos' },
         { name: 'Planes', url: 'app/configuracion/planes' },
-        { name: 'Tipo de documento valorado', url: 'app/configuracion/tipodocumentovalorado' },
+        { name: 'Documentos Valorados', url: 'app/configuracion/tipodocumentovalorado' },
         { name: 'Suplencias', url: 'app/configuracion/suplencias' },
         { name: 'Asistente de facturacion', url: 'app/configuracion/asistentefacturacion' },
         { name: 'Aprobador adicional', url: 'app/configuracion/aprobadoradicional' },

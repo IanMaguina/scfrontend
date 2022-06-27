@@ -68,7 +68,11 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         console.log("realizar la edición");
-        this.tipoDocumentoValoradoService.activarDocumentoValorado(form).then( (_)=>{
+        this.tipoDocumentoValoradoService.activarDocumentoValorado(form).then( (res)=>{
+          if(res.header.exito){
+            this.enviarMensajeSnack("se actualizó la actividad del documento valorado");
+            this.listarDocumentoValorado();
+          }
           this.listarDocumentoValorado();
         })
       }else{

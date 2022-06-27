@@ -46,7 +46,11 @@ export class EstrategiasComponent implements OnInit {
     console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
     await this.rolUsuarioService.editarEstrategiaRolUsuario(element).then( (data) =>{
       if(data.header.exito){
+        this.enviarMensajeSnack('Se modificó la actividad de la estrategia');
         this.listarEstrategiaRolUsuario();
+      }else{
+        this.listarEstrategiaRolUsuario();
+
       }
     });
 
@@ -72,6 +76,9 @@ export class EstrategiasComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         this.enviarMensajeSnack(msg);
         this.listarEstrategiaRolUsuario();
+      }else{
+        this.listarEstrategiaRolUsuario();
+
       }
     });
   }
