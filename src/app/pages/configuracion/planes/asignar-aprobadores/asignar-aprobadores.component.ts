@@ -75,7 +75,8 @@ export class AsignarAprobadoresComponent implements OnInit {
 
   async listarUsuarios() {
     let listado = await this.usuarioService.listarUsuarios().then();
-    this.comboListadoUsuarioAprobador = listado;
+    console.log("listadoUsuarios-->"+JSON.stringify(listado));
+    this.comboListadoUsuarioAprobador = listado.payload;
     this.filteredUsuarioAprobador = this.aprobadorForm.get('usuario')?.valueChanges
       .pipe(
         startWith(''),
