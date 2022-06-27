@@ -10,64 +10,68 @@
 
         </div>
         <div class="aplicarLC Datos_PC">
-            <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Aplicar a nuevo
+            <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()"
+                *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Aplicar a nuevo
                 crédito</button>
         </div>
     </div>
 
 
-    <div class="content-body-step">
+    <div class="content-body-step acordeonPlanesCredito">
+        <ng-container>
+            <mat-accordion [multi]="true">
+                <!--  Planes - Riesgos -->
+                <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Riesgos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar" [listadoRiesgos]="listadoRiesgos">
+                    </app-riesgos-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Hipotecas -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Hipotecas
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-hipotecas-sc [id_solicitud_editar]="id_solicitud_editar" [listadoHipotecas]="listadoHipotecas">
+                    </app-hipotecas-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Garantía Liquida -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Garantía Liquida
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-garantia-liquida-sc></app-garantia-liquida-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Cesión de Derecho con Proveedores -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Cesión de Derecho con Proveedores
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-cesion-derechos-proveedores-sc></app-cesion-derechos-proveedores-sc>
+                </mat-expansion-panel>
+                <!--  Planes - Resumen de Riesgos -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Resumen de Riesgos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-resumen-riesgos-sc></app-resumen-riesgos-sc>
+                </mat-expansion-panel>
 
-        <mat-accordion [multi]="true">
-            <!--  Planes - Riesgos -->
-            <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Riesgos
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-riesgos-sc [id_solicitud_editar]="id_solicitud_editar" [listadoRiesgos]="listadoRiesgos"></app-riesgos-sc>
-            </mat-expansion-panel>
-            <!--  Planes - Hipotecas -->
-            <mat-expansion-panel >
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Hipotecas
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-hipotecas-sc [id_solicitud_editar]="id_solicitud_editar" [listadoHipotecas]="listadoHipotecas"></app-hipotecas-sc>
-            </mat-expansion-panel>
-            <!--  Planes - Garantía Liquida -->
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Garantía Liquida
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-garantia-liquida-sc></app-garantia-liquida-sc>
-            </mat-expansion-panel>
-            <!--  Planes - Cesión de Derecho con Proveedores -->
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Cesión de Derecho con Proveedores
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-cesion-derechos-proveedores-sc></app-cesion-derechos-proveedores-sc>
-            </mat-expansion-panel>
-            <!--  Planes - Resumen de Riesgos -->
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Resumen de Riesgos
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-resumen-riesgos-sc></app-resumen-riesgos-sc>
-            </mat-expansion-panel>
-
-        </mat-accordion>
-
+            </mat-accordion>
+        </ng-container>
     </div>
+
     <mat-divider></mat-divider>
     <div class="botonera-step">
         <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
