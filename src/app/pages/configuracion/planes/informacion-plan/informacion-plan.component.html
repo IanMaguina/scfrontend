@@ -140,7 +140,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Seleccionar</mat-label>
                         <mat-select formControlName="tipoDocumentoValorado" required multiple
-                            (selectionChange)="llenarTipoDocumentoValorado()"
+                            (selectionChange)="llenarDocumentoValorado()"
                             [compareWith]="compareTipoDocumentoValorado">
                             <mat-option *ngFor="let tipo of listadoTipoDocumentoValorado" [value]="tipo">{{
                                 tipo.nombre }}
