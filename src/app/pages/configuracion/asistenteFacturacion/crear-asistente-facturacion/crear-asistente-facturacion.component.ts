@@ -8,7 +8,6 @@ import { Usuario } from 'src/app/models/usuario.interface';
 import { Zonal } from 'src/app/models/zonal.interface';
 import { AsistenteFacturacionService } from 'src/app/services/asistente-facturacion.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { ZonalService } from 'src/app/services/zonal.service';
 
 @Component({
@@ -52,7 +51,6 @@ export class CrearAsistenteFacturacionComponent implements OnInit {
     public dialogRef: MatDialogRef<CrearAsistenteFacturacionComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private usuarioService: UsuarioService,
     private zonalService: ZonalService,
     private asistenteFacturacionService: AsistenteFacturacionService,
 

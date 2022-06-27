@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsistenteFacturacion } from 'src/app/models/asistente-facturacion.interface';
 import { AsistenteFacturacionService } from 'src/app/services/asistente-facturacion.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -18,6 +19,7 @@ export class AsistenteFacturacionComponent implements OnInit {
   displayedColumnsSociedad: string[] = ['usuario', 'zonal', 'activo'];
   constructor(
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
     private asistenteFacturacionService: AsistenteFacturacionService,
 
   ) { }
@@ -26,76 +28,81 @@ export class AsistenteFacturacionComponent implements OnInit {
     console.log("ngInit");
     this.listarAsistentesFacturacion();
   }
-  async listarAsistentesFacturacion(){
-    await this.asistenteFacturacionService.listarAsistentesFacturacion().then( (data) => {
+  async listarAsistentesFacturacion() {
+    await this.asistenteFacturacionService.listarAsistentesFacturacion().then((data) => {
       this.listadoAsistentesFacturacion = data.payload;
     });
   }
-  openAgregarAsistenteFacturacion(){
+  openAgregarAsistenteFacturacion() {
     const dialogRef = this.matDialog.open(CrearAsistenteFacturacionComponent, {
       disableClose: true,
-      width:"300px",
+      width: "300px",
       panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.listarAsistentesFacturacion();
-      if(result === 'CONFIRM_DLG_YES'){
-        
-        console.log("se agregó el asistenteFacturacion correctamente");
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack("se agregó el asistente Facturacion correctamente");
       }
     });
   }
-  
 
-  onchangeEstado(form:any){
-    let mensaje:string;
-    
-    if(form.activo){
+  onchangeEstado(form: any) {
+    let mensaje: string;
+
+    if (form.activo) {
       mensaje = "¿Desea habilitar el asistente de facturacion?";
-    }else{
+    } else {
       mensaje = "¿Desea deshabilitar el asistente de facturacion?";
     }
     form.mensaje = mensaje;
 
-    const dialogRef3 = this.matDialog.open( ConfirmDialogComponent, {
+    const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      width:"350px",
-      data:form,
+      width: "350px",
+      data: form,
     });
 
     dialogRef3.afterClosed().subscribe(result => {
-      if(result==='CONFIRM_DLG_YES'){
-        console.log("sending.."+JSON.stringify(form));
-        this.asistenteFacturacionService.activarDesactivarAsistenteFacturacion(form).then((data)=>{
-          if(data.header.exito){
-            console.log("Se actualizó la actividad del asistente de facturacion");
+      this.listarAsistentesFacturacion();
+      if (result === 'CONFIRM_DLG_YES') {
+        this.asistenteFacturacionService.activarDesactivarAsistenteFacturacion(form).then((data) => {
+          if (data.header.exito) {
+            this.enviarMensajeSnack("Se actualizó la actividad del asistente de facturacion");
             this.listarAsistentesFacturacion();
           }
         });
+      }else{
+        this.listarAsistentesFacturacion();
       }
     });
   }
 
-
-  openEditarAsistenteFacturacion(element:AsistenteFacturacion){
-    console.log("al editar: .. "+JSON.stringify(element));
+  openEditarAsistenteFacturacion(element: AsistenteFacturacion) {
+    console.log("al editar: .. " + JSON.stringify(element));
     const dialogRef4 = this.matDialog.open(EditarAsistenteFacturacionComponent, {
       disableClose: true,
-      width:"300px",
-      data:element,
+      width: "300px",
+      data: element,
       panelClass: 'custom_Config'
     });
 
     dialogRef4.afterClosed().subscribe(result => {
       this.listarAsistentesFacturacion();
-      if(result === 'CONFIRM_DLG_YES'){
-        
-        console.log("se editó el asistenteFacturacion correctamente");
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack("se actualizó el asistente Facturacion correctamente");
       }
     });
   }
 
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
 
 
 }
