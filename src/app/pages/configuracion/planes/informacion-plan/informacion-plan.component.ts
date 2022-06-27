@@ -425,15 +425,10 @@ export class InformacionPlanComponent implements OnInit {
 
   retornarGrupoCliente() {
     let grupoCliente: GrupoCliente[] = this.informacionForm.get("grupoCliente").value;
-    let cliente: GrupoCliente[] = this.informacionForm.get("cliente").value;
     let valor: any[] = [];
     grupoCliente.forEach(item => {
       valor.push(item.codigo_sap);
     })
-    cliente.forEach(item => {
-      valor.push(item.codigo_sap);
-    })
-
     return valor;
   }
 
