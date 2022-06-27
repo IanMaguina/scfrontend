@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.interface';
+import { DocumentoValorado } from 'src/app/models/documento-valorado.interface';
 
 @Component({
   selector: 'app-editar-tipo-documento-valorado',
@@ -12,14 +13,19 @@ import { TipoDocumentoValorado } from 'src/app/models/tipo-documento-valorado.in
   ]
 })
 export class EditarTipoDocumentoValoradoComponent implements OnInit {
-  tipoDocumentoValoradoData: any;
+  documentoValoradoData: DocumentoValorado;
+  listadoTipoDocumentoValorado: TipoDocumentoValorado[]=[];
   editarFormDialog: any;
   formErrors = {
     'nombre': '',
+    'tipo_documento_valorado': '',
   }
   validationMessages = {
     'nombre': {
       'required': 'el nombre es requerido.'
+    },
+    'tipo_documento_valorado': {
+      'required': 'el tipo documento valorado es requerido.'
     },
   };
   //Submitted form
@@ -33,12 +39,12 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private tipoDocumentoValoradoService: TipoDocumentoValoradoService
+    private documentoValoradoService: TipoDocumentoValoradoService
   ) {
-    this.tipoDocumentoValoradoData = data;
-    console.log("info del id_documento_valorado: " + JSON.stringify(data));
+    this.documentoValoradoData = data;
     this.editarFormDialog = this.formBuilder.group({
-      nombre: [this.tipoDocumentoValoradoData.nombre, Validators.required],
+      nombre: [this.documentoValoradoData.nombre, Validators.required],
+      tipo_documento_valorado: [this.documentoValoradoData.tipo_documento_valorado, Validators.required],
     })
     this.editarFormDialog.valueChanges.subscribe(() => {
       this.formErrors = this.formValidatorService.handleFormChanges(this.editarFormDialog, this.formErrors, this.validationMessages, this.submitted);
@@ -46,26 +52,36 @@ export class EditarTipoDocumentoValoradoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("");
+    this.listarTipoDocumentoValorado();
+  }
+  listarTipoDocumentoValorado(){
+    this.documentoValoradoService.listarTipoDocumentosValorados().then(data => {
+      if(data.header.exito){
+        this.listadoTipoDocumentoValorado = data.payload;
+      }
+    });
   }
 
-
-  async editarTipoDocumentoValorado(form: any) {
-    console.log("editarTipoDocumentoValorado--->" + JSON.stringify(form));
-    let tipoDocumentoValorado: TipoDocumentoValorado = { id: this.tipoDocumentoValoradoData.id, nombre: form.nombre };
-    if (form.nombre != this.tipoDocumentoValoradoData.nombre){
-      this.tipoDocumentoValoradoService.actualizarDocumentoValorado(tipoDocumentoValorado).then(data=>{
-        this.onNoClick();
+  async editarDocumentoValorado(form: any) {
+    let documentoValorado: DocumentoValorado = {
+      id: this.documentoValoradoData.id, 
+      nombre: form.nombre,
+      id_tipo_documento_valorado:form.tipo_documento_valorado.value,
+    }; 
+    if (form.nombre != this.documentoValoradoData.nombre){
+      this.documentoValoradoService.actualizarDocumentoValorado(documentoValorado).then(data=>{
+        if(data.header.exito){
+          this.onNoClick('CONFIRM_DLG_YES');
+        }else{
+          this.onNoClick('CONFIRM_DLG_NO');
+        }
       })
     }
-    
-
-    
   }
 
 
-  onNoClick(): void {
-    this.dialogRef.close('OK');
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
 }
