@@ -429,6 +429,7 @@ body {
 
 .tablaAprobador {
     max-width: 650px !important;
+    margin-bottom: 25px !important;
     
 }
 
@@ -1591,9 +1592,9 @@ body::-webkit-scrollbar-thumb {
     color: red;
 }
 
-/*.mat-elevation-z8{*/
-/* margin-top: 25px;*/
-/*}*/
+.mat-elevation-z8{
+ margin-bottom: 25px;
+}
 
 /* Bandejas */
 
@@ -2027,6 +2028,15 @@ u {
         background: #04a84e;
     }
 }
+
+.custom_ConfigPlan{
+    mat-dialog-container {
+        padding: 0px;
+        border-radius: 8px !important;
+        min-height: 800px;
+    }
+}
+
 
 .Header_POPUPConfig {
     display: grid;

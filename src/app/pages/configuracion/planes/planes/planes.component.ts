@@ -49,7 +49,7 @@ export class PlanesComponent implements OnInit {
       disableClose: true,
       width: '50%',
       data:element,
-      panelClass: 'custom_Config'
+      panelClass: 'custom_ConfigPlan'
     });
 
     dialogRef2.afterClosed().subscribe(result => {
