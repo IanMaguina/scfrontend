@@ -219,6 +219,7 @@ export class PlanService {
   }
 
   listarAprobadoresporDocumentoValorado(id_plan_documentovalorado:number): Promise<any> {
+    console.log("listadoAprobadorDocumentovalorado-->"+"/api/plan-documento-valorado/"+id_plan_documentovalorado+"/aprobador");
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/plan-documento-valorado/"+id_plan_documentovalorado+"/aprobador").toPromise().then((data) => {

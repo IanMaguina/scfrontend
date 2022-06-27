@@ -1,7 +1,7 @@
-<div class="">
-    <div class="content-table">
+<div class="InformaciónPlanConfig">
+    <div class="">
         <span class="label-info"><mat-icon>info</mat-icon> &nbsp; Para editar el importe dar doble clic en él</span>
-        <table mat-table [dataSource]="listadoImporteMaximo" class="mat-elevation-z8 tabla-sm" >
+        <table mat-table  matTableResponsive [dataSource]="listadoImporteMaximo" class="mat-elevation-z8" >
             <!-- Table estrategias - por sociedad -->
             <!-- Column -->
             
@@ -26,9 +26,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         </div>
-        <br>
-        <mat-divider class="objetoSimple"></mat-divider>
-        <div class="botonera-form">
-            <button mat-raised-button class="boton-principal-light col-xl-2" type="guardarCrucePlanes()" >Guardar</button>
+
+        <div class="BotonInfoPlan">
+            <button mat-raised-button class="boton-principal-light" type="guardarCrucePlanes()" >Guardar</button>
         </div>
         </div>
