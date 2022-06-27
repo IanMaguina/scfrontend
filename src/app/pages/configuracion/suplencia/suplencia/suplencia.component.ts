@@ -97,7 +97,8 @@ export class SuplenciaComponent implements OnInit {
     console.log("al editar usuario: " + JSON.stringify(form));
     let dialogRef = this.matDialog.open(EditarSuplenciaComponent, {
       disableClose: true,
-      data: form
+      data: form,
+      panelClass: 'custom_Config'
     });
 
     dialogRef.afterClosed().subscribe(result => {

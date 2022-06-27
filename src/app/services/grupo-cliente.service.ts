@@ -14,7 +14,7 @@ export class GrupoClienteService {
   listarGrupoCliente(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/grupo-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/grupo-cliente?tipo=G").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -36,7 +36,7 @@ export class GrupoClienteService {
   listarClientes(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/lista-cliente").toPromise().then((data) => {
+        this.resourceService.getResource("/api/grupo-cliente?tipo=L").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

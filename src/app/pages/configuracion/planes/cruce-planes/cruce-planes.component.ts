@@ -24,7 +24,7 @@ export class CrucePlanesComponent implements OnInit {
   async ngOnInit() {
     console.log("ngInit");
     await this.listarDetalleCruce();
-    //await this.listarPlanes();
+    await this.listarPlanes();
     //await this.listarCrucePlanes()
 
   }
@@ -55,7 +55,7 @@ export class CrucePlanesComponent implements OnInit {
         if (item.id !== this.plan.id) {
           let valor: any = {
             id: item.id,
-            nombre: item.tipo_plancredito.nombre,
+            nombre: item.tipo_plan_credito.nombre,
             seleccionado: false
           }
           this.listadoPlanes.push(valor);
