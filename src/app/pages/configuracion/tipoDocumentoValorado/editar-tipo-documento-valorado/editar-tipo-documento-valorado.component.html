@@ -3,8 +3,7 @@
 </div>
 
 <div class="contenidoForm_Config">
-    <form [formGroup]="editarFormDialog" (ngSubmit)="editarTipoDocumentoValorado(editarFormDialog.value)">
-
+    <form [formGroup]="editarFormDialog" (ngSubmit)="editarDocumentoValorado(editarFormDialog.value)">
 
         <div class="Title_POPUPConfig">Nombre del Documento Valorado:</div>
         <mat-form-field appearance="fill">
@@ -16,14 +15,21 @@
                     {{formErrors.nombre}}
                 </mat-error>
             </mat-hint>
-
+        </mat-form-field>
+        <div class="Title_POPUPConfig">Tipo Documento valorado:</div>
+        <mat-form-field appearance="fill">
+            <mat-label>Seleccionar</mat-label>
+            <mat-select formControlName="tipo_documento_valorado" required>
+                <mat-option *ngFor="let tipoDocumentoValorado of listadoTipoDocumentoValorado"
+                    [value]="tipoDocumentoValorado">
+                    {{tipoDocumentoValorado.nombre}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
 
-
         <div class="botonera_PopUPConfig">
-
-            <button mat-raised-button class="color-secundario" type="button" (click)="onNoClick()">Cancelar</button>
-
+            <button mat-raised-button class="color-secundario" type="button"
+                (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button>
             <button mat-raised-button class="boton-principal-light" type="submit"
                 [disabled]="editarFormDialog.invalid">Actualizar</button>
         </div>

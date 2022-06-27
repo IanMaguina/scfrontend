@@ -2030,8 +2030,8 @@ u {
 }
 
 .custom_ConfigPlan {
-    width: 60%;
-    min-width: 50%;
+    width: 54.75%;
+    min-width: 54.75%;
     height: 80%;
     min-height: 80%;
 
@@ -2203,3 +2203,15 @@ u {
     }
 }
 
+.SelectorYRespuesta{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 240px));
+    .Respuesta{
+        padding-top: 10px;
+    }
+}
+
+.BotonInfoPlan{
+    justify-self: end;
+    align-self: end;
+}
