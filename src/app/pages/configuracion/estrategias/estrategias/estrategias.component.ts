@@ -6,6 +6,7 @@ import { CrearEstrategiaSociedadComponent } from '../crear-estrategia-sociedad/c
 import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad/editar-estrategia-sociedad.component';
 import { RolUsuario } from 'src/app/models/rol-usuario.interface';
 import { RolUsuarioService } from '@services/rol-usuario.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -44,17 +45,36 @@ export class EstrategiasComponent implements OnInit {
 
   async toggleEstrategiaRolUsuario(element:any) {
     console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
-    await this.rolUsuarioService.editarEstrategiaRolUsuario(element).then( (data) =>{
-      if(data.header.exito){
-        this.enviarMensajeSnack('Se modificó la actividad de la estrategia');
-        this.listarEstrategiaRolUsuario();
+    let mensaje: string;
+
+    if (element.activo) {
+      mensaje = "¿Desea habilitar la estrategia?";
+    } else {
+      mensaje = "¿Desea deshabilitar la estrategia?";
+    }
+    element.mensaje = mensaje;
+
+    const dialogRef2 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: element,
+    });
+    dialogRef2.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        let rolUsuario: RolUsuario = element;
+        this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then( (data) =>{
+          if(data.header.exito){
+            this.enviarMensajeSnack('Se modificó la actividad de la estrategia');
+            this.listarEstrategiaRolUsuario();
+          }else{
+            this.listarEstrategiaRolUsuario();
+          }
+        });
       }else{
         this.listarEstrategiaRolUsuario();
-
       }
-    });
-
-  }
+  });
+}
 
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {

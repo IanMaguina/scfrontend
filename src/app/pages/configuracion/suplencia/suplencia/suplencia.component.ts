@@ -104,11 +104,16 @@ export class SuplenciaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result==='CONFIRM_DLG_YES'){
         this.enviarMensajeSnack("Se actualizó la suplencia correctamente");
+        this.listarSuplencias();
+      }else{
+        this.listarSuplencias();
       }
-      this.listarSuplencias();
     });
 
   }
+
+
+  
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
