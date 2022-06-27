@@ -20,6 +20,8 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   ];
   ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ROL_SOLICITANTE = GlobalSettings.ROL_SOLICITANTE;
+  usuario_sociedad_codigo_sap:string="";
+  
   constructor(
     public dialogRef: MatDialogRef<GruposCoincidentesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,6 +29,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   ) {
     this.nombre = data.nombreGrupo;
     this.rucIntegrante = data.rucGrupo;
+    this.usuario_sociedad_codigo_sap=data.usuario_sociedad_codigo_sap
   }
 
   ngOnInit() {

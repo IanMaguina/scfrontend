@@ -102,6 +102,7 @@ export class SolicitudService {
   listarConsorcioxFiltros(filtros: any): Promise<any> {
     let numero_documento = null;
     let cliente_codigo_sap = null;
+    let sociedad_codigo_sap=null;
     let query = "";
     if (filtros['numero_documento']) {
       numero_documento = filtros['numero_documento'];
@@ -112,10 +113,21 @@ export class SolicitudService {
       cliente_codigo_sap = filtros['cliente_codigo_sap'];
       query = query != "" ? "&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
     }
-    console.log("link-->" + "/api/cliente-agrupacion/buscar-consorcio?" + query);
+
+    if (filtros['sociedad_codigo_sap']) {
+      sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
+      query = query != "" ? "&sociedad_codigo_sap=" + sociedad_codigo_sap : "sociedad_codigo_sap=" + sociedad_codigo_sap;
+    }
+    
+    let params = new HttpParams()
+    .set('numero_documento',filtros.numero_documento)
+    .set('sociedad_codigo_sap', filtros.sociedad_codigo_sap)
+    .set((filtros.cliente_codigo_sap?'cliente_codigo_sap':''), (filtros.cliente_codigo_sap?filtros.cliente_codigo_sap:''));
+
+    console.log("link-->" + "/api/cliente-agrupacion/buscar-consorcio?" + params);
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcio?" + query).toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcio?" + params).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
