@@ -433,7 +433,7 @@ body {
 
 }
 
-.tablaCrucePlan{
+.tablaCrucePlan {
     max-width: 500px !important;
     margin-bottom: 25px !important;
 }
@@ -2035,11 +2035,11 @@ u {
 }
 
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
     .custom_ConfigPlan {
         width: 80% !important;
         min-width: 80% !important;
-}
+    }
 }
 
 
@@ -2167,16 +2167,17 @@ u {
 
 .FormPlanConfig {
     width: 100%;
+
     .mat-tab-label-active {
         width: 300px !important;
         background-color: #05C65D !important;
         border-radius: 0px 0px 0px 0px;
     }
-    
+
     .mat-tab-group {
         padding-top: 20px;
     }
-    
+
     .mat-tab-label {
         width: 250px;
         background-color: #959595;
@@ -2185,7 +2186,8 @@ u {
         height: 35px !important;
         font-size: 15px;
     }
-    .mat-tab-group{
+
+    .mat-tab-group {
         padding-top: 0px;
     }
 }
@@ -2210,21 +2212,23 @@ u {
 .InformaciónPlanConfig {
     display: grid;
     padding: 24px;
-    .InformaciónConfig{
+
+    .InformaciónConfig {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 480px));
     }
 }
 
-.SelectorYRespuesta{
+.SelectorYRespuesta {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 240px));
-    .Respuesta{
+
+    .Respuesta {
         padding-top: 10px;
     }
 }
 
-.BotonInfoPlan{
+.BotonInfoPlan {
     padding-top: 24px;
     padding-left: 24px;
     justify-self: end;
@@ -2234,12 +2238,40 @@ u {
 
 
 /* Pop Up Shared*/
-.SuplenciaPopUP{
-}
-.DialogConfig{
+.SuplenciaPopUP {}
+
+.DialogConfig {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
 }
 
 
+.FlujoDeAprob_PopUP {
+    .Asignar {
+        padding: 20px;
+    }
+
+    .boton_Flujo {
+        display: flex;
+        padding-top: 20px;
+        justify-content: flex-end;
+    }
+
+    .UsuarioAsignar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-bottom: 24px;
+        .UsuarioAsignarInput{
+            padding-bottom: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    .UsuarioAsignarBoton {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+}

@@ -1,49 +1,44 @@
-<div class="">
-    <div class="title-add-element color-title">
-        Asignar Aprobadores
-
+<div class="FlujoDeAprob_PopUP">
+    <div class="Header_POPUPConfig">
+        <div class="titledialog_Config">
+            Asignar Aprobadores
+        </div>
     </div>
-    <br>
-    <div class="contenidoForm">
+    <div class="Asignar">
         <form [formGroup]="aprobadorForm" (ngSubmit)="asignarAprobador(aprobadorForm.value)">
-            <div class="objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Usuario</mat-label>
-                        <input type="text" matInput placeholder="Usuario" formControlName="usuario"
-                            [matAutocomplete]="auto" required>
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                            <mat-option *ngFor="let option of filteredUsuarioAprobador | async" [value]="option">
-                                {{option.nombre}}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </div>
+            <div class="Title_POPUPConfig">Usuario:</div>
+            <div class="UsuarioAsignar">
+                <mat-form-field class="UsuarioAsignarInput" appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto"
+                        required>
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredUsuarioAprobador | async" [value]="option">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
 
-
-                <div class="objeto col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
+                <div class="UsuarioAsignarBoton">
                     <button mat-raised-button class="boton-principal-light" type="submit"
                         [disabled]="aprobadorForm.invalid">Agregar</button>
                 </div>
             </div>
         </form>
-    </div>
-    <br>
 
-    <div class="content-table col-xs-12 col-s-8 col-m-8 col-l-6 col-xl-6">
-        <br>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of listadoAprobadoresPlan" cdkDrag>
-                <div class="example-custom-placeholder" *cdkDragPlaceholder>
+        <div class="">
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of listadoAprobadoresPlan" cdkDrag>
+                    <div class="example-custom-placeholder" *cdkDragPlaceholder>
+                    </div>
+                    <div>{{item.orden}}-{{item.usuario.nombre}}</div>
                 </div>
-                <div>{{item.orden}}-{{item.usuario.nombre}}</div>
             </div>
         </div>
-        <br>
-    </div>
-    <br>
-    <mat-divider></mat-divider>
-    <div class="botonera objeto col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-        <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
+
+        <mat-divider class="divisor"></mat-divider>
+        <div class="boton_Flujo">
+            <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
+        </div>
     </div>
 </div>

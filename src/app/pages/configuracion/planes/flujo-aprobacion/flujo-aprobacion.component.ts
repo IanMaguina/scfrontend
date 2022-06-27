@@ -62,8 +62,9 @@ export class FlujoAprobacionComponent implements OnInit {
   editarAprobadores(element: any) {
     const dialogRef2 = this.matDialog.open(AsignarAprobadoresComponent, {
       disableClose: true,
-      width: '60%',
+      width: '',
       data: element.id_plan_documentovalorado,
+      panelClass: 'custom_Config'
     });
 
     dialogRef2.afterClosed().subscribe(result => {
