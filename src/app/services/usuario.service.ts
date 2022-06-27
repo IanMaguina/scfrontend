@@ -32,6 +32,27 @@ export class UsuarioService {
       }
     );
   }
+  listarUsuariosTodos(): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/usuario/listar-todos").toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay usuarios encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
 
   listarUsuarioPorFiltros(filtros: any): Promise<any> {
 

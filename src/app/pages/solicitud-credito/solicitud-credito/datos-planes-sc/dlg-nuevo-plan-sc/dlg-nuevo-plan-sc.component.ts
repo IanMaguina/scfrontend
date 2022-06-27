@@ -11,7 +11,7 @@ import { TipoMonedaService } from 'src/app/services/tipo-moneda.service';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SolicitudPlanDocumentoValoradoDTO } from 'src/app/dto/solicitud-plan-documento-valorado.dto';
 
-import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-condicion-pago/crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
+import { CrearSolicitudCondicionPagoComponent } from 'src/app/pages/solicitud-condicion-pago/pages/crear-solicitud-condicion-pago/crear-solicitud-condicion-pago.component';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatTable } from '@angular/material/table';

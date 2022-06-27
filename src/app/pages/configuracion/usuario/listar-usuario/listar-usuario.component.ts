@@ -28,7 +28,7 @@ export class ListarUsuarioComponent implements OnInit {
 
 
   async listarUsuarios() {
-    this.usuarioService.listarUsuarios().then(data => {
+    this.usuarioService.listarUsuariosTodos().then(data => {
       this.listadoUsuarios = data.payload;
       console.log("usuarios listados: " + JSON.stringify(data.payload));
 

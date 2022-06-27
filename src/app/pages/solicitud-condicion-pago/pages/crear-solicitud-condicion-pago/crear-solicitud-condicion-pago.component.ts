@@ -7,7 +7,7 @@ import { switchMap, tap } from 'rxjs/operators';
 
 import { MatTable } from '@angular/material/table';
 
-import { client, ClientSap, CondicionPago } from '../interfaces';
+import { client, ClientSap, CondicionPago } from '../../interfaces';
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { SnackBarService } from '@services/snack-bar.service';
@@ -47,8 +47,8 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
   private initForm() {
     this.formTemplate = this.formBuilder.group({
-      sociedad: ['', [Validators.required]],
-      codigo_sap: ['', [Validators.required]],
+      sociedad: ['6012', [Validators.required]],
+      codigo_sap: ['50014506', [Validators.required]],
       linea_producto: [{ value: '', disabled: true }],
       lineaProductoTable: this.formBuilder.array([]),
       observacion: ['']
