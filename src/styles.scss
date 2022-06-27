@@ -2275,3 +2275,22 @@ u {
         align-items: center;
     }
 }
+
+.AsignarIntegrantesGrupo{
+    display: grid;
+    padding: 24px;
+    .BuscadorAsignarIntegrantesGrupo{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .botonera{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: flex-end;
+    }
+}
