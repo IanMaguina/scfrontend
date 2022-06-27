@@ -42,9 +42,10 @@ export class FlujoAprobacionComponent implements OnInit {
             id_plan_documentovalorado = id_plan_documentovalorado;
             console.log("usuarios-->" + usuarios);
           })
+          console.log("tipo_flujo-->"+JSON.stringify(item));
           let tipoFlujo = {
-            id: item.tipo_documentovalorado.id,
-            documentovalorado: item.tipo_documentovalorado.nombre,
+            id: item.documento_valorado.id,
+            documentovalorado: item.documento_valorado.nombre,
             aprobadores: usuarios,
             id_plan_documentovalorado: id_plan_documentovalorado,
             listado_aprobadores: item.aprobadores

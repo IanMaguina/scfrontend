@@ -142,7 +142,7 @@ export class DatosClienteScComponent implements OnInit {
     data.tipo_cliente = this.ClientSelectorControl.value;
     console.log('openBuscarCoincidentes--->' + JSON.stringify(data));
     //data.tipo_cliente = this.cliente_pre_seleccionado;
-    switch (data.tipo_cliente) { 
+    switch (data.tipo_cliente) {
       case 1:
         console.log("Grupo Empresarial");
         if ((data.nombreGrupo === "" && data.rucGrupo === "")) {
@@ -157,7 +157,7 @@ export class DatosClienteScComponent implements OnInit {
         dialogRef1.afterClosed().subscribe(async result => {
           console.log("return Grupo dialogs-->" + JSON.stringify(result));
           if (result.resultado === 'CONFIRM_DLG_YES') {
-            this.cliente_seleccionado=data.tipo_cliente;
+            this.cliente_seleccionado = data.tipo_cliente;
             if (this.id_solicitud_editar === null) {
               this.crearSolicitud(result.grupo).then(async (id) => {
                 this.id_solicitud_editar = id;
@@ -174,32 +174,27 @@ export class DatosClienteScComponent implements OnInit {
         });
         break;
       case 2:
+        this.cliente_seleccionado = data.tipo_cliente;
         console.log("CONSORCIO");
         if (data.clienteCodigoSapConsorcio === "" && data.rucConsorcio === "") {
           break;
         }
-        const dialogRef2 = this.matDialog.open(ConsorciosCoincidentesDialogComponent, {
-          disableClose: true,
-          //width: "500px",
-          data: data
-        });
-        dialogRef2.afterClosed().subscribe(async result => {
-          if (result.resultado === 'CONFIRM_DLG_YES') {
-            this.cliente_seleccionado=data.tipo_cliente;
-            if (this.id_solicitud_editar === null) {
-              this.crearSolicitud(result.grupo).then(async (id) => {
-                this.id_solicitud_editar = id;
-                this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
-                //this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
-              });
-            } else {
-              this.actualizarSolicitud(result.grupo).then(async (id) => {
-                this.id_solicitud_editar = id;
-                this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
-              });
-            }
+        let filtroConsorcio = {}
+        if (data.rucConsorcio) {
+          filtroConsorcio = {
+            numero_documento: data.rucConsorcio,
+            sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
           }
-        });
+          this.listarConsorcioxFiltros(filtroConsorcio);
+        }
+        else {
+          filtroConsorcio = {
+            cliente_codigo_sap: data.clienteCodigoSapConsorcio,
+            sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
+          }
+          this.listarConsorcioxFiltros(filtroConsorcio);
+        }
+
         break;
       case 3:
         if ((data.clienteCodigoSapEmpresa === "" && data.rucEmpresa === "")) {
@@ -212,7 +207,7 @@ export class DatosClienteScComponent implements OnInit {
           sociedad_codigo_sap: this.userInfo.sociedad_codigo_sap
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
-          this.cliente_seleccionado=data.tipo_cliente;
+          this.cliente_seleccionado = data.tipo_cliente;
           if (!result.payload.warning) {
             if (this.id_solicitud_editar === null) {
               console.log("validar empresa sociedad: " + JSON.stringify(result.payload));
@@ -226,10 +221,8 @@ export class DatosClienteScComponent implements OnInit {
               this.actualizarSolicitud(result.payload).then(async (id) => {
                 this.id_solicitud_editar = id;
                 this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
-                //this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
               });
             }
-
           } else {
             this.openAlerta(result.payload.warning.mensaje);
           }
@@ -243,6 +236,29 @@ export class DatosClienteScComponent implements OnInit {
     this.firstFormGroup.get(nombre).setValue('');
   }
 
+  async listarConsorcioxFiltros(filtro: any) {
+    this.solicitudService.listarConsorcioxFiltros(filtro).then((result) => {
+      if (!result.payload.warning) {
+        if (this.id_solicitud_editar === null) {
+          this.crearSolicitud(result.payload).then(async (id) => {
+            this.id_solicitud_editar = id;
+            this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
+            console.log("lohizotodobien-->")
+            //this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+          });
+        } else {
+          this.actualizarSolicitud(result.grupo).then(async (id) => {
+            this.id_solicitud_editar = id;
+            this.listarConsorcioxSolicitud({ id_solicitud: this.id_solicitud_editar });
+          });
+        }
+      } else {
+        this.openAlerta(result.payload.warning.mensaje);
+      }
+
+
+    })
+  }
 
   async crearSolicitud(cliente: any): Promise<any> {
     console.log("para crear solicitud-->" + JSON.stringify(cliente));
