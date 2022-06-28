@@ -39,7 +39,7 @@ export class FormularioBandejaSolicitudCondicionPagoComponent implements OnInit 
     let params = new HttpParams()
 
     if (ruc) {
-      params = params.set('numero_documento', ruc);
+      params = params.set('numero_documento', ruc.trim());
     }
 
     if (fecha) {

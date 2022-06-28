@@ -29,7 +29,7 @@ export class CondicionPagoService {
 
     //const { id, sociedad: { id_rol } } = this.autenticacionService.getUserInfo();
 
-    const url: string = `${this.api}/api/condicion-pago-cliente?id_rol=${10}&id_usuario=${30}`;
+    const url: string = `${this.api}/api/condicion-pago-cliente?id_rol=${10}&id_usuario=${29}`;
     return this.http.get(url, { params }).pipe(pluck('payload'));
   }
 
