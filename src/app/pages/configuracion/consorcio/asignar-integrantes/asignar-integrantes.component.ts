@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
@@ -10,6 +11,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SociedadService } from 'src/app/services/sociedad.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-asignar-integrantes',
@@ -64,7 +66,7 @@ export class AsignarIntegrantesComponent implements OnInit {
 
   //poner el tipado correcto => es data dummy
   listadoSociedades: Sociedad[] = [];
-   
+
 
   listadoIntegrantes: AgrupacionClienteSolicitud[] = [];
 
@@ -73,14 +75,16 @@ export class AsignarIntegrantesComponent implements OnInit {
     'grupo_cliente',
     'razonsocial',
     'ruc',
-    'canal', 
-    'participacion', 
-    'estado_cliente_agrupacion', 
+    'canal',
+    'participacion',
+    'estado_cliente_agrupacion',
     'id',
   ];
-
+  userInfo: any;
   id_cliente_agrupacion: number = null;
-  id_usuario: number = 12;
+  id_usuario: number;
+  isAdmin: boolean = false;
+  PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesComponent>,
     /* poner el tipo de la data que esta viniendo, si es necesario */
@@ -88,10 +92,18 @@ export class AsignarIntegrantesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private sociedadService: SociedadService,
+    private autenticacionService: AutenticacionService,
     private empresaService: EmpresaService,
     private clienteEmpresaService: ClienteEmpresaService,
     private matDialog: MatDialog,
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
+    this.id_usuario = this.userInfo.id;
+    if(this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR){
+      this.isAdmin = true;
+    }else{
+      this.isAdmin = false;
+    }
     this.consorcioData = data;
     console.log("trayendo del listado--->" + JSON.stringify(this.consorcioData));
     this.id_cliente_agrupacion = this.consorcioData.id;
@@ -135,9 +147,9 @@ export class AsignarIntegrantesComponent implements OnInit {
     })
 
   }
-  async callWarningDialog(mensaje:string){
+  async callWarningDialog(mensaje: string) {
 
-     this.matDialog.open(ErrorDialogComponent, {
+    this.matDialog.open(ErrorDialogComponent, {
       disableClose: true,
       width: "400px",
       data: mensaje,
@@ -195,10 +207,10 @@ export class AsignarIntegrantesComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa,this.id_usuario).then(data=>{
-         
+        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then(data => {
+
           this.listarClienteEmpresa();
-          
+
         });
       }
     });
@@ -218,13 +230,13 @@ export class AsignarIntegrantesComponent implements OnInit {
     console.log("");
   }
 
-  AprobarConsorcio(){
+  AprobarConsorcio() {
     console.log("AprobarConsorcio");
   }
-  RechazarConsorcio(){
+  RechazarConsorcio() {
     console.log("RechazarConsorcio");
   }
-  limpiarCampos(){
+  limpiarCampos() {
     this.asignarEmpresaFormDialog.reset();
   }
 

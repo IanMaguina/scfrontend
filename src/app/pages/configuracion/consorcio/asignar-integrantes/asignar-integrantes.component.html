@@ -177,8 +177,8 @@
         <div class="botonera">
             <button mat-raised-button class="objeto boton-secundario" type="button"
                 (click)="onNoClick()">Cerrar</button>
-            <button mat-flat-button class="boton-warn" (click)="RechazarConsorcio()">Rechazar</button>
-            <button mat-flat-button class="boton-principal-light" (click)="AprobarConsorcio()">Aprobar</button>
+            <button mat-flat-button class="boton-warn" (click)="RechazarConsorcio()" *ngIf="isAdmin">Rechazar</button>
+            <button mat-flat-button class="boton-principal-light" (click)="AprobarConsorcio()" *ngIf="isAdmin">Aprobar</button>
         </div>
     </div>
 </div>
