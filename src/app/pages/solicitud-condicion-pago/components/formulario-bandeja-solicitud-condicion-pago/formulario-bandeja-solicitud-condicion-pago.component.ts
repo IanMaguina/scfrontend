@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CondicionPagoService } from '../../../../services/condicion-pago.service';
 import { DatePipe } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
+
+import { CondicionPagoService } from '@services/condicion-pago.service';
 
 @Component({
   selector: 'app-formulario-bandeja-solicitud-condicion-pago',

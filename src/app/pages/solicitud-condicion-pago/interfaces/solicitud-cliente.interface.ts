@@ -14,6 +14,8 @@ export interface client{
     ruc:string;
     razon_social:string;
     grupo_cliente:string;
+    nombre_grupo_cliente: string;
+    nombre_sociedad: string;
     canal_comercial:string;
     zonal:string;
 }

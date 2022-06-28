@@ -76,6 +76,8 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
           ruc: client.numero_documento,
           razon_social: client.razon_social,
           grupo_cliente: client.grupo_cliente_codigo_sap,
+          nombre_grupo_cliente: client.nombre_grupo_cliente,
+          nombre_sociedad: client.nombre_sociedad,
           canal_comercial: '',
           zonal: client.zonal_codigo_sap
         }

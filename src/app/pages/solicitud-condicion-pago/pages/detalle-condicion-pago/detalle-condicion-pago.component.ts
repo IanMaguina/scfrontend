@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
-import { client, ClientSap, CondicionPago } from '../../interfaces';
+import { client, ClientSap } from '../../interfaces';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { CondicionPagoService } from '@services/condicion-pago.service';
@@ -22,7 +22,6 @@ export class DetalleCondicionPagoComponent implements OnInit {
   public formTemplate: FormGroup;
   public dataSource!: MatTableDataSource<any>;
   public society$: Observable<ClientSap[]>;
-  public conditionPayment$: Observable<CondicionPago[]>;
   public condicionPagoDetalle$: Observable<any>;
   public client: client = {} as client;
   public displayedColumns: string[] = ['productos', 'condicion_pago_regular', 'condicion_pago_actual', 'nueva_condicion_pago', 'fecha_limite'];
@@ -41,7 +40,6 @@ export class DetalleCondicionPagoComponent implements OnInit {
   ngOnInit(): void {
     this.getRole();
     this.initForm();
-    this.getSociety();
     this.getSolicitudCondicionPagoDetalle();
 
   }
@@ -68,7 +66,6 @@ export class DetalleCondicionPagoComponent implements OnInit {
             observacion: request.observacion
           })
         }),
-        switchMap(({ sociedad_codigo_sap, grupo_cliente_codigo_sap }) => this.getConditionPayment(sociedad_codigo_sap, grupo_cliente_codigo_sap)),
         tap((_) => this.getClientSap()),
         switchMap((_) => this.getCondicionPagoClienteDetalleSolicitud()))
       .subscribe();
@@ -94,23 +91,14 @@ export class DetalleCondicionPagoComponent implements OnInit {
           ruc: client.numero_documento,
           razon_social: client.razon_social,
           grupo_cliente: client.grupo_cliente_codigo_sap,
+          nombre_grupo_cliente: client.nombre_grupo_cliente,
+          nombre_sociedad: client.nombre_sociedad,
           canal_comercial: '',
           zonal: client.zonal_codigo_sap
         }
 
       })
     ).subscribe();
-  }
-
-  private getConditionPayment(sociedad: string, grupo_cliente: string) {
-
-    const params = new HttpParams()
-      .set('sociedad_codigo_sap', sociedad)
-      .set('grupo_cliente_codigo_sap', grupo_cliente);
-
-    return this.condicionPagoService.getConditionPayment(params).pipe(
-      tap((request) => this.conditionPayment$ = of(request))
-    )
   }
 
   private getCondicionPagoClienteDetalleSolicitud() {
@@ -123,10 +111,6 @@ export class DetalleCondicionPagoComponent implements OnInit {
         this.dataSource = new MatTableDataSource(lineaProductoSolicitud);
       })
     )
-  }
-
-  private getSociety() {
-    this.society$ = this.condicionPagoService.getSociety();
   }
 
   private getRole() {
