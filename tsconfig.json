@@ -4,8 +4,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths":{
-      "@services/*": ["src/app/services/*"],
+      "@services/*": ["src/app/services/*"]
     },
+
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -19,8 +20,9 @@
       "es2018",
       "dom",
       "DOM.Iterable"
-    ]
-    
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -2,6 +2,11 @@
     <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8">
         <caption title="Tabla bandeja de pendientes de condicion de pago"></caption>
 
+        <ng-container matColumnDef="indice">
+            <th mat-header-cell *matHeaderCellDef>N°</th>
+            <td mat-cell *matCellDef="let element; let i = index;">{{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}</td>
+          </ng-container>
+
         <ng-container matColumnDef="solicitud">
             <th mat-header-cell *matHeaderCellDef> Solicitud</th>
             <td mat-cell *matCellDef="let element"><u> {{
@@ -33,7 +38,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onDetalleCondicionPago(row.condicion_pago.id)"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons></mat-paginator>
 </div>
