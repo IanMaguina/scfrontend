@@ -169,7 +169,8 @@ export class AsignarIntegrantesComponent implements OnInit {
         let clienteEmpresa: ClienteEmpresa = {
           "id_cliente_agrupacion": this.id_cliente_agrupacion,
           "id_empresa": data.payload[0].id,
-          "id_usuario_creacion": this.id_usuario
+          "id_usuario_creacion": this.id_usuario,
+          "participacion": form.participacion
         }
         let mensaje: string = "";
         if (data.payload.tiene_cliente) {

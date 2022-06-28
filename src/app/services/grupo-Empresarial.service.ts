@@ -89,7 +89,7 @@ export class GrupoEmpresarialService {
       });
   }
 
-  eliminarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+/*   eliminarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
     console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
@@ -102,7 +102,7 @@ export class GrupoEmpresarialService {
         });
       });
   }
-
+ */
 
   listarSolicitudesGruposPendientes(): Promise<any> {
     return new Promise(

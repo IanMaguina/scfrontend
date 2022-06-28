@@ -30,6 +30,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatTableResponsiveModule } from 'src/app/shared/tables/mat-table-responsive.module';
+
 /* componentes */
 
 import { CrearSolicitudCreditoComponent } from './solicitud-credito/crear-solicitud-credito/crear-solicitud-credito.component';
@@ -64,6 +65,11 @@ import { DlgDetalleSolicitudConsorcioComponent } from './solicitud-credito/dlg-d
 import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
 import { EvaluarCreditoComponent } from './evaluar-credito/evaluar-credito.component';
 import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evaluacion-ec/sustento-evaluacion-ec.component';
+
+import { FacturacionEcComponent } from './evaluar-credito/sustento-evaluacion-ec/facturacion-ec/facturacion-ec.component';
+import { ComportamientoPagoEcComponent } from './evaluar-credito/sustento-evaluacion-ec/comportamiento-pago-ec/comportamiento-pago-ec.component';
+import { IndicadoresFinancierosEcComponent } from './evaluar-credito/sustento-evaluacion-ec/indicadores-financieros-ec/indicadores-financieros-ec.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -101,6 +107,11 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     DlgDetalleSolicitudGrupoComponent,
     EvaluarCreditoComponent,
     SustentoEvaluacionEcComponent,
+
+
+    FacturacionEcComponent,
+    ComportamientoPagoEcComponent,
+    IndicadoresFinancierosEcComponent
   ],
   imports: [
     RouterModule,
@@ -131,7 +142,8 @@ import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evalua
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,
-    MatTableResponsiveModule
+    MatTableResponsiveModule,
+    NgxChartsModule
   ],
   exports: [
     CdkStepperModule,
