@@ -648,6 +648,7 @@ export class SolicitudService {
     
     let id_estado = null;
     let id_usuario = null;
+    let numero_documento = null;
     let query = "";
 
     if (filtros['estado']) {
@@ -658,7 +659,14 @@ export class SolicitudService {
      if (filtros['id_usuario']) {
       id_usuario = filtros['id_usuario'];
       query = query != "" ? query+"&id_usuario=" + id_usuario: "id_usuario=" + id_usuario;
-    } 
+    }
+     if (filtros['numero_documento']) {
+      numero_documento = filtros['numero_documento'];
+      query = query != "" ? query+"&numero_documento=" + numero_documento: "numero_documento=" + numero_documento;
+    }
+
+
+
     console.log(query+"--bandeja-->"+JSON.stringify(filtros));
     return new Promise(
       (resolve, reject) => {
