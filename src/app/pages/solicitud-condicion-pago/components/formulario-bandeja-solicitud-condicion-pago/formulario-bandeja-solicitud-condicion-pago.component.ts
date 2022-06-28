@@ -33,10 +33,17 @@ export class FormularioBandejaSolicitudCondicionPagoComponent implements OnInit 
   public onBuscarCondicionPago() {
 
     const { ruc, solicitud, fecha } = this.formularioBandejaSolicitudCondicionPago.value;
+    const formatDate = this.datePipe.transform(fecha,'yyyy-MM-dd');
 
-    const params = new HttpParams()
-      .set('numero_documento', ruc)
-      .set('fecha_limite', fecha);
+    let params = new HttpParams()
+
+    if (ruc) {
+      params = params.set('numero_documento', ruc);
+    }
+
+    if (fecha) {
+      params = params.set('fecha_limite', formatDate);
+    }
 
     this.formularioBandejaSolicitudCondicionPago.reset();
 

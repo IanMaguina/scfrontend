@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { takeUntil, switchMap, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { CondicionPagoService } from '@services/condicion-pago.service';
 
-import { CondicionPagoCliente } from 'src/app/models/condicion_pago_cliente.interface';
-import { Estado } from 'src/app/models/estado.interface';
-import { Subject } from 'rxjs';
+//import { CondicionPagoCliente } from 'src/app/models/condicion_pago_cliente.interface';
 
 @Component({
   selector: 'app-tabla-bandeja-solicitud-condicion-pago',
@@ -16,12 +17,14 @@ import { Subject } from 'rxjs';
 })
 export class TablaBandejaSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
 
-  public displayedColumns = ['solicitud', 'ruc', 'razon_social', 'grupo_cliente', 'fecha_solicitud'];
+  public displayedColumns = ['indice', 'solicitud', 'ruc', 'razon_social', 'grupo_cliente', 'fecha_solicitud'];
   public dataSource!: MatTableDataSource<any>;
   private destroy$ = new Subject<unknown>();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  constructor(private readonly condicionPagoService: CondicionPagoService) { }
+  constructor(
+    private router: Router,
+    private readonly condicionPagoService: CondicionPagoService) { }
 
   ngOnInit(): void {
     this.getCondicionPagoCliente();
@@ -33,8 +36,8 @@ export class TablaBandejaSolicitudCondicionPagoComponent implements OnInit, OnDe
     this.destroy$.complete();
   }
 
-  private getCondicionPagoCliente() {
-    this.condicionPagoService.getCondicionPagoCliente().pipe(
+  private getCondicionPagoCliente(params?: HttpParams) {
+    this.condicionPagoService.getCondicionPagoCliente(params).pipe(
       tap((request) => {
         const solicitudes = request.map((data) => ({ ...data }));
         this.dataSource = new MatTableDataSource(solicitudes);
@@ -45,8 +48,13 @@ export class TablaBandejaSolicitudCondicionPagoComponent implements OnInit, OnDe
 
   private eventBuscarCondicionPago() {
     this.condicionPagoService.eventBuscarCondicionPago$.pipe(
-      switchMap((request) => this.condicionPagoService.getCondicionPagoCliente(request)),
+      tap((request) => this.getCondicionPagoCliente(request)),
       takeUntil(this.destroy$)).subscribe();
   }
+
+  public onDetalleCondicionPago(id: number) {
+    this.router.navigate(["app/solicitudcondicionpago/detalle-condicion-pago", id]);
+  }
+
 
 }

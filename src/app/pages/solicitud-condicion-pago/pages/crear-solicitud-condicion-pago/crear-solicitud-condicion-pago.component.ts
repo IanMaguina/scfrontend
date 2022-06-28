@@ -47,8 +47,8 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
   private initForm() {
     this.formTemplate = this.formBuilder.group({
-      sociedad: ['6012', [Validators.required]],
-      codigo_sap: ['50014506', [Validators.required]],
+      sociedad: ['', [Validators.required]],
+      codigo_sap: ['', [Validators.required]],
       linea_producto: [{ value: '', disabled: true }],
       lineaProductoTable: this.formBuilder.array([]),
       observacion: ['']

@@ -38,10 +38,12 @@ import { CrearSolicitudCondicionPagoComponent } from './pages/crear-solicitud-co
 import { ListarSolicitudCondicionPagoComponent } from './pages/listar-solicitud-condicion-pago/listar-solicitud-condicion-pago.component';
 import { BandejaSolicitudCondicionPagoComponent } from './pages/bandeja-solicitud-condicion-pago/bandeja-solicitud-condicion-pago.component';
 import { TablaBandejaSolicitudCondicionPagoComponent } from './components/tabla-bandeja-solicitud-condicion-pago/tabla-bandeja-solicitud-condicion-pago.component';
+import { FormularioBandejaSolicitudCondicionPagoComponent } from './components/formulario-bandeja-solicitud-condicion-pago/formulario-bandeja-solicitud-condicion-pago.component';
+import { DetalleCondicionPagoComponent } from './pages/detalle-condicion-pago/detalle-condicion-pago.component';
 
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { SnackBarService } from '@services/snack-bar.service';
-import { FormularioBandejaSolicitudCondicionPagoComponent } from './components/formulario-bandeja-solicitud-condicion-pago/formulario-bandeja-solicitud-condicion-pago.component';
+
 
 registerLocaleData(localeEs, 'es-PE');
 
@@ -52,7 +54,8 @@ registerLocaleData(localeEs, 'es-PE');
     ListarSolicitudCondicionPagoComponent,
     BandejaSolicitudCondicionPagoComponent,
     TablaBandejaSolicitudCondicionPagoComponent,
-    FormularioBandejaSolicitudCondicionPagoComponent
+    FormularioBandejaSolicitudCondicionPagoComponent,
+    DetalleCondicionPagoComponent
   ],
   imports: [
     CommonModule,
@@ -90,6 +93,7 @@ registerLocaleData(localeEs, 'es-PE');
     SolicitudCondicionPagoComponent
   ],
   providers: [
+  
     CondicionPagoService,
     FormGroupDirective,
     SnackBarService,
