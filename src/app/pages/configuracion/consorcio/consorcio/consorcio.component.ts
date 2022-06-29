@@ -24,7 +24,7 @@ export class ConsorcioComponent implements OnInit {
      'estado':'activo'
    }
  ]; */
-  displayedColumns: string[] = ['razonsocial', 'pendiente', 'solicitante', 'ruc', 'estado', 'id'];
+  displayedColumns: string[] = ['razonsocial', 'pendiente', 'solicitante', 'numero_documento', 'estado', 'id'];
 
 
   constructor(
