@@ -5,6 +5,7 @@ import { catchError, pluck } from 'rxjs/operators';
 import { ClientSap, CondicionPago } from '../pages/solicitud-condicion-pago/interfaces';
 
 import config from 'src/assets/config.json';
+import { AutenticacionService } from '@services/autenticacion.service';
 
 @Injectable()
 
@@ -14,7 +15,10 @@ export class CondicionPagoService {
   private _eventBuscarCondicionPagoSubject = new ReplaySubject<HttpParams>(1);
   public eventBuscarCondicionPago$ = this._eventBuscarCondicionPagoSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private readonly autenticacionService: AutenticacionService
+  ) { }
 
   public getSociety(): Observable<any> {
     const url: string = `${this.api}/api/sociedad`;
@@ -22,7 +26,10 @@ export class CondicionPagoService {
   }
 
   public getCondicionPagoCliente(params?: HttpParams): Observable<any> {
-    const url: string = `${this.api}/api/condicion-pago-cliente`;
+
+    //const { id, sociedad: { id_rol } } = this.autenticacionService.getUserInfo();
+
+    const url: string = `${this.api}/api/condicion-pago-cliente?id_rol=${10}&id_usuario=${29}`;
     return this.http.get(url, { params }).pipe(pluck('payload'));
   }
 
@@ -60,7 +67,7 @@ export class CondicionPagoService {
       catchError((_) => of(false)));
   }
 
-  public approveConditionPaymentClient(id_solicitud_pago:number, params: Object) {
+  public approveConditionPaymentClient(id_solicitud_pago: number, params: Object) {
     const url: string = `${this.api}/api/condicion-pago-cliente/${id_solicitud_pago}/aprobar`;
     return this.http.post<any>(url, params).pipe(
       pluck('payload'),
