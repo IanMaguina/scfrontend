@@ -7,8 +7,14 @@
     <form [formGroup]="formulary" (ngSubmit)="buscarSolicitudes(formulary.value)">
         <div class="buscarBandejas">
             <mat-form-field appearance="fill" class="formBandejas">
-                <mat-label>Tipo de Cliente</mat-label>
-                <input matInput formControlName="tipo_cliente">
+               
+
+                <mat-label>Seleccionar Tipo de Cliente</mat-label>
+                <mat-select formControlName="tipo_cliente"  required>
+                    <mat-option *ngFor="let tipo_cliente of listadotipoCliente" [value]="tipo_cliente">{{ tipo_cliente.nombre }}
+                    </mat-option>
+                </mat-select>
+
             </mat-form-field>
 
 
@@ -34,10 +40,12 @@
 
 
             <mat-form-field appearance="fill" class="formBandejas">
-                <mat-label>Fecha</mat-label>
-                <input matInput formControlName="fecha">
-            </mat-form-field>
-
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="fecha">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+          
+        </mat-form-field>
 
             <div class="formBandejas">
                 <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="submit">

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { Solicitud } from 'src/app/models/solicitud.interface';
+import { TipoCliente } from 'src/app/models/tipo-cliente.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { GlobalSettings } from 'src/app/shared/settings';
@@ -15,6 +16,20 @@ import { GlobalSettings } from 'src/app/shared/settings';
 })
 export class BandejaSolicitudCreditoComponent implements OnInit {
   listadoSolicitudes: Solicitud[] = [];
+  listadotipoCliente: TipoCliente[] = [
+    {
+      id:1, 
+      nombre:'Grupo Empresarial'
+    },
+    {
+      id:2, 
+      nombre:'Consorcio'
+    },
+    {
+      id:3, 
+      nombre:'Empresa Individual'
+    },
+  ];
   listadoEstadosSolicitud: any[] = [];
   formulary: FormGroup;
   displayedColumns: string[] = [
