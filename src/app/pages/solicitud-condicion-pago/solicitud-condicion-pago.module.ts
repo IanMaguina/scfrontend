@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableResponsiveModule } from 'src/app/shared/tables/mat-table-responsive.module';
 
 import { getSpanishPaginatorIntl } from 'src/app/shared/language/spanish-paginator-intl';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -87,7 +88,8 @@ registerLocaleData(localeEs, 'es-PE');
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableResponsiveModule
   ],
   exports: [
     SolicitudCondicionPagoComponent

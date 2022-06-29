@@ -249,13 +249,17 @@ body {
     height: 200px;
     margin: 20px 20px 20px 20px;
     text-align: center;
+    .mat-card-content{
+        display: none;
+    }
 }
 
 .headerLogin {
-    padding-top: 30px;
+    padding-top: 25px;
     text-align: center;
     align-content: center;
     flex-direction: column !important;
+   
 
 
 }
@@ -384,7 +388,6 @@ body {
 }
 
 .tableforms {
-
     margin-top: 12px;
     width: 70% !important;
     min-width: 20% !important;
@@ -2271,6 +2274,9 @@ u {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
+    .titledialog{
+        align-self: center;
+    }
 }
 
 
@@ -2321,3 +2327,56 @@ u {
         justify-content: flex-end;
     }
 }
+
+.FormBuscarCP{
+    padding-top: 13px;
+    padding-bottom: 13px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    .mat-form-field{
+        padding: 0px;
+    }
+}
+
+.InfoCondicionPago{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    .objetoBotonCondicionPago{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .observacion{
+        width: 100%;
+        max-width: 800px;
+        min-width: 150px;
+        height: 60px !important;
+        
+    }
+}
+
+.tableformsCP{
+    width: 100%;
+    max-width: 1500px;
+
+}
+
+.CPEvaluador{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+    .BotonesCP{
+        display: flex;
+        gap: 20px;
+        justify-content: flex-end;
+    }
+}
+

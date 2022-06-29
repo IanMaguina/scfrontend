@@ -15,7 +15,7 @@ import { SnackBarService } from '@services/snack-bar.service';
 @Component({
   selector: 'app-crear-solicitud-condicion-pago',
   templateUrl: './crear-solicitud-condicion-pago.component.html',
-  styleUrls: ['./crear-solicitud-condicion-pago.scss']
+  styleUrls: []
 })
 export class CrearSolicitudCondicionPagoComponent implements OnInit {
 

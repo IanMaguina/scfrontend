@@ -1,119 +1,139 @@
-<div class="content-form-dialog">
-    <br>
-    <div class="titledialog color-title">Solicitud de Condiciones de Pago</div>
-    <div class="body-dialog">
-        <div class="contenidoForm">
-
-            <form [formGroup]="formTemplate" (ngSubmit)="onSearch()">
-                <section class="inline-flex">
-                    <mat-form-field appearance="fill" class="formBandejas">
-                        <mat-label>Sociedad</mat-label>
-                        <mat-select formControlName="sociedad">
-                            <mat-option *ngFor="let society of society$ | async" [value]="society.codigo_sap">{{
-                                "("+society.codigo_sap+")" + " - " + society.nombre }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill" class="formBandejas">
-                        <mat-label>Código SAP</mat-label>
-                        <input formControlName="codigo_sap" matInput>
-                    </mat-form-field>
+<div class="titlesection ">
+    <div class="CPEvaluador">
+        <span>Solicitud de Condiciones de Pago</span>
+        <div class="objetoBotonCondicionPago">
+            <button mat-raised-button class="boton-secundario_popup" type="button">Cerrar</button>
+            <button mat-raised-button [disabled]="!formTemplate.get('lineaProductoTable.0')"
+                class="boton-principal_popup" (click)="onSendConditionPayment()"
+                type="button">Solicitar</button>
+        </div>
+    </div>
+</div>
+<mat-divider class="divisorConfig"></mat-divider>
 
 
-                    <div class="formBandejas">
-                        <button mat-mini-fab color="white" [disabled]="!formTemplate.valid" aria-label="Buscar"
-                            class="boton-buscar" type="submit">
-                            <mat-icon>search</mat-icon>
-                        </button>
+<div class="body-dialog">
+    <div class="contenidoForm">
+        <form [formGroup]="formTemplate" (ngSubmit)="onSearch()">
+            <div class="FormBuscarCP">
+                <mat-form-field appearance="fill" class="formBandejas">
+                    <mat-label>Sociedad</mat-label>
+                    <mat-select formControlName="sociedad">
+                        <mat-option *ngFor="let society of society$ | async" [value]="society.codigo_sap">{{
+                            "("+society.codigo_sap+")" + " - " + society.nombre }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="formBandejas">
+                    <mat-label>Código SAP</mat-label>
+                    <input formControlName="codigo_sap" matInput>
+                </mat-form-field>
+
+                <button mat-mini-fab color="white" [disabled]="!formTemplate.valid" aria-label="Buscar"
+                    class="boton-buscar" type="submit">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+
+            <div class="InfoCondicionPago">
+                <ng-container *ngIf="!(client | keyvalue)?.length">
+
+                    <div class="">
+                        <strong>Sociedad :</strong>
+                        <span>{{client?.nombre_sociedad}}</span>
                     </div>
-                </section>
 
-                <ng-container *ngIf="(client | keyvalue)?.length">
-                    <div class="objetoNuevoPlan">
+                    <div class="">
                         <strong>Codigo SAP :</strong>
                         <span>{{client?.sociedad}}</span>
                     </div>
 
-                    <div class="objetoNuevoPlan">
+                    <div class="">
+                        <strong>RUC:</strong>
+                        <span>{{client?.ruc}}</span>
+                    </div>
+
+                    <div class="">
                         <strong>Razón Social:</strong>
                         <span>{{client?.razon_social}}</span>
                     </div>
 
-                    <div class="objetoNuevoPlan">
+                    <div class="">
                         <strong>Grupo Cliente:</strong>
                         <span>{{client?.nombre_grupo_cliente}}</span>
                     </div>
 
-                    <div class="objetoNuevoPlan">
+                    <div class="">
                         <strong>Canal Comercial :</strong>
                         <span>{{client?.canal_comercial}}</span>
                     </div>
 
-                    <div class="objetoNuevoPlan">
+                    <div class="">
                         <strong>Zonal:</strong>
                         <span>{{client?.zonal}}</span>
                     </div>
 
-                    <div class="objetoNuevoPlan">
+                    <div class="">
                         <mat-form-field appearance="fill">
                             <mat-label>Línea de Productos</mat-label>
                             <mat-select formControlName="linea_producto" multiple>
                                 <mat-option (onSelectionChange)="change($event)"
                                     *ngFor="let conditionPayment of conditionPayment$ | async"
-                                    [value]="conditionPayment"> {{ conditionPayment.linea_producto.nombre }}
+                                    [value]="conditionPayment">
+                                    {{ conditionPayment.linea_producto.nombre }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
 
-                    <article>
-                        <table #table mat-table [dataSource]="lineaProductoTable.controls"
-                            formArrayName="lineaProductoTable" class="tableforms mat-elevation-z8">
 
-                            <ng-container matColumnDef="productos">
-                                <th mat-header-cell *matHeaderCellDef> Productos </th>
-                                <td mat-cell *matCellDef="let element"> {{ element.get('productos').value}}</td>
-                            </ng-container>
+                    <table #table mat-table matTableResponsive [dataSource]="lineaProductoTable.controls"
+                        formArrayName="lineaProductoTable" class="tableformsCP mat-elevation-z8">
 
-                            <ng-container matColumnDef="condicion_pago_regular">
-                                <th mat-header-cell *matHeaderCellDef> Condición de Pago Regular </th>
-                                <td mat-cell *matCellDef="let element"> {{ element.get('valor').value}} </td>
-                            </ng-container>
+                        <ng-container matColumnDef="productos">
+                            <th mat-header-cell *matHeaderCellDef> Productos </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('productos').value}}</td>
+                        </ng-container>
 
-                            <ng-container matColumnDef="condicion_pago_actual">
-                                <th mat-header-cell *matHeaderCellDef> Condición de Pago Actual </th>
-                                <td mat-cell *matCellDef="let element"> {{ element.get('valor').value}} </td>
-                            </ng-container>
+                        <ng-container matColumnDef="condicion_pago_regular">
+                            <th mat-header-cell *matHeaderCellDef> Condición de Pago Regular </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('valor').value}} </td>
+                        </ng-container>
 
-                            <ng-container matColumnDef="nueva_condicion_pago">
-                                <th mat-header-cell *matHeaderCellDef> Nueva Condición de Pago </th>
-                                <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
-                                    <mat-form-field appearance="fill">
-                                        <input matInput formControlName="valor_nuevo"
-                                            placeholder="Ingrese nueva condición" type="number">
-                                    </mat-form-field>
-                                </td>
-                            </ng-container>
+                        <ng-container matColumnDef="condicion_pago_actual">
+                            <th mat-header-cell *matHeaderCellDef> Condición de Pago Actual </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('valor').value}} </td>
+                        </ng-container>
 
-                            <ng-container matColumnDef="fecha_limite">
-                                <th mat-header-cell *matHeaderCellDef> Fecha límite </th>
-                                <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
-                                    <mat-form-field appearance="fill" (click)="picker.open()">
-                                        <input [min]="minDate" formControlName="fecha_vigencia" readonly matInput
-                                            [matDatepicker]="picker">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </td>
-                            </ng-container>
+                        <ng-container matColumnDef="nueva_condicion_pago">
+                            <th mat-header-cell *matHeaderCellDef> Nueva Condición de Pago </th>
+                            <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
+                                <mat-form-field appearance="fill">
+                                    <input matInput formControlName="valor_nuevo" placeholder="Ingrese nueva condición"
+                                        type="number">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
 
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
-                    </article>
+                        <ng-container matColumnDef="fecha_limite">
+                            <th mat-header-cell *matHeaderCellDef> Fecha límite </th>
+                            <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
+                                <mat-form-field appearance="fill" (click)="picker.open()">
+                                    <input [min]="minDate" formControlName="fecha_vigencia" readonly matInput
+                                        [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
 
-                    <div class="objetoNuevoPlan">
-                        <mat-form-field appearance="fill">
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+
+                    <div class="">
+                        <mat-form-field class="observacion" appearance="fill">
                             <mat-label>Observación</mat-label>
                             <textarea matInput formControlName="observacion"
                                 placeholder="Llenar campo si la condición de pago es para un código de material en específico">
@@ -121,15 +141,9 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="objetoBoton">
-                        <button mat-raised-button class="boton-secundario_popup" type="button">Cerrar</button>
-                        <button mat-raised-button [disabled]="!formTemplate.get('lineaProductoTable.0')"
-                            class="boton-principal_popup" (click)="onSendConditionPayment()"
-                            type="button">Aplicar</button>
-                    </div>
                 </ng-container>
-            </form>
+            </div>
 
-        </div>
+        </form>
     </div>
 </div>
