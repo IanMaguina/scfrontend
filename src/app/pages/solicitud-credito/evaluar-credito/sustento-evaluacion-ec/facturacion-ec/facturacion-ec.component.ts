@@ -20,8 +20,30 @@ export class FacturacionEcComponent implements OnInit {
       "end_date": 202111
   
   }
-  multi: any[];
-  view: any[] = [700, 300];
+ data = [ {
+  "name":"Facturación",
+  "series":[{
+    "name": "Facturacióm",
+    "series": [
+      {
+        "name": "1990",
+        "value": 62000000
+      },
+      {
+        "name": "2010",
+        "value": 73000000
+      },
+      {
+        "name": "2011",
+        "value": 89400000
+      }
+    ]
+  },]
+}];
+  
+
+  
+  view: [number,number] = [700, 300];
 
   // options
   legend: boolean = true;
@@ -31,8 +53,8 @@ export class FacturacionEcComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Años';
+  yAxisLabel: string = 'Montos';
   timeline: boolean = true;
 
   colorScheme = {
@@ -49,18 +71,19 @@ export class FacturacionEcComponent implements OnInit {
   }
   mostrarGrafico(){
     this.chartService.chartFacturacion(this.filtro).then(data => {
-      //llenar data
+      console.log("fact: "+JSON.stringify(data));
+     // this.data[0].series=data.payload;
     });
   }
-  onSelect(data): void {
+  onSelect(data:any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
-  onActivate(data): void {
+  onActivate(data:any): void {
     console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
-  onDeactivate(data): void {
+  onDeactivate(data:any): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 

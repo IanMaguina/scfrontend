@@ -21,8 +21,8 @@ export class SidebarService {
       svg:  'assets/LC.svg',
       toolTip: 'Solicitud de Crédito',
       children: [
-        { name: 'Nueva Solicitud', url: 'app/solicitudcredito/nuevasolicitudcredito' },
-        { name: 'Bandeja de Pendientes', url: 'app/solicitudcredito/bandejaMisPendiendes' },
+        { name: 'Nueva Solicitud', url: 'app/solicitudcredito/nuevaSolicitudCredito' },
+        { name: 'Bandeja de Pendientes', url: 'app/solicitudcredito/bandejaMisPendientes' },
         { name: 'Consultas', url: '/' },
         { name: 'Solicitud de Grupo', url: 'app/solicitudcredito/crearSolicitudGrupo' }, 
         { name: 'Solicitud de Consorcio', url: 'app/solicitudcredito/crearSolicitudConsorcio' }, 
