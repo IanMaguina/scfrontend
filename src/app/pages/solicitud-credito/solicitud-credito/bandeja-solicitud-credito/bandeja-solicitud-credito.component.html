@@ -7,11 +7,12 @@
     <form [formGroup]="formulary" (ngSubmit)="buscarSolicitudes(formulary.value)">
         <div class="buscarBandejas">
             <mat-form-field appearance="fill" class="formBandejas">
-               
+
 
                 <mat-label>Seleccionar Tipo de Cliente</mat-label>
-                <mat-select formControlName="tipo_cliente"  required>
-                    <mat-option *ngFor="let tipo_cliente of listadotipoCliente" [value]="tipo_cliente">{{ tipo_cliente.nombre }}
+                <mat-select formControlName="tipo_cliente" required>
+                    <mat-option *ngFor="let tipo_cliente of listadotipoCliente" [value]="tipo_cliente">{{
+                        tipo_cliente.nombre }}
                     </mat-option>
                 </mat-select>
 
@@ -27,25 +28,23 @@
             <mat-form-field appearance="fill" class="formBandejas">
                 <mat-label>Estado</mat-label>
                 <mat-select formControlName="estado" required>
-                    <mat-option *ngFor="let estado of listadoEstadosSolicitud" [value]="estado.id">{{ estado.nombre }}
+                    <mat-option *ngFor="let estado of listadoEstadosSolicitud" [value]="estado">{{ estado.nombre }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
 
-
             <mat-form-field appearance="fill" class="formBandejas">
                 <mat-label>N° Solicitud</mat-label>
-                <input matInput formControlName="solicitud">
+                <input matInput formControlName="correlativo">
             </mat-form-field>
 
-
             <mat-form-field appearance="fill" class="formBandejas">
-            <mat-label>Fecha</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="fecha">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1 color="primary"></mat-datepicker>
-          
-        </mat-form-field>
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1 color="primary"></mat-datepicker>
+
+            </mat-form-field>
 
             <div class="formBandejas">
                 <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="submit">
@@ -56,13 +55,11 @@
     </form>
 </div>
 
-
-
 <div class="label-info">
     <div class="labelEstadoCP">Estados Condición de Pago:&nbsp;&nbsp;</div>
     <div class="labelEstadoCP">
         <mat-icon class="color-aprobacion">fiber_manual_record</mat-icon> &nbsp;En Aprobación&nbsp;
-    </div >
+    </div>
     <div class="labelEstadoCP">
         <mat-icon class="color-aprobado">fiber_manual_record</mat-icon> &nbsp;Aprobado&nbsp;
     </div>
@@ -94,33 +91,33 @@
         <ng-container matColumnDef="correlativo">
             <th mat-header-cell *matHeaderCellDef> Correlativo</th>
             <td mat-cell *matCellDef="let element">
-                    {{element.correlativo}} </td>
+                {{element.correlativo}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="numero_documento">
             <th mat-header-cell *matHeaderCellDef> RUC</th>
             <td mat-cell *matCellDef="let element">
-                    {{element.cliente.numero_documento}} </td>
+                {{element.cliente.numero_documento}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="cliente">
             <th mat-header-cell *matHeaderCellDef> Razón Social</th>
             <td mat-cell *matCellDef="let element">
-                    {{element.cliente.nombre}} </td>
+                {{element.cliente.nombre}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="fecha_creacion">
             <th mat-header-cell *matHeaderCellDef> Fecha solicitud</th>
             <td mat-cell *matCellDef="let element">
-                    {{element.fecha_creacion | date: 'dd/MM/yyyy' }} </td>
+                {{element.fecha_creacion | date: 'dd/MM/yyyy' }} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef> Usuario</th>
             <td mat-cell *matCellDef="let element">
-                    {{element.usuario.nombre}} </td>
+                {{element.usuario.nombre}} </td>
         </ng-container>
-   
+
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

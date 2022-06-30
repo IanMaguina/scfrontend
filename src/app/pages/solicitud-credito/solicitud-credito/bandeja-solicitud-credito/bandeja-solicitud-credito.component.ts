@@ -30,6 +30,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
       nombre:'Empresa Individual'
     },
   ];
+
   listadoEstadosSolicitud: any[] = [];
   formulary: FormGroup;
   displayedColumns: string[] = [
@@ -47,8 +48,8 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     'estado': '',
     'solicitud': '',
     'fecha': '',
-
   }
+
   validationMessages = {
     'tipo_cliente': {
       'required': 'el tipo_cliente es requerido.'
@@ -59,8 +60,8 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     'estado': {
       'required': 'el estado es requerido.'
     },
-    'solicitud': {
-      'required': 'el solicitud es requerido.'
+    'correlativo': {
+      'required': 'el correlativo es requerido.'
     },
     'fecha': {
       'required': 'el fecha es requerido.'
@@ -88,7 +89,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
       tipo_cliente: ['',],
       numero_documento: [''],
       estado: [''],
-      solicitud: [''],
+      correlativo: [''],
       fecha: [''],
     })
     this.formulary.valueChanges.subscribe(() => {
@@ -113,21 +114,16 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     this.solicitudService.listarEstadosSolicitud().then(data => {
         this.listadoEstadosSolicitud = data.payload;
     });
-
   }
 
   editarSolicitud(element: any) {
     console.log(JSON.stringify(element));
     this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
-
-
   }
+
   async buscarSolicitudes(form: any) {
     this.listadoSolicitudes = [];
-    
-    console.log("buscarSolicitudes:.." + JSON.stringify(form));
     form.id_usuario=this.userInfo.id;
-    
     await this.solicitudService.listarSolicitudesxFiltros(form).then( data => {
       console.log("solicitudes filtradas:"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;

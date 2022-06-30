@@ -647,27 +647,46 @@ export class SolicitudService {
   listarSolicitudesxFiltros(filtros: any): Promise<any> {
     
     let id_estado = null;
+    let correlativo = null;
     let id_usuario = null;
+    let id_tipo_cliente = null;
     let numero_documento = null;
+    let fecha_creacion_ano_mes_dia = null;
     let query = "";
 
     if (filtros['estado']) {
-      id_estado = filtros['estado'];
-      query = "id_estado=" + id_estado;
-
+      id_estado = filtros['estado'].id;
+      query = query != "" ? query+"&id_estado=" + id_estado: "id_estado=" + id_estado;
     }
-     if (filtros['id_usuario']) {
+
+    if (filtros['correlativo']) {
+      correlativo = filtros['correlativo'];
+      query = query != "" ? query+"&correlativo=" + correlativo: "correlativo=" + correlativo;
+    }
+
+    if (filtros['tipo_cliente']) {
+      id_tipo_cliente = filtros['tipo_cliente'].id;
+      query = query != "" ? query+"&id_tipo_cliente=" + id_tipo_cliente: "id_tipo_cliente=" + id_tipo_cliente;
+    }
+
+    if (filtros['id_usuario']) {
       id_usuario = filtros['id_usuario'];
       query = query != "" ? query+"&id_usuario=" + id_usuario: "id_usuario=" + id_usuario;
     }
+
+    if (filtros['fecha']) {
+      fecha_creacion_ano_mes_dia = filtros['fecha'];
+      query = query != "" ? query+"&fecha_creacion_ano_mes_dia=" + fecha_creacion_ano_mes_dia: "fecha_creacion_ano_mes_dia=" + fecha_creacion_ano_mes_dia;
+      query = query.toString();
+    }
+
      if (filtros['numero_documento']) {
       numero_documento = filtros['numero_documento'];
       query = query != "" ? query+"&numero_documento=" + numero_documento: "numero_documento=" + numero_documento;
     }
 
 
-
-    console.log(query+"--bandeja-->"+JSON.stringify(filtros));
+    console.log("--bandeja-->"+JSON.stringify(filtros));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/solicitud?" + query).toPromise().then((data) => {
