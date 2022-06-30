@@ -6,28 +6,24 @@
 <div>
     <form [formGroup]="formulary" (ngSubmit)="buscarSolicitudes(formulary.value)">
         <div class="buscarBandejas">
+
             <mat-form-field appearance="fill" class="formBandejas">
-
-
                 <mat-label>Seleccionar Tipo de Cliente</mat-label>
-                <mat-select formControlName="tipo_cliente" required>
+                <mat-select formControlName="tipo_cliente" (selectionChange)="validarTipoDocumento()">
                     <mat-option *ngFor="let tipo_cliente of listadotipoCliente" [value]="tipo_cliente">{{
                         tipo_cliente.nombre }}
                     </mat-option>
                 </mat-select>
-
             </mat-form-field>
-
 
             <mat-form-field appearance="fill" class="formBandejas">
                 <mat-label>RUC</mat-label>
                 <input matInput formControlName="numero_documento">
             </mat-form-field>
 
-
             <mat-form-field appearance="fill" class="formBandejas">
                 <mat-label>Estado</mat-label>
-                <mat-select formControlName="estado" required>
+                <mat-select formControlName="estado" >
                     <mat-option *ngFor="let estado of listadoEstadosSolicitud" [value]="estado">{{ estado.nombre }}
                     </mat-option>
                 </mat-select>

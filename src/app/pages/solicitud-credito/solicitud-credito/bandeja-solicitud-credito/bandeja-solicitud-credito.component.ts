@@ -129,6 +129,9 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
       this.listadoSolicitudes = data.payload;
     });
   }
+  validarTipoDocumento(){
+    
+  }
 
  
 }
