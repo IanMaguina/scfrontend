@@ -1,59 +1,67 @@
-<div class="titlesection ">
-    <div class="CPEvaluador">
-        <span>Detalle de Solicitud de Condiciones de Pago</span>
-        <div class="BotonesCP">
-            <button mat-raised-button class="boton-secundario" type="button"
-                (click)="onRejectingConditionPaymentClient()">Devolver</button>
-            <button mat-raised-button class="boton-principal-light" type="button"
-                (click)="onAssignConditionPaymentClient()">Enviar a aprobación</button>
-        </div>
-    </div>
-</div>
+<div class="content-form-dialog">
+    <br>
+    <div class="titledialog color-title">Detalle de Solicitud de Condiciones de Pago</div>
 
-<mat-divider class="divisorConfig"></mat-divider>
+    <ng-container *ngIf="stateConditionPayment == stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_SOLICITANTE">
+        <button mat-raised-button class="boton-principal-light" type="button"
+            (click)="onSendEvaluationConditionPaymentClient()">Solicitar</button>
+    </ng-container>
 
+    <ng-container *ngIf="[
+    stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_EVALUADOR,
+    stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_APROBADOR].includes(stateConditionPayment)">
+        <button mat-raised-button class="boton-secundario" type="button"
+            (click)="onRejectingConditionPaymentClient()">
+            {{(stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_APROBADOR)? 'Rechazar': 'Devolver'}}</button>&nbsp;
+        <button mat-raised-button class="boton-principal-light" type="button"
+            (click)="onApproveConditionPaymentClient()">{{
+            (stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_APROBADOR)? 'Aprobar': 'Enviar a aprobación'}}</button>
+    </ng-container>
 
-<div class="body-dialog">
-    <div class="contenidoForm">
-        <form [formGroup]="formTemplate">
+    <ng-container *ngIf="stateConditionPayment == stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_APROBADOR_SOLICITANTE">
+        <button mat-raised-button class="boton-principal-light" type="button"
+            (click)="onApproveConditionPaymentClient()">Enviar a Asignar</button>
+    </ng-container>
 
-            <div class="InfoCondicionPago">
-                <ng-container *ngIf="(client | keyvalue)?.length">
+    <ng-container *ngIf="stateConditionPayment == stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_ACTIVADOR">
+        <button mat-raised-button class="boton-principal-light" type="button"
+            (click)="onApproveConditionPaymentClient()">Modificar SAP</button>
+    </ng-container>
 
-                    <div class="">
+    <div class="body-dialog">
+        <div class="contenidoForm">
+                <ng-container *ngIf="detailConditionPayment$ | async as detailConditionPayment ">
+
+                    <div>
                         <strong>Sociedad :</strong>
-                        <span>{{client?.nombre_sociedad}}</span>
+                        <span>{{detailConditionPayment.empresa.sociedad_codigo_sap}}</span>
                     </div>
-
-                    <div class="">
+                    <div>
                         <strong>Codigo SAP :</strong>
-                        <span>{{client?.codigo_sap}}</span>
+                        <span>{{detailConditionPayment.empresa.cliente_codigo_sap}}</span>
                     </div>
-
-                    <div class="">
+                    <div>
                         <strong>RUC:</strong>
-                        <span>{{client?.ruc}}</span>
+                        <span>{{detailConditionPayment.empresa.numero_documento}}</span>
                     </div>
-
-                    <div class="">
+                    <div>
                         <strong>Razón Social:</strong>
-                        <span>{{client?.razon_social}}</span>
+                        <span>{{detailConditionPayment.empresa.razon_social}}</span>
                     </div>
-
-                    <div class="">
+                    <div>
                         <strong>Grupo Cliente:</strong>
-                        <span>{{client?.nombre_grupo_cliente}}</span>
+                        <span>{{detailConditionPayment.grupo_cliente.nombre}}</span>
                     </div>
-
-                    <div class="">
+                    <div>
                         <strong>Canal Comercial :</strong>
-                        <span>{{client?.canal_comercial}}</span>
+                        <span>{{detailConditionPayment?.empresa?.tipo_canal?.nombre}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>Zonal:</strong>
-                        <span>{{client?.zonal}}</span>
+                        <span>{{detailConditionPayment.empresa.zonal_codigo_sap}}</span>
                     </div>
+
                 </ng-container>
 
 
@@ -95,12 +103,11 @@
                 <div class="">
                     <mat-form-field class="observacion" appearance="fill">
                         <mat-label>Observación</mat-label>
-                        <textarea matInput formControlName="observacion"
+                        <textarea matInput [formControl]="formTemplate"
                             placeholder="Llenar campo si la condición de pago es para un código de material en específico">
                                 </textarea>
                     </mat-form-field>
                 </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

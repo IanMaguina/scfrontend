@@ -5,10 +5,10 @@ export const GlobalSettings = Object.freeze({
     //BASE_API_URL: 'https://back-dot-pe-pacasmayo-siscred-gcp-dev.uc.r.appspot.com',
     N_COLUMNAS_GRID: 4,
 
-/*     clientId: "3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com",
-    CLIENT_ID: 'PFryqr66AXV7uv0bNnsvx3KW',
-    CLIENT_KEY: '3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com',
- */
+    /*     clientId: "3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com",
+        CLIENT_ID: 'PFryqr66AXV7uv0bNnsvx3KW',
+        CLIENT_KEY: '3723124560-9b6f7hotqq80p7cean40228i8ea7j335.apps.googleusercontent.com',
+     */
     //clientId: "311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com",
     //CLIENT_ID:'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',
     //CLIENT_KEY: '311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com',
@@ -24,7 +24,7 @@ export const GlobalSettings = Object.freeze({
     ROL_RPA: 30,
     ROL_EVALUADOR: 40,
     ROL_APROBADOR: 50,
-    
+
     ROL_COSTOS: 4,
     ROL_COMERCIAL: 5,
     ROL_ADMINISTRADOR_MATERIAL: 6,
@@ -55,17 +55,18 @@ export const GlobalSettings = Object.freeze({
     CANTIDAD_FILAS_MATERIALES: 100,
 
     //Tipo d Linea de credito
-    LINEA_REGULAR:1,
-    LINEA_TEMPORAL:2,
-    
+    LINEA_REGULAR: 1,
+    LINEA_TEMPORAL: 2,
+
     //Vigencias - LINEA TEMPORAL
-    PICO_DEMANDA:1,
-    DOCUMENTO_VALORADO_EN_CURSO:2,
-    FECHA_VIGENCIA_TEMPORAL:3,
+    PICO_DEMANDA: 1,
+    DOCUMENTO_VALORADO_EN_CURSO: 2,
+    FECHA_VIGENCIA_TEMPORAL: 3,
 
     //Solicitud Condición de Pago
-     ROL_CONDICION_PAGO_SOLICITANTE: 10,
-     ROL_CONDICION_PAGO_EVALUADOR:40,
-     ROL_CONDICION_PAGO_APROBADOR:220,
-     ROL_CONDICION_PAGO_ACTIVADOR:230
+    ESTADO_CONDICION_PAGO_SOLICITANTE: 10,
+    ESTADO_CONDICION_PAGO_EVALUADOR: 40,
+    ESTADO_CONDICION_PAGO_APROBADOR: 220,
+    ESTADO_CONDICION_PAGO_APROBADOR_SOLICITANTE: 211,
+    ESTADO_CONDICION_PAGO_ACTIVADOR: 230
 })
