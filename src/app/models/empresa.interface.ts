@@ -18,8 +18,9 @@ export interface Empresa{
     numero_documento?:string,
     tipo_canal?:TipoCanal,
     grupo_cliente?:GrupoCliente,
-    zonal?:Zonal
+    zonal?:Zonal,
     sociedad?:Sociedad,
-    tcliente_agrupacion_empresa?:any
+    tcliente_agrupacion_empresa?:any,
+    pertenece_sociedad?:boolean,
 }
 

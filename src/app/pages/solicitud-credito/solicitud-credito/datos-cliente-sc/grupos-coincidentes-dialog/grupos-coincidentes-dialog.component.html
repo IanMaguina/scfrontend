@@ -14,6 +14,7 @@
                                 {{obj.nombre}}
                             </mat-panel-title>
                             <mat-panel-description class="Header_GEC_Des">
+                                <mat-icon class="color-warning" *ngIf="!obj.pertenece_sociedad">warning</mat-icon>&nbsp;&nbsp;
                                 <button type="button" mat-flat-button class="boton-principal-light"
                                     (click)="guardarSolicitud(obj)">
                                     Elegir
@@ -35,6 +36,16 @@
                                     <ng-container matColumnDef="razon_social">
                                         <th mat-header-cell *matHeaderCellDef> Empresa </th>
                                         <td mat-cell *matCellDef="let element">{{element.razon_social}} </td>
+                                    </ng-container>
+                                    <!-- Column -->
+                                    <ng-container matColumnDef="pertenece_sociedad">
+                                        <th mat-header-cell *matHeaderCellDef> Sociedad Correcta? </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <mat-icon  class="color-principal" *ngIf="element.pertenece_sociedad">check_circle</mat-icon> 
+                                            <mat-icon class="color-error" *ngIf="!element.pertenece_sociedad">warning</mat-icon> 
+                                       
+                                    
+                                        </td>
                                     </ng-container>
 
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

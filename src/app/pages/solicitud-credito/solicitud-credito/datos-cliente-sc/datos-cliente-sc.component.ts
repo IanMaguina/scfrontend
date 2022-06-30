@@ -80,6 +80,7 @@ export class DatosClienteScComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario_sociedad_codigo_sap=this.userInfo.sociedad_codigo_sap;
+    console.log("sociedad del solicitante--->" + this.usuario_sociedad_codigo_sap);
     console.log("editar solicitud datos cliente--->" + this.id_solicitud_editar);
     if (this.id_solicitud_editar !== null) {
       this.obtenerSolicitud();

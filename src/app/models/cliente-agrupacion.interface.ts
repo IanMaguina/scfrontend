@@ -13,6 +13,7 @@ export interface ClienteAgrupacion{
     numero_documento?:string,
     nombre:string,
     empresa?:Empresa[];
-    activo?:boolean
+    activo?:boolean;
+    pertenece_sociedad?:boolean;
 }
 

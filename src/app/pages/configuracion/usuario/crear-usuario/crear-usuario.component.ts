@@ -1,13 +1,14 @@
 import { UsuarioService } from './../../../../services/usuario.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 import { Usuario } from 'src/app/models/usuario.interface';
 import { Perfil } from 'src/app/models/perfil.interface';
 import { PerfilService } from 'src/app/services/perfil.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -48,6 +49,7 @@ export class CrearUsuarioComponent implements OnInit {
     private formValidatorService: FormValidatorService, 
     private perfilService: PerfilService,
     private usuarioService: UsuarioService,
+    private matDialog: MatDialog,
     private _snack: MatSnackBar
   ) {
 
@@ -76,7 +78,12 @@ export class CrearUsuarioComponent implements OnInit {
     console.log("crearUsuario:" + JSON.stringify(usuario));
     this.usuarioService.crearUsuario(usuario).then((data)=>{
       if(data.header.exito){
-        this.onNoClick('CONFIRM_DLG_YES');
+        if(!data.payload.warning){
+          this.onNoClick('CONFIRM_DLG_YES');
+        }else{
+          this.callErrorDialog(data.payload.warning.mensaje);
+          this.onNoClick('CONFIRM_DLG_NO');
+        }
       }else{
         this.enviarMensajeSnack(data.header.mensaje);
       }
@@ -101,6 +108,14 @@ export class CrearUsuarioComponent implements OnInit {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
+    });
+  }
+
+  callErrorDialog(mensaje: string) {
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje,
     });
   }
 

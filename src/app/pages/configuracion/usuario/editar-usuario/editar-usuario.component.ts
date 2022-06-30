@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Perfil } from 'src/app/models/perfil.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -45,6 +46,7 @@ export class EditarUsuarioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private perfilService: PerfilService,
+    private matDialog: MatDialog,
     private usuarioService: UsuarioService
   ) {
     this.usuariodata = data;
@@ -74,8 +76,16 @@ export class EditarUsuarioComponent implements OnInit {
   async editarUsuario(form: any) {
     let usuario = await this.mapeoUsuario(form);
     this.usuarioService.actualizarUsuario(usuario).then( data =>{
-      console.log("al actualizar el usuario: "+JSON.stringify(data));
-      this.onNoClick('CONFIRM_DLG_YES');
+     // console.log("al actualizar el usuario: "+JSON.stringify(data));
+    
+      if(!data.payload.warning){
+        this.onNoClick('CONFIRM_DLG_YES');
+      }else{
+        this.callErrorDialog(data.payload.warning.mensaje);
+        this.onNoClick('CONFIRM_DLG_NO');
+      }
+    
+     
     });
   }
 
@@ -91,5 +101,13 @@ export class EditarUsuarioComponent implements OnInit {
       id_perfil: form.perfil,
     }
     return usuario;
+  }
+
+  callErrorDialog(mensaje: string) {
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje,
+    });
   }
 }

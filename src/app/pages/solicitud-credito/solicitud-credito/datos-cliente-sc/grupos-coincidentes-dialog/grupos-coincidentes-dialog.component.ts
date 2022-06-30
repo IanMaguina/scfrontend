@@ -17,6 +17,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   displayedColumns: string[] = [
     'sociedad',
     'razon_social',
+    'pertenece_sociedad',
   ];
   ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ROL_SOLICITANTE = GlobalSettings.ROL_SOLICITANTE;
@@ -34,9 +35,9 @@ export class GruposCoincidentesDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.nombre) {
-      this.listarGrupoEmpresarialxFiltros({ nombre: this.nombre });
+      this.listarGrupoEmpresarialxFiltros({ nombre: this.nombre, sociedad_codigo_sap:this.usuario_sociedad_codigo_sap });
     } else {
-      this.listarGrupoEmpresarialxFiltros({ numero_documento: this.rucIntegrante });
+      this.listarGrupoEmpresarialxFiltros({ numero_documento: this.rucIntegrante, sociedad_codigo_sap:this.usuario_sociedad_codigo_sap });
 
     }
   }
