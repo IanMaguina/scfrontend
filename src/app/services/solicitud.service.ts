@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { FormArray } from '@angular/forms';
 import { Obra } from '../models/obra.interface';
 import { HttpParams } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ import { HttpParams } from '@angular/common/http';
 export class SolicitudService {
 
   constructor(
-    private resourceService: ResourceService
+    private resourceService: ResourceService,
+    private datepipe:DatePipe
   ) { }
 
   listarSolicitudes(): Promise<any> {
@@ -675,9 +677,10 @@ export class SolicitudService {
     }
 
     if (filtros['fecha']) {
-      fecha_creacion_ano_mes_dia = filtros['fecha'];
+      const fecha_formato = this.datepipe.transform(filtros['fecha'],'yyyy-MM-dd');
+      fecha_creacion_ano_mes_dia = fecha_formato;
       query = query != "" ? query+"&fecha_creacion_ano_mes_dia=" + fecha_creacion_ano_mes_dia: "fecha_creacion_ano_mes_dia=" + fecha_creacion_ano_mes_dia;
-      query = query.toString();
+     
     }
 
      if (filtros['numero_documento']) {
@@ -686,7 +689,7 @@ export class SolicitudService {
     }
 
 
-    console.log("--bandeja-->"+JSON.stringify(filtros));
+    console.log("--bandeja-->"+JSON.stringify(query));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/solicitud?" + query).toPromise().then((data) => {
