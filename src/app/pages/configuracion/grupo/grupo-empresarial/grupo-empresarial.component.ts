@@ -8,6 +8,8 @@ import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Usuario } from 'src/app/models/usuario.interface';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-grupo-empresarial',
@@ -18,11 +20,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class GrupoEmpresarialComponent implements OnInit {
   listadoGrupos: AgrupacionClienteSolicitud[] = [];
 
-  displayedColumns: string[] = ['nombre', 'estado_cliente_agrupacion', 'usuario_creacion', 'estado', 'id'];
-  userInfo: any;
+  displayedColumns: string[] = [
+    'nombre', 
+    'estado_cliente_agrupacion', 
+    'usuario_creacion', 
+    'estado', 
+    'id'
+  ];
+  userInfo: Usuario;
   id_userLogueo: number = 0;
   id_perfilLogueo: number = 0;
-
+  PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
+  isPerfilAdmin:boolean=false;
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -30,16 +39,16 @@ export class GrupoEmpresarialComponent implements OnInit {
     private autenticacionService: AutenticacionService
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
+    console.log("mi usuario: "+JSON.stringify(this.userInfo));
   }
 
   ngOnInit(): void {
-    console.log("ngInit");
+    this.isAdmin();
     this.listarGruposEmpresariales();
   }
 
   async listarGruposEmpresariales() {
-    await this.grupoEmpresarialService.listarGruposEmpresariales().then(data => {
-      console.log(JSON.stringify(data.payload));
+    await this.grupoEmpresarialService.listarGruposEmpresariales().then(data => { 
       this.listadoGrupos = data.payload;
     })
   }
@@ -90,8 +99,10 @@ export class GrupoEmpresarialComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         if (msg != 'no') {
           this.enviarMensajeSnack(msg);
+          this.listarGruposEmpresariales();
+        }else{
+          this.listarGruposEmpresariales();
         }
-        this.listarGruposEmpresariales();
       } else {
         this.listarGruposEmpresariales();
 
@@ -105,6 +116,12 @@ export class GrupoEmpresarialComponent implements OnInit {
       horizontalPosition: "end",
       verticalPosition: "top"
     });
+  }
+
+  isAdmin(){
+    if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
+      this.isPerfilAdmin = true;
+    }
   }
 
 }

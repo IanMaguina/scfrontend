@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
-import { ClienteAgrupacion } from '../models/cliente-agrupacion.interface';
-import { Empresa } from '../models/empresa.interface';
-import { ClienteEmpresa } from '../models/cliente-empresa.interface';
 
 @Injectable({
   providedIn: 'root'

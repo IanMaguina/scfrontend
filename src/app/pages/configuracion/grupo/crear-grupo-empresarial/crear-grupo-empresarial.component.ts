@@ -56,7 +56,6 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   }
 
   async crearGrupo(form: any) {
-    console.log("crearUsuario:" + JSON.stringify(form));
     let clienteAgrupacion = await this.mapeoGrupo(form)
     this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then( data =>{
       if(data.header.exito){
@@ -64,15 +63,15 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
       }
     });
   }
-  /* usuario usado rafa:12, se debe usar cookies para traer el usuario */
+
   async mapeoGrupo(form: any) {
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 1,
       "id_tipo_documento_identidad": null,
-      "id_usuario_creacion": this.id_userLogueo,
       "numero_documento": null,      
       "nombre": form.nombre,
-      "activo": true
+      "activo": true,
+      "id_usuario_creacion": this.id_userLogueo,
     }
     return clienteAgrupacion;
   }

@@ -11,9 +11,10 @@ export interface ClienteAgrupacion{
     id_tipo_documento_identidad?:number,
     tipo_documento_identidad?:TipoDocumentoIdentidad,
     numero_documento?:string,
-    nombre:string,
+    nombre?:string,
     empresa?:Empresa[];
     activo?:boolean;
     pertenece_sociedad?:boolean;
+    id_usuario?:number;
 }
 

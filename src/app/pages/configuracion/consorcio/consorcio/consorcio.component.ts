@@ -16,14 +16,7 @@ import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.comp
 })
 export class ConsorcioComponent implements OnInit {
   listadoConsorcios: AgrupacionClienteSolicitud[] = [];
-  /*  {
-     'razonsocial':'010101',
-     
-     'ruc':'654321987564',
-     'id':1, 
-     'estado':'activo'
-   }
- ]; */
+
   displayedColumns: string[] = ['razonsocial', 'pendiente', 'solicitante', 'numero_documento', 'estado', 'id'];
 
 
@@ -39,7 +32,6 @@ export class ConsorcioComponent implements OnInit {
 
   async listarConsorcios() {
     this.consorcioService.listarConsorcios().then(data => {
-      console.log(JSON.stringify(data.payload));
       this.listadoConsorcios = data.payload;
     })
   }
@@ -71,7 +63,7 @@ export class ConsorcioComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let clienteAgrupacion: ClienteAgrupacion = element;
-        this.consorcioService.activarConsorcio(clienteAgrupacion).then((data) => {
+        this.consorcioService.actualizarConsorcio(clienteAgrupacion).then((data) => {
           if (data.header.exito) {
             this.listarConsorcios();
             this.enviarMensajeSnack("se modificó la actividad del Consorcio");

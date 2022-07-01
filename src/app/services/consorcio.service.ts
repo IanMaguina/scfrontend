@@ -48,30 +48,10 @@ export class ConsorcioService {
       });
   }
 
-
   actualizarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
-    console.log("sending actualizarConsorcio..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
-          console.log("response data=" + JSON.stringify(data));
-          resolve(data);
-        }).catch((error) => {
-          console.log("error status=" + error.status + ", msg=" + error.message);
-          reject(error);
-        });
-      });
-  }
-
-  
-  activarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
-    console.log("sending activarConsorcio..." + JSON.stringify(clienteAgrupacion));
-    let item = {
-      activo:clienteAgrupacion.activo
-    }
-    return new Promise(
-      (resolve, reject) => {
-        this.resourceService.putResource("/api/cliente-agrupacion/borrar/" + clienteAgrupacion.id, item).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -94,27 +74,38 @@ export class ConsorcioService {
         });
       });
   }
-  listarSolicitudesConsorciosPendientes(): Promise<any> {
+
+  aprobarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("sending Consorcio..." + JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion-aprobacion/listar-agrupado?id_tipo_cliente=2").toPromise().then((data) => {
-          if (data.header.exito) {
-            resolve(data.payload);
-          } else {
-            console.log("no hay solicitudes encontradas...");
-            resolve([]);
-          }
-        }
-        ).catch(
-          (error) => {
-            console.log("error status=" + error.status + ", msg=" + error.message);
-            reject(error);
-          }
-        );
+        this.resourceService.postResource("/api/cliente-agrupacion/"+clienteAgrupacion.id+"/aprobar",clienteAgrupacion).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
 
-      }
-    );
+      });
   }
+
+  rechazarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("sending Consorcio..." + JSON.stringify(clienteAgrupacion));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/cliente-agrupacion/"+clienteAgrupacion.id+"/rechazar",clienteAgrupacion).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
+
 
 
 }

@@ -1,12 +1,8 @@
-import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { Solicitud } from '../models/solicitud.interface';
 import { SolicitudCliente } from '../models/solicitud-cliente.interface';
-import { Observable } from 'rxjs';
-import { FormArray } from '@angular/forms';
 import { Obra } from '../models/obra.interface';
-import { HttpParams } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
 @Injectable({
@@ -719,7 +715,7 @@ export class SolicitudService {
           if (data.header.exito) {
             resolve(data);
           } else {
-            console.log("obras de la solicitud no encontradas...");
+            console.log("estado no encontrados...");
             resolve([]);
           }
         }
