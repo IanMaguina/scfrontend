@@ -89,7 +89,7 @@ export class EstrategiasComponent implements OnInit {
       disableClose: true,
       width:'300px',
       data: data?data:'',      
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Estrategias'
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -256,6 +256,7 @@ export class EditarEstrategiaSociedadComponent implements OnInit {
       disableClose: true,
       width: "400px",
       data: mensaje
+      
     });
   }
 

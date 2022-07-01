@@ -1,96 +1,98 @@
-<div class="Header_POPUPEstrategias">
-    <div class="titledialog_Config">Editar Estrategia</div>
-</div>
+<div class="Popup">
+    <div class="Header_POPUPEstrategias">
+        <div class="titledialog_Config">Editar Estrategia</div>
+    </div>
 
-<div class="contenidoForm_Config">
-    <form [formGroup]="formulary" (ngSubmit)="editarEstrategiaRolUsuario(formulary.value)">
+    <div class="contenidoForm_Config">
+        <form [formGroup]="formulary" (ngSubmit)="editarEstrategiaRolUsuario(formulary.value)">
 
-        <div class="Title_POPUPConfig">Rol:</div>
-        <mat-form-field appearance="fill">
-            <mat-label>Seleccionar</mat-label>
-            <mat-select formControlName="rol" [compareWith]="compareRol" (selectionChange)="selectedRol()" required>
-                <mat-option *ngFor="let rol of listadoRoles" [value]="rol">{{ rol.nombre }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <div class="Title_POPUPConfig">Usuario:</div>
-        <mat-form-field appearance="fill">
-            <mat-label>Seleccionar</mat-label>
-            <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto"
-                required>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredUsuario | async" [value]="option">
-                    {{option.nombre}}
-                </mat-option>
-            </mat-autocomplete>
-            <mat-hint>
-                <mat-error [hidden]="!(formErrors.usuario)">
-                    {{formErrors.usuario}}
-                </mat-error>
-            </mat-hint>
-
-        </mat-form-field>
-
-
-        <div *ngIf="visibleRolSolicitante">
-            <div class="Title_POPUPConfig">Sociedad:</div>
+            <div class="Title_POPUPConfig">Rol:</div>
             <mat-form-field appearance="fill">
                 <mat-label>Seleccionar</mat-label>
-                <mat-select formControlName="sociedad" [compareWith]="compareSociedad" required>
-                    <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">{{ sociedad.nombre }}
+                <mat-select formControlName="rol" [compareWith]="compareRol" (selectionChange)="selectedRol()" required>
+                    <mat-option *ngFor="let rol of listadoRoles" [value]="rol">{{ rol.nombre }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>
 
-
-        <div *ngIf="visibleRolSolicitante">
-            <div class="Title_POPUPConfig">Grupo Cliente:</div>
+            <div class="Title_POPUPConfig">Usuario:</div>
             <mat-form-field appearance="fill">
                 <mat-label>Seleccionar</mat-label>
-                <mat-select formControlName="grupo_cliente" [compareWith]="compareGrupoCliente" required>
-                    <mat-option *ngFor="let grupo_cliente of listadoGruposCliente" [value]="grupo_cliente">{{
-                        grupo_cliente.nombre }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-
-
-        <div *ngIf="visibleRolSolicitante">
-            <br><br>
-            <b>Datos del Revisor:</b>
-
-        </div>
-
-
-        <div *ngIf="visibleRolSolicitante">
-            <div class="Title_POPUPConfig">Revisor:</div>
-            <mat-form-field appearance="fill">
-                <mat-label>Seleccionar</mat-label>
-                <input type="text" matInput placeholder="Revisor" formControlName="usuario_revisor"
-                    [matAutocomplete]="autoRevisor">
-                <mat-autocomplete #autoRevisor="matAutocomplete" [displayWith]="displayFnRevisor">
-                    <mat-option *ngFor="let option of filteredUsuarioRevisor | async" [value]="option">
+                <input type="text" matInput placeholder="Usuario" formControlName="usuario" [matAutocomplete]="auto"
+                    required>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredUsuario | async" [value]="option">
                         {{option.nombre}}
                     </mat-option>
                 </mat-autocomplete>
                 <mat-hint>
-                    <mat-error [hidden]="!(formErrors.usuario_revisor)">
-                        {{formErrors.usuario_revisor}}
+                    <mat-error [hidden]="!(formErrors.usuario)">
+                        {{formErrors.usuario}}
                     </mat-error>
                 </mat-hint>
 
             </mat-form-field>
-        </div>
 
-        <div class="botonera_PopUPConfig">
-            <button mat-raised-button class="color-secundario" type="button"
-                (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button>
-            <button mat-raised-button class="boton-principal-light" type="submit"
-                [disabled]="formulary.invalid">Actualizar</button>
-        </div>
-    </form>
+
+            <div *ngIf="visibleRolSolicitante">
+                <div class="Title_POPUPConfig">Sociedad:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="sociedad" [compareWith]="compareSociedad" required>
+                        <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">{{ sociedad.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div *ngIf="visibleRolSolicitante">
+                <div class="Title_POPUPConfig">Grupo Cliente:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="grupo_cliente" [compareWith]="compareGrupoCliente" required>
+                        <mat-option *ngFor="let grupo_cliente of listadoGruposCliente" [value]="grupo_cliente">{{
+                            grupo_cliente.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+            <div *ngIf="visibleRolSolicitante">
+                <br><br>
+                <b>Datos del Revisor:</b>
+
+            </div>
+
+
+            <div *ngIf="visibleRolSolicitante">
+                <div class="Title_POPUPConfig">Revisor:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <input type="text" matInput placeholder="Revisor" formControlName="usuario_revisor"
+                        [matAutocomplete]="autoRevisor">
+                    <mat-autocomplete #autoRevisor="matAutocomplete" [displayWith]="displayFnRevisor">
+                        <mat-option *ngFor="let option of filteredUsuarioRevisor | async" [value]="option">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-hint>
+                        <mat-error [hidden]="!(formErrors.usuario_revisor)">
+                            {{formErrors.usuario_revisor}}
+                        </mat-error>
+                    </mat-hint>
+
+                </mat-form-field>
+            </div>
+
+            <div class="botonera_PopUPConfig">
+                <button mat-raised-button class="color-secundario" type="button"
+                    (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button>
+                <button mat-raised-button class="boton-principal-light" type="submit"
+                    [disabled]="formulary.invalid">Actualizar</button>
+            </div>
+        </form>
+    </div>
 </div>
