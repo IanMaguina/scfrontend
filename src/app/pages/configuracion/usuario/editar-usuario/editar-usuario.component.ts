@@ -76,13 +76,15 @@ export class EditarUsuarioComponent implements OnInit {
   async editarUsuario(form: any) {
     let usuario = await this.mapeoUsuario(form);
     this.usuarioService.actualizarUsuario(usuario).then( data =>{ 
-    if(data.payload){
-      if(!data.payload.warning){
+    if(data.header.exito){
+      if(data.payload && !data.payload.warning){
         this.onNoClick('CONFIRM_DLG_YES');
-      }else{
+      }else if(data.payload && data.payload.warning ){
         this.callErrorDialog(data.payload.warning.mensaje);
         this.onNoClick('CONFIRM_DLG_NO');
       }
+    }else{
+      this.onNoClick('CONFIRM_DLG_NO');
     }
      
     });
