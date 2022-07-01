@@ -178,7 +178,7 @@ export class SolicitudService {
 
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/buscar-empresa-individual?"+query).toPromise().then((data) => {
+        this.resourceService.getResource("/api/empresa/consulta?"+query).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
