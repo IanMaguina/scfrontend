@@ -52,7 +52,7 @@ export class ClienteEmpresaService {
     }
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/cliente-agrupacion-empresa/", item).toPromise().then((data) => {
+        this.resourceService.postResource("/api/cliente-agrupacion-empresa/eliminar", item).toPromise().then((data) => {
             resolve(data);
         }
         ).catch(
