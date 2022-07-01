@@ -150,7 +150,7 @@ export class UsuarioService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/usuario/" + usuario.id, usuario).toPromise().then((data) => {
-          console.log("response data=" + JSON.stringify(data));
+         
           respuesta = data;
           resolve(respuesta);
         }).catch((error) => {

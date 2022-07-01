@@ -6,10 +6,11 @@ export interface ClienteEmpresa{
     id_cliente_agrupacion?:number,
     id_empresa?:number,
     empresa?:Empresa,
-    participacion?:string,
+    participacion?:number,
     cliente_agrupacion?:ClienteAgrupacion,
     id_usuario_creacion?:number,
-    activo?:boolean      
+    activo?:boolean,         
+    id_usuario?:number,         
 }
 
 

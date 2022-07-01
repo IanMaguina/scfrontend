@@ -104,9 +104,9 @@ export class AsignarIntegrantesComponent implements OnInit {
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario = this.userInfo.id;
-    if(this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR){
+    if (this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR) {
       this.isAdmin = true;
-    }else{
+    } else {
       this.isAdmin = false;
     }
     this.consorcioData = data;
@@ -152,7 +152,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     })
 
   }
-  
+
 
 
 
@@ -163,10 +163,12 @@ export class AsignarIntegrantesComponent implements OnInit {
       if (data.header.exito) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
-          "id_cliente_agrupacion": this.id_cliente_agrupacion,
-          "id_empresa": data.payload[0].id,
-          "id_usuario_creacion": this.id_usuario,
-          "participacion": form.participacion
+          id:form.id,
+          id_cliente_agrupacion: this.id_cliente_agrupacion,
+          id_empresa: data.payload[0].id,
+          id_usuario_creacion: this.id_usuario,
+          id_usuario: this.id_usuario,
+          participacion: form.participacion
         }
         let mensaje: string = "";
         if (data.payload.tiene_cliente) {
@@ -176,11 +178,16 @@ export class AsignarIntegrantesComponent implements OnInit {
 
         } else {
           this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
-            this.limpiarCampos();
+            if(!res.payload.warning){
+              this.enviarMensajeSnack('Se agregó la empresa');
+              this.limpiarCampos();
             this.listarClienteEmpresa();
+            }else{
+              this.limpiarCampos();
+              this.listarClienteEmpresa();
+            }            
           });
         }
-
       } else {
         let mensaje: string = "Empresa no registrada";
         if (data.payload.tiene_cliente) {
@@ -192,36 +199,41 @@ export class AsignarIntegrantesComponent implements OnInit {
     })
   }
 
-  QuitarEmpresa(form: any) {
-    form.mensaje = `¿Desea desasignar la empresa: ${form.empresa.razon_social} de este consorcio? `;
+  QuitarEmpresa(element: any) {
+    element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este consorcio? `;
 
     const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       width: "400px",
-      data: form
+      data: element
     });
 
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
-        let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then(data => {
-          if(!data.payload.warning){
+        console.log("form al eliminar empresa: " + JSON.stringify(element));
+        let clienteEmpresa: ClienteEmpresa = {
+          id: element.id,
+          id_cliente_agrupacion: element.id_cliente_agrupacion,
+          id_empresa: element.id_empresa,
+          id_usuario:this.id_usuario,
+        }
+        this.clienteEmpresaService.eliminarClienteEmpresa(clienteEmpresa, this.id_usuario).then(data => {
+          if (!data.payload.warning) {
             this.enviarMensajeSnack('Se retiró la empresa');
             this.listarClienteEmpresa();
-          }else{
+          } else {
             this.listarClienteEmpresa();
-  
-           }
-          
-
+          }
         });
+      } else {
+        this.listarClienteEmpresa();
       }
     });
 
 
   }
 
-  onNoClick(msg:string): void {
+  onNoClick(msg: string): void {
     this.dialogRef.close(msg);
   }
 
@@ -233,33 +245,33 @@ export class AsignarIntegrantesComponent implements OnInit {
     console.log("");
   }
 
- 
-  AprobarConsorcio(){
-    let item:ClienteAgrupacion = {
-      id_usuario:this.id_usuario,
-      id:this.id_cliente_agrupacion
+
+  AprobarConsorcio() {
+    let item: ClienteAgrupacion = {
+      id_usuario: this.id_usuario,
+      id: this.id_cliente_agrupacion
     }
-    this.consorcioService.aprobarConsorcio(item).then( data => {
-      if(!data.payload.warning){
+    this.consorcioService.aprobarConsorcio(item).then(data => {
+      if (!data.payload.warning) {
         this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
         this.listarClienteEmpresa();
-      }else{
+      } else {
         this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
       }
     })
   }
-  
-  RechazarConsorcio(){
-    let item:ClienteAgrupacion = {
-      id_usuario:this.id_usuario,
-      id:this.id_cliente_agrupacion
+
+  RechazarConsorcio() {
+    let item: ClienteAgrupacion = {
+      id_usuario: this.id_usuario,
+      id: this.id_cliente_agrupacion
     }
-    this.consorcioService.rechazarConsorcio(item).then( data => {
-      if(!data.payload.warning){
+    this.consorcioService.rechazarConsorcio(item).then(data => {
+      if (!data.payload.warning) {
         this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el consorcio');
         this.listarClienteEmpresa();
-      }else{
+      } else {
         this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
       }
@@ -286,7 +298,7 @@ export class AsignarIntegrantesComponent implements OnInit {
       horizontalPosition: "end",
       verticalPosition: "top"
     });
-  } 
+  }
 
 }
 

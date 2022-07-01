@@ -131,9 +131,10 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       if (data.header.exito) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
-          "id_cliente_agrupacion": this.id_cliente_agrupacion,
-          "id_empresa": data.payload[0].id,
-          "id_usuario_creacion": 12
+          id_cliente_agrupacion: this.id_cliente_agrupacion,
+          id_empresa: data.payload[0].id,
+          id_usuario_creacion: this.id_usuario,
+          id_usuario: this.id_usuario,
         }
         
         
@@ -144,6 +145,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
             this.listarClienteEmpresa();
 
           }else{
+            this.enviarMensajeSnack(res.payload.warning.mensaje);
             this.limpiarCampos();
             this.listarClienteEmpresa();
           }
@@ -171,20 +173,24 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   }
 
-  QuitarEmpresa(form: any) {
+  QuitarEmpresa(element: any) {
 
-    form.mensaje = `¿Desea desasignar la empresa: ${form.empresa.razon_social} de este grupo? `;
+    element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este grupo? `;
 
     const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       width: "400px",
-      data: form
+      data: element
     });
 
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
-        let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then( data =>{
+        let clienteEmpresa: ClienteEmpresa={
+          id: element.id,
+          id_cliente_agrupacion: element.id_cliente_agrupacion,
+          id_usuario:this.id_usuario,
+        } 
+        this.clienteEmpresaService.eliminarClienteEmpresa(clienteEmpresa, this.id_usuario).then( data =>{
          if(!data.payload.warning){
           this.enviarMensajeSnack('Se retiró la empresa');
           this.listarClienteEmpresa();
@@ -194,6 +200,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
          }
           
         });
+      }else{
+        this.listarClienteEmpresa();
       }
     });
 

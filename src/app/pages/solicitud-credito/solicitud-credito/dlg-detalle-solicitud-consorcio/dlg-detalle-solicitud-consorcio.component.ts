@@ -175,19 +175,22 @@ export class DlgDetalleSolicitudConsorcioComponent implements OnInit {
     })
   }
 
-  QuitarEmpresa(form: any) {
-    form.mensaje = `¿Desea desasignar la empresa: ${form.empresa.razon_social} de este consorcio? `;
+  QuitarEmpresa(element: any) {
+    element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este consorcio? `;
 
     const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       width: "400px",
-      data: form
+      data: element
     });
 
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
-        let id_cliente_empresa = form.id;
-        this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario);
+        let clienteEmpresa: ClienteEmpresa = {
+          id: element.id,
+          id_empresa: element.id_empresa,
+        }
+        this.clienteEmpresaService.eliminarClienteEmpresa(clienteEmpresa, this.id_usuario);
       }
       this.listarClienteEmpresa();
     });

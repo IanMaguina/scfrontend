@@ -16,5 +16,6 @@ export interface ClienteAgrupacion{
     activo?:boolean;
     pertenece_sociedad?:boolean;
     id_usuario?:number;
+    participacion?:number;
 }
 
