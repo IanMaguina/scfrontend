@@ -1,4 +1,3 @@
-import { ClienteEmpresaService } from './../../../../services/cliente-empresa.service';
 import { EmpresaService } from './../../../../services/empresa.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -10,6 +9,12 @@ import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ClienteAgrupacionEmpresa } from 'src/app/models/cliente-agrupacion-empresa.interface';
+import { ClienteEmpresaService } from '@services/cliente-empresa.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GrupoEmpresarialService } from '@services/grupo-empresarial.service';
+import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
+import { GlobalSettings } from 'src/app/shared/settings';
+import { AutenticacionService } from '@services/autenticacion.service';
 
 
 @Component({
@@ -62,9 +67,11 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     'estado_cliente_agrupacion',
     'id',
   ];
-
+  userInfo: any;
   id_cliente_agrupacion: number = null;
-  id_usuario:number = 12;
+  id_usuario:number;
+  isAdmin: boolean = false;
+  PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
 
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
@@ -74,10 +81,20 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     private sociedadService: SociedadService,
     private empresaService: EmpresaService,
     private clienteEmpresaService: ClienteEmpresaService,
+    private autenticacionService: AutenticacionService,
     private matDialog: MatDialog,
+    private grupoEmpresarialService: GrupoEmpresarialService,
+    private _snack: MatSnackBar,
   ) {
     this.grupoData = data;
     this.id_cliente_agrupacion = this.grupoData.id;
+    this.userInfo = this.autenticacionService.getUserInfo();
+    this.id_usuario = this.userInfo.id;
+    if(this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR){
+      this.isAdmin = true;
+    }else{
+      this.isAdmin = false;
+    }
 
     this.asignarEmpresaFormDialog = this.formBuilder.group({
       sociedad: ['', Validators.required],
@@ -90,9 +107,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit");
-    this.listarSociedades();
     this.listarClienteEmpresa();
+    this.listarSociedades();
   }
 
   async listarSociedades() {
@@ -101,11 +117,10 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     })
   }
 
-  async listarClienteEmpresa() {
-    await this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
+  listarClienteEmpresa() {
+    this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
       this.listadoIntegrantes = data.payload;
     })
-
   }  
 
 
@@ -120,12 +135,18 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
           "id_empresa": data.payload[0].id,
           "id_usuario_creacion": 12
         }
-        console.log("se manda--->" + JSON.stringify(clienteEmpresa));
+        
         
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res=>{
-          console.log("resultado de la asignación: "+ JSON.stringify(res));
-          this.limpiarCampos();
-          this.listarClienteEmpresa();
+          if(!res.payload.warning){
+            this.enviarMensajeSnack('Se agregó la empresa al grupo')
+            this.limpiarCampos();
+            this.listarClienteEmpresa();
+
+          }else{
+            this.limpiarCampos();
+            this.listarClienteEmpresa();
+          }
         });
 
       } else {
@@ -133,7 +154,6 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         if (data.payload.tiene_cliente ){
           let gc=data.payload.cliente.cliente_agrupacion.nombre
           mensaje= "Empresa ya fue asignada al Grupo / Consorcio "+gc;
-
         }
         const dialogRef2 = this.matDialog.open( ErrorDialogComponent, {
           disableClose: true,
@@ -142,9 +162,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         });
         /* en realidad no habria return, pero por si acaso, borrar si es necesario */
         dialogRef2.afterClosed().subscribe(result => {
-          if(result==='CONFIRM_DLG_YES'){
-            console.log("return function process");
-          }
+          this.limpiarCampos();
+          this.listarClienteEmpresa();
         });
       }
 
@@ -166,8 +185,13 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
         this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then( data =>{
-         
-            this.listarClienteEmpresa();
+         if(!data.payload.warning){
+          this.enviarMensajeSnack('Se retiró la empresa');
+          this.listarClienteEmpresa();
+        }else{
+           this.listarClienteEmpresa();
+
+         }
           
         });
       }
@@ -177,20 +201,63 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   }
 
-/*   SolicitarActualizarGrupo(){
-    console.log("SolicitarActualizarGrupo");
-  } */
+
+
   AprobarGrupo(){
     console.log("AprobarGrupo");
-  }
-  RechazarGrupo(){
-    console.log("RechazarGrupo");
+    let item:ClienteAgrupacion = {
+      id_usuario:this.id_usuario,
+      id:this.id_cliente_agrupacion
+    }
+    this.grupoEmpresarialService.aprobarGrupoEmpresarial(item).then( data => {
+      if(!data.payload.warning){
+        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el grupo');
+        this.listarClienteEmpresa();
+      }else{
+        this.enviarMensajeSnack(data.payload.warning.mensaje);
+        this.listarClienteEmpresa();
+      }
+    })
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  RechazarGrupo(){
+    console.log("RechazarGrupo");
+    let item:ClienteAgrupacion = {
+      id_usuario:this.id_usuario,
+      id:this.id_cliente_agrupacion
+    }
+    this.grupoEmpresarialService.rechazarGrupoEmpresarial(item).then( data => {
+      if(!data.payload.warning){
+        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el grupo');
+        this.listarClienteEmpresa();
+      }else{
+        this.enviarMensajeSnack(data.payload.warning.mensaje);
+        this.listarClienteEmpresa();
+      }
+    })
+  }
+
+  async callWarningDialog(mensaje: string) {
+
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje,
+      panelClass: 'custom_Config'
+    });
+
+  }
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
   limpiarCampos(){
     this.asignarEmpresaFormDialog.reset();
   }
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  } 
 }

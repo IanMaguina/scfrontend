@@ -6,6 +6,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { GrupoEmpresarialService} from '../../../../services/grupo-empresarial.service';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { GlobalSettings } from 'src/app/shared/settings';
+
 @Component({
   selector: 'app-crear-grupo-empresarial',
   templateUrl: './crear-grupo-empresarial.component.html',
@@ -13,6 +14,7 @@ import { GlobalSettings } from 'src/app/shared/settings';
   ]
 })
 export class CrearGrupoEmpresarialComponent implements OnInit {
+
   crearGrupoFormDialog: any;
   formErrors = {
     'nombre': '',
@@ -49,7 +51,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-    console.log("logueo-->"+JSON.stringify(this.userInfo));
+
     this.id_userLogueo=this.userInfo.id;
     this.id_perfilLogueo=this.userInfo.id_perfil;   
     this.isAdmin();
@@ -83,6 +85,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   isAdmin(){
     if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
       this.isPerfilAdmin = true;
+      
     }
   }
 

@@ -11,39 +11,13 @@ export class ClienteEmpresaService {
   ) {
   }
 
-  listarEmpresas(id_cliente_agrupacion:number): Promise<any> {
+  listarClienteAgrupacionEmpresa(id_cliente_agrupacion:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa").toPromise().then((data) => {
-          if (data.header.exito) {
-            resolve(data);
-          } else {
-            console.log("no hay empresas encontrados...");
-            resolve([]);
-          }
-        }
-        ).catch(
-          (error) => {
-            console.log("error status=" + error.status + ", msg=" + error.message);
-            reject(error);
-          }
-        );
-
-      }
-    );
-  }
-
-  listarClienteAgrupacionEmpresa(id_cliente_agrupacion:number): Promise<any> {
-    return new Promise(
-      (resolve, reject) => {
-        console.log("api=> /api/cliente-agrupacion-empresa?id_cliente_agrupacion="+id_cliente_agrupacion);
+      //  console.log("api=> /api/cliente-agrupacion-empresa?id_cliente_agrupacion="+id_cliente_agrupacion);
         this.resourceService.getResource("/api/cliente-agrupacion-empresa?id_cliente_agrupacion="+id_cliente_agrupacion).toPromise().then((data) => {
-          if (data.header.exito) {
-            resolve(data);
-          } else {
-            console.log("no hay empresas de la agrupacion encontrados...");
-            resolve([]);
-          }
+         // console.log("empresas del grupo: "+JSON.stringify(data));
+          resolve(data);
         }
         ).catch(
           (error) => {
@@ -57,10 +31,9 @@ export class ClienteEmpresaService {
   }
   
   crearClienteEmpresa(clienteEmpresa: ClienteEmpresa): Promise<any> {
-    console.log("sending clienteEmpresa..." + JSON.stringify(clienteEmpresa));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.postResource("/api/cliente-agrupacion/"+clienteEmpresa.id_cliente_agrupacion+"/empresa", clienteEmpresa).toPromise().then((data) => {
+        this.resourceService.postResource("/api/cliente-agrupacion-empresa/", clienteEmpresa).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
@@ -72,13 +45,14 @@ export class ClienteEmpresaService {
   }
 
   eliminarClienteEmpresa(id_cliente_agrupacion: number,id_cliente_empresa:number, usuario_modificacion:any): Promise<any> {
-    console.log("/api/cliente-agrupacion2/" + id_cliente_agrupacion+"/empresa/"+id_cliente_empresa);
     let item ={
-      "usuario_modificacion":usuario_modificacion
+      usuario_modificacion:usuario_modificacion,
+      id_cliente_empresa:id_cliente_empresa,
+      id_cliente_agrupacion:id_cliente_agrupacion,
     }
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource3("/api/cliente-agrupacion2/" + id_cliente_agrupacion+"/empresa/"+id_cliente_empresa, item).toPromise().then((data) => {
+        this.resourceService.postResource("/api/cliente-agrupacion-empresa/", item).toPromise().then((data) => {
             resolve(data);
         }
         ).catch(

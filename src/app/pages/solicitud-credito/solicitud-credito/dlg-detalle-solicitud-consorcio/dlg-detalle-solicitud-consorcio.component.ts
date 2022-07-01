@@ -125,7 +125,7 @@ export class DlgDetalleSolicitudConsorcioComponent implements OnInit {
   }
 
   async listarClienteEmpresa() {
-    await this.clienteEmpresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
+    await this.empresaService.listarEmpresas(this.id_cliente_agrupacion).then(data => {
       console.log("listarClienteEmpresas:" + JSON.stringify(data));
       this.listadoIntegrantes = data.payload;
     })

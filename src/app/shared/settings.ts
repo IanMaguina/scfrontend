@@ -14,8 +14,8 @@ export const GlobalSettings = Object.freeze({
     //CLIENT_KEY: '311178255527-hh0kq3ccrf68j5kusbeprulhmou3v3mt.apps.googleusercontent.com',
 
     //Perfiles
-    PERFIL_ADMINISTRADOR: 1,
-    PERFIL_USUARIO: 2,
+    PERFIL_ADMINISTRADOR: 2,
+    PERFIL_USUARIO: 1,
 
     //Roles
     ROL_SOLICITANTE: 10,

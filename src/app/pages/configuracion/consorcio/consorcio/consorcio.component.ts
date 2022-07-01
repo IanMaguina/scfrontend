@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AutenticacionService } from '@services/autenticacion.service';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
+import { Usuario } from 'src/app/models/usuario.interface';
 import { ConsorcioService } from 'src/app/services/consorcio.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { GlobalSettings } from 'src/app/shared/settings';
 import { AsignarIntegrantesComponent } from '../asignar-integrantes/asignar-integrantes.component';
 import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.component';
 
@@ -19,15 +22,22 @@ export class ConsorcioComponent implements OnInit {
 
   displayedColumns: string[] = ['razonsocial', 'pendiente', 'solicitante', 'numero_documento', 'estado', 'id'];
 
-
+  userInfo: Usuario;
+  id_userLogueo: number = 0;
+  id_perfilLogueo: number = 0;
+  PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
+  isPerfilAdmin:boolean=false;
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
-    private consorcioService: ConsorcioService
+    private consorcioService: ConsorcioService,
+    private autenticacionService: AutenticacionService
   ) { }
 
   ngOnInit(): void {
+    this.userInfo = this.autenticacionService.getUserInfo();
     this.listarConsorcios();
+    this.isAdmin();
   }
 
   async listarConsorcios() {
@@ -88,8 +98,10 @@ export class ConsorcioComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         if (msg != 'no') {
           this.enviarMensajeSnack(msg);
+          this.listarConsorcios();
+        }else{
+          this.listarConsorcios();
         }
-        this.listarConsorcios();
       } else {
         this.listarConsorcios();
 
@@ -105,7 +117,11 @@ export class ConsorcioComponent implements OnInit {
     });
   }
 
-
+  isAdmin(){
+    if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
+      this.isPerfilAdmin = true;
+    }
+  }
 
 
 }

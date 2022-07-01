@@ -43,49 +43,49 @@
                 <!-- Column -->
                 <ng-container matColumnDef="sociedad">
                     <th mat-header-cell *matHeaderCellDef> Sociedad </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.sociedad.nombre}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.sociedad?element.empresa.sociedad.nombre:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
                 <ng-container matColumnDef="codigocliente">
                     <th mat-header-cell *matHeaderCellDef> Código de cliente </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.grupo_cliente_codigo_sap}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.cliente_codigo_sap?element.empresa.cliente_codigo_sap:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
                 <ng-container matColumnDef="razonsocial">
                     <th mat-header-cell *matHeaderCellDef> Razón Social </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.razon_social}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.razon_social?element.empresa.razon_social:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
                 <ng-container matColumnDef="ruc">
                     <th mat-header-cell *matHeaderCellDef> RUC </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.numero_documento}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.numero_documento?element.empresa.numero_documento:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
                 <ng-container matColumnDef="canal">
                     <th mat-header-cell *matHeaderCellDef> Canal Comercial </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.tipo_canal.nombre}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.tipo_canal?element.empresa.tipo_canal.nombre:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
                 <ng-container matColumnDef="zonal">
                     <th mat-header-cell *matHeaderCellDef> Zonal </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.grupo_cliente.nombre}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.zonal_codigo_sap?element.empresa.zonal_codigo_sap:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
                 <ng-container matColumnDef="grupo_cliente">
                     <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
-                    <td mat-cell *matCellDef="let element"> {{element.empresa.grupo_cliente.nombre}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.empresa.grupo_cliente?element.empresa.grupo_cliente.nombre:'NR')}} </td>
                 </ng-container>
                 
                 <!-- Column -->
                 <ng-container matColumnDef="estado_cliente_agrupacion">
                     <th mat-header-cell *matHeaderCellDef> Estado </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id_estado_cliente_agrupacion}} </td>
+                    <td mat-cell *matCellDef="let element"> {{(element.estado_cliente_agrupacion?element.estado_cliente_agrupacion.nombre:'NR')}} </td>
                 </ng-container>
 
 
@@ -110,11 +110,11 @@
         <mat-divider class="divisor"></mat-divider>
 
         <div class="botonera">
-            <button mat-flat-button class="boton-secundario" (click)="onNoClick()">Cerrar</button>
+            <button mat-flat-button class="boton-secundario" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
             
-            <button mat-flat-button class="boton-warn" (click)="RechazarGrupo()">Rechazar</button>
+            <button mat-flat-button class="boton-warn" (click)="RechazarGrupo()" *ngIf="isAdmin">Rechazar</button>
             
-            <button mat-flat-button class="boton-principal-light" (click)="AprobarGrupo()">Aprobar</button>
+            <button mat-flat-button class="boton-principal-light" (click)="AprobarGrupo()" *ngIf="isAdmin">Aprobar</button>
         </div>
     </div>
 </div>

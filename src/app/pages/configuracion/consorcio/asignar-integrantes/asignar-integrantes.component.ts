@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { ConsorcioService } from '@services/consorcio.service';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
+import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { ClienteEmpresa } from 'src/app/models/cliente-empresa.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { ClienteEmpresaService } from 'src/app/services/cliente-empresa.service';
@@ -85,9 +88,9 @@ export class AsignarIntegrantesComponent implements OnInit {
   id_usuario: number;
   isAdmin: boolean = false;
   PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
+
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesComponent>,
-    /* poner el tipo de la data que esta viniendo, si es necesario */
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
@@ -95,7 +98,9 @@ export class AsignarIntegrantesComponent implements OnInit {
     private autenticacionService: AutenticacionService,
     private empresaService: EmpresaService,
     private clienteEmpresaService: ClienteEmpresaService,
+    private consorcioService: ConsorcioService,
     private matDialog: MatDialog,
+    private _snack: MatSnackBar,
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario = this.userInfo.id;
@@ -147,16 +152,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     })
 
   }
-  async callWarningDialog(mensaje: string) {
-
-    this.matDialog.open(ErrorDialogComponent, {
-      disableClose: true,
-      width: "400px",
-      data: mensaje,
-      panelClass: 'custom_Config'
-    });
-
-  }
+  
 
 
 
@@ -209,8 +205,14 @@ export class AsignarIntegrantesComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let id_cliente_empresa = form.id;
         this.clienteEmpresaService.eliminarClienteEmpresa(this.id_cliente_agrupacion, id_cliente_empresa, this.id_usuario).then(data => {
-
-          this.listarClienteEmpresa();
+          if(!data.payload.warning){
+            this.enviarMensajeSnack('Se retiró la empresa');
+            this.listarClienteEmpresa();
+          }else{
+            this.listarClienteEmpresa();
+  
+           }
+          
 
         });
       }
@@ -219,8 +221,8 @@ export class AsignarIntegrantesComponent implements OnInit {
 
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
   adjuntarParticipacion(any) {
@@ -231,15 +233,60 @@ export class AsignarIntegrantesComponent implements OnInit {
     console.log("");
   }
 
-  AprobarConsorcio() {
-    console.log("AprobarConsorcio");
+ 
+  AprobarConsorcio(){
+    let item:ClienteAgrupacion = {
+      id_usuario:this.id_usuario,
+      id:this.id_cliente_agrupacion
+    }
+    this.consorcioService.aprobarConsorcio(item).then( data => {
+      if(!data.payload.warning){
+        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
+        this.listarClienteEmpresa();
+      }else{
+        this.enviarMensajeSnack(data.payload.warning.mensaje);
+        this.listarClienteEmpresa();
+      }
+    })
   }
-  RechazarConsorcio() {
-    console.log("RechazarConsorcio");
+  
+  RechazarConsorcio(){
+    let item:ClienteAgrupacion = {
+      id_usuario:this.id_usuario,
+      id:this.id_cliente_agrupacion
+    }
+    this.consorcioService.rechazarConsorcio(item).then( data => {
+      if(!data.payload.warning){
+        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el consorcio');
+        this.listarClienteEmpresa();
+      }else{
+        this.enviarMensajeSnack(data.payload.warning.mensaje);
+        this.listarClienteEmpresa();
+      }
+    })
   }
+
+  async callWarningDialog(mensaje: string) {
+
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje,
+      panelClass: 'custom_Config'
+    });
+
+  }
+
   limpiarCampos() {
     this.asignarEmpresaFormDialog.reset();
   }
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  } 
 
 }
 

@@ -10,11 +10,16 @@ export interface ClienteAgrupacionEmpresa {
     activo?: boolean;
     participacion?: string;
     id_estado_cliente_agrupacion?: number;
+    estado_cliente_agrupacion?:EstadoClienteAgrupacion;
     id_usuario_creacion?: number;
     id_usuario_modificacion?: number;
     fecha_creacion?: string;
     fecha_modificacion?: string;
 }
 
+export interface EstadoClienteAgrupacion {
+    id?: number;
+    nombre?: string;
+}
 
 
