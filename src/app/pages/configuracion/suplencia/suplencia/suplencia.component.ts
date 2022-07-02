@@ -98,7 +98,8 @@ export class SuplenciaComponent implements OnInit {
     let dialogRef = this.matDialog.open(EditarSuplenciaComponent, {
       disableClose: true,
       data: form,
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

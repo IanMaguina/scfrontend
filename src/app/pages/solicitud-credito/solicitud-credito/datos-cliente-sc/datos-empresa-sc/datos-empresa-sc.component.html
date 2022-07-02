@@ -31,7 +31,7 @@
             <div class="label">Sustento Comercial:</div>
             <div class="dato">
                 <mat-form-field appearance="fill">
-                    <mat-label>Sustento Comercial</mat-label>
+                    <mat-label>Ingresar</mat-label>
                     <input matInput formControlName="sustento_comercial">
                 </mat-form-field>
             </div>
@@ -41,7 +41,7 @@
             <div class="label">Oficina de Venta:</div>
             <div class="dato">
                 <mat-form-field appearance="fill">
-                    <mat-label>Oficina de Venta</mat-label>
+                    <mat-label>Seleccionar</mat-label>
                     <mat-select formControlName="id_zonal" required>
                         <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal.codigo_sap">{{ zonal.nombre }}
                         </mat-option>
@@ -51,10 +51,10 @@
         </div>
 
         <div class="objeto formElementoPlano">
-            <div class="label">Sustento Comercial:</div>
+            <div class="label">Teléfono:</div>
             <div class="dato">
                 <mat-form-field appearance="fill">
-                    <mat-label>Teléfono</mat-label>
+                    <mat-label>Ingresar</mat-label>
                     <input matInput formControlName="telefono">
                 </mat-form-field>
             </div>
@@ -62,10 +62,10 @@
 
 
         <div class="objeto formElementoPlano">
-            <div class="label">Sustento Comercial:</div>
+            <div class="label">Correo Electrónico:</div>
             <div class="dato">
                 <mat-form-field appearance="fill">
-                    <mat-label>Correo Electrónico</mat-label>
+                    <mat-label>Ingresar</mat-label>
                     <input matInput formControlName="correo">
                 </mat-form-field>
             </div>
