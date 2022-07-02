@@ -50,7 +50,7 @@ export class EditarUsuarioComponent implements OnInit {
     private usuarioService: UsuarioService
   ) {
     this.usuariodata = data;
-    console.log("info del usuario: "+ JSON.stringify(data));
+    console.log("info del usuario: " + JSON.stringify(data));
     this.crearFormDialog = this.formBuilder.group({
       nombre: [this.usuariodata.nombre, Validators.required],
       correo: [this.usuariodata.correo, Validators.required],
@@ -73,24 +73,25 @@ export class EditarUsuarioComponent implements OnInit {
 
   }
 
+  
   async editarUsuario(form: any) {
     let usuario = await this.mapeoUsuario(form);
-    this.usuarioService.actualizarUsuario(usuario).then( data =>{ 
-    if(data.header.exito){
-      if(data.payload && !data.payload.warning){
-        this.onNoClick('CONFIRM_DLG_YES');
-      }else if(data.payload && data.payload.warning ){
-        this.callErrorDialog(data.payload.warning.mensaje);
+    this.usuarioService.actualizarUsuario(usuario).then(data => {
+      if (data.header.exito) {
+        if (data.payload && data.payload.warning) {
+          this.callErrorDialog(data.payload.warning.mensaje);
+          this.onNoClick('CONFIRM_DLG_NO');
+        } else{
+          this.onNoClick('CONFIRM_DLG_YES');          
+        }
+      } else {
         this.onNoClick('CONFIRM_DLG_NO');
       }
-    }else{
-      this.onNoClick('CONFIRM_DLG_NO');
-    }
-     
+
     });
   }
 
-  onNoClick(msg:string): void {
+  onNoClick(msg: string): void {
     this.dialogRef.close(msg);
   }
 

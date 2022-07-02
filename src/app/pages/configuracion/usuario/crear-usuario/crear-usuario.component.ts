@@ -78,11 +78,11 @@ export class CrearUsuarioComponent implements OnInit {
     console.log("crearUsuario:" + JSON.stringify(usuario));
     this.usuarioService.crearUsuario(usuario).then((data)=>{
       if(data.header.exito){
-        if(!data.payload.warning){
-          this.onNoClick('CONFIRM_DLG_YES');
-        }else{
+        if(data.payload.warning){
           this.callErrorDialog(data.payload.warning.mensaje);
           this.onNoClick('CONFIRM_DLG_NO');
+        }else{
+          this.onNoClick('CONFIRM_DLG_YES');          
         }
       }else{
         this.enviarMensajeSnack(data.header.mensaje);
