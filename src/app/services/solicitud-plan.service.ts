@@ -102,4 +102,48 @@ export class SolicitudPlanService {
   }
 
 
+  obtenerResumenRiesgos(id_solicitud: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/solicitud-plan/resumen-riesgos?id_solicitud=" + id_solicitud).toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            resolve(data);
+          } else {
+            console.log("no hay datos resumen riesgos encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+
+  }
+
+  obtenerConsolidadoRiesgos(id_solicitud: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/solicitud-plan/consolidado-riesgos?id_solicitud=" + id_solicitud).toPromise().then((data) => {
+          if (data && Object.keys(data).length !== 0) {
+            resolve(data);
+          } else {
+            console.log("no hay datos resumen riesgos encontrado...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+
+  }
+
 }

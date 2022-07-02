@@ -60,9 +60,7 @@ import { TabDocumentosAdicionalesScComponent } from './solicitud-credito/datos-a
 import { DlgNuevoProductoFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-nuevo-producto-flujo-caja-sc/dlg-nuevo-producto-flujo-caja-sc.component';
 import { DlgCuadroFlujoCajaScComponent } from './solicitud-credito/datos-adjuntos-sc/dlg-cuadro-flujo-caja-sc/dlg-cuadro-flujo-caja-sc.component';
 import { EditarSolicitudCreditoComponent } from './solicitud-credito/editar-solicitud-credito/editar-solicitud-credito.component';
-import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-solicitud-credito/bandeja-solicitud-credito.component';
-import { DlgDetalleSolicitudConsorcioComponent } from './solicitud-credito/dlg-detalle-solicitud-consorcio/dlg-detalle-solicitud-consorcio.component';
-import { DlgDetalleSolicitudGrupoComponent } from './solicitud-credito/dlg-detalle-solicitud-grupo/dlg-detalle-solicitud-grupo.component';
+import { BandejaSolicitudCreditoComponent } from './solicitud-credito/bandeja-solicitud-credito/bandeja-solicitud-credito.component'; 
 import { EvaluarCreditoComponent } from './evaluar-credito/evaluar-credito.component';
 import { SustentoEvaluacionEcComponent } from './evaluar-credito/sustento-evaluacion-ec/sustento-evaluacion-ec.component';
 
@@ -102,9 +100,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     DlgNuevoProductoFlujoCajaScComponent,
     DlgCuadroFlujoCajaScComponent,
     EditarSolicitudCreditoComponent,
-    BandejaSolicitudCreditoComponent,
-    DlgDetalleSolicitudConsorcioComponent,
-    DlgDetalleSolicitudGrupoComponent,
+    BandejaSolicitudCreditoComponent, 
     EvaluarCreditoComponent,
     SustentoEvaluacionEcComponent,
 
