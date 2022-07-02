@@ -60,8 +60,9 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   async crearGrupo(form: any) {
     let clienteAgrupacion = await this.mapeoGrupo(form)
     this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then( data =>{
+      console.log("ARSA CREAR GRUPO-->"+JSON.stringify(data));
       if(data.header.exito){
-        this.onNoClick('CONFIRM_DLG_YES');
+        this.onNoClick({payload:{data:data.payload,confirm:'CONFIRM_DLG_YES'}});
       }
     });
   }
@@ -78,7 +79,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     return clienteAgrupacion;
   }
 
-  onNoClick(msg:string): void {
+  onNoClick(msg:any): void {
     this.dialogRef.close(msg);
   }
 

@@ -93,7 +93,7 @@
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button class="color-secundario" (click)="QuitarEmpresa(element)">
+                        <button mat-icon-button class="color-secundario" (click)="eliminarClienteEmpresa(element)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
@@ -112,7 +112,7 @@
         <div class="botonera">
             <button mat-flat-button class="boton-secundario" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
             
-            <button mat-flat-button class="boton-warn" (click)="RechazarGrupo()" *ngIf="isAdmin">Rechazar</button>
+            <button mat-flat-button class="boton-warn" (click)="RechazarGrupo()" *ngIf="isAdmin ">Rechazar</button>
             
             <button mat-flat-button class="boton-principal-light" (click)="AprobarGrupo()" *ngIf="isAdmin">Aprobar</button>
         </div>

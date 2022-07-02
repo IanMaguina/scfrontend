@@ -15,7 +15,7 @@ export class ClienteEmpresaService {
     return new Promise(
       (resolve, reject) => {
       //  console.log("api=> /api/cliente-agrupacion-empresa?id_cliente_agrupacion="+id_cliente_agrupacion);
-        this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa").toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa?activo=true").toPromise().then((data) => {
          // console.log("empresas del grupo: "+JSON.stringify(data));
           resolve(data);
         }

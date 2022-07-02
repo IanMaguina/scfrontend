@@ -17,7 +17,7 @@ export class GrupoEmpresarialService {
   listarGruposEmpresariales(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=1").toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=1&ctivo=true").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

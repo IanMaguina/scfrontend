@@ -54,11 +54,25 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   openAgregarGrupo() {
-    this.openDialog(CrearGrupoEmpresarialComponent, 'Se agregó el grupo empresarial', '300px');
+    let dialogRef = this.matDialog.open(CrearGrupoEmpresarialComponent, {
+      disableClose: true,
+      width: '300px',
+      panelClass: 'custom_Config'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.payload.confirm === 'CONFIRM_DLG_YES') {
+          this.openAsignarIntegrantesGrupo(result.payload.data);
+      } else {
+        this.listarGruposEmpresariales();
+
+      }
+    });
+
   }
 
-  openAsignarIntegrantesGrupo(id: any) {
-    this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', id)
+  openAsignarIntegrantesGrupo(data: any) {
+    this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', data)
   }
 
   toggleGrupoActivo(element: any) {

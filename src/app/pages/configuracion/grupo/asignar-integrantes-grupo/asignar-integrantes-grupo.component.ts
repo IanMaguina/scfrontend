@@ -16,6 +16,7 @@ import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { AutenticacionService } from '@services/autenticacion.service';
 
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO=GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
 
 @Component({
   selector: 'app-asignar-integrantes-grupo',
@@ -65,6 +66,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   ];
   userInfo: any;
   id_cliente_agrupacion: number = null;
+  id_estado_cliente_agrupacion:number=GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
+  
   id_usuario:number;
   isAdmin: boolean = false;
   PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
@@ -84,10 +87,11 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   ) {
     this.grupoData = data;
     console.log("ARSA-->"+JSON.stringify(data));
-    this.id_cliente_agrupacion = this.grupoData.id;
+    this.id_cliente_agrupacion = data.id;
+    this.id_estado_cliente_agrupacion=data.id_estado_cliente_agrupacion;
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario = this.userInfo.id;
-    if(this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR){
+    if(this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR && this.id_estado_cliente_agrupacion!==ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO){
       this.isAdmin = true;
     }else{
       this.isAdmin = false;
@@ -188,7 +192,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   }
 
-  QuitarEmpresa(element: any) {
+  eliminarClienteEmpresa(element: any) {
 
     element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este grupo? `;
 
