@@ -163,7 +163,7 @@ export class AsignarIntegrantesComponent implements OnInit {
       if (data.header.exito) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
-          id:form.id,
+          id: form.id,
           id_cliente_agrupacion: this.id_cliente_agrupacion,
           id_empresa: data.payload[0].id,
           id_usuario_creacion: this.id_usuario,
@@ -178,14 +178,16 @@ export class AsignarIntegrantesComponent implements OnInit {
 
         } else {
           this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
-            if(!res.payload.warning){
-              this.enviarMensajeSnack('Se agregó la empresa');
-              this.limpiarCampos();
-            this.listarClienteEmpresa();
-            }else{
+            if (res.payload.warning) {
               this.limpiarCampos();
               this.listarClienteEmpresa();
-            }            
+
+            } else {
+              this.enviarMensajeSnack('Se agregó la empresa');
+              this.limpiarCampos();
+              this.listarClienteEmpresa();
+
+            }
           });
         }
       } else {
@@ -215,14 +217,17 @@ export class AsignarIntegrantesComponent implements OnInit {
           id: element.id,
           id_cliente_agrupacion: element.id_cliente_agrupacion,
           id_empresa: element.id_empresa,
-          id_usuario:this.id_usuario,
+          id_usuario: this.id_usuario,
         }
         this.clienteEmpresaService.eliminarClienteEmpresa(clienteEmpresa, this.id_usuario).then(data => {
-          if (!data.payload.warning) {
-            this.enviarMensajeSnack('Se retiró la empresa');
+          console.log("ARSA warning-->" + JSON.stringify(data));
+          if (data.payload.warning) {
             this.listarClienteEmpresa();
           } else {
+            this.enviarMensajeSnack('Se retiró la empresa');
             this.listarClienteEmpresa();
+
+
           }
         });
       } else {
@@ -252,12 +257,14 @@ export class AsignarIntegrantesComponent implements OnInit {
       id: this.id_cliente_agrupacion
     }
     this.consorcioService.aprobarConsorcio(item).then(data => {
-      if (!data.payload.warning) {
-        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
-        this.listarClienteEmpresa();
-      } else {
+      if (data.payload.warning) {
         this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
+
+      } else {
+        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
+        this.listarClienteEmpresa();
+
       }
     })
   }
@@ -268,11 +275,11 @@ export class AsignarIntegrantesComponent implements OnInit {
       id: this.id_cliente_agrupacion
     }
     this.consorcioService.rechazarConsorcio(item).then(data => {
-      if (!data.payload.warning) {
-        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el consorcio');
+      if (data.payload.warning) {
+        this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
       } else {
-        this.enviarMensajeSnack(data.payload.warning.mensaje);
+        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el consorcio');
         this.listarClienteEmpresa();
       }
     })

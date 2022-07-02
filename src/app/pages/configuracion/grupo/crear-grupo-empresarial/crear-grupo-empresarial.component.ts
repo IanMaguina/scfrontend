@@ -73,7 +73,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
       "numero_documento": null,      
       "nombre": form.nombre,
       "activo": true,
-      "id_usuario_creacion": this.id_userLogueo,
+      "id_usuario": this.id_userLogueo,
     }
     return clienteAgrupacion;
   }

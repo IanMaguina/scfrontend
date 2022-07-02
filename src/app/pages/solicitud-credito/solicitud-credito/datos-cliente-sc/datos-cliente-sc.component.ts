@@ -334,13 +334,15 @@ export class DatosClienteScComponent implements OnInit {
         this.solicitudService.actualizarSolicitud(this.id_solicitud_editar, solicitud).then(async data => {
           console.log("se actualizo la solicitud-->" + JSON.stringify(data));
           if (data.payload) {
-            if (!data.payload.warning) {
+            if (data.payload.warning) {
+              this.openAlerta(data.payload.warning.mensaje);              
+            } else {
               this.enviarMensajeSnack("se actualizo la solicitud");
               id_solicitud = this.id_solicitud_editar;
               this.id_solicitud_hija.emit(this.id_solicitud_editar);
               resolve(id_solicitud);
-            } else {
-              this.openAlerta(data.payload.warning.mensaje);
+
+
             }
           }
         }).catch(

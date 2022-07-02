@@ -43,6 +43,7 @@ export class GruposCoincidentesDialogComponent implements OnInit {
   }
 
   listarGrupoEmpresarialxFiltros(filtro: any) {
+    console.log("ARSA- filtro--->"+JSON.stringify(filtro));
     this.solicitudService.listarGrupoEmpresarialxFiltros(filtro).then((data) => {
       console.log("Listado de grupos empresariales-->" + JSON.stringify(data.payload))
       this.listaGrupos = data.payload;

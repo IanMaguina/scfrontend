@@ -64,22 +64,17 @@ export class SolicitudService {
   listarGrupoEmpresarialxFiltros(filtros: any): Promise<any> {
     let numero_documento = null;
     let nombre = null;
-    let sociedad_codigo_sap = null;
     let query = "";
     
-    if (filtros['numero_documento']) {
-      numero_documento = filtros['numero_documento'];
-      query = "numero_documento=" + numero_documento;
-
-    }
     if (filtros['nombre']) {
       nombre = filtros['nombre'];
-      query = query != "" ? "&nombre=" + nombre : "nombre=" + nombre;
+      query ="nombre=" + nombre ;
     }
 
-    if (filtros['sociedad_codigo_sap']) {
-      sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
-      query = query != "" ? "&sociedad_codigo_sap=" + sociedad_codigo_sap : "sociedad_codigo_sap=" + sociedad_codigo_sap;
+    if (filtros['numero_documento']) {
+      numero_documento = filtros['numero_documento'];
+      query = query != "" ? query+"&numero_documento=" + numero_documento : "numero_documento=" + numero_documento;
+
     }
 
     console.log("link-->" + "/api/cliente-agrupacion/buscar-grupo-empresarial?" + query);

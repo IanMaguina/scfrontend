@@ -49,11 +49,11 @@ export class ConsorciosCoincidentesDialogComponent implements OnInit {
     this.solicitudService.listarConsorcioxFiltros(filtro).then((data)=>{
       console.log("Listado de Consorcios -->"+JSON.stringify(data.payload))
       if(data.payload){
-        if(!data.payload.warning){
-          this.listaConsorcios=data.payload;
-        }else{
+        if(data.payload.warning){
           this.nodata=true;
           this.openAlerta(data.payload.warning.mensaje);
+        }else{
+          this.listaConsorcios=data.payload;          
         }
       }
       

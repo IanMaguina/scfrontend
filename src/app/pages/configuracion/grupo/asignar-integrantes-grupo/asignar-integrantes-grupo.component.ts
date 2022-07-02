@@ -29,12 +29,11 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   asignarEmpresaFormDialog: any;
 
-
-
   formErrors = {
     'sociedad': '',
     'ruc': '',
   }
+
   validationMessages = {
     'sociedad': {
       'required': 'Nombre es requerido.'
@@ -44,12 +43,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     }
   };
 
-
-
   //Submitted form
   submitted = false;
   carga: boolean = false;
-
 
   //poner el tipado correcto => es data dummy
   listadoSociedades: Sociedad[] = [];
@@ -87,6 +83,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     private _snack: MatSnackBar,
   ) {
     this.grupoData = data;
+    console.log("ARSA-->"+JSON.stringify(data));
     this.id_cliente_agrupacion = this.grupoData.id;
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario = this.userInfo.id;
@@ -130,6 +127,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       console.log("data--->" + JSON.stringify(data));
       if (data.header.exito) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
+        if (data.payload.length>0){
         let clienteEmpresa: ClienteEmpresa = {
           id_cliente_agrupacion: this.id_cliente_agrupacion,
           id_empresa: data.payload[0].id,
@@ -150,7 +148,20 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
             this.listarClienteEmpresa();
           }
         });
+      }else{
+        let mensaje:string = "Empresa no registrada";
+        const dialogRef2 = this.matDialog.open( ErrorDialogComponent, {
+          disableClose: true,
+          width:"400px",
+          data:mensaje
+        });
+        /* en realidad no habria return, pero por si acaso, borrar si es necesario */
+        dialogRef2.afterClosed().subscribe(result => {
+          this.limpiarCampos();
+          this.listarClienteEmpresa();
+        });
 
+      }
       } else {
         let mensaje:string = "Empresa no registrada";
         if (data.payload.tiene_cliente ){
@@ -191,12 +202,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
           id_usuario:this.id_usuario,
         } 
         this.clienteEmpresaService.eliminarClienteEmpresa(clienteEmpresa, this.id_usuario).then( data =>{
-         if(!data.payload.warning){
+         if(data.header.exito){
           this.enviarMensajeSnack('Se retiró la empresa');
           this.listarClienteEmpresa();
-        }else{
-           this.listarClienteEmpresa();
-
          }
           
         });
@@ -218,14 +226,18 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       id:this.id_cliente_agrupacion
     }
     this.grupoEmpresarialService.aprobarGrupoEmpresarial(item).then( data => {
-      if(!data.payload.warning){
-        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el grupo');
-        this.listarClienteEmpresa();
-      }else{
+      console.log("ARSA warning-->"+JSON.stringify(data));      
+      this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el grupo');
+      this.listarClienteEmpresa();
+
+/*       if(data.payload.warning){
         this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
+      }else{
+        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el grupo');
+        this.listarClienteEmpresa();
       }
-    })
+ */    })
   }
 
   RechazarGrupo(){
@@ -235,11 +247,12 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       id:this.id_cliente_agrupacion
     }
     this.grupoEmpresarialService.rechazarGrupoEmpresarial(item).then( data => {
-      if(!data.payload.warning){
-        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el grupo');
+      console.log("ARSA warning RechazarGrupo-->"+JSON.stringify(data));   
+      if(data.payload.warning){
+        this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
       }else{
-        this.enviarMensajeSnack(data.payload.warning.mensaje);
+        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el grupo');
         this.listarClienteEmpresa();
       }
     })
@@ -268,4 +281,5 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       verticalPosition: "top"
     });
   } 
+  
 }
