@@ -127,17 +127,21 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       console.log("data--->" + JSON.stringify(data));
       if (data.header.exito) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
-        if (data.payload.length>0){
+        if (data.payload){
         let clienteEmpresa: ClienteEmpresa = {
           id_cliente_agrupacion: this.id_cliente_agrupacion,
-          id_empresa: data.payload[0].id,
+          id_empresa: data.payload.id,
           id_usuario_creacion: this.id_usuario,
           id_usuario: this.id_usuario,
         }
         
         
         this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res=>{
-          if(!res.payload.warning){
+          this.enviarMensajeSnack('Se agregó la empresa al grupo')
+          this.limpiarCampos();
+          this.listarClienteEmpresa();
+
+/*           if(!res.payload.warning){
             this.enviarMensajeSnack('Se agregó la empresa al grupo')
             this.limpiarCampos();
             this.listarClienteEmpresa();
@@ -147,7 +151,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
             this.limpiarCampos();
             this.listarClienteEmpresa();
           }
-        });
+ */        });
       }else{
         let mensaje:string = "Empresa no registrada";
         const dialogRef2 = this.matDialog.open( ErrorDialogComponent, {
@@ -228,7 +232,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     this.grupoEmpresarialService.aprobarGrupoEmpresarial(item).then( data => {
       console.log("ARSA warning-->"+JSON.stringify(data));      
       this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el grupo');
-      this.listarClienteEmpresa();
+      //this.listarClienteEmpresa();
+      this.onNoClick('CONFIRM_DLG_YES'); 
 
 /*       if(data.payload.warning){
         this.enviarMensajeSnack(data.payload.warning.mensaje);
@@ -248,13 +253,15 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     }
     this.grupoEmpresarialService.rechazarGrupoEmpresarial(item).then( data => {
       console.log("ARSA warning RechazarGrupo-->"+JSON.stringify(data));   
-      if(data.payload.warning){
+      this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el grupo');
+      this.onNoClick('CONFIRM_DLG_YES'); 
+/*       if(data.payload.warning){
         this.enviarMensajeSnack(data.payload.warning.mensaje);
         this.listarClienteEmpresa();
       }else{
         this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el grupo');
         this.listarClienteEmpresa();
-      }
+      } */
     })
   }
 
