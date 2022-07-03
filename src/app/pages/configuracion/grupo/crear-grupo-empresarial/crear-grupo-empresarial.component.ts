@@ -43,6 +43,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     private _snack: MatSnackBar,
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
+    console.log("usuario-->"+JSON.stringify(this.userInfo));
 
     this.crearGrupoFormDialog = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -63,14 +64,21 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     let clienteAgrupacion = await this.mapeoGrupo(form)
     this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then(data => {
       if (data.header.exito) {
-        this.onNoClick({payload:{data:data.payload,confirm:(data.payload===null?'CONFIRM_DLG_NO':'CONFIRM_DLG_YES')}});
+        if (data.payload.warning){
+          this.enviarMensajeSnack(data.payload.warning.mensaje);
+          this.onNoClick({ payload: { data: data.payload, confirm: 'CONFIRM_DLG_NO' } });  
+        }else{
+          this.onNoClick({ payload: { data: data.payload, confirm: (data.payload === null ? 'CONFIRM_DLG_NO' : 'CONFIRM_DLG_YES') } });
+        }
       } else {
         this.onNoClick({ payload: { data: data.payload, confirm: 'CONFIRM_DLG_NO' } });
       }
+
     });
   }
 
   async mapeoGrupo(form: any) {
+    console.log("sociedad-->"+JSON.stringify(this.userInfo.sociedad.sociedad_codigo_sap));
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 1,
       "id_tipo_documento_identidad": null,
@@ -78,7 +86,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
       "nombre": form.nombre,
       "activo": true,
       "id_usuario": this.id_usuario,
-      "sociedad_codigo_sap": this.userInfo.perfil.sociedad_codigo_sap,
+      "sociedad_codigo_sap": this.userInfo.sociedad.sociedad_codigo_sap,
     }
     return clienteAgrupacion;
   }

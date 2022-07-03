@@ -138,11 +138,17 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
             id_usuario_creacion: this.id_usuario,
             id_usuario: this.id_usuario,
           }
-          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(res => {
-            this.enviarMensajeSnack('Se agregó la empresa al grupo')
-            this.limpiarCampos();
-            this.listarClienteEmpresa();
-          });
+          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then(result => {
+            if (result.header.exito) {
+              if (result.payload.warning) {
+                this.enviarMensajeSnack(result.payload.warning.mensaje);
+              } else {
+                this.enviarMensajeSnack('Se agregó la empresa');
+                this.limpiarCampos();
+                this.listarClienteEmpresa();
+              }
+            }
+              });
         } else {
           let mensaje: string = "Empresa no registrada";
           const dialogRef2 = this.matDialog.open(ErrorDialogComponent, {
