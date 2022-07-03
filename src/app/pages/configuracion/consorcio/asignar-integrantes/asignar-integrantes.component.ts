@@ -181,10 +181,16 @@ export class AsignarIntegrantesComponent implements OnInit {
           this.callWarningDialog(mensaje);
 
         } else {
-          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
-            this.enviarMensajeSnack('Se agregó la empresa');
-            this.limpiarCampos();
-            this.listarClienteEmpresa();
+          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((result) => {
+            if (result.header.exito) {
+              if (result.payload.warning) {
+                this.enviarMensajeSnack(result.payload.warning.mensaje);
+              } else {
+                this.enviarMensajeSnack('Se agregó la empresa');
+                this.limpiarCampos();
+                this.listarClienteEmpresa();
+              }
+            }
           });
         }
       } else {
