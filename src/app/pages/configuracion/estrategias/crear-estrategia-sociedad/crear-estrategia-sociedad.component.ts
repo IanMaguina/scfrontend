@@ -57,16 +57,9 @@ export class CrearEstrategiaSociedadComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
 
-
-
-
   listadoRoles: Rol[] = [];
   listadoSociedades: Sociedad[] = [];
   listadoGruposCliente: GrupoCliente[] = [];
-
-
-
-
 
   id_estado: number = 0;
   id_estado_rol: number = 0;

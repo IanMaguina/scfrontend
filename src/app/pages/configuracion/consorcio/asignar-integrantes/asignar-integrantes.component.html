@@ -66,55 +66,61 @@
                         <!-- Column -->
                         <ng-container matColumnDef="sociedad">
                             <th mat-header-cell *matHeaderCellDef> Sociedad </th>
-                            <td mat-cell *matCellDef="let element">  {{(element.empresa.sociedad?element.empresa.sociedad.nombre:'NR')}}</td>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.empresa.sociedad?element.empresa.sociedad.nombre:'NR')}}</td>
                         </ng-container>
 
                         <!-- Column -->
                         <ng-container matColumnDef="grupo_cliente">
                             <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
-                            <td mat-cell *matCellDef="let element">{{(element.empresa.grupo_cliente?element.empresa.grupo_cliente.nombre:'NR')}} </td>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.empresa.grupo_cliente?element.empresa.grupo_cliente.nombre:'NR')}} </td>
                         </ng-container>
 
                         <!-- Column -->
                         <ng-container matColumnDef="razonsocial">
                             <th mat-header-cell *matHeaderCellDef> Razón Social </th>
-                            <td mat-cell *matCellDef="let element">  {{(element.empresa.razon_social?element.empresa.razon_social:'NR')}} </td>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.empresa.razon_social?element.empresa.razon_social:'NR')}} </td>
                         </ng-container>
 
                         <!-- Column -->
                         <ng-container matColumnDef="ruc">
                             <th mat-header-cell *matHeaderCellDef> RUC </th>
-                            <td mat-cell *matCellDef="let element"> {{(element.empresa.numero_documento?element.empresa.numero_documento:'NR')}} </td>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.empresa.numero_documento?element.empresa.numero_documento:'NR')}} </td>
                         </ng-container>
 
                         <!-- Column -->
                         <ng-container matColumnDef="canal">
                             <th mat-header-cell *matHeaderCellDef> Canal Comercial </th>
-                            <td mat-cell *matCellDef="let element"> {{(element.empresa.tipo_canal?element.empresa.tipo_canal.nombre:'NR')}} </td>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.empresa.tipo_canal?element.empresa.tipo_canal.nombre:'NR')}} </td>
                         </ng-container>
                         <!-- Column -->
                         <ng-container matColumnDef="participacion">
                             <th mat-header-cell *matHeaderCellDef> Participacion </th>
-                            <td mat-cell *matCellDef="let element"> {{(element.participacion?element.participacion:'NR')}} </td>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.participacion?element.participacion:'NR')}} </td>
                         </ng-container>
 
                         <!-- Column -->
-                <ng-container matColumnDef="estado_cliente_agrupacion">
-                    <th mat-header-cell *matHeaderCellDef> Estado </th>
-                    <td mat-cell *matCellDef="let element">  {{(element.estado_cliente_agrupacion?element.estado_cliente_agrupacion.nombre:'NR')}} </td>
-                </ng-container>
-
-
+                        <ng-container matColumnDef="estado_cliente_agrupacion">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.estado_cliente_agrupacion?element.estado_cliente_agrupacion.nombre:'NR')}}
+                            </td>
+                        </ng-container>
 
                         <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef> Acciones </th>
                             <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button class="color-secundario" (click)="QuitarEmpresa(element)">
-                                    <mat-icon>delete</mat-icon>
+                                <button mat-icon-button class="color-secundario"
+                                    (click)="eliminarClienteEmpresa(element)" *ngIf="mostrarEliminar(element)">
+                                    <mat-icon>{{mostrarIconoEliminar(element)}}</mat-icon>
                                 </button>
                             </td>
                         </ng-container>
-
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
@@ -178,7 +184,8 @@
             <button mat-raised-button class="objeto boton-secundario" type="button"
                 (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
             <button mat-flat-button class="boton-warn" (click)="RechazarConsorcio()" *ngIf="isAdmin">Rechazar</button>
-            <button mat-flat-button class="boton-principal-light" (click)="AprobarConsorcio()" *ngIf="isAdmin">Aprobar</button>
+            <button mat-flat-button class="boton-principal-light" (click)="AprobarConsorcio()"
+                *ngIf="isAdmin">Aprobar</button>
         </div>
     </div>
 </div>

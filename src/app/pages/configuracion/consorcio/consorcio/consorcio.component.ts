@@ -11,6 +11,8 @@ import { GlobalSettings } from 'src/app/shared/settings';
 import { AsignarIntegrantesComponent } from '../asignar-integrantes/asignar-integrantes.component';
 import { CrearConsorcioComponent } from '../crear-consorcio/crear-consorcio.component';
 
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
 @Component({
   selector: 'app-consorcio',
   templateUrl: './consorcio.component.html',
@@ -23,10 +25,11 @@ export class ConsorcioComponent implements OnInit {
   displayedColumns: string[] = ['razonsocial', 'pendiente', 'solicitante', 'numero_documento', 'estado', 'id'];
 
   userInfo: Usuario;
-  id_userLogueo: number = 0;
+  id_usuario: number = 0;
   id_perfilLogueo: number = 0;
   PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
   isPerfilAdmin:boolean=false;
+
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -36,6 +39,7 @@ export class ConsorcioComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfo = this.autenticacionService.getUserInfo();
+    this.id_usuario=this.userInfo.id;
     this.listarConsorcios();
     this.isAdmin();
   }
@@ -47,7 +51,20 @@ export class ConsorcioComponent implements OnInit {
   }
 
   openAgregarConsorcio() {
-    this.openDialog(CrearConsorcioComponent, 'Se agregó el consorcio', '300px');
+    let dialogRef = this.matDialog.open(CrearConsorcioComponent, {
+      disableClose: true,
+      width: '300px',
+      panelClass: 'custom_Config'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.payload.confirm === 'CONFIRM_DLG_YES') {
+          this.openAsignarIntegrantes(result.payload.data);
+      } else {
+        this.listarConsorcios();
+
+      }
+    });
   }
 
   openAsignarIntegrantes(id: any) {
@@ -73,14 +90,11 @@ export class ConsorcioComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let clienteAgrupacion: ClienteAgrupacion = element;
-        this.consorcioService.actualizarConsorcio(clienteAgrupacion).then((data) => {
-          if (data.header.exito) {
-            this.listarConsorcios();
-            this.enviarMensajeSnack("se modificó la actividad del Consorcio");
-          } else {
-            this.listarConsorcios();
-          }
+        clienteAgrupacion.id_usuario=this.id_usuario;
+        this.consorcioService.eliminarConsorcio(clienteAgrupacion).then(()=>{
+          this.listarConsorcios();
         });
+
       }
     });
 

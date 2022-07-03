@@ -16,6 +16,13 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { GlobalSettings } from 'src/app/shared/settings';
 
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR;
+const PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
+const PERFIL_USUARIO: number = GlobalSettings.PERFIL_USUARIO;
+
 @Component({
   selector: 'app-asignar-integrantes',
   templateUrl: './asignar-integrantes.component.html',
@@ -23,9 +30,7 @@ import { GlobalSettings } from 'src/app/shared/settings';
   ]
 })
 export class AsignarIntegrantesComponent implements OnInit {
-
   consorcioData: any;
-
   asignarEmpresaFormDialog: any;
   formErrors = {
     'sociedad': '',
@@ -88,7 +93,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   id_usuario: number;
   isAdmin: boolean = false;
   PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
-
+  id_estado_cliente_agrupacion: number = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -104,11 +109,13 @@ export class AsignarIntegrantesComponent implements OnInit {
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario = this.userInfo.id;
-    if (this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR) {
+    this.id_estado_cliente_agrupacion = data.id_estado_cliente_agrupacion;
+    if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR && this.id_estado_cliente_agrupacion !== ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
     }
+
     this.consorcioData = data;
     console.log("trayendo del listado--->" + JSON.stringify(this.consorcioData));
     this.id_cliente_agrupacion = this.consorcioData.id;
@@ -153,9 +160,6 @@ export class AsignarIntegrantesComponent implements OnInit {
 
   }
 
-
-
-
   asignarEmpresaConsorcio(form: any) {
     console.log("asignarEmpresaGrupo-->" + JSON.stringify(form));
     this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
@@ -165,7 +169,7 @@ export class AsignarIntegrantesComponent implements OnInit {
         let clienteEmpresa: ClienteEmpresa = {
           id: form.id,
           id_cliente_agrupacion: this.id_cliente_agrupacion,
-          id_empresa: data.payload[0].id,
+          id_empresa: data.payload.id,
           id_usuario_creacion: this.id_usuario,
           id_usuario: this.id_usuario,
           participacion: form.participacion
@@ -178,16 +182,9 @@ export class AsignarIntegrantesComponent implements OnInit {
 
         } else {
           this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((res) => {
-            if (res.payload.warning) {
-              this.limpiarCampos();
-              this.listarClienteEmpresa();
-
-            } else {
-              this.enviarMensajeSnack('Se agregó la empresa');
-              this.limpiarCampos();
-              this.listarClienteEmpresa();
-
-            }
+            this.enviarMensajeSnack('Se agregó la empresa');
+            this.limpiarCampos();
+            this.listarClienteEmpresa();
           });
         }
       } else {
@@ -197,11 +194,13 @@ export class AsignarIntegrantesComponent implements OnInit {
           mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
         }
         this.callWarningDialog(mensaje);
+        this.limpiarCampos();
+        this.listarClienteEmpresa();
       }
     })
   }
 
-  QuitarEmpresa(element: any) {
+  eliminarClienteEmpresa(element: any) {
     element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este consorcio? `;
 
     const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
@@ -221,20 +220,47 @@ export class AsignarIntegrantesComponent implements OnInit {
         }
         this.clienteEmpresaService.eliminarClienteEmpresa(clienteEmpresa, this.id_usuario).then(data => {
           console.log("ARSA warning-->" + JSON.stringify(data));
-          if (data.payload.warning) {
-            this.listarClienteEmpresa();
-          } else {
+          if (data.header.exito) {
             this.enviarMensajeSnack('Se retiró la empresa');
             this.listarClienteEmpresa();
-
-
           }
         });
       } else {
         this.listarClienteEmpresa();
       }
     });
+  }
 
+  AprobarConsorcio() {
+    let item: ClienteAgrupacion = {
+      id_usuario: this.id_usuario,
+      id: this.id_cliente_agrupacion
+    }
+    this.consorcioService.aprobarConsorcio(item).then(data => {
+      this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
+      this.onNoClick('CONFIRM_DLG_YES');
+    })
+  }
+
+  RechazarConsorcio() {
+    let item: ClienteAgrupacion = {
+      id_usuario: this.id_usuario,
+      id: this.id_cliente_agrupacion
+    }
+    this.consorcioService.rechazarConsorcio(item).then(data => {
+      this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el consorcio');
+      this.onNoClick('CONFIRM_DLG_YES');
+    })
+  }
+
+  async callWarningDialog(mensaje: string) {
+
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje,
+      panelClass: 'custom_Config'
+    });
 
   }
 
@@ -250,52 +276,6 @@ export class AsignarIntegrantesComponent implements OnInit {
     console.log("");
   }
 
-
-  AprobarConsorcio() {
-    let item: ClienteAgrupacion = {
-      id_usuario: this.id_usuario,
-      id: this.id_cliente_agrupacion
-    }
-    this.consorcioService.aprobarConsorcio(item).then(data => {
-      if (data.payload.warning) {
-        this.enviarMensajeSnack(data.payload.warning.mensaje);
-        this.listarClienteEmpresa();
-
-      } else {
-        this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
-        this.listarClienteEmpresa();
-
-      }
-    })
-  }
-
-  RechazarConsorcio() {
-    let item: ClienteAgrupacion = {
-      id_usuario: this.id_usuario,
-      id: this.id_cliente_agrupacion
-    }
-    this.consorcioService.rechazarConsorcio(item).then(data => {
-      if (data.payload.warning) {
-        this.enviarMensajeSnack(data.payload.warning.mensaje);
-        this.listarClienteEmpresa();
-      } else {
-        this.enviarMensajeSnack('Se rechazaron los cambios solicitados en el consorcio');
-        this.listarClienteEmpresa();
-      }
-    })
-  }
-
-  async callWarningDialog(mensaje: string) {
-
-    this.matDialog.open(ErrorDialogComponent, {
-      disableClose: true,
-      width: "400px",
-      data: mensaje,
-      panelClass: 'custom_Config'
-    });
-
-  }
-
   limpiarCampos() {
     this.asignarEmpresaFormDialog.reset();
   }
@@ -305,6 +285,68 @@ export class AsignarIntegrantesComponent implements OnInit {
       horizontalPosition: "end",
       verticalPosition: "top"
     });
+  }
+
+  mostrarEliminar(element) {
+    let accionEliminar: boolean = false;
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = true;
+      else
+        accionEliminar = true;
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+    }
+    return accionEliminar;
+  }
+
+  mostrarIconoEliminar(element) {
+    let accionEliminar: string = 'delete';
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = 'delete';
+      else
+        accionEliminar = 'delete';
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'delete';
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'rotate_left';
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'rotate_left';
+    }
+    return accionEliminar;
   }
 
 }

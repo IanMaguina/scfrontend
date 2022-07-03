@@ -98,12 +98,9 @@ export class GrupoEmpresarialComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         let clienteAgrupacion: ClienteAgrupacion = element;
         clienteAgrupacion.id_usuario=this.id_usuario;
-
         this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(()=>{
           this.listarGruposEmpresariales();
         });
-        
-
       }
     });
   }

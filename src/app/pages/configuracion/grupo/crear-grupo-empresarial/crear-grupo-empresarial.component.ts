@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-import { GrupoEmpresarialService} from '../../../../services/grupo-empresarial.service';
+import { GrupoEmpresarialService } from '../../../../services/grupo-empresarial.service';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { GlobalSettings } from 'src/app/shared/settings';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-crear-grupo-empresarial',
@@ -28,20 +29,21 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   //Submitted form
   submitted = false;
   carga: boolean = false;
-  userInfo:any;
-  id_userLogueo:number=0;
-  id_perfilLogueo:number=0;
-  PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
-  isPerfilAdmin:boolean=false;
+  userInfo: any;
+  id_usuario: number = 0;
+  id_perfilLogueo: number = 0;
+  PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
+  isPerfilAdmin: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<CrearGrupoEmpresarialComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private grupoEmpresarialService:GrupoEmpresarialService,
-    private autenticacionService: AutenticacionService
+    private grupoEmpresarialService: GrupoEmpresarialService,
+    private autenticacionService: AutenticacionService,
+    private _snack: MatSnackBar,
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
-   
+
     this.crearGrupoFormDialog = this.formBuilder.group({
       nombre: ['', Validators.required],
     })
@@ -50,19 +52,20 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
-    this.id_userLogueo=this.userInfo.id;
-    this.id_perfilLogueo=this.userInfo.id_perfil;   
+    this.id_usuario = this.userInfo.id;
+    this.id_perfilLogueo = this.userInfo.id_perfil;
     this.isAdmin();
   }
 
   async crearGrupo(form: any) {
     let clienteAgrupacion = await this.mapeoGrupo(form)
-    this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then( data =>{
-      console.log("ARSA CREAR GRUPO-->"+JSON.stringify(data));
-      if(data.header.exito){
-        this.onNoClick({payload:{data:data.payload,confirm:'CONFIRM_DLG_YES'}});
+    this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then(data => {
+      if (data.header.exito) {
+        this.onNoClick({payload:{data:data.payload,confirm:(data.payload===null?'CONFIRM_DLG_NO':'CONFIRM_DLG_YES')}});
+      } else {
+        this.onNoClick({ payload: { data: data.payload, confirm: 'CONFIRM_DLG_NO' } });
       }
     });
   }
@@ -71,23 +74,31 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 1,
       "id_tipo_documento_identidad": null,
-      "numero_documento": null,      
+      "numero_documento": null,
       "nombre": form.nombre,
       "activo": true,
-      "id_usuario": this.id_userLogueo,
+      "id_usuario": this.id_usuario,
+      "sociedad_codigo_sap": this.userInfo.perfil.sociedad_codigo_sap,
     }
     return clienteAgrupacion;
   }
 
-  onNoClick(msg:any): void {
+  onNoClick(msg: any): void {
     this.dialogRef.close(msg);
   }
 
-  isAdmin(){
-    if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
+  isAdmin() {
+    if (this.id_perfilLogueo === this.PERFIL_ADMINISTRADOR) {
       this.isPerfilAdmin = true;
-      
+
     }
   }
 
+  enviarMensajeSnack(mensaje: string) {
+    this._snack.open(mensaje, 'cerrar', {
+      duration: 1800,
+      horizontalPosition: "end",
+      verticalPosition: "top"
+    });
+  }
 }

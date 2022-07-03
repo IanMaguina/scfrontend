@@ -4,11 +4,21 @@
 
 
 <div class="contenidoForm_Config">
-    
+
     <form [formGroup]="crearConsorcioFormDialog" (ngSubmit)="crearConsorcio(crearConsorcioFormDialog.value)">
 
         <div>
             <span>*Ingrese la información requerida</span>
+
+            <div class="Title_POPUPConfig">Sociedad:</div>
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar</mat-label>
+                <mat-select formControlName="sociedad">
+                    <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">{{ sociedad.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
             <div class="Title_POPUPConfig">Razón Social:</div>
             <mat-form-field appearance="fill">
                 <mat-label>Ingresar</mat-label>

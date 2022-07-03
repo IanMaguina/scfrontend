@@ -14,7 +14,7 @@ export class ConsorcioService {
   listarConsorcios(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=2").toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=2&activo=true").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -29,7 +29,7 @@ export class ConsorcioService {
           }
         );
 
-      }
+      } 
     );
   }
 
@@ -62,10 +62,10 @@ export class ConsorcioService {
   }
 
   eliminarConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
-    console.log("sending clienteAgrupacion..." + JSON.stringify(clienteAgrupacion));
+    console.log("enviando actualizar-->"+JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.deleteResource2("/api/cliente-agrupacion/" + clienteAgrupacion.id).toPromise().then((data) => {
+        this.resourceService.postResource("/api/cliente-agrupacion/" + clienteAgrupacion.id+"/eliminar", clienteAgrupacion).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {
