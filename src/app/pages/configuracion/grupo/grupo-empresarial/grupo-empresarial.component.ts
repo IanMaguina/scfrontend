@@ -99,8 +99,10 @@ export class GrupoEmpresarialComponent implements OnInit {
         let clienteAgrupacion: ClienteAgrupacion = element;
         clienteAgrupacion.id_usuario=this.id_usuario;
 
-        this.grupoEmpresarialService.actualizarGrupoEmpresarial(clienteAgrupacion);
-        this.listarGruposEmpresariales();
+        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(()=>{
+          this.listarGruposEmpresariales();
+        });
+        
 
       }
     });

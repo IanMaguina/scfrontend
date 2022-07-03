@@ -17,7 +17,7 @@ export class GrupoEmpresarialService {
   listarGruposEmpresariales(): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=1&ctivo=true").toPromise().then((data) => {
+        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=1&activo=true").toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
@@ -80,6 +80,20 @@ export class GrupoEmpresarialService {
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+
+  eliminarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("enviando actualizar-->"+JSON.stringify(clienteAgrupacion));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/cliente-agrupacion/" + clienteAgrupacion.id+"/eliminar", clienteAgrupacion).toPromise().then((data) => {
           console.log("response data=" + JSON.stringify(data));
           resolve(data);
         }).catch((error) => {

@@ -18,6 +18,10 @@ import { AutenticacionService } from '@services/autenticacion.service';
 
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR;
+const PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
+const PERFIL_USUARIO: number = GlobalSettings.PERFIL_USUARIO;
 
 @Component({
   selector: 'app-asignar-integrantes-grupo',
@@ -71,7 +75,6 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   id_usuario: number;
   isAdmin: boolean = false;
-  PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
   accionEliminar: boolean = true;
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
@@ -87,12 +90,12 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     private _snack: MatSnackBar,
   ) {
     this.grupoData = data;
-    console.log("ARSA-->" + JSON.stringify(data));
+    //console.log("ARSA-->" + JSON.stringify(data));
     this.id_cliente_agrupacion = data.id;
     this.id_estado_cliente_agrupacion = data.id_estado_cliente_agrupacion;
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario = this.userInfo.id;
-    if (this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR && this.id_estado_cliente_agrupacion !== ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+    if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR && this.id_estado_cliente_agrupacion !== ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -115,14 +118,62 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   mostrarEliminar(element) {
     let accionEliminar: boolean = false;
-    if (this.userInfo.id_perfil !== this.PERFIL_ADMINISTRADOR && element.id_estado_cliente_agrupacion !== ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
-      accionEliminar = true;
-    } else {
-      if (this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR && element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
         accionEliminar = true;
-      } else {
+      else
+        accionEliminar = true;
+    }
+    if ( element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO){
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
         accionEliminar = false;
-      }
+      else
+        accionEliminar = true;
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+    }
+    return accionEliminar;
+  }
+
+  mostrarIconoEliminar(element) {
+    let accionEliminar: string = 'delete';
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = 'delete';
+      else
+        accionEliminar = 'delete';
+    }
+    if ( element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO){
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'delete';
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_DESACTIVAR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'rotate_left';
+
+    }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'rotate_left';
     }
     return accionEliminar;
   }
@@ -136,6 +187,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   listarClienteEmpresa() {
     this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
       this.listadoIntegrantes = data.payload;
+      console.log("listarClienteEmpresa--->" + JSON.stringify(this.listadoIntegrantes));
     })
   }
 
