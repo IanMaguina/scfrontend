@@ -21,17 +21,17 @@ export class CrearConsorcioComponent implements OnInit {
   crearConsorcioFormDialog: any;
   formErrors = {
     'sociedad': '',
-    'nombre': '',
+    //'nombre': '',
     'numero_documento': '',
   }
-  
+
   validationMessages = {
     'sociedad': {
       'required': ' sociedad es requerida.',
-    },    
-    'nombre': {
-      'required': 'el nombre es requerido.'
     },
+/*     'nombre': {
+      'required': 'el nombre es requerido.'
+    }, */
     'numero_documento': {
       'required': 'RUC es requerido.',
     }
@@ -59,7 +59,7 @@ export class CrearConsorcioComponent implements OnInit {
     this.userInfo = this.autenticacionService.getUserInfo();
     this.crearConsorcioFormDialog = this.formBuilder.group({
       sociedad: ['', Validators.required],
-      nombre: ['', Validators.required],
+      //nombre: ['', Validators.required],
       numero_documento: ['', Validators.required],
     })
     this.crearConsorcioFormDialog.valueChanges.subscribe(() => {
@@ -84,14 +84,14 @@ export class CrearConsorcioComponent implements OnInit {
     console.log("crearConsorcio:" + JSON.stringify(form));
     let clienteAgrupacion = await this.mapeoGrupo(form)
     this.consorcioService.crearConsorcio(clienteAgrupacion).then((data) => {
-      if(data.header.exito){
-          this.onNoClick({payload:{data:data.payload,confirm:(data.payload===null?'CONFIRM_DLG_NO':'CONFIRM_DLG_YES')}});
-      }else{
-        this.onNoClick({payload:{data:data.payload,confirm:'CONFIRM_DLG_NO'}});
+      if (data.header.exito) {
+        this.onNoClick({ payload: { data: data.payload, confirm: (data.payload === null ? 'CONFIRM_DLG_NO' : 'CONFIRM_DLG_YES') } });
+      } else {
+        this.onNoClick({ payload: { data: data.payload, confirm: 'CONFIRM_DLG_NO' } });
       }
-      
+
     });
- }
+  }
 
   async mapeoGrupo(form: any) {
     let clienteAgrupacion: ClienteAgrupacion = {
@@ -99,7 +99,7 @@ export class CrearConsorcioComponent implements OnInit {
       "id_tipo_documento_identidad": 1,
       "sociedad_codigo_sap": form.sociedad.codigo_sap,
       "numero_documento": form.numero_documento,
-      "nombre": form.nombre,
+      //"nombre": form.nombre,
       "activo": true,
       "id_usuario_creacion": this.id_usuario,
       "id_usuario": this.id_usuario,
@@ -107,7 +107,7 @@ export class CrearConsorcioComponent implements OnInit {
     return clienteAgrupacion;
   }
 
-  onNoClick(msg:any): void {
+  onNoClick(msg: any): void {
     this.dialogRef.close(msg);
   }
 
@@ -117,7 +117,7 @@ export class CrearConsorcioComponent implements OnInit {
     }
   }
 
-    enviarMensajeSnack(mensaje: string) {
+  enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
       duration: 1800,
       horizontalPosition: "end",
