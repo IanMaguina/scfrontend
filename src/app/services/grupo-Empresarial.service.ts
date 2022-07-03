@@ -76,6 +76,7 @@ export class GrupoEmpresarialService {
   }
 
   actualizarGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("enviando actualizar-->"+JSON.stringify(clienteAgrupacion));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.putResource("/api/cliente-agrupacion/" + clienteAgrupacion.id, clienteAgrupacion).toPromise().then((data) => {

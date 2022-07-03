@@ -32,8 +32,11 @@
         <!-- Column -->
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Activo </th>
-            <td mat-cell *matCellDef="let element"> 
-                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleGrupoActivo(element)" [disabled]="!isAdmin"></mat-slide-toggle>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="mostrarEliminar(element)">
+                    <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleGrupoActivo(element)" [disabled]="!isAdmin"></mat-slide-toggle>
+                </span> 
+                
             
             </td>
         </ng-container>

@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
 @Component({
   selector: 'app-grupo-empresarial',
   templateUrl: './grupo-empresarial.component.html',
@@ -28,7 +30,7 @@ export class GrupoEmpresarialComponent implements OnInit {
     'id'
   ];
   userInfo: Usuario;
-  id_userLogueo: number = 0;
+  id_usuario: number = 0;
   id_perfilLogueo: number = 0;
   PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
   isPerfilAdmin:boolean=false;
@@ -39,6 +41,7 @@ export class GrupoEmpresarialComponent implements OnInit {
     private autenticacionService: AutenticacionService
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
+    this.id_usuario=this.userInfo.id;
     console.log("mi usuario: "+JSON.stringify(this.userInfo));
   }
 
@@ -94,6 +97,8 @@ export class GrupoEmpresarialComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let clienteAgrupacion: ClienteAgrupacion = element;
+        clienteAgrupacion.id_usuario=this.id_usuario;
+
         this.grupoEmpresarialService.actualizarGrupoEmpresarial(clienteAgrupacion);
         this.listarGruposEmpresariales();
 
@@ -138,4 +143,17 @@ export class GrupoEmpresarialComponent implements OnInit {
     }
   }
 
+  mostrarEliminar(element) {
+    let accionEliminar: boolean = false;
+    if (this.userInfo.id_perfil !== this.PERFIL_ADMINISTRADOR && element.id_estado_cliente_agrupacion !== ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+      accionEliminar = true;
+    } else {
+      if (this.userInfo.id_perfil === this.PERFIL_ADMINISTRADOR && element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO) {
+        accionEliminar = true;
+      } else {
+        accionEliminar = false;
+      }
+    }
+    return accionEliminar;
+  }  
 }
