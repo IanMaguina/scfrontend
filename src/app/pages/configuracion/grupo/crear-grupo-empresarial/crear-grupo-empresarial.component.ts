@@ -43,6 +43,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
     private _snack: MatSnackBar,
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
+    console.log("usuario-->"+JSON.stringify(this.userInfo));
 
     this.crearGrupoFormDialog = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -77,6 +78,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   }
 
   async mapeoGrupo(form: any) {
+    console.log("sociedad-->"+JSON.stringify(this.userInfo.sociedad.sociedad_codigo_sap));
     let clienteAgrupacion: ClienteAgrupacion = {
       "id_tipo_cliente": 1,
       "id_tipo_documento_identidad": null,
@@ -84,7 +86,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
       "nombre": form.nombre,
       "activo": true,
       "id_usuario": this.id_usuario,
-      "sociedad_codigo_sap": this.userInfo.perfil.sociedad_codigo_sap,
+      "sociedad_codigo_sap": this.userInfo.sociedad.sociedad_codigo_sap,
     }
     return clienteAgrupacion;
   }
