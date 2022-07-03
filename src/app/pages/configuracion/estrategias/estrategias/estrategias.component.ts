@@ -7,6 +7,7 @@ import { EditarEstrategiaSociedadComponent } from '../editar-estrategia-sociedad
 import { RolUsuario } from 'src/app/models/rol-usuario.interface';
 import { RolUsuarioService } from '@services/rol-usuario.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -16,7 +17,9 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 export class EstrategiasComponent implements OnInit {
   listadoEstrategiaRolUsuario: RolUsuario[] = [];
   estrategiaRolUsuario: RolUsuario = {};
-  displayedColumns: string[] = ['rol','sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
+  displayedColumns: string[] = ['rol','Sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
+  dataSource = new MatTableDataSource<RolUsuario>();
+
   constructor(
     private matDialog: MatDialog, 
     private rolUsuarioService:RolUsuarioService,
@@ -30,6 +33,7 @@ export class EstrategiasComponent implements OnInit {
   async listarEstrategiaRolUsuario() { 
     this.rolUsuarioService.listarEstrategiaRolUsuario().then(data => {
       this.listadoEstrategiaRolUsuario = data.payload;
+      this.dataSource.data = this.listadoEstrategiaRolUsuario;
     })
   }
 
@@ -101,6 +105,13 @@ export class EstrategiasComponent implements OnInit {
 
       }
     });
+  }
+
+  applyFilter(event: Event) {
+   // console.log("filtrar: "+JSON.stringify((event.target as HTMLInputElement).value));
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+   // console.log("filtrado: "+this.dataSource);
   }
  
 

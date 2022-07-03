@@ -6,6 +6,7 @@ import { EditarTipoDocumentoValoradoComponent } from '../editar-tipo-documento-v
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DocumentoValorado } from 'src/app/models/documento-valorado.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { MatTableDataSource, _MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-tipo-documento-valorado',
@@ -22,6 +23,8 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     'tipo_documento_valorado',
     'activo',
   ];
+  dataSource = new _MatTableDataSource();
+
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -38,6 +41,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     this.tipoDocumentoValoradoService.listarDocumentosValorados().then(data => {
       console.log("listado DV: "+JSON.stringify(data.payload));
       this.listadoDocumentoValorado = data.payload;
+      this.dataSource.data = this.listadoDocumentoValorado;
     })
   }
 
@@ -107,6 +111,11 @@ export class TipoDocumentoValoradoComponent implements OnInit {
         this.listarDocumentoValorado();
       }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
 

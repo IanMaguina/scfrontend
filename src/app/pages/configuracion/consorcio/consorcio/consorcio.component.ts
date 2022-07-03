@@ -58,9 +58,9 @@ export class ConsorcioComponent implements OnInit {
     let mensaje: string;
 
     if (element.activo) {
-      mensaje = "¿Desea habilitar el plan?";
+      mensaje = "¿Desea habilitar el consorcio?";
     } else {
-      mensaje = "¿Desea deshabilitar el plan?";
+      mensaje = "¿Desea deshabilitar el consorcio?";
     }
     element.mensaje = mensaje;
 

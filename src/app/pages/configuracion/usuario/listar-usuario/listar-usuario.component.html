@@ -14,7 +14,12 @@
         <span class="label-info">
             <mat-icon>info</mat-icon>Para editar el registro dar doble clic en el nombre del usuario.
         </span>
-        <table mat-table matTableResponsive [dataSource]="listadoUsuarios" class="mat-elevation-z8">
+        <mat-form-field appearance="legacy">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="ingrese el dato a buscar" #input>
+          </mat-form-field>
+<br> 
+        <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8">
             <caption title="listado de usuarios"></caption>
 
             <!-- Column -->

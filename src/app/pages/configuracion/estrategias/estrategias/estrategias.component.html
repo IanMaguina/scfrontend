@@ -9,39 +9,55 @@
 </div>
 <br>
 <div class="content-table">
-    <span class="label-info"><mat-icon>info</mat-icon> Para editar el registro dar doble clic en la sociedad.</span>
-    <table mat-table matTableResponsive [dataSource]="listadoEstrategiaRolUsuario" class="mat-elevation-z8" >
+    <span class="label-info">
+        <mat-icon>info</mat-icon> Para editar el registro dar doble clic en la sociedad.
+    </span>
+    <!-- <mat-form-field appearance="legacy">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="ingrese el dato a buscar" #input>
+    </mat-form-field>
+    <br> -->
+    <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8">
+        <caption title="listado de estrategias rol usuario"></caption>
         <!-- Table estrategias - por sociedad -->
-        <!-- Column -->
-        <ng-container matColumnDef="sociedad">
-            <th  class="PointerHand" mat-header-cell *matHeaderCellDef> Sociedad </th>
-            <td  class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarEstrategiaRolUsuario(element)"> {{element.sociedad.nombre}} </td>
-        </ng-container>
-        <!-- Column -->
-        <ng-container matColumnDef="grupo_cliente">
-            <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
-            <td mat-cell *matCellDef="let element"  > {{element.grupo_cliente.nombre}} </td>
-        </ng-container>
 
         <!-- Column -->
         <ng-container matColumnDef="rol">
             <th mat-header-cell *matHeaderCellDef> Rol </th>
             <td mat-cell *matCellDef="let element"> {{element.rol.nombre}} </td>
         </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="Sociedad">
+            <th class="PointerHand" mat-header-cell *matHeaderCellDef> Sociedad </th>
+            <td class="PointerHand" mat-cell *matCellDef="let element"
+                (dblclick)="openEditarEstrategiaRolUsuario(element)"> {{element.sociedad.nombre}} </td>
+        </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="grupo_cliente">
+            <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.grupo_cliente.nombre}} </td>
+        </ng-container>
+
         <!-- Column -->
         <ng-container matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef> Usuario </th>
             <td mat-cell *matCellDef="let element"> {{element.usuario.nombre}} </td>
         </ng-container>
+
         <!-- Column -->
         <ng-container matColumnDef="usuario_revisor">
             <th mat-header-cell *matHeaderCellDef> Revisor </th>
             <td mat-cell *matCellDef="let element"> {{element.usuario_revisor?element.usuario_revisor.nombre:''}} </td>
         </ng-container>
+
+        <!-- Column -->
         <ng-container matColumnDef="activo">
             <th mat-header-cell *matHeaderCellDef> Activo </th>
             <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleEstrategiaRolUsuario(element)"></mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleEstrategiaRolUsuario(element)">
+                </mat-slide-toggle>
             </td>
         </ng-container>
 
@@ -50,6 +66,3 @@
     </table>
 
 </div>
-
-
-
