@@ -4,7 +4,7 @@
      <table border="1">
         <caption title="listadoResumenDino"></caption>
         <tr>
-            <th>DINO</th>
+            <th> </th>
             <th>Linea Credito Actual</th>
             <th>Moneda</th>
             <th>Linea Credito Actual </th>
@@ -13,101 +13,41 @@
             <th>Linea Credito Solicitada S/.</th>
         </tr>
         <tr *ngFor="let row of listadoResumenDino">
-            <td>{{(row.is_total?row.total_header_nombre:row.elemento[0].nombre)}}</td>
-            <td>{{(row.is_total?row.linea_credito_actual:row.elemento[0].linea_credito_actual)}}</td>
-            <td>{{row.is_total?'-':row.elemento[0].moneda_actual}}</td>
-            <td>{{(row.is_total?row.linea_credito_actual_convertida:row.elemento[0].linea_credito_actual_convertida)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada:'-')}}</td>
-            <td>{{(row.is_total?'-':row.elemento[0].moneda_solicitada)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada_convertida:row.elemento[0].linea_credito_solicitada_convertida)}}</td>
+            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado:'NR')}}</td>
+            <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
+            <td>{{(row.moneda_actual?row.moneda_actual:'NR')}}</td>
+            <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>
+            <td>{{(row.linea_credito_solicitada?row.linea_credito_solicitada:'NR')}}</td>
+            <td>{{(row.moneda_solicitada?row.moneda_solicitada:'NR')}}</td>
+            <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
+            
+          
         </tr>
      </table>
  
  </div> 
- <div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6">
-     <table border="1">
-        <caption title="listadoResumenDisac"></caption>
-        <tr>
-            <th>DISAC</th>
-            <th>Linea Credito Actual</th>
-            <th>Moneda</th>
-            <th>Linea Credito Actual </th>
-            <th>Linea Credito Solicitada</th>
-            <th>Moneda</th>
-            <th>Linea Credito Solicitada S/.</th>
-        </tr>
-        <tr *ngFor="let row of listadoResumenDisac">
-            <td>{{(row.is_total?row.total_header_nombre:row.elemento[0].nombre)}}</td>
-            <td>{{(row.is_total?row.linea_credito_actual:row.elemento[0].linea_credito_actual)}}</td>
-            <td>{{row.is_total?'-':row.elemento[0].moneda_actual}}</td>
-            <td>{{(row.is_total?row.linea_credito_actual_convertida:row.elemento[0].linea_credito_actual_convertida)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada:'-')}}</td>
-            <td>{{(row.is_total?'-':row.elemento[0].moneda_solicitada)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada_convertida:row.elemento[0].linea_credito_solicitada_convertida)}}</td>
-        </tr>
-     </table> 
- </div>  
 
- <div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6">
+
+  <div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6">
     <br>
     <table border="1">
         <caption title="listadoResumenTotalPacasmayo"></caption>
         <tr>
-            <th>Total Grupo Pacasmayo</th>
+            <th>Total  </th>
             <th>Linea Credito Actual S/.</th>
             <th>Linea Credito Solicitada S/.</th>
             <th>Variación</th>
             <th>DINO Linea Credito Solicitada S/.</th>
-            <th>DISAC Linea Credito Solicitada S/.</th>
         </tr>
         <tr *ngFor="let row of listadoResumenTotalPacasmayo">
-            <td>{{(row.is_total?row.total_header_nombre:row.elemento[0].nombre)}}</td>
-            <td>{{(row.is_total?row.linea_credito_actual_convertida:row.elemento[0].linea_credito_actual_convertida)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada_convertida:row.elemento[0].linea_credito_solicitada_convertida)}}</td>
-            <td>{{(row.is_total?row.variacion:row.elemento[0].variacion)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada_convertida_dino:row.elemento[0].linea_credito_solicitada_convertida_dino)}}</td>
-            <td>{{(row.is_total?row.linea_credito_solicitada_convertida_disac:row.elemento[0].linea_credito_solicitada_convertida_disac)}}</td>
+            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado:'NR')}}</td>
+            <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>
+            <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
+            <td>{{(row.variacion?row.variacion:'NR')}}</td>
+            <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
+           
         </tr>
      </table> 
-<!--      <table mat-table matTableResponsive [dataSource]="listadoResumenDino" class="mat-elevation-z8 " >
-         <caption title="listadoResumenDino"></caption>
-    
-        
-         <ng-container matColumnDef="total_categoria">
-             <th mat-header-cell *matHeaderCellDef> total categoria </th>
-             <td mat-cell *matCellDef="let element" > </td>
-         </ng-container>
-       
-         <ng-container matColumnDef="linea_credito_actual_convertida">
-             <th mat-header-cell *matHeaderCellDef> Linea Credito Actual </th>
-             <td mat-cell *matCellDef="let element">   </td>
-         </ng-container>
-     
-         <ng-container matColumnDef="linea_credito_solicitada_convertida">
-             <th mat-header-cell *matHeaderCellDef> Linea Credito Solicitada</th>
-             <td mat-cell *matCellDef="let element">    </td>
-         </ng-container>
-         
-         <ng-container matColumnDef="variacion">
-             <th mat-header-cell *matHeaderCellDef> Variación</th>
-             <td mat-cell *matCellDef="let element">    </td>
-         </ng-container>
-       
-         <ng-container matColumnDef="linea_credito_solicitada_convertida_dino">
-             <th mat-header-cell *matHeaderCellDef> Linea Credito Solicitada Dino</th>
-             <td mat-cell *matCellDef="let element">    </td>
-         </ng-container>
-      
-         <ng-container matColumnDef="linea_credito_solicitada_convertida_disac">
-             <th mat-header-cell *matHeaderCellDef> Linea Credito Solicitada Disac </th>
-             <td mat-cell *matCellDef="let element">   </td>
-         </ng-container>
-   
-        
-  
- 
-         <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-         <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
-     </table> -->
+
  
  </div> 
