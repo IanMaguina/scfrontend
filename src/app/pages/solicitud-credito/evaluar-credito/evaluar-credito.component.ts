@@ -34,7 +34,7 @@ ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
       console.log("has llegado a la evaluación ");
       this.id_solicitud = this.activatedRoute.snapshot.params.id;
 
-      this.id_solicitud_editar = 392;//this.activatedRoute.snapshot.params.id;
+      this.id_solicitud_editar = this.activatedRoute.snapshot.params.id;
 
     }
 
