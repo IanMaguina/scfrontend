@@ -3,14 +3,14 @@
         <div class="titledialog_Config">Asignar Consorciados</div>
     </div>
 
-    <div class="AsignarIntegrantesGrupo">
+    <div class="AsignarConsorciados">
         <!-- tabs to make styles to support responsive... -->
         <mat-tab-group mat-align-tabs="start">
             <mat-tab label="Integrantes">
                 <form [formGroup]="asignarEmpresaFormDialog"
                     (ngSubmit)="asignarEmpresaConsorcio(asignarEmpresaFormDialog.value)">
 
-                    <div class="BuscadorAsignarIntegrantesGrupo">
+                    <div class="BuscadorConsorciados">
                         <mat-form-field appearance="fill">
                             <mat-label>Sociedad</mat-label>
                             <mat-select formControlName="sociedad" required>
@@ -19,9 +19,6 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-
-
-
 
                         <mat-form-field appearance="fill">
                             <mat-label>Ruc</mat-label>
@@ -55,11 +52,9 @@
 
 
 
-                <mat-divider class="divisor"></mat-divider>
-
                 <div class="content-table">
                     <!-- Table listadoIntegrantes  -->
-                    <table mat-table matTableResponsive [dataSource]="listadoIntegrantes" class="mat-elevation-z8">
+                    <table mat-table matTableResponsive [dataSource]="listadoIntegrantes" class="mat-elevation-z8 tablaConsorciados">
 
 
 
@@ -200,7 +195,9 @@
             </mat-tab>
         </mat-tab-group>
 
-        <mat-divider class="divisor"></mat-divider>
+        
+    </div>
+    <mat-divider class="divisor"></mat-divider>
 
         <div class="botonera">
             <button mat-raised-button class="objeto boton-secundario" type="button"
@@ -209,5 +206,4 @@
             <button mat-flat-button class="boton-principal-light" (click)="AprobarConsorcio()"
                 *ngIf="isAdmin">Aprobar</button>
         </div>
-    </div>
 </div>

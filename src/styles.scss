@@ -464,6 +464,12 @@ body {
 
 }
 
+.tablaConsorciados {
+    width: 100% !important;
+    margin-bottom: 25px !important;
+
+}
+
 .tablaCrucePlan {
     max-width: 500px !important;
     margin-bottom: 25px !important;
@@ -2085,7 +2091,51 @@ u {
         min-width: 80% !important;
     }
 }
+.custom_Consorciado{
+    min-height: 20%;
+    max-height: 85%;
+    overflow-y: auto;
 
+    .mat-dialog-container {
+        background-color: #04c55b00;
+        height: auto;
+        padding: 0px;
+        padding: 0px;
+        border-radius: 0px !important;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 0px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #05C65D;
+        border-radius: 0px 0px 0px 0px;
+        box-shadow: inset 0 0 2px grey;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #04a84e;
+    }
+    .mat-tab-body-wrapper{
+        background-color: white;
+    }
+    .divisor{
+        background-color: white;
+    }
+    .botonera{
+        background-color: white;
+    }
+}
 
 .custom_ConfigPlan {
     width: 54.75%;
@@ -2343,6 +2393,33 @@ u {
         flex-wrap: wrap;
         gap: 15px;
         justify-content: flex-end;
+    }
+}
+
+.AsignarConsorciados {
+    display: grid;
+    grid-template-columns: 100%;
+    
+    .BuscadorConsorciados {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .botonera {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: flex-end;
+    }
+
+    .content-table{
+        padding-left:15px;
+        width: 90%;
     }
 }
 
