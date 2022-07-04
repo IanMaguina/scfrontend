@@ -130,6 +130,28 @@ export class SolicitudAdjuntoService {
     );
   }
 
+  listarAdjuntosParticipacion(id_tabla: number): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource(`/api/adjunto?tabla=tcliente_agrupacion&id_tabla=${id_tabla}&id_tipo_adjunto=4`).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay Adjuntos encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
 
 
 }

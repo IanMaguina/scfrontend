@@ -57,6 +57,7 @@ import { CrearAsistenteFacturacionComponent } from './asistenteFacturacion/crear
 import { EditarAsistenteFacturacionComponent } from './asistenteFacturacion/editar-asistente-facturacion/editar-asistente-facturacion.component';
 import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adicional/aprobador-adicional.component';
 import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-aprobador-adicional/crear-aprobador-adicional.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-apr
     MatNativeDateModule,
     MatRippleModule,
     DragDropModule,
-    MatTableResponsiveModule
+    MatTableResponsiveModule,
+    MatCardModule
   ],
   exports: [
     ConfiguracionComponent,

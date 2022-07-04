@@ -40,17 +40,17 @@
 
                     <div class="">
                         <strong>Sociedad :</strong>
-                        <span>{{client?.nombre_sociedad}}</span>
+                        <span>{{client?.sociedad.nombre}}</span>
                     </div>
 
                     <div class="">
                         <strong>Codigo SAP :</strong>
-                        <span>{{client?.sociedad}}</span>
+                        <span>{{client?.cliente_codigo_sap}}</span>
                     </div>
 
                     <div class="">
                         <strong>RUC:</strong>
-                        <span>{{client?.ruc}}</span>
+                        <span>{{client?.numero_documento}}</span>
                     </div>
 
                     <div class="">
@@ -60,17 +60,17 @@
 
                     <div class="">
                         <strong>Grupo Cliente:</strong>
-                        <span>{{client?.nombre_grupo_cliente}}</span>
+                        <span>{{client?.grupo_cliente?.nombre}}</span>
                     </div>
 
                     <div class="">
                         <strong>Canal Comercial :</strong>
-                        <span>{{client?.canal_comercial}}</span>
+                        <span>{{client?.tipo_canal?.nombre}}</span>
                     </div>
 
                     <div class="">
                         <strong>Zonal:</strong>
-                        <span>{{client?.zonal}}</span>
+                        <span>{{(client?.zonal.nombre?client?.zonal.nombre:'')}}</span>
                     </div>
 
                     <div class="">
