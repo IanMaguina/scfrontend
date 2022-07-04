@@ -27,6 +27,8 @@ import {MatListModule} from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 
 import { SideNavService } from './sidebar/side-nav.service';
+import { AlertPopUpComponent } from './pop-up/alert-pop-up/alert-pop-up.component';
+import { ConfirmPopUpComponent } from './pop-up/confirm-pop-up/confirm-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { SideNavService } from './sidebar/side-nav.service';
     ConfirmDialogComponent,
     ErrorDialogComponent,
     SuccessDialogComponent,
-    
+    AlertPopUpComponent,
+    ConfirmPopUpComponent
   ],
   imports: [
     CommonModule,
@@ -56,8 +59,7 @@ import { SideNavService } from './sidebar/side-nav.service';
     MatSidenavModule,
     MatListModule,
     RouterModule,
-    MatSidenavModule,
-    
+    MatSidenavModule
   ],
   exports: [
     BreadcrumbsComponent,
@@ -66,8 +68,9 @@ import { SideNavService } from './sidebar/side-nav.service';
     ConfirmDialogComponent,
     MatSidenavModule,
     MatListModule,
-    RouterModule
-    //MatToolbarModule
+    RouterModule,
+    AlertPopUpComponent,
+    ConfirmPopUpComponent
   ],
 
   providers:[

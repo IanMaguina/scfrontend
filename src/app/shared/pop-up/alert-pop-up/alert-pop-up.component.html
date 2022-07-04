@@ -1,0 +1,10 @@
+<h1 matDialogTitle class="mat-bg-primary text-center">{{ data.title }}</h1>
+
+<div mat-dialog-content>
+  <p class="text-center">{{data.content}}</p>
+</div>
+<div mat-dialog-actions align="center">
+  <button type="button" mat-raised-button color="warn" [mat-dialog-close]="data.title">
+    {{ data.closeButtonLabel }}
+  </button>
+</div>

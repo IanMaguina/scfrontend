@@ -17,7 +17,7 @@ import { CondicionPagoService } from '@services/condicion-pago.service';
 })
 export class TablaBandejaSolicitudCondicionPagoComponent implements OnInit, OnDestroy {
 
-  public displayedColumns = ['indice', 'solicitud', 'ruc', 'razon_social', 'grupo_cliente', 'fecha_solicitud'];
+  public displayedColumns = ['solicitud', 'ruc', 'razon_social', 'grupo_cliente', 'fecha_solicitud'];
   public dataSource!: MatTableDataSource<any>;
   private destroy$ = new Subject<unknown>();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -37,7 +37,7 @@ export class TablaBandejaSolicitudCondicionPagoComponent implements OnInit, OnDe
   }
 
   private getCondicionPagoCliente(params?: HttpParams) {
-    this.condicionPagoService.getCondicionPagoCliente(params).pipe(
+    this.condicionPagoService.getSearchCondicionPagoCliente(params).pipe(
       tap((request) => {
         const solicitudes = request.map((data) => ({ ...data }));
         this.dataSource = new MatTableDataSource(solicitudes);

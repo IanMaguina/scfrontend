@@ -1,29 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { HttpParams } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators, FormArray, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormGroupDirective, AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { MatTable } from '@angular/material/table';
 
-import { client, ClientSap, CondicionPago } from '../../interfaces';
+import { ClientSap, CondicionPago } from '../../interfaces';
+import CompareNewConditionCredit from '../../validations/compare-new-condition-credit.validation';
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { SnackBarService } from '@services/snack-bar.service';
 import { Empresa } from 'src/app/models/empresa.interface';
+import { PopUPService } from '@services/pop-up.service';
 
 @Component({
   selector: 'app-crear-solicitud-condicion-pago',
   templateUrl: './crear-solicitud-condicion-pago.component.html',
-  styleUrls: []
+  styleUrls: ['./crear-solicitud-condicion-pago.scss']
 })
 export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
   public formTemplate: FormGroup;
   public society$: Observable<ClientSap[]>;
   public conditionPayment$: Observable<CondicionPago[]>;
-  public client: Empresa = {} as Empresa;
+  //public client: Empresa = {} as Empresa;
+  public client: any;
   public displayedColumns: string[] = ['productos', 'condicion_pago_regular', 'condicion_pago_actual', 'nueva_condicion_pago', 'fecha_limite'];
   public minDate = new Date();
 
@@ -34,11 +37,16 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
     return this.formTemplate.get('lineaProductoTable') as FormArray;
   }
 
+  get form(): { [key: string]: AbstractControl } {
+    return this.formTemplate.controls;
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private readonly condicionPagoService: CondicionPagoService,
     private readonly autenticacionService: AutenticacionService,
-    private readonly snackBService: SnackBarService) {
+    private readonly snackBarService: SnackBarService,
+    private readonly PopUPService: PopUPService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +59,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
       sociedad: ['', [Validators.required]],
       codigo_sap: ['', [Validators.required]],
       linea_producto: [{ value: '', disabled: true }],
-      lineaProductoTable: this.formBuilder.array([]),
+      lineaProductoTable: this.formBuilder.array([], Validators.required),
       observacion: ['']
     });
   }
@@ -66,12 +74,12 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
     this.condicionPagoService.getClientSap(params).pipe(
       tap((request) => {
-        if (request===null) {
-          this.snackBService.openSnackBar('No se encontro recurso', 'cerrar');
+        if (request === null) {
+          this.snackBarService.openSnackBar('No se encontro recurso', 'cerrar');
           this.onClearForm();
           return;
         }
-        this.client=request;
+        this.client = request;
       }),
       switchMap((_) => this.getConditionPayment())
     ).subscribe();
@@ -99,7 +107,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
         const { id } = event.source.value;
 
-        lineaProductoTable.forEach((item, index, arr) => {
+        lineaProductoTable.forEach((item, index) => {
           if (item.id_condicion_pago === id) {
             this.lineaProductoTable.removeAt(index);
           }
@@ -113,33 +121,36 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
   public onSendConditionPayment() {
 
-    const { id } = this.autenticacionService.getUserInfo();
+    this.PopUPService.popPupConfirm('', `¿Está seguro que desea mandar tu solicitud de condicion de pago?`, (answer: boolean) => {
+      if (answer === true) {
 
-    const { observacion, lineaProductoTable } = this.formTemplate.value;
+        const { id } = this.autenticacionService.getUserInfo();
+        const { observacion, lineaProductoTable } = this.formTemplate.value;
 
-    const params = {
-      sociedad_codigo_sap: this.client.sociedad_codigo_sap,
-      cliente_codigo_sap: this.client.cliente_codigo_sap,
-      grupo_cliente_codigo_sap: this.client.grupo_cliente_codigo_sap,
-      id_solicitud: null,
-      observacion: observacion,
-      detalle: lineaProductoTable,
-      id_usuario: id
-    }
-
-    this.condicionPagoService.addConditionPaymentClient(params).pipe(
-      tap((request) => {
-
-        if (request) {
-          this.snackBService.openSnackBar('La solicitud ha sido enviada', 'cerrar');
-          this.onClearForm();
-          return;
+        const params = {
+          sociedad_codigo_sap: this.client.sociedad_codigo_sap,
+          cliente_codigo_sap: this.client.cliente_codigo_sap,
+          grupo_cliente_codigo_sap: this.client.grupo_cliente_codigo_sap,
+          id_solicitud: null,
+          observacion: observacion,
+          detalle: lineaProductoTable,
+          id_usuario: id
         }
 
-        this.snackBService.openSnackBar('Ha ocurrido un error al intentar enviar la solicitud', 'cerrar');
+        this.condicionPagoService.addConditionPaymentClient(params).pipe(
+          tap((request) => {
 
-      })).subscribe();
+            if (request) {
+              this.PopUPService.openPopPupAlert(``, `La solicitud ha sido enviada`, 'Aceptar');
+              this.onClearForm();
+              return;
+            }
 
+            this.PopUPService.openPopPupAlert(``, `Ha ocurrido un error al intentar enviar la solicitud`, 'Aceptar');
+
+          })).subscribe();
+      }
+    });
   }
 
   private createForms(item): FormGroup {
@@ -148,8 +159,10 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
       id_condicion_pago: [item.id],
       productos: [item.linea_producto.nombre],
       valor: [item.valor],
-      valor_nuevo: [item.valor_nuevo],
-      fecha_vigencia: [item.fecha_vigencia]
+      valor_nuevo: [item.valor_nuevo, [Validators.required]],
+      fecha_vigencia: [item.fecha_vigencia, [Validators.required]]
+    }, {
+      validators: [CompareNewConditionCredit.match('valor', 'valor_nuevo')]
     });
   }
 
@@ -158,7 +171,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
   }
 
   private getConditionPayment() {
-    
+
     const { sociedad_codigo_sap, grupo_cliente_codigo_sap } = this.client;
 
     const params = new HttpParams()

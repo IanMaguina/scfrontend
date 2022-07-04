@@ -3,14 +3,13 @@
         <span>Solicitud de Condiciones de Pago</span>
         <div class="objetoBotonCondicionPago">
             <button mat-raised-button class="boton-secundario_popup" type="button">Cerrar</button>
-            <button mat-raised-button [disabled]="!formTemplate.get('lineaProductoTable.0')"
+            <button mat-raised-button [disabled]="!lineaProductoTable.valid"
                 class="boton-principal_popup" (click)="onSendConditionPayment()"
                 type="button">Solicitar</button>
         </div>
     </div>
 </div>
 <mat-divider class="divisorConfig"></mat-divider>
-
 
 <div class="body-dialog">
     <div class="contenidoForm">
@@ -29,7 +28,7 @@
                     <input formControlName="codigo_sap" matInput>
                 </mat-form-field>
 
-                <button mat-mini-fab color="white" [disabled]="!formTemplate.valid" aria-label="Buscar"
+                <button mat-mini-fab color="white" [disabled]="form['sociedad'].errors || form['codigo_sap'].errors" aria-label="Buscar"
                     class="boton-buscar" type="submit">
                     <mat-icon>search</mat-icon>
                 </button>
@@ -38,42 +37,42 @@
             <div class="InfoCondicionPago">
                 <ng-container *ngIf="(client | keyvalue)?.length">
 
-                    <div class="">
+                    <div>
                         <strong>Sociedad :</strong>
                         <span>{{client?.sociedad.nombre}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>Codigo SAP :</strong>
                         <span>{{client?.cliente_codigo_sap}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>RUC:</strong>
                         <span>{{client?.numero_documento}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>Razón Social:</strong>
                         <span>{{client?.razon_social}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>Grupo Cliente:</strong>
                         <span>{{client?.grupo_cliente?.nombre}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>Canal Comercial :</strong>
                         <span>{{client?.tipo_canal?.nombre}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <strong>Zonal:</strong>
                         <span>{{(client?.zonal.nombre?client?.zonal.nombre:'')}}</span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <mat-form-field appearance="fill">
                             <mat-label>Línea de Productos</mat-label>
                             <mat-select formControlName="linea_producto" multiple>
@@ -109,9 +108,10 @@
                             <th mat-header-cell *matHeaderCellDef> Nueva Condición de Pago </th>
                             <td mat-cell *matCellDef="let element let rowIndex = index" [formGroupName]="rowIndex">
                                 <mat-form-field appearance="fill">
-                                    <input matInput formControlName="valor_nuevo" placeholder="Ingrese nueva condición"
-                                        type="number">
+                                    <input matInput formControlName="valor_nuevo" placeholder="Ingrese nueva condición" type="number">
                                 </mat-form-field>
+                                <span class="validation" *ngIf="element.get('valor_nuevo').touched && element.get('valor_nuevo').errors?.['required']">Campo es requerido</span>
+                                <span class="validation" *ngIf="element.get('valor_nuevo').touched && element.get('valor_nuevo').errors?.['compare']">La nueva condición de pago deber ser mayor a la actual</span>
                             </td>
                         </ng-container>
 
@@ -124,13 +124,21 @@
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
+                                <span class="validation" *ngIf="element.get('fecha_vigencia').touched && element.get('fecha_vigencia').errors">Campo es requerido</span>
                             </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="noData">
+                            <mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length">
+                              No records found.
+                            </mat-footer-cell>
+                          </ng-container>
+
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <tr mat-footer-row *matFooterRowDef="['noData']" [hidden]="formTemplate.get('lineaProductoTable.0')"></tr>
+                          
                     </table>
-
 
                     <div class="">
                         <mat-form-field class="observacion" appearance="fill">
@@ -140,7 +148,6 @@
                             </textarea>
                         </mat-form-field>
                     </div>
-
                 </ng-container>
             </div>
 

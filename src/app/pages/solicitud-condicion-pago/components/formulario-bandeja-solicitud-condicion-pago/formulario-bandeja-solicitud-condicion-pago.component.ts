@@ -33,7 +33,7 @@ export class FormularioBandejaSolicitudCondicionPagoComponent implements OnInit 
 
   public onBuscarCondicionPago() {
 
-    const { ruc, solicitud, fecha } = this.formularioBandejaSolicitudCondicionPago.value;
+    const { ruc, fecha } = this.formularioBandejaSolicitudCondicionPago.value;
     const formatDate = this.datePipe.transform(fecha,'yyyy-MM-dd');
 
     let params = new HttpParams()
