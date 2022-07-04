@@ -2331,8 +2331,6 @@ u {
 
 
 /* Pop Up Shared*/
-.SuplenciaPopUP {}
-
 .DialogConfig {
     display: flex;
     flex-direction: column;
@@ -2555,4 +2553,10 @@ u {
 }
 .Filtro_DV{
     max-width: 650px;
+}
+
+.Columna_NoData{
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
