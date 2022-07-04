@@ -35,10 +35,10 @@ export class EditarSolicitudCreditoComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private solicitudService: SolicitudService,
     private matDialog: MatDialog,
     private router: Router,
-    private autenticacionService: AutenticacionService
+    private autenticacionService: AutenticacionService,
+    private solicitudService: SolicitudService,
   ) {
     console.log(this.activatedRoute.snapshot.params.id)
     this.id_solicitud_editar = this.activatedRoute.snapshot.params.id;
@@ -50,7 +50,6 @@ export class EditarSolicitudCreditoComponent implements OnInit {
       this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
         this.solicitud = data.payload;
         this.ESTADO_SOLICITUD=this.solicitud.id_estado;
-        console.log("peru qatar--->" + JSON.stringify(this.solicitud));
       })
     }
   }

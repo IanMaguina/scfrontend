@@ -23,16 +23,7 @@ export class ReferenciasComercialesScComponent implements OnInit {
     'telefono',
     'id'
   ]
-  listadoReferenciasComerciales:any[]=[
-    {
-      id: 1,
-      razon_social: 'Empresa 1',
-      numero_documento: '65432189745',
-      contacto: 'Proveedor 1',
-      cargo: 'Gerente',
-      telefono: '985432156'
-    },
-  ];
+  listadoReferenciasComerciales:any[]=[];
   formErrors = {
     'razon_social': '',
     'numero_documento': '',

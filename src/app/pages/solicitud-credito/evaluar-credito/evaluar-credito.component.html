@@ -25,9 +25,8 @@
     <div >
         <mat-tab-group mat-align-tabs="start">
             <mat-tab label="Datos de Cliente" >
-                <div>
+                    <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)" ></app-datos-cliente-sc>
                     Datos del Cliente
-                </div>
             </mat-tab>
             <mat-tab label="Solicitud de Crédito" >
                 <div>
