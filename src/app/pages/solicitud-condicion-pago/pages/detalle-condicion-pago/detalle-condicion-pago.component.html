@@ -2,11 +2,6 @@
     <br>
     <div class="titledialog color-title">Detalle de Solicitud de Condiciones de Pago</div>
 
-    <ng-container *ngIf="stateConditionPayment == stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_SOLICITANTE">
-        <button mat-raised-button class="boton-principal-light" type="button"
-            (click)="onSendEvaluationConditionPaymentClient()">Solicitar</button>
-    </ng-container>
-
     <ng-container *ngIf="[
     stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_EVALUADOR,
     stateConditionPaymentCompare.ESTADO_CONDICION_PAGO_APROBADOR].includes(stateConditionPayment)">
@@ -95,12 +90,19 @@
                         </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="noData">
+                        <mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length">
+                          No records found.
+                        </mat-footer-cell>
+                      </ng-container>
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="['noData']" [hidden]="dataSource && dataSource?.data?.length > 0"></tr>
                 </table>
 
 
-                <div class="">
+                <div>
                     <mat-form-field class="observacion" appearance="fill">
                         <mat-label>Observación</mat-label>
                         <textarea matInput [formControl]="formTemplate"

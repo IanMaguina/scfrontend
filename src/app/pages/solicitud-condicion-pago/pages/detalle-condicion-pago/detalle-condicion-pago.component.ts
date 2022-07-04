@@ -48,8 +48,8 @@ export class DetalleCondicionPagoComponent implements OnInit {
 
   private getCondicionPagoClienteDetalle(id: number) {
     this.detailConditionPayment$ = this.condicionPagoService.getCondicionPagoClienteDetalle(id).pipe(
-      tap(({ observacion, id_estado, seguimiento_condicion_pago_cliente: { id_usuario } }) => {
-        this.idUser = id_usuario;
+      tap(({ observacion, id_estado, id_usuario_creacion }) => {
+        this.idUser = id_usuario_creacion;
         this.stateConditionPayment = id_estado;
         this.formTemplate.patchValue(observacion);
       })
@@ -66,21 +66,6 @@ export class DetalleCondicionPagoComponent implements OnInit {
         this.dataSource = new MatTableDataSource(lineaProductoSolicitud);
       })
     )
-  }
-
-
-  public onSendEvaluationConditionPaymentClient() {
-    this.condicionPagoService.sendEvaluationConditionPaymentClient(this.id).pipe(
-      tap((request) => {
-
-        if (request) {
-          this.snackBService.openSnackBar('La solicitud ha sido enviada', 'cerrar');
-          return;
-        }
-
-        this.snackBService.openSnackBar('Ha ocurrido un error al intentar enviar la solicitud', 'cerrar');
-
-      })).subscribe();
   }
 
   public onApproveConditionPaymentClient() {

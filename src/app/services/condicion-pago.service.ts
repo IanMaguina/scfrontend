@@ -26,11 +26,11 @@ export class CondicionPagoService {
     return this.http.get(url).pipe(pluck('payload'));
   }
 
-  public getCondicionPagoCliente(params?: HttpParams): Observable<any> {
+  public getSearchCondicionPagoCliente(params?: HttpParams): Observable<any> {
 
-    //const { id, sociedad: { id_rol } } = this.autenticacionService.getUserInfo();
+    const { id } = this.autenticacionService.getUserInfo();
 
-    const url: string = `${this.api}/api/condicion-pago-cliente?id_rol=${10}&id_usuario=${29}`;
+    const url: string = `${this.api}/api/condicion-pago-cliente/buscar?id_usuario_creacion=${id}`;
     return this.http.get(url, { params }).pipe(pluck('payload'));
   }
 
@@ -47,7 +47,6 @@ export class CondicionPagoService {
   public getClientSap(params: HttpParams): Observable<Empresa> {
     const url: string = `${this.api}/api/empresa/consulta`;
     return this.http.get(url, { params }).pipe(pluck('payload'));
-    
   }
 
   public getConditionPayment(params: HttpParams): Observable<CondicionPago[]> {
@@ -58,13 +57,6 @@ export class CondicionPagoService {
   public addConditionPaymentClient(params: Object): Observable<any> {
     const url: string = `${this.api}/api/condicion-pago-cliente`;
     return this.http.post<any>(url, params).pipe(
-      pluck('payload'),
-      catchError((_) => of(false)));
-  }
-
-  public sendEvaluationConditionPaymentClient(id_solicitud_pago) {
-    const url: string = `${this.api}/api/condicion-pago-cliente/${id_solicitud_pago}/enviar-a-evaluacion`;
-    return this.http.post<any>(url, null).pipe(
       pluck('payload'),
       catchError((_) => of(false)));
   }

@@ -44,6 +44,7 @@ import { DetalleCondicionPagoComponent } from './pages/detalle-condicion-pago/de
 
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { SnackBarService } from '@services/snack-bar.service';
+import { PopUPService } from '@services/pop-up.service';
 
 
 registerLocaleData(localeEs, 'es-PE');
@@ -95,7 +96,7 @@ registerLocaleData(localeEs, 'es-PE');
     SolicitudCondicionPagoComponent
   ],
   providers: [
-  
+    PopUPService,
     CondicionPagoService,
     FormGroupDirective,
     SnackBarService,
