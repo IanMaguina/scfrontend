@@ -4,7 +4,7 @@ service: ui
 threadsafe: yes
 # [END runtime]
 handlers:
-- url: /(.*\.(gif|png|jpg|css|js|json)(|\.map))$
+- url: /(.*\.(gif|png|jpg|css|js|json|svg)(|\.map))$
   static_files: dist/\1
   http_headers:
     Access-Control-Allow-Origin: "*"  
