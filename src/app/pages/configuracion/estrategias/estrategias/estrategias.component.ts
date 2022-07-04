@@ -60,7 +60,7 @@ export class EstrategiasComponent implements OnInit {
 
     const dialogRef2 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      width: "400px",
+
       data: element,
     });
     dialogRef2.afterClosed().subscribe(result => {
@@ -81,7 +81,7 @@ export class EstrategiasComponent implements OnInit {
 }
 
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
@@ -93,7 +93,8 @@ export class EstrategiasComponent implements OnInit {
       disableClose: true,
       width:'300px',
       data: data?data:'',      
-      panelClass: 'custom_Estrategias'
+      panelClass: 'custom_Estrategias',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

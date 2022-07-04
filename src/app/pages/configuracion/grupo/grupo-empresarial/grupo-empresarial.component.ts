@@ -60,7 +60,8 @@ export class GrupoEmpresarialComponent implements OnInit {
     let dialogRef = this.matDialog.open(CrearGrupoEmpresarialComponent, {
       disableClose: true,
       width: '300px',
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -110,7 +111,8 @@ export class GrupoEmpresarialComponent implements OnInit {
       disableClose: true,
       width: width,
       data: data ? data : '',
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

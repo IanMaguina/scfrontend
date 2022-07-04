@@ -37,7 +37,7 @@ export class AprobadorAdicionalComponent implements OnInit {
   }
   
   openAgregarAprobadorAdicional(){
-    this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó el Aprobador correctamente",'300px','', );
+    this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó al Aprobador correctamente",'300px','', );
 
     
   }
@@ -45,9 +45,9 @@ export class AprobadorAdicionalComponent implements OnInit {
   onchangeActividad(element:any){
     let mensaje:string = ""
     if (element.activo) {
-      mensaje = "¿Desea habilitar el Aprobador?";
+      mensaje = "¿Desea habilitar al Aprobador?";
     } else {
-      mensaje = "¿Desea deshabilitar el Aprobador?";
+      mensaje = "¿Desea deshabilitar al Aprobador?";
     }
     element.mensaje = mensaje;
 
@@ -63,7 +63,7 @@ export class AprobadorAdicionalComponent implements OnInit {
       if(result === 'CONFIRM_DLG_YES'){
         this.aprobadorAdicionalService.activarDesactivarAprobadorAdicional(element).then( activado =>{
           if(activado.header.exito){
-            this.enviarMensajeSnack("se cambió la actividad correctamente");
+            this.enviarMensajeSnack("Se cambió la actividad correctamente");
             this.listarAprobadorAdicionales();
           }
         })
@@ -73,7 +73,7 @@ export class AprobadorAdicionalComponent implements OnInit {
   }
 
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
@@ -85,7 +85,8 @@ export class AprobadorAdicionalComponent implements OnInit {
       disableClose: true,
       width:width,
       data: data?data:'',
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

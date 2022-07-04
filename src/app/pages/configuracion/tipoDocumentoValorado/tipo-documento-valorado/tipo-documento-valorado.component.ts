@@ -57,15 +57,15 @@ export class TipoDocumentoValoradoComponent implements OnInit {
     let mensaje: string;
     console.log("al editar activo el form: "+JSON.stringify(form));
     if (form.activo) {
-      mensaje = "¿Desea habilitar el documento valorado?";
+      mensaje = "¿Desea habilitar el Documento Valorado?";
     } else {
-      mensaje = "¿Desea deshabilitar el documento valorado?";
+      mensaje = "¿Desea deshabilitar el Documento Dalorado?";
     }
     form.mensaje = mensaje;
     const dialogRef3 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      width: "400px",
-      data: form
+      width: '300px',
+      data: form,
     });
 
     dialogRef3.afterClosed().subscribe(result => {
@@ -73,7 +73,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
         console.log("realizar la edición");
         this.tipoDocumentoValoradoService.activarDocumentoValorado(form).then( (res)=>{
           if(res.header.exito){
-            this.enviarMensajeSnack("se actualizó la actividad del documento valorado");
+            this.enviarMensajeSnack("Se actualizó el estado del Documento Valorado");
             this.listarDocumentoValorado();
           }
           this.listarDocumentoValorado();
@@ -88,7 +88,7 @@ export class TipoDocumentoValoradoComponent implements OnInit {
 
 
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
@@ -100,7 +100,8 @@ export class TipoDocumentoValoradoComponent implements OnInit {
       disableClose: true,
       width:width,
       data: data?data:'',
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

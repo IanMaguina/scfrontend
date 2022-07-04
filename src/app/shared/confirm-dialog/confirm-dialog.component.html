@@ -1,20 +1,20 @@
 <div class="DialogConfig">
-    <div class="titledialog color-warning">
-        <mat-icon>warning</mat-icon>
+    <div class="titledialog color-error">
+        <div>
+            <mat-icon>warning</mat-icon>
+        </div>
     </div>
-    <div class="titledialog color-warning">
-        Confirmación
+    <div class="titledialog color-secundario">
+        <span>Confirmación</span>
     </div>
-    <br>
     <div class="body-dialog">
         <div class="contenidoForm">
 
             <div class="objeto">
                 <div class="mensaje">{{mensaje}}</div>
             </div>
-            <br>
-            <mat-divider class="objetoSimple col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12"></mat-divider>
-          
+            <mat-divider class="divisorConfig"></mat-divider>
+
             <div class="botonera-form">
                 <button mat-raised-button class="color-secundario" type="button"
                     (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button> &nbsp;

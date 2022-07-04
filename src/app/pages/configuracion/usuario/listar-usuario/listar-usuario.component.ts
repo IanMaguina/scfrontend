@@ -37,7 +37,7 @@ export class ListarUsuarioComponent implements OnInit {
     })
   }
   openAgregarUsuario(): void {
-    this.openDialog(CrearUsuarioComponent, 'se registró el usuario');
+    this.openDialog(CrearUsuarioComponent, 'Se registró el usuario');
   }
 
   async toggleUsuarioEstado(element: any) {
@@ -52,8 +52,9 @@ export class ListarUsuarioComponent implements OnInit {
 
     const dialogRef2 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      width: "400px",
+      
       data: element,
+      
     });
 
     dialogRef2.afterClosed().subscribe(result => {
@@ -74,11 +75,11 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   async openEditarUsuario(form: any) {
-    this.openDialog(EditarUsuarioComponent, 'se actualizó el usuario', form);
+    this.openDialog(EditarUsuarioComponent, 'Se actualizó el usuario', form);
   }
 
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
@@ -89,7 +90,8 @@ export class ListarUsuarioComponent implements OnInit {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
       data: data?data:'',
-      panelClass: 'custom_Config'
+      panelClass: 'custom_EditarUsuario',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -6,7 +6,7 @@
     <form [formGroup]="crearFormDialog" (ngSubmit)="crearPlan(crearFormDialog.value)">
 
         <div class="Title_POPUPConfig">Plan:</div>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="fill">
             <mat-label>Seleccionar</mat-label>
             <mat-select formControlName="plan" required>
                 <mat-option *ngFor="let tipoPlan of listadoTipoPlanes" [value]="tipoPlan">{{

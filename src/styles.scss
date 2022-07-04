@@ -362,7 +362,6 @@ body {
     font-size: 16pt;
     font-weight: bold;
     width: 100%;
-    padding-bottom: 15px;
 }
 
 .titledialog mat-icon {
@@ -517,7 +516,9 @@ body {
 }
 
 .objeto {
-    height: auto;
+    display: flex;
+    
+    flex-flow: wrap;
 }
 
 .objeto_right {
@@ -533,7 +534,6 @@ body {
 
 .formElementoPlano {
     display: flex;
-    flex-flow: row wrap;
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -598,9 +598,9 @@ table {
 }
 
 .mensaje {
-    font-size: 16pt;
+    font-size: 14pt;
     text-align: center;
-    padding: 5px 10px 20px 10px;
+    padding: 20px 10px 20px 10px;
 }
 
 .file-input-insivible {
@@ -814,19 +814,20 @@ th.mat-header-cell {
 
 /* width */
 ::-webkit-scrollbar {
+    background-color: white;
     width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
+  background-color: rgb(180, 180, 180);
     border-radius: 0px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #05C65D;
-    border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 0px 0px 0px;
     box-shadow: inset 0 0 2px grey;
 }
 
@@ -1618,9 +1619,7 @@ th.mat-header-cell {
     text-align: center;
 }
 
-.mat-dialog-container {
-    width: none !important;
-}
+
 
 .popup_cerrar {
     padding-left: 9px + 16px !important;
@@ -2044,12 +2043,15 @@ u {
 }
 
 .custom_Config {
-
-    display: grid;
+    min-height: 20%;
+    max-height: 85%;
+    overflow-y: auto;
 
     mat-dialog-container {
+        height: auto;
         padding: 0px;
-        border-radius: 8px !important;
+        padding: 0px;
+        border-radius: 0px !important;
     }
 
     /* width */
@@ -2066,7 +2068,7 @@ u {
     /* Handle */
     ::-webkit-scrollbar-thumb {
         background: #05C65D;
-        border-radius: 0px 5px 5px 0px;
+        border-radius: 0px 0px 0px 0px;
         box-shadow: inset 0 0 2px grey;
     }
 
@@ -2283,12 +2285,12 @@ u {
 .SuplenciaPopUP {}
 
 .DialogConfig {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
 
     .titledialog {
-        align-self: center;
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -2401,20 +2403,21 @@ u {
 }
 
 .custom_Estrategias {
-    min-height: 40%;
+    min-height: 20%;
     max-height: 85%;
     overflow-y: auto;
     
 
-
-    mat-dialog-container {
+    .mat-dialog-container {
+        height: auto;
         padding: 0px;
-        border-radius: 8px !important;
+        border-radius: 0px !important;
     }
 
     /* width */
     ::-webkit-scrollbar {
-        width: 14px;
+        background-color: white !important;
+        width: 10px;
     }
 
     /* Track */
@@ -2426,7 +2429,7 @@ u {
     /* Handle */
     ::-webkit-scrollbar-thumb {
         background: #05C65D;
-        border-radius: 0px 5px 5px 0px;
+        border-radius: 0px 0px 0x 0px;
         box-shadow: inset 0 0 2px grey;
     }
 
@@ -2434,4 +2437,46 @@ u {
     ::-webkit-scrollbar-thumb:hover {
         background: #04a84e;
     }
+}
+
+.custom_EditarUsuario {
+    min-height: 20%;
+    max-height: 85%;
+    overflow-y: auto;
+    .mat-dialog-container {
+        height: auto;
+        padding: 0px;
+        border-radius: 0px !important;
+    }
+    
+    /* width */
+    ::-webkit-scrollbar {
+        background-color: white !important;
+        width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 0px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #05C65D;
+        border-radius: 0px 0px 0x 0px;
+        box-shadow: inset 0 0 2px grey;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #04a84e;
+    }
+}
+
+.FormularioDV{
+    width: 100% !important;
+}
+.Filtro_DV{
+    max-width: 650px;
 }

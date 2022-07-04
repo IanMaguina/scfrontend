@@ -1,7 +1,6 @@
 <div class="titlesection">
     Bandeja de Pendientes
-    <br><br>
-    <mat-divider></mat-divider>
+    <mat-divider class="divisor"></mat-divider>
 </div>
 <div>
     <form [formGroup]="formulary" (ngSubmit)="buscarSolicitudes(formulary.value)">
@@ -79,7 +78,7 @@
 
         <!-- Column -->
         <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef> Estado</th>
+            <th mat-header-cell *matHeaderCellDef>Estado Línea de Crédito</th>
             <td mat-cell *matCellDef="let element" (dblclick)="editarSolicitud(element)"><u>
                     {{element.estado.nombre}} </u></td>
         </ng-container>

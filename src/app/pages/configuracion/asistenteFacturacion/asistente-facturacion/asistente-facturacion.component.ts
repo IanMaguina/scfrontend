@@ -37,13 +37,14 @@ export class AsistenteFacturacionComponent implements OnInit {
     const dialogRef = this.matDialog.open(CrearAsistenteFacturacionComponent, {
       disableClose: true,
       width: "300px",
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.listarAsistentesFacturacion();
       if (result === 'CONFIRM_DLG_YES') {
-        this.enviarMensajeSnack("se agregó el asistente Facturacion correctamente");
+        this.enviarMensajeSnack("Se agregó al Asistente Facturación correctamente");
       }
     });
   }
@@ -52,9 +53,9 @@ export class AsistenteFacturacionComponent implements OnInit {
     let mensaje: string;
 
     if (form.activo) {
-      mensaje = "¿Desea habilitar el asistente de facturacion?";
+      mensaje = "¿Desea habilitar al Asistente de Facturación?";
     } else {
-      mensaje = "¿Desea deshabilitar el asistente de facturacion?";
+      mensaje = "¿Desea deshabilitar al Asistente de Facturación?";
     }
     form.mensaje = mensaje;
 
@@ -69,7 +70,7 @@ export class AsistenteFacturacionComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         this.asistenteFacturacionService.activarDesactivarAsistenteFacturacion(form).then((data) => {
           if (data.header.exito) {
-            this.enviarMensajeSnack("Se actualizó la actividad del asistente de facturacion");
+            this.enviarMensajeSnack("Se actualizó la actividad del Asistente de Facturación");
             this.listarAsistentesFacturacion();
           }
         });
@@ -85,19 +86,20 @@ export class AsistenteFacturacionComponent implements OnInit {
       disableClose: true,
       width: "300px",
       data: element,
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef4.afterClosed().subscribe(result => {
       this.listarAsistentesFacturacion();
       if (result === 'CONFIRM_DLG_YES') {
-        this.enviarMensajeSnack("se actualizó el asistente Facturacion correctamente");
+        this.enviarMensajeSnack("Se actualizó al Asistente Facturación correctamente");
       }
     });
   }
 
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"

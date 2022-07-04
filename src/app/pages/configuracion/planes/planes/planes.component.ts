@@ -36,7 +36,8 @@ export class PlanesComponent implements OnInit {
   openAgregarPlan(){
     const dialogRef = this.matDialog.open(CrearPlanComponent, {
       disableClose: true,
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

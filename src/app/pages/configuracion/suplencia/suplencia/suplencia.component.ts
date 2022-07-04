@@ -43,7 +43,8 @@ export class SuplenciaComponent implements OnInit {
     let dialogRef = this.matDialog.open(CrearSuplenciaComponent, {
       disableClose: true,
       width:'400px',
-      panelClass: 'custom_Config'
+      panelClass: 'custom_Config',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -71,7 +72,7 @@ export class SuplenciaComponent implements OnInit {
       disableClose: true,
       width:"400px",
       data:element,
-      panelClass: 'SuplenciaPopUP'
+      panelClass: 'SuplenciaPopUP',
     });
 
     dialogRef3.afterClosed().subscribe(result => {
@@ -116,7 +117,7 @@ export class SuplenciaComponent implements OnInit {
 
   
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
