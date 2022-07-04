@@ -179,7 +179,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     console.log("asignarEmpresaGrupo-->" + JSON.stringify(form));
     this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
       console.log("data--->" + JSON.stringify(data));
-      if (data.header.exito) {
+      if (data.header.exito && data.payload!==null ) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
         let clienteEmpresa: ClienteEmpresa = {
           id: form.id,
@@ -210,11 +210,11 @@ export class AsignarIntegrantesComponent implements OnInit {
         }
       } else {
         let mensaje: string = "Empresa no registrada";
-        if (data.payload.tiene_cliente) {
+/*         if (data.payload && data.payload.tiene_cliente) {
           let gc = data.payload.cliente.cliente_agrupacion.nombre
           mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
         }
-        this.callWarningDialog(mensaje);
+ */        this.callWarningDialog(mensaje);
         this.limpiarCampos();
         this.listarClienteEmpresa();
       }

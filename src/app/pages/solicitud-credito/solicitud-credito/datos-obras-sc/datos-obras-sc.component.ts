@@ -76,7 +76,6 @@ export class DatosObrasScComponent implements OnInit {
       this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
         this.solicitud = data.payload;
         this.ESTADO_SOLICITUD = this.solicitud.id_estado;
-        console.log("peru qatar--->" + JSON.stringify(this.solicitud));
       })
     }
 

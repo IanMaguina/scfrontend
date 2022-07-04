@@ -132,6 +132,7 @@ export class DatosClienteScComponent implements OnInit {
           this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
           break;
       }
+      console.log("datos cliente2--->" + JSON.stringify(data));
     })
   }
 
