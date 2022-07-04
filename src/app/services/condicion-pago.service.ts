@@ -1,3 +1,4 @@
+import { Empresa } from 'src/app/models/empresa.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, ReplaySubject } from 'rxjs';
@@ -43,9 +44,10 @@ export class CondicionPagoService {
     return this.http.get(url, { params }).pipe(pluck('payload'));
   }
 
-  public getClientSap(params: Object): Observable<ClientSap> {
-    const url: string = `${this.api}/api/solicitud-cliente/clienteSAP`;
-    return this.http.post<ClientSap>(url, params).pipe(pluck('payload'));
+  public getClientSap(params: HttpParams): Observable<Empresa> {
+    const url: string = `${this.api}/api/empresa/consulta`;
+    return this.http.get(url, { params }).pipe(pluck('payload'));
+    
   }
 
   public getConditionPayment(params: HttpParams): Observable<CondicionPago[]> {

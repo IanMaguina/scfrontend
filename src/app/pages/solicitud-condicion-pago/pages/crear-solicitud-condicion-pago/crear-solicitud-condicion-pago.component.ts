@@ -11,6 +11,7 @@ import { client, ClientSap, CondicionPago } from '../../interfaces';
 import { CondicionPagoService } from '@services/condicion-pago.service';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { SnackBarService } from '@services/snack-bar.service';
+import { Empresa } from 'src/app/models/empresa.interface';
 
 @Component({
   selector: 'app-crear-solicitud-condicion-pago',
@@ -22,7 +23,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
   public formTemplate: FormGroup;
   public society$: Observable<ClientSap[]>;
   public conditionPayment$: Observable<CondicionPago[]>;
-  public client: client = {} as client;
+  public client: Empresa = {} as Empresa;
   public displayedColumns: string[] = ['productos', 'condicion_pago_regular', 'condicion_pago_actual', 'nueva_condicion_pago', 'fecha_limite'];
   public minDate = new Date();
 
@@ -59,29 +60,18 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
     const { sociedad, codigo_sap } = this.formTemplate.value;
 
-    const params: Object = {
-      clientes: [
-        { sociedad_codigo_sap: sociedad, cliente_codigo_sap: codigo_sap },
-      ]
-    }
+    const params = new HttpParams()
+      .set('sociedad_codigo_sap', sociedad)
+      .set('cliente_codigo_sap', codigo_sap);
 
     this.condicionPagoService.getClientSap(params).pipe(
       tap((request) => {
-
-        const [client] = request.clientes;
-
-        this.client = {
-          sociedad: client.sociedad_codigo_sap,
-          codigo_sap: client.cliente_codigo_sap,
-          ruc: client.numero_documento,
-          razon_social: client.razon_social,
-          grupo_cliente: client.grupo_cliente_codigo_sap,
-          nombre_grupo_cliente: client.nombre_grupo_cliente,
-          nombre_sociedad: client.nombre_sociedad,
-          canal_comercial: '',
-          zonal: client.zonal_codigo_sap
+        if (request===null) {
+          this.snackBService.openSnackBar('No se encontro recurso', 'cerrar');
+          this.onClearForm();
+          return;
         }
-
+        this.client=request;
       }),
       switchMap((_) => this.getConditionPayment())
     ).subscribe();
@@ -92,7 +82,7 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
     this.formTemplate.reset();
     this.formGroupDirective.resetForm();
     this.lineaProductoTable.controls = [];
-    this.client = {} as client;
+    this.client = {} as Empresa;
   }
 
   public change(event: MatOptionSelectionChange) {
@@ -128,9 +118,9 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
     const { observacion, lineaProductoTable } = this.formTemplate.value;
 
     const params = {
-      sociedad_codigo_sap: this.client.sociedad,
-      cliente_codigo_sap: this.client.codigo_sap,
-      grupo_cliente_codigo_sap: this.client.grupo_cliente,
+      sociedad_codigo_sap: this.client.sociedad_codigo_sap,
+      cliente_codigo_sap: this.client.cliente_codigo_sap,
+      grupo_cliente_codigo_sap: this.client.grupo_cliente_codigo_sap,
       id_solicitud: null,
       observacion: observacion,
       detalle: lineaProductoTable,
@@ -168,12 +158,12 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
   }
 
   private getConditionPayment() {
-
-    const { sociedad, grupo_cliente } = this.client;
+    
+    const { sociedad_codigo_sap, grupo_cliente_codigo_sap } = this.client;
 
     const params = new HttpParams()
-      .set('sociedad_codigo_sap', sociedad)
-      .set('grupo_cliente_codigo_sap', grupo_cliente);
+      .set('sociedad_codigo_sap', sociedad_codigo_sap)
+      .set('grupo_cliente_codigo_sap', grupo_cliente_codigo_sap);
 
     return this.condicionPagoService.getConditionPayment(params).pipe(
       tap((request) => {
@@ -183,6 +173,5 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
       })
     )
   }
-
 
 }
