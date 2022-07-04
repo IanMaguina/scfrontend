@@ -10,7 +10,7 @@ export class SidebarService {
     {
       name: 'Dashboard',
       icono: 'dashboard',
-     svg: 'assets/Home_Siscred.svg', 
+     svg: 'assets/homesiscred.svg', 
      children: [
         { name: 'Principal', url: '/' },
       ]
@@ -18,7 +18,7 @@ export class SidebarService {
     {
       name: 'Solicitud de Crédito',
       icono: 'credit_card',
-      svg:  'assets/LC.svg',
+      svg:  'assets/solic.png',
       toolTip: 'Solicitud de Crédito',
       children: [
         { name: 'Nueva Solicitud', url: 'app/solicitudcredito/nuevaSolicitudCredito' },

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatSort, SortDirection} from '@angular/material/sort';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { UsuarioService } from '../../../../services/usuario.service';
