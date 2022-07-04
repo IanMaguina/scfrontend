@@ -1,43 +1,47 @@
-<div class="titlesection">
-    <span>Grupos Empresariales</span>
+<div class="botonera-ModuloConfig">
+    <div class="titlesectionSolicitud">
+        <span>Grupos Empresariales</span>
+    </div>
+    <div class="botonera">
+        <button mat-flat-button class="boton-principal-light" (click)="openAgregarGrupo()">Agregar</button>
+    </div>
+
 </div>
 
 <mat-divider class="divisorConfig"></mat-divider>
 
-<div class="botonera">
-    <button mat-flat-button class="boton-principal-light" (click)="openAgregarGrupo()">Agregar</button>
-</div>
-<br>
+
 <div class="content-table">
-    <table mat-table [dataSource]="listadoGrupos" class="mat-elevation-z8" >
-       <caption title="Listado Grupos Empresariales y solicitudes"></caption>     
-        
+    <table mat-table [dataSource]="listadoGrupos" class="mat-elevation-z8">
+        <caption title="Listado Grupos Empresariales y solicitudes"></caption>
+
         <!-- Column -->
         <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef>Nombre de grupo </th>
-            <td mat-cell *matCellDef="let element" > {{element.nombre}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="estado_cliente_agrupacion">
             <th mat-header-cell *matHeaderCellDef>Estado </th>
-            <td mat-cell *matCellDef="let element" > {{ element.estado_cliente_agrupacion.nombre }} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.estado_cliente_agrupacion.nombre }} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="usuario_creacion">
             <th mat-header-cell *matHeaderCellDef>Solicitante </th>
-            <td mat-cell *matCellDef="let element" > {{element.usuario_creacion.nombre}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.usuario_creacion.nombre}} </td>
         </ng-container>
 
-      
+
         <!-- Column -->
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Activo </th>
             <td mat-cell *matCellDef="let element">
                 <span *ngIf="mostrarEliminar(element)">
-                    <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleGrupoActivo(element)" [disabled]="!isAdmin"></mat-slide-toggle>
-                </span> 
-                
-            
+                    <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleGrupoActivo(element)"
+                        [disabled]="!isAdmin"></mat-slide-toggle>
+                </span>
+
+
             </td>
         </ng-container>
 
@@ -45,16 +49,15 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-flat-button class="boton-secundario" (click)="openAsignarIntegrantesGrupo(element)">Integrantes</button>
-                
+                <button mat-flat-button class="boton-secundario"
+                    (click)="openAsignarIntegrantesGrupo(element)">Integrantes</button>
+
             </td>
         </ng-container>
-        
-        
+
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
 </div>
-
-    

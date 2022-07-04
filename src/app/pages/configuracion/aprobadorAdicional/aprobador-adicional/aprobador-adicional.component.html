@@ -1,13 +1,15 @@
-<div class="titlesection">
-    <span>Administración de Aprobadores Adicionales</span>
+<div class="botonera-ModuloConfig">
+    <div class="titlesectionSolicitud">
+        <span>Aprobadores Adicionales</span>
+    </div>
+    <div class="botonera">
+        <button mat-flat-button class="boton-principal-light" (click)="openAgregarAprobadorAdicional()">Agregar</button>
+    </div>
+
 </div>
 
 <mat-divider class="divisorConfig"></mat-divider>
 
-<div class="botonera">
-    <button mat-flat-button class="boton-principal-light" (click)="openAgregarAprobadorAdicional()">Agregar</button>
-</div>
-<br>
 <div class="content-table">
     <table mat-table matTableResponsive [dataSource]="listadoAprobadoresAdicionales" class="tablaAprobador mat-elevation-z8" >
         <caption title="tablaListadoAprobadores"></caption>

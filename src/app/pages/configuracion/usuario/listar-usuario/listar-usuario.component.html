@@ -1,32 +1,33 @@
 <div class="ConfigContent">
-    <div class="titlesection">
-        <span>Configuración de Usuarios y Roles</span>
+    <div class="botonera-ModuloConfig">
+        <div class="titlesectionSolicitud">
+            <span>Configuración de Usuarios y Roles</span>
+        </div>
+        <div class="botonera">
+            <button mat-flat-button class="boton-principal-light" (click)="openAgregarUsuario()">Agregar</button>
+        </div>
 
     </div>
-
     <mat-divider class="divisorConfig"></mat-divider>
 
-    <div class="botonera">
-        <button mat-flat-button class="boton-principal-light" (click)="openAgregarUsuario()">Agregar</button>
-    </div>
-    <br>
     <div class="content-table">
         <span class="label-info">
             <mat-icon>info</mat-icon>Para editar el registro dar doble clic en el nombre del usuario.
         </span>
-        <mat-form-field appearance="legacy">
+        <mat-form-field style="width: 100%;" appearance="fill">
             <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="ingrese el dato a buscar" #input>
-          </mat-form-field>
-<br> 
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese el dato que desee buscar" #input>
+        </mat-form-field>
+        <br>
+        <br>
         <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8">
             <caption title="listado de usuarios"></caption>
 
             <!-- Column -->
             <ng-container matColumnDef="nombre">
                 <th class="PointerHand" mat-header-cell *matHeaderCellDef> Nombre </th>
-                <td class="PointerHand" mat-cell *matCellDef="let element"
-                    (dblclick)="openEditarUsuario(element)"><u> {{element.nombre}} </u> </td>
+                <td class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarUsuario(element)"><u>
+                        {{element.nombre}} </u> </td>
             </ng-container>
 
 

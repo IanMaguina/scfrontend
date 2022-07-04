@@ -1,15 +1,15 @@
+<div class="botonera-ModuloConfig">
+    <div class="titlesectionSolicitud">
+        <span>Configuración de Suplencias</span>
+    </div>
+    <div class="botonera">
+        <button mat-flat-button class="boton-principal-light" (click)="openAgregarSuplencia()">Agregar</button>
+    </div>
 
-
-<div class="titlesection">
-    <span>   Configuración de Suplencia</span>
 </div>
 
 <mat-divider class="divisorConfig"></mat-divider>
 
-<div class="botonera">
-    <button mat-flat-button class="boton-principal-light" (click)="openAgregarSuplencia()">Agregar</button>
-</div>
-<br>
 <div class="content-table">
     <span class="label-info"><mat-icon>info</mat-icon> Para editar el registro dar doble clic en el nombre del usuario.</span>
     <table mat-table matTableResponsive [dataSource]="listadoSuplencias" class="mat-elevation-z8 tablaSuplencia " >

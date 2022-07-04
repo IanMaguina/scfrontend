@@ -184,7 +184,7 @@ body {
 }
 
 .main-content {
-    height: 100%;
+    height: 99.8%;
     width: 100%;
     font-family: 'Poppins medium';
     /* font-weight: 'regular'; */
@@ -397,15 +397,41 @@ body {
 }
 
 .botonera {
-    padding-top: 10px;
+    justify-self: center;
 
 }
 
 .botonera-superior {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
     padding-top: 20px;
     padding-right: 24px;
+    padding-left: 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+    .titlesectionSolicitud{
+        font-size: 20pt;
+        color: #B4B4B4;
+        line-height: 30px;
+        align-self: center;
+    }
+}
+
+.botonera-ModuloConfig {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 20px;
+ 
+    flex-wrap: wrap;
+    gap: 20px;
+    .titlesectionSolicitud{
+        font-size: 20pt;
+        color: #B4B4B4;
+        line-height: 30px;
+        align-self: center;
+    }
 }
 
 
@@ -786,38 +812,6 @@ th.mat-header-cell {
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
 
-body::-webkit-scrollbar {
-    width: 10px;
-    /* width of the entire scrollbar */
-}
-
-
-/* body::-webkit-scrollbar-track {
-      background: orange;
-     color of the tracking area
-} */
-
-body::-webkit-scrollbar-thumb {
-    background-color: rgb(5 198 93 / 10%);
-    /* color of the scroll thumb */
-    border-radius: 20px;
-    /* roundness of the scroll thumb */
-    /* border: 2px solid orange;  */
-    /* creates padding around scroll thumb */
-}
-
-.mat-drawer-content::-webkit-scrollbar {
-    width: 14px;
-}
-
-.mat-drawer-content::-webkit-scrollbar-thumb {
-    background-color: rgb(5 198 93 / 10%);
-    border-radius: 20px;
-}
-
-
-/* stepper scroll */
-
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -879,8 +873,21 @@ body::-webkit-scrollbar-thumb {
     margin-top: 20px !important;
 }
 
+.divisorSolicitud {
+    margin-left: 24px !important;
+    margin-right: 24px !important;
+    margin-top: 20px !important;
+    border-top-color: rgb(0, 0, 0, 0.12);
+}
+
 .divisorConfig {
-    margin-top: 10px !important
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    
+}
+
+.divisorInfoSolicitud{
+    margin-bottom: 15px !important;
 }
 
 /*Adjuntos y Plantillas*/
@@ -1653,8 +1660,8 @@ body::-webkit-scrollbar-thumb {
 .label-info {
     display: flex;
     flex-wrap: wrap;
-    color: #70707070;
-    font-size: 10pt;
+    color: #7070709c;
+    font-size: 12pt;
     line-height: 20px;
     align-items: center;
     padding-bottom: 15px;
@@ -2394,7 +2401,11 @@ u {
 }
 
 .custom_Estrategias {
-    height: 77%;
+    min-height: 40%;
+    max-height: 85%;
+    overflow-y: auto;
+    
+
 
     mat-dialog-container {
         padding: 0px;
