@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatSort, SortDirection} from '@angular/material/sort';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { UsuarioService } from '../../../../services/usuario.service';
@@ -13,26 +14,34 @@ import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.compone
   templateUrl: './listar-usuario.component.html',
   styleUrls: []
 })
-export class ListarUsuarioComponent implements OnInit {
+export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['nombre', 'perfil', 'correo', 'id'];
   listadoUsuarios: Usuario[] = [];
 
   dataSource = new MatTableDataSource();
+
+
   constructor(
     private matDialog: MatDialog,
     private usuarioService: UsuarioService,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private _liveAnnouncer: LiveAnnouncer
   ) { }
 
   ngOnInit(): void {
     this.listarUsuarios();
   }
-
+  
+  @ViewChild(MatSort) sort: MatSort;
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
 
   async listarUsuarios() {
     this.usuarioService.listarUsuariosTodos().then(data => {
       this.listadoUsuarios = data.payload;
-      this.dataSource.data= this.listadoUsuarios;
+      this.dataSource.data = this.listadoUsuarios;
+
       console.log("usuarios listados: " + JSON.stringify(data.payload));
 
     })
@@ -53,26 +62,26 @@ export class ListarUsuarioComponent implements OnInit {
 
     const dialogRef2 = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      
+
       data: element,
-      
+
     });
 
     dialogRef2.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let usuario: Usuario = element;
         this.usuarioService.activarUsuario(usuario).then(data => {
-          if(data.header.exito){
+          if (data.header.exito) {
             this.enviarMensajeSnack('Se modificó la actividad del usuario');
             this.listarUsuarios();
-          }else{
+          } else {
             this.listarUsuarios();
           }
         });
-      }else{
+      } else {
         this.listarUsuarios();
       }
-    }) 
+    })
   }
 
   async openEditarUsuario(form: any) {
@@ -90,7 +99,7 @@ export class ListarUsuarioComponent implements OnInit {
   openDialog(componente: any, msg: string, data?: any) {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
-      data: data?data:'',
+      data: data ? data : '',
       panelClass: 'custom_EditarUsuario',
       autoFocus: false,
     });
@@ -99,7 +108,7 @@ export class ListarUsuarioComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         this.enviarMensajeSnack(msg);
         this.listarUsuarios();
-      }else{
+      } else {
         this.listarUsuarios();
 
       }
@@ -111,6 +120,12 @@ export class ListarUsuarioComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 
 }

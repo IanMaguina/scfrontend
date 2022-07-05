@@ -58,6 +58,10 @@ import { EditarAsistenteFacturacionComponent } from './asistenteFacturacion/edit
 import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adicional/aprobador-adicional.component';
 import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-aprobador-adicional/crear-aprobador-adicional.component';
 import { MatCardModule } from '@angular/material/card';
+import {MatSortModule} from '@angular/material/sort';
+import { A11yModule } from '@angular/cdk/a11y';
+import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.component';
+import { CrearTipoCambioComponent } from './tipo-cambio/crear-tipo-cambio/crear-tipo-cambio.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +104,8 @@ import { MatCardModule } from '@angular/material/card';
     EditarAsistenteFacturacionComponent,
     AprobadorAdicionalComponent,
     CrearAprobadorAdicionalComponent,
+    TipoCambioComponent,
+    CrearTipoCambioComponent,
 
   ],
   imports: [
@@ -126,10 +132,13 @@ import { MatCardModule } from '@angular/material/card';
     MatRippleModule,
     DragDropModule,
     MatTableResponsiveModule,
-    MatCardModule
+    MatCardModule, 
+    MatSortModule,
+    A11yModule,
   ],
   exports: [
     ConfiguracionComponent,
+    
   ]
 })
 export class ConfiguracionModule { }

@@ -37,6 +37,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   formErrors = {
     'sociedad': '',
     'ruc': '',
+    'razon_social': '',
     'participacion': '',
   }
   validationMessages = {
@@ -45,6 +46,9 @@ export class AsignarIntegrantesComponent implements OnInit {
     },
     'ruc': {
       'required': 'el Número de documento es requerido.',
+    },
+    'razon_social': {
+      'required': 'consorciado es requerido.',
     },
     'participacion': {
       'required': 'la participación es requerida.',
@@ -138,6 +142,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     this.asignarEmpresaFormDialog = this.formBuilder.group({
       sociedad: ['', Validators.required],
       ruc: ['', Validators.required],
+      razon_social: [''],
       participacion: ['', Validators.required],
     })
     this.asignarEmpresaFormDialog.valueChanges.subscribe(() => {
@@ -187,7 +192,8 @@ export class AsignarIntegrantesComponent implements OnInit {
           id_empresa: data.payload.id,
           id_usuario_creacion: this.id_usuario,
           id_usuario: this.id_usuario,
-          participacion: form.participacion
+          participacion: form.participacion,
+          razon_social: form.razon_social,
         }
         let mensaje: string = "";
         if (data.payload.tiene_cliente) {
