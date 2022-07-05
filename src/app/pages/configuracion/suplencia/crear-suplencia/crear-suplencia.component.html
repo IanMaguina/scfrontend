@@ -28,8 +28,8 @@
                 <input type="text" matInput placeholder="Usuario suplente" formControlName="usuario_suplente"
                     [matAutocomplete]="autoSuplente" required>
                 <mat-autocomplete #autoSuplente="matAutocomplete" [displayWith]="displayFnSuplente">
-                    <mat-option *ngFor="let option of filteredUsuarioSuplente | async" [value]="option">
-                        {{option.nombre}}
+                    <mat-option *ngFor="let option of filteredUsuarioSuplente | async" [value]="option.usuario">
+                        {{option.usuario.nombre}}
                     </mat-option>
                 </mat-autocomplete>
                

@@ -1,3 +1,5 @@
+import { GlobalSettings } from 'src/app/shared/settings';
+import { RolUsuarioService } from '@services/rol-usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -8,7 +10,9 @@ import { Usuario } from 'src/app/models/usuario.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SuplenciaService } from 'src/app/services/suplencia.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { RolUsuario } from 'src/app/models/rol-usuario.interface';
 
+const ROL_SUPLENTE:number=GlobalSettings.ROL_SUPLENTE;
 @Component({
   selector: 'app-crear-suplencia',
   templateUrl: './crear-suplencia.component.html',
@@ -49,8 +53,8 @@ export class CrearSuplenciaComponent implements OnInit {
   filteredUsuario!: Observable<Usuario[]>;
   selectedUsuario: any;
 
-  comboListadoUsuarioSuplente: Usuario[] = [];
-  filteredUsuarioSuplente!: Observable<Usuario[]>;
+  comboListadoUsuarioSuplente: RolUsuario[] = [];
+  filteredUsuarioSuplente!: Observable<RolUsuario[]>;
   selectedUsuarioSuplente: any;
   errorFechaActual = "";
   errorFechaInicio = "";
@@ -61,6 +65,7 @@ export class CrearSuplenciaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private usuarioService: UsuarioService,
+    private rolUsuarioService: RolUsuarioService,
     private suplenciaService:SuplenciaService,
   ) {
 
@@ -145,8 +150,9 @@ export class CrearSuplenciaComponent implements OnInit {
   /*  auto complete suplente*/
 
   async listarUsuariosSuplentes() {
-    let listadoSuplentes = await this.usuarioService.listarUsuarios().then();
+    let listadoSuplentes = await this.rolUsuarioService.listarEstrategiaFiltros({id_rol:ROL_SUPLENTE}).then();
     this.comboListadoUsuarioSuplente = listadoSuplentes.payload;
+    console.log("xxxx--->"+JSON.stringify(this.comboListadoUsuarioSuplente));
     this.filteredUsuarioSuplente = this.formDialog.get('usuario_suplente')?.valueChanges
       .pipe(
         startWith(''),
@@ -155,13 +161,14 @@ export class CrearSuplenciaComponent implements OnInit {
       );
   }
 
-  displayFnSuplente(user: Usuario): string {
+  displayFnSuplente(user: any): string {
+    console.log("YYY--->"+JSON.stringify(user));
     return user && user.nombre ? user.nombre : '';
   }
 
-  private _filterSuplente(nombre: string): Usuario[] {
+  private _filterSuplente(nombre: any): RolUsuario[] {
     let filterValue = nombre.toLowerCase();
-    return this.comboListadoUsuarioSuplente.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+    return this.comboListadoUsuarioSuplente.filter(option => option.usuario.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
   /*  */
 

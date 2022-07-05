@@ -11,7 +11,7 @@
                     (ngSubmit)="asignarEmpresaConsorcio(asignarEmpresaFormDialog.value)">
 
                     <div class="BuscadorConsorciados">
-                        <mat-form-field appearance="fill">
+<!--                         <mat-form-field appearance="fill">
                             <mat-label>Sociedad</mat-label>
                             <mat-select formControlName="sociedad" required>
                                 <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
@@ -19,7 +19,7 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-
+ -->
                         <mat-form-field appearance="fill">
                             <mat-label>Ruc</mat-label>
                             <input matInput placeholder="ingrese el RUC" formControlName="ruc" required>
@@ -32,8 +32,8 @@
                         </mat-form-field>
 
                         <mat-form-field appearance="fill">
-                            <mat-label>Consorciado</mat-label>
-                            <input matInput placeholder="En caso de no existir en sap" formControlName="razon_social" required>
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Nombre" formControlName="razon_social" required>
                             <mat-hint>
                                 <mat-error [hidden]="!(formErrors.razon_social)">
                                     {{formErrors.razon_social}}
@@ -69,19 +69,19 @@
 
 
                         <!-- Column -->
-                        <ng-container matColumnDef="sociedad">
+<!--                         <ng-container matColumnDef="sociedad">
                             <th mat-header-cell *matHeaderCellDef> Sociedad </th>
                             <td mat-cell *matCellDef="let element">
                                 {{(element.empresa.sociedad?element.empresa.sociedad.nombre:'NR')}}</td>
                         </ng-container>
-
+ -->
                         <!-- Column -->
-                        <ng-container matColumnDef="grupo_cliente">
+<!--                         <ng-container matColumnDef="grupo_cliente">
                             <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
                             <td mat-cell *matCellDef="let element">
                                 {{(element.empresa.grupo_cliente?element.empresa.grupo_cliente.nombre:'NR')}} </td>
                         </ng-container>
-
+ -->
                         <!-- Column -->
                         <ng-container matColumnDef="razonsocial">
                             <th mat-header-cell *matHeaderCellDef> Razón Social </th>
@@ -97,12 +97,12 @@
                         </ng-container>
 
                         <!-- Column -->
-                        <ng-container matColumnDef="canal">
+<!--                         <ng-container matColumnDef="canal">
                             <th mat-header-cell *matHeaderCellDef> Canal Comercial </th>
                             <td mat-cell *matCellDef="let element">
                                 {{(element.empresa.tipo_canal?element.empresa.tipo_canal.nombre:'NR')}} </td>
                         </ng-container>
-                        <!-- Column -->
+ -->                        <!-- Column -->
                         <ng-container matColumnDef="participacion">
                             <th mat-header-cell *matHeaderCellDef> Participacion </th>
                             <td mat-cell *matCellDef="let element">

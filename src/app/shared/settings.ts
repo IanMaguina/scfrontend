@@ -23,7 +23,8 @@ export const GlobalSettings = Object.freeze({
     ROL_CONTROL_GESTION: 21,
     ROL_RPA: 30,
     ROL_EVALUADOR: 40,
-    ROL_APROBADOR: 50,
+    ROL_APROBADOR:60,
+    ROL_SUPLENTE: 50,
 
     ROL_COSTOS: 4,
     ROL_COMERCIAL: 5,

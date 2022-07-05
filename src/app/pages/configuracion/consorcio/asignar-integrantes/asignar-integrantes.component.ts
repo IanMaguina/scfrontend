@@ -35,15 +35,15 @@ export class AsignarIntegrantesComponent implements OnInit {
   consorcioData: any;
   asignarEmpresaFormDialog: any;
   formErrors = {
-    'sociedad': '',
+/*     'sociedad': '', */
     'ruc': '',
     'razon_social': '',
     'participacion': '',
   }
   validationMessages = {
-    'sociedad': {
+/*     'sociedad': {
       'required': 'Sociedad es requerida.'
-    },
+    }, */
     'ruc': {
       'required': 'el Número de documento es requerido.',
     },
@@ -89,11 +89,11 @@ export class AsignarIntegrantesComponent implements OnInit {
   listadoIntegrantes: AgrupacionClienteSolicitud[] = [];
 
   displayedColumns: string[] = [
-    'sociedad',
-    'grupo_cliente',
+/*     'sociedad',
+    'grupo_cliente', */
     'razonsocial',
     'ruc',
-    'canal',
+/*     'canal', */
     'participacion',
     'estado_cliente_agrupacion',
     'id',
@@ -140,7 +140,7 @@ export class AsignarIntegrantesComponent implements OnInit {
 
     /*  */
     this.asignarEmpresaFormDialog = this.formBuilder.group({
-      sociedad: ['', Validators.required],
+/*       sociedad: ['', Validators.required], */
       ruc: ['', Validators.required],
       razon_social: [''],
       participacion: ['', Validators.required],
@@ -181,8 +181,27 @@ export class AsignarIntegrantesComponent implements OnInit {
   }
 
   asignarEmpresaConsorcio(form: any) {
-    console.log("asignarEmpresaGrupo-->" + JSON.stringify(form));
-    this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
+    let clienteEmpresa: any = {
+      id_cliente_agrupacion: this.id_cliente_agrupacion,
+      numero_documento: form.ruc,
+      razon_social:form.razon_social,
+      id_usuario: this.id_usuario,
+      participacion: form.participacion,
+    }
+    console.log("asignarEmpresaGrupo-->" + JSON.stringify(clienteEmpresa));
+    this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((result) => {
+      if (result.header.exito) {
+        if (result.payload.warning) {
+          this.enviarMensajeSnack(result.payload.warning.mensaje);
+        } else {
+          this.enviarMensajeSnack('Se agregó la empresa');
+          this.limpiarCampos();
+          this.listarClienteEmpresa();
+        }
+      }
+    });
+  }
+/*     this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
       console.log("data--->" + JSON.stringify(data));
       if (data.header.exito && data.payload!==null ) {
         console.log("se encontro--->" + JSON.stringify(data.payload));
@@ -216,16 +235,12 @@ export class AsignarIntegrantesComponent implements OnInit {
         }
       } else {
         let mensaje: string = "Empresa no registrada";
-/*         if (data.payload && data.payload.tiene_cliente) {
-          let gc = data.payload.cliente.cliente_agrupacion.nombre
-          mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
-        }
- */        this.callWarningDialog(mensaje);
+        this.callWarningDialog(mensaje);
         this.limpiarCampos();
         this.listarClienteEmpresa();
       }
-    })
-  }
+    }) */
+ 
 
   eliminarClienteEmpresa(element: any) {
     element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este consorcio? `;
