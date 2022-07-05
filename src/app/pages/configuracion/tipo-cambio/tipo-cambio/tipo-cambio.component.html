@@ -1,1 +1,72 @@
-<p>tipo-cambio works!</p>
+<div class="botonera-ModuloConfig">
+    <div class="titlesectionSolicitud">
+        <span>Configuración de Tipo de Cambio</span>
+    </div>
+</div>
+
+<mat-divider class="divisorConfig"></mat-divider>
+<div class="contenidoForm_Config">
+    <form [formGroup]="formulary" (ngSubmit)="crearTipoCambio(formulary.value)">
+
+<div class="izquierda">
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Seleccionar</mat-label>
+            <mat-select formControlName="tipo_moneda" required>
+                <mat-option *ngFor="let tipo_moneda of listadoTipoMoneda" [value]="tipo_moneda">
+                    {{tipo_moneda.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Valor Cambio</mat-label>
+            <input matInput placeholder="ingrese el valor de cambio" formControlName="valor" required>
+            <mat-hint>
+                <mat-error [hidden]="!(formErrors.valor)">
+                    {{formErrors.valor}}
+                </mat-error>
+            </mat-hint>
+
+        </mat-form-field>
+
+    </div>
+
+
+        <div class="objetoBoton">
+            <button mat-raised-button class="boton-principal-light" type="submit"
+                [disabled]="formulary.invalid">Agregar</button>
+        </div>
+    </form>
+</div>
+<div class="content-table">
+    <!--  <span class="label-info"><mat-icon>info</mat-icon> Para cambiar el valor actual agregar un nuevo tipo de cambio</span> -->
+    <table mat-table matTableResponsive [dataSource]="listadoTipoCambio" class="mat-elevation-z8">
+
+        <!-- Column -->
+        <ng-container matColumnDef="tipo_moneda">
+            <th mat-header-cell *matHeaderCellDef> Tipo Moneda </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipo_moneda.nombre}} </td>
+        </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="valor">
+            <th mat-header-cell *matHeaderCellDef> Valor Cambio </th>
+            <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+        </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="usuario_modificacion">
+            <th mat-header-cell *matHeaderCellDef> Modificado por </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.nombre}} </td>
+        </ng-container>
+
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
