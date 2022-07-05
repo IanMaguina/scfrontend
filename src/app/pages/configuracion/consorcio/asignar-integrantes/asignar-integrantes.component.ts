@@ -214,7 +214,7 @@ export class AsignarIntegrantesComponent implements OnInit {
           let gc = data.payload.cliente.cliente_agrupacion.nombre
           mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
         }
- */        this.callWarningDialog(mensaje);
+ */     this.callWarningDialog(mensaje);
         this.limpiarCampos();
         this.listarClienteEmpresa();
       }
@@ -280,7 +280,6 @@ export class AsignarIntegrantesComponent implements OnInit {
       disableClose: true,
       width: "400px",
       data: mensaje,
-      panelClass: 'custom_Config'
     });
 
   }
@@ -296,7 +295,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     this.asignarEmpresaFormDialog.reset();
   }
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"
