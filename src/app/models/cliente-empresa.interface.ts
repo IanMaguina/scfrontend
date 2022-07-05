@@ -8,6 +8,7 @@ export interface ClienteEmpresa{
     empresa?:Empresa,
     participacion?:number,
     razon_social?:string,
+    numero_documento?:string,
     cliente_agrupacion?:ClienteAgrupacion,
     id_usuario_creacion?:number,
     activo?:boolean,         

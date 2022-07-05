@@ -201,46 +201,6 @@ export class AsignarIntegrantesComponent implements OnInit {
       }
     });
   }
-/*     this.empresaService.buscarEmpresa(form.sociedad.codigo_sap, form.ruc).then(data => {
-      console.log("data--->" + JSON.stringify(data));
-      if (data.header.exito && data.payload!==null ) {
-        console.log("se encontro--->" + JSON.stringify(data.payload));
-        let clienteEmpresa: ClienteEmpresa = {
-          id: form.id,
-          id_cliente_agrupacion: this.id_cliente_agrupacion,
-          id_empresa: data.payload.id,
-          id_usuario_creacion: this.id_usuario,
-          id_usuario: this.id_usuario,
-          participacion: form.participacion,
-          razon_social: form.razon_social,
-        }
-        let mensaje: string = "";
-        if (data.payload.tiene_cliente) {
-          let gc = data.payload.cliente.cliente_agrupacion.nombre
-          mensaje = `Empresa ya fue asignada al Grupo / Consorcio : + ${gc}`;
-          this.callWarningDialog(mensaje);
-
-        } else {
-          this.clienteEmpresaService.crearClienteEmpresa(clienteEmpresa).then((result) => {
-            if (result.header.exito) {
-              if (result.payload.warning) {
-                this.enviarMensajeSnack(result.payload.warning.mensaje);
-              } else {
-                this.enviarMensajeSnack('Se agregó la empresa');
-                this.limpiarCampos();
-                this.listarClienteEmpresa();
-              }
-            }
-          });
-        }
-      } else {
-        let mensaje: string = "Empresa no registrada";
-        this.callWarningDialog(mensaje);
-        this.limpiarCampos();
-        this.listarClienteEmpresa();
-      }
-    }) */
- 
 
   eliminarClienteEmpresa(element: any) {
     element.mensaje = `¿Desea desasignar la empresa: ${element.empresa.razon_social} de este consorcio? `;

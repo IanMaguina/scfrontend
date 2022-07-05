@@ -22,7 +22,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   }
   validationMessages = {
     'nombre': {
-      'required': 'el nombre de grupo es requerido.'
+      'required': 'El nombre de grupo es requerido.'
     },
   };
 
@@ -103,7 +103,7 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   }
 
   enviarMensajeSnack(mensaje: string) {
-    this._snack.open(mensaje, 'cerrar', {
+    this._snack.open(mensaje, 'Cerrar', {
       duration: 1800,
       horizontalPosition: "end",
       verticalPosition: "top"

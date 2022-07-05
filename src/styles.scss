@@ -398,7 +398,19 @@ body {
 .botonera {
     justify-self: center;
 
+    
 }
+.botonera_Integrantes {
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    justify-content: flex-end;
+    gap: 10px;
+
+
+} 
+
 
 .botonera-superior {
     display: flex;
@@ -952,9 +964,15 @@ th.mat-header-cell {
 }
 
 .zona_de_adjuntos {
-    margin-left: 20px;
-    border-radius: 0px 0px 0px 0px !important;
-    max-width: 747px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    align-items: center;
+    .mat-form-field-infix{
+        align-self: center;
+        border: 0px;
+    }
 }
 
 .mat-tab-label-active {
@@ -2374,7 +2392,9 @@ u {
 
 .AsignarIntegrantesGrupo {
     display: grid;
-    padding: 24px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 24px;
 
     .BuscadorAsignarIntegrantesGrupo {
         display: flex;
@@ -2559,4 +2579,8 @@ u {
     display: flex;
     justify-content: center;
     text-align: center;
+}
+
+.mat-sort-header-container{
+    justify-content: center;
 }
