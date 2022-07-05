@@ -398,7 +398,19 @@ body {
 .botonera {
     justify-self: center;
 
+    
 }
+.botonera_Integrantes {
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    justify-content: flex-end;
+    gap: 10px;
+
+
+} 
+
 
 .botonera-superior {
     display: flex;
@@ -2374,7 +2386,9 @@ u {
 
 .AsignarIntegrantesGrupo {
     display: grid;
-    padding: 24px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 24px;
 
     .BuscadorAsignarIntegrantesGrupo {
         display: flex;
@@ -2559,4 +2573,8 @@ u {
     display: flex;
     justify-content: center;
     text-align: center;
+}
+
+.mat-sort-header-container{
+    justify-content: center;
 }
