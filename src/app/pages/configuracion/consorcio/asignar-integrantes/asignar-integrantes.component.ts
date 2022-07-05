@@ -38,6 +38,7 @@ export class AsignarIntegrantesComponent implements OnInit {
     'sociedad': '',
     'ruc': '',
     'participacion': '',
+    'razon_social': '',
   }
   validationMessages = {
     'sociedad': {
@@ -48,6 +49,9 @@ export class AsignarIntegrantesComponent implements OnInit {
     },
     'participacion': {
       'required': 'la participación es requerida.',
+    },
+    'razon_social': {
+      'required': 'la razon social es requerida.',
     }
   };
   /* Participacion */
