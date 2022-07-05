@@ -964,9 +964,15 @@ th.mat-header-cell {
 }
 
 .zona_de_adjuntos {
-    margin-left: 20px;
-    border-radius: 0px 0px 0px 0px !important;
-    max-width: 747px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    align-items: center;
+    .mat-form-field-infix{
+        align-self: center;
+        border: 0px;
+    }
 }
 
 .mat-tab-label-active {
