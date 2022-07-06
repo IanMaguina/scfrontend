@@ -72,7 +72,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Seleccionar</mat-label>
                         <mat-select formControlName="cartaFianza" required>
-                            <mat-option *ngFor="let dato of listadoyesno" [value]="dato.nombre">{{ dato.nombre }}
+                            <mat-option *ngFor="let dato of listadoyesno" [value]="dato.id">{{ dato.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -271,7 +271,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Seleccionar</mat-label>
                         <mat-select formControlName="revisionMensual" required>
-                            <mat-option *ngFor="let dato of listadoyesno" [value]="dato.nombre">{{ dato.nombre }}
+                            <mat-option *ngFor="let dato of listadoyesno" [value]="dato.id">{{ dato.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

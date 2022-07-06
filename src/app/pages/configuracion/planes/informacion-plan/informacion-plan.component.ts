@@ -115,8 +115,8 @@ export class InformacionPlanComponent implements OnInit {
   listadoTipoMoneda: any[] = [];
   mostrarTipoMoneda: any = {};
   listadoyesno: any[] = [
-    { nombre: 'S' },
-    { nombre: 'N' },
+    { id:'S',nombre: 'Si' },
+    { id:'N',nombre: 'No' },
   ]
 
   tipoFlujoAprobacion: TipoFlujoAprobacion;
