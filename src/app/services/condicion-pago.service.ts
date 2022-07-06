@@ -7,6 +7,7 @@ import { ClientSap, CondicionPago } from '../pages/solicitud-condicion-pago/inte
 
 import config from 'src/assets/config.json';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { AppConfigService } from './app-config.service';
 
 @Injectable()
 
@@ -18,8 +19,13 @@ export class CondicionPagoService {
 
   constructor(
     private http: HttpClient,
-    private readonly autenticacionService: AutenticacionService
-  ) { }
+    private readonly autenticacionService: AutenticacionService,
+    private appConfig: AppConfigService
+  ) { 
+    var vl_appConfig = this.appConfig.getConfig();
+    this.api = vl_appConfig.BASE_API_URL;
+
+  }
 
   public getSociety(): Observable<any> {
     const url: string = `${this.api}/api/sociedad`;
