@@ -17,6 +17,11 @@
                     <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">{{ sociedad.nombre }}
                     </mat-option>
                 </mat-select>
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.sociedad)">
+                        {{formErrors.sociedad}}
+                    </mat-error>
+                </mat-hint>
             </mat-form-field>
 
 <!--             <div class="Title_POPUPConfig">Razón Social:</div>
@@ -48,7 +53,7 @@
         <div class="botonera_PopUPConfig">
             <button mat-raised-button class="color-secundario" type="button"
                 (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button>
-            <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
+            <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="crearConsorcioFormDialog.invalid">Agregar</button>
         </div>
     </form>
 </div>

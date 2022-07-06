@@ -13,8 +13,7 @@
             <th>Linea Credito Solicitada S/.</th>
         </tr>
         <tr *ngFor="let row of listadoResumenDino">
-            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado:'NR')}}</td>
-            <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
+            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+' '+row.nombre_linea_credito:'NR')}}</td>            <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
             <td>{{(row.moneda_actual?row.moneda_actual:'NR')}}</td>
             <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>
             <td>{{(row.linea_credito_solicitada?row.linea_credito_solicitada:'NR')}}</td>

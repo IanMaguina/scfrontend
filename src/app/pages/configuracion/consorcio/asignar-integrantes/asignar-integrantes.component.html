@@ -6,7 +6,7 @@
     <div class="AsignarConsorciados">
         <!-- tabs to make styles to support responsive... -->
         <mat-tab-group mat-align-tabs="start">
-            <mat-tab label="Integrantes">
+            <mat-tab label="Integrantes" >
                 <form [formGroup]="asignarEmpresaFormDialog"
                     (ngSubmit)="asignarEmpresaConsorcio(asignarEmpresaFormDialog.value)">
 
@@ -22,7 +22,8 @@
  -->
                         <mat-form-field appearance="fill">
                             <mat-label>Ruc</mat-label>
-                            <input matInput placeholder="ingrese el RUC" formControlName="ruc" required>
+                            <input matInput placeholder="ingrese el RUC" formControlName="ruc" #input maxlength="12" required>
+                            <mat-hint align="end">{{input.value?.length || 0}}/12</mat-hint>
                             <mat-hint>
                                 <mat-error [hidden]="!(formErrors.ruc)">
                                     {{formErrors.ruc}}
@@ -43,7 +44,7 @@
 
                         <mat-form-field appearance="fill">
                             <mat-label>Participación</mat-label>
-                            <input matInput placeholder="ingrese " formControlName="participacion">
+                            <input type="number" matInput placeholder="ingrese " formControlName="participacion">
                             <mat-hint>
                                 <mat-error [hidden]="!(formErrors.participacion)">
                                     {{formErrors.participacion}}
@@ -55,7 +56,7 @@
 
 
                         <div class="objetoBoton">
-                            <button mat-raised-button class="boton-principal-light" type="submit">Agregar</button>
+                            <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="asignarEmpresaFormDialog.invalid">Agregar</button>
                         </div>
                     </div>
                 </form>
@@ -135,7 +136,7 @@
 
 
             </mat-tab>
-            <mat-tab label="Participación">
+            <mat-tab label="Documentos de Participación">
                 <div class="content-section">
                     <div class="contenidoForm ">
 
