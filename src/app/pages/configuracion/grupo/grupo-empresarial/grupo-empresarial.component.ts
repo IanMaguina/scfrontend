@@ -1,3 +1,4 @@
+import { EditarGrupoEmpresarialComponent } from './../editar-grupo-empresarial/editar-grupo-empresarial.component';
 import { GrupoEmpresarialService } from '../../../../services/grupo-empresarial.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -72,8 +73,27 @@ export class GrupoEmpresarialComponent implements OnInit {
 
       }
     });
+  }
+
+  async openEditar(form: any) {
+    let dialogRef = this.matDialog.open(EditarGrupoEmpresarialComponent, {
+      disableClose: true,
+      data: form,
+      panelClass: 'custom_Config',
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.payload.confirm === 'CONFIRM_DLG_YES') {
+          this.openAsignarIntegrantesGrupo(result.payload.data);
+      } else {
+        this.listarGruposEmpresariales();
+
+      }
+    });
 
   }
+
 
   openAsignarIntegrantesGrupo(data: any) {
     this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', data)

@@ -1,1 +1,28 @@
-<p>editar-grupo-empresarial works!</p>
+<div class="Header_POPUPEstrategias">
+    <div class="titledialog_Config">Editar Grupo</div>
+</div>
+<div class="contenidoForm_Config">
+    <form [formGroup]="grupoFormDialog" (ngSubmit)="actualizarGrupo(grupoFormDialog.value)">
+
+        
+        <span>*Ingrese la información requerida</span>
+        <div class="Title_POPUPConfig">Nombre del Grupo:</div>
+            <mat-form-field appearance="fill">
+                <mat-label>Ingresar</mat-label>
+                <input matInput placeholder="ingrese el nombre del grupo" formControlName="nombre" required>
+                <mat-hint>
+                    <mat-error [hidden]="!(formErrors.nombre)">
+                        {{formErrors.nombre}}
+                    </mat-error>
+                </mat-hint>
+
+            </mat-form-field>
+        
+
+        <div class="botonera_PopUPConfig">
+        <button mat-raised-button class="color-secundario" type="button"
+            (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button>
+        <button mat-raised-button class="boton-principal-light" type="submit" [disabled]="grupoFormDialog.invalid">Guardar</button>
+        </div>
+    </form>
+</div>
