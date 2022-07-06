@@ -62,6 +62,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.component';
 import { CrearTipoCambioComponent } from './tipo-cambio/crear-tipo-cambio/crear-tipo-cambio.component';
+import { EditarGrupoEmpresarialComponent } from './grupo/editar-grupo-empresarial/editar-grupo-empresarial.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { CrearTipoCambioComponent } from './tipo-cambio/crear-tipo-cambio/crear-
     CrearAprobadorAdicionalComponent,
     TipoCambioComponent,
     CrearTipoCambioComponent,
+    EditarGrupoEmpresarialComponent,
 
   ],
   imports: [
