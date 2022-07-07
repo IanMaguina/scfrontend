@@ -69,8 +69,9 @@ export class EditarGrupoEmpresarialComponent implements OnInit {
     let clienteAgrupacion = await this.mapeoGrupo(form)
     this.grupoEmpresarialService.actualizarGrupoEmpresarial(clienteAgrupacion).then(data => {
       if (data.header.exito) {
+      
         if (data.payload && data.payload.warning){
-          this.enviarMensajeSnack(data.payload.warning.mensaje);
+          this.enviarMensajeSnack(data.payload.warning.codigo.descripcion);
           this.onNoClick({ payload: { data: data.payload, confirm: 'CONFIRM_DLG_NO' } });  
         }else{
           this.onNoClick({ payload: { data: data.payload, confirm: (data.payload === null ? 'CONFIRM_DLG_NO' : 'CONFIRM_DLG_YES') } });
