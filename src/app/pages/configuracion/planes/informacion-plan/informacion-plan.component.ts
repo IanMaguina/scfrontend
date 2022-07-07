@@ -512,6 +512,10 @@ export class InformacionPlanComponent implements OnInit {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
     return o1.codigo_sap === o2.codigo_sap;
   }
+  compareCamiones(o1: any, o2: any) {
+    //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
+    return o1.id === o2.id;
+  }
 
 }
 
