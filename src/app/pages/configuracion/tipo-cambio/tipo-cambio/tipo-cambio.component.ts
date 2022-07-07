@@ -67,7 +67,7 @@ export class TipoCambioComponent implements OnInit {
   }
   listarTipoMoneda() {
     this.tipoMonedaService.listar().then(data => {
-      this.listadoTipoMoneda = data.payload;
+      this.listadoTipoMoneda.push(data.payload[0]);
     })
   }
 
