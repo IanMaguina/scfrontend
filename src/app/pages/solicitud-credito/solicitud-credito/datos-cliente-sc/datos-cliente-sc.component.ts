@@ -223,11 +223,12 @@ export class DatosClienteScComponent implements OnInit {
           }
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
+          console.log("empresa Individual-->"+JSON.stringify(result));
           this.cliente_seleccionado = data.tipo_cliente;
-          if (result.payload.warning) {
+          if (result.payload && result.payload.warning) {
             this.openAlerta(result.payload.warning.mensaje);            
           } else {
-
+            if (result.payload){
             if (this.id_solicitud_editar === null) {
               console.log("validar empresa sociedad: " + JSON.stringify(result.payload));
 
@@ -242,6 +243,9 @@ export class DatosClienteScComponent implements OnInit {
                 this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', id]);
               });
             }
+          }else{
+            this.openAlerta("Recurso no existe");            
+          }
 
           }
         })
