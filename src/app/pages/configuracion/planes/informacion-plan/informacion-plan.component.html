@@ -85,7 +85,7 @@
                 <div class="Selector">
                     <div class="Title_POPUPConfig">Nivel de Mora:</div>
                     <mat-form-field appearance="fill">
-                        <mat-label>Nivel de Mora</mat-label>
+                        <mat-label>Seleccionar</mat-label>
                         <mat-select #nivemora formControlName="nivelMora" multiple required
                             (selectionChange)="llenarNivelMora()" [compareWith]="compareNivelMora">
                             <mat-option *ngFor="let nivelMora of listadoNivelMora" [value]="nivelMora">
@@ -219,7 +219,7 @@
                 <div class="Selector">
                     <div class="Title_POPUPConfig">Moneda:</div>
                     <mat-form-field appearance="fill">
-                        <mat-label>Seleccioanr</mat-label>
+                        <mat-label>Seleccionar</mat-label>
                         <mat-select formControlName="moneda" required>
                             <mat-option *ngFor="let tipo of listadoTipoMoneda" [value]="tipo.id">{{tipo.simbolo }}
                             </mat-option>
@@ -233,7 +233,7 @@
                 <div class="Selector">
                     <div class="Title_POPUPConfig">Bolsa:</div>
                     <mat-form-field appearance="fill">
-                        <mat-label>Seleccionar</mat-label>
+                        <mat-label>Ingresar</mat-label>
                         <input matInput placeholder="bolsa" formControlName="bolsa" required>
                         <mat-hint>
                             <mat-error [hidden]="!(formErrors.bolsa)">
@@ -251,7 +251,7 @@
                 <div class="Selector">
                     <div class="Title_POPUPConfig">Camiones:</div>
                     <mat-form-field appearance="fill">
-                        <mat-label>Seleccionar</mat-label>
+                        <mat-label>Ingresar</mat-label>
                         <input matInput placeholder="Camiones" formControlName="camiones" required>
                         <mat-hint>
                             <mat-error [hidden]="!(formErrors.camiones)">

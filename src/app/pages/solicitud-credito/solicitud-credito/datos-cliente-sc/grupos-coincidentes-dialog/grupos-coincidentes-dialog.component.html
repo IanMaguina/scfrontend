@@ -14,7 +14,8 @@
                                 {{obj.nombre}}
                             </mat-panel-title>
                             <mat-panel-description class="Header_GEC_Des">
-                                <mat-icon class="color-warning" *ngIf="!obj.pertenece_sociedad">warning</mat-icon>&nbsp;&nbsp;
+                                <mat-icon matTooltipClass="TooltipConsorcio"
+                                matTooltip="Una o más empresas no se encuentran en tu sociedad, no podrás solicitar líneas de crédito en ellas" class="color-warning centrar" *ngIf="!obj.pertenece_sociedad">warning</mat-icon>&nbsp;&nbsp;
                                 <button type="button" mat-flat-button class="boton-principal-light"
                                     (click)="guardarSolicitud(obj)">
                                     Elegir
@@ -39,10 +40,12 @@
                                     </ng-container>
                                     <!-- Column -->
                                     <ng-container matColumnDef="pertenece_sociedad">
-                                        <th mat-header-cell *matHeaderCellDef> Sociedad Correcta? </th>
+                                        <th mat-header-cell *matHeaderCellDef> </th>
                                         <td mat-cell *matCellDef="let element">
-                                            <mat-icon  class="color-principal" *ngIf="element.pertenece_sociedad">check_circle</mat-icon> 
-                                            <mat-icon class="color-error" *ngIf="!element.pertenece_sociedad">warning</mat-icon> 
+                                            <mat-icon matTooltipClass="TooltipConsorcio"
+                                            matTooltip="Disponible en tu sociedad" class="color-principal" *ngIf="element.pertenece_sociedad">check_circle</mat-icon> 
+                                            <mat-icon matTooltipClass="TooltipConsorcio"
+                                            matTooltip="La empresa no se encuentra en tu sociedad, gestionar creación" class="color-error" *ngIf="!element.pertenece_sociedad">warning</mat-icon> 
                                        
                                     
                                         </td>

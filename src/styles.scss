@@ -998,6 +998,11 @@ th.mat-header-cell {
     font-size: 15px;
 }
 
+.mat-tab-label:focus:not(.mat-tab-disabled){
+    background-color: #04C55C !important;
+    opacity: 100;
+}
+
 .texto {
     display: flex;
 }
@@ -1957,11 +1962,11 @@ u {
 }
 
 .TooltipConsorcio {
-    background-color: rgba(0, 0, 0, 0.767);
-    color: #FFF;
-    font-size: 12px;
-    border: 1px solid black;
-    text-align: center;
+    background-color: rgba(0, 0, 0, 0.767) !important;
+    color: #FFF !important;
+    font-size: 12px !important;
+    border: 1px solid black !important;
+    text-align: center !important;
 
 }
 
@@ -2354,7 +2359,7 @@ u {
 
     .InformaciónConfig {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 480px));
+        grid-template-columns: 1fr;
     }
 }
 
@@ -2613,4 +2618,8 @@ u {
 
 .mat-sort-header-container {
     justify-content: center;
+}
+
+.centrar{
+    align-self: center;
 }
