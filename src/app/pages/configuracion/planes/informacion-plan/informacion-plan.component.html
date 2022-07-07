@@ -250,26 +250,19 @@
             <div class="SelectorYRespuesta">
                 <div class="Selector">
                     <div class="Title_POPUPConfig">Camiones:</div>
-                        <mat-form-field appearance="fill">
-                        <mat-label>Camiones</mat-label>
-                        <mat-select formControlName="camiones" required multiple (selectionChange)="llenarCamiones()"
-                            [compareWith]="compareCamiones">
-                            <mat-option *ngFor="let camion of listadoCamiones" [value]="camion">{{ camion.nombre }}
-                            </mat-option>
-                        </mat-select>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Ingresar</mat-label>
+                        <input matInput placeholder="Camiones" formControlName="camiones" required>
+                        <mat-hint>
+                            <mat-error [hidden]="!(formErrors.camiones)">
+                                {{formErrors.camiones}}
+                            </mat-error>
+                        </mat-hint>
+
                     </mat-form-field>
+                    
                 </div>
-                <div class="Respuesta">
-                    <table>
-                        <caption title="mostrarCamiones"></caption>
-                        <th>&nbsp;</th>
-                        <tr *ngFor="let item of mostrarCamiones">
-                            <td>
-                                {{item.nombre}}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <div class="Respuesta">&nbsp;</div>
             </div>
 
             <!-- Elemento -->

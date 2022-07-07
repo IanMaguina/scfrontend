@@ -111,14 +111,7 @@ export class InformacionPlanComponent implements OnInit {
   listadoLineaProducto: any[] = [];
   mostrarLineaProducto: any[] = [];
   listadoBolsa: any[] = [];
-  listadoCamiones: any[] = [
-    {id:1,nombre:'1 camión'},
-    {id:2,nombre:'2 camiones'},
-    {id:3,nombre:'3 camiones'},
-    {id:4,nombre:'4 camiones'},
-  ];
-  mostrarCamiones: any = {};
-
+  listadoCamiones: any[] = [];
   listadoTipoMoneda: any[] = [];
   mostrarTipoMoneda: any = {};
   listadoyesno: any[] = [
@@ -203,8 +196,6 @@ export class InformacionPlanComponent implements OnInit {
       this.llenarLineaProducto();
       this.marcarTipoMoneda();
       this.llenarTipoMoneda();
-      this.marcarCamiones();
-      this.llenarCamiones();
     })
   }
 
@@ -399,17 +390,6 @@ export class InformacionPlanComponent implements OnInit {
     console.log("llenarTipoMoneda--->"+JSON.stringify(moneda));
     this.mostrarTipoMoneda = moneda;
   }
-  marcarCamiones() {
-    let campo:any = this.listadoInformacionPlan.camiones;
-    console.log("marcar Camiones--->"+JSON.stringify(campo));
-    this.informacionForm.get("camiones")?.setValue(campo.id);
-  }  
-
-  llenarCamiones() {
-    let camion = this.informacionForm.get("camiones").value;
-    console.log("llenar camiones--->"+JSON.stringify(camion));
-    this.mostrarCamiones = camion;
-  }
 
   async guardarSeccionInformacion(form: any) {
     console.log("guardarSeccionInformacion--->" + JSON.stringify(form));
@@ -430,7 +410,7 @@ export class InformacionPlanComponent implements OnInit {
       id: this.plan.id,
       id_tipo_moneda: form.moneda,
       bolsa: form.bolsa,
-      camiones: 1,
+      camiones: form.camiones,
       carta_fianza: form.cartaFianza,
       revision_mensual: form.revisionMensual,
       grupo_cliente: this.retornarGrupoCliente(),
