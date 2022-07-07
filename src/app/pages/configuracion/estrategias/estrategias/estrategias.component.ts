@@ -82,7 +82,7 @@ export class EstrategiasComponent implements OnInit {
 
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'Cerrar', {
-      duration: 1800,
+      duration: 3600,
       horizontalPosition: "end",
       verticalPosition: "top"
     });

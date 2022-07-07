@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SnackBarService } from '@services/snack-bar.service';
 import { Plan } from 'src/app/models/plan.interface';
 import { TipoPlanCredito } from 'src/app/models/tipo-plan-credito.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -33,7 +34,7 @@ export class CrearPlanComponent implements OnInit {
     public dialogRef: MatDialogRef<CrearPlanComponent>,
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private planService: PlanService,
+    private planService: PlanService, 
     private tipoPlanService: TipoPlanService
   ) {
     this.crearFormDialog = this.formBuilder.group({
@@ -58,18 +59,19 @@ export class CrearPlanComponent implements OnInit {
 
   async crearPlan(form: any) {
     let plan = await this.mapeoPlan(form)
-    console.log("crearUsuario:" + JSON.stringify(plan));
-    this.planService.crearPlan(plan).then(() => {
-      this.onNoClick();
-    });
+    //console.log("crearplan:" + JSON.stringify(plan));
+    this.planService.crearPlan(plan).then((result) => {
+      if(result.header.exito){
+        this.onNoClick('CONFIRM_DLG_YES');
+      }else{
+        this.onNoClick('CONFIRM_DLG_NO');
+      } 
+    }); 
 
-
-    this.dialogRef.close()
-    console.log("plan creado");
   }
 
   async mapeoPlan(form: any) {
-    console.log("crearPlan--->" + JSON.stringify(form));
+   // console.log("crearPlan--->" + JSON.stringify(form));
     let plan: Plan = {
       "id_tipo_plan_credito": form.plan.id,
       "carta_fianza": null,
@@ -81,8 +83,8 @@ export class CrearPlanComponent implements OnInit {
     return plan;
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg:string): void {
+    this.dialogRef.close(msg);
   }
 
 }
