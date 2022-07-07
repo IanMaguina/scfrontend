@@ -62,7 +62,6 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     'razonsocial',
     'ruc',
     'canal',
-    'zonal',
     'grupo_cliente',
     'estado_cliente_agrupacion',
     'id',
@@ -253,7 +252,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
-      duration: 1800,
+      duration: 3600,
       horizontalPosition: "end",
       verticalPosition: "top"
     });

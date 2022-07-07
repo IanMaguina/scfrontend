@@ -109,7 +109,7 @@ export class SidebarService {
       toolTip: 'Configuración',
       children: [
         { name: 'Usuarios', url: 'app/configuracion/usuarios' },
-        { name: 'Estrategias', url: 'app/configuracion/estrategias' },
+        { name: 'Roles', url: 'app/configuracion/estrategias' },
         { name: 'Consorcios', url: 'app/configuracion/consorcios' },
         { name: 'Grupos', url: 'app/configuracion/grupos' },
         { name: 'Planes', url: 'app/configuracion/planes' },

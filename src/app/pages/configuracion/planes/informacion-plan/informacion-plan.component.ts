@@ -397,7 +397,7 @@ export class InformacionPlanComponent implements OnInit {
     console.log("crear guardarSeccionInformacion:" + JSON.stringify(plan));
     this.planService.guardarInformacion(plan).then(() => {
       this._snack.open("Se guardo Información del Plan", 'cerrar', {
-        duration: 1800,
+        duration: 3600,
         horizontalPosition: "end",
         verticalPosition: "top"
       });

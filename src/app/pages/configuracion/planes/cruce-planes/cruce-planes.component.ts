@@ -115,7 +115,7 @@ export class CrucePlanesComponent implements OnInit {
     console.log("crear guardarCrucePlanes:" + JSON.stringify(plan));
     this.planService.guardarCruce(plan).then(() => {
       this._snack.open("Se guardo Cruce de Planes", 'cerrar', {
-        duration: 1800,
+        duration: 3600,
         horizontalPosition: "end",
         verticalPosition: "top"
       });
