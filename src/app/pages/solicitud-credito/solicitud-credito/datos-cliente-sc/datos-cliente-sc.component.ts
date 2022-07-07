@@ -41,7 +41,7 @@ export class DatosClienteScComponent implements OnInit {
 
   nombreGrupoAcordeon: string = null;
   clienteData: ClienteDatos;
-  cliente_seleccionado: number = 1;
+  cliente_seleccionado: number = null;
   id_solicitud_dc: number = 0;
   ID_TIPO_CLIENTE: number;
 
@@ -67,6 +67,7 @@ export class DatosClienteScComponent implements OnInit {
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
     console.log("user info : " + JSON.stringify(this.userInfo));
+    console.log("editar solicitud datos cliente--->" + this.id_solicitud_editar);
     this.firstFormGroup = this._formBuilder.group({
       tipo_cliente: [this.cliente, this.ClientSelectorControl, Validators.required],
       nombreGrupo: [''],
@@ -78,12 +79,12 @@ export class DatosClienteScComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     this.usuario_sociedad_codigo_sap=this.userInfo.sociedad_codigo_sap;
     console.log("sociedad del solicitante--->" + this.usuario_sociedad_codigo_sap);
-    console.log("editar solicitud datos cliente--->" + this.id_solicitud_editar);
+    
     if (this.id_solicitud_editar !== null) {
-      this.obtenerSolicitud();
+      await this.obtenerSolicitud();
     }
   }
 
@@ -114,8 +115,8 @@ export class DatosClienteScComponent implements OnInit {
       console.log("datos cliente--->" + JSON.stringify(data));
       this.solicitud = data.payload;
       this.ESTADO_SOLICITUD = this.solicitud.id_estado;
-      let solicitud: Solicitud = data.payload;
-      switch (solicitud.id_tipo_cliente) {
+      this.cliente_seleccionado = data.payload.id_tipo_cliente;
+      switch (data.payload.id_tipo_cliente) {
         case 1:
           this.ClientSelectorControl.setValue(this.radioGrupo)
           this.cliente_seleccionado = this.radioGrupo;
@@ -129,6 +130,7 @@ export class DatosClienteScComponent implements OnInit {
         case 3:
           this.ClientSelectorControl.setValue(this.radioEmpresa)
           this.cliente_seleccionado = this.radioEmpresa;
+          console.log("xxxxxxxxxx---->"+this.cliente_seleccionado);
           this.listarEmpresaIndividualxSolicitud({ id_solicitud: this.id_solicitud_editar });
           break;
       }
