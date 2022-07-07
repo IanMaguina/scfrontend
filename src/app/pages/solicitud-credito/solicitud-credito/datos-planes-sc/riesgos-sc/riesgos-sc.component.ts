@@ -58,7 +58,7 @@ export class RiesgosScComponent implements OnInit {
 
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {
-      duration: 1800,
+      duration: 3600,
       horizontalPosition: "end",
       verticalPosition: "top"
     });

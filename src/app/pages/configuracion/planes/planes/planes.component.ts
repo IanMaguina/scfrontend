@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { SnackBarService } from '@services/snack-bar.service';
 import { Plan } from 'src/app/models/plan.interface';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfigurarPlanComponent } from '../configurar-plan/configurar-plan.component';
@@ -17,19 +18,20 @@ export class PlanesComponent implements OnInit {
   displayedColumnsSociedad: string[] = ['plan', 'activo'];
   constructor(
     private matDialog: MatDialog,
-    private planService: PlanService
+    private planService: PlanService,
+    private _snack: SnackBarService,
 
   ) { }
 
   ngOnInit(): void {
-    console.log("ngInit");
+    
     this.listarPlanes();
   }
 
   async listarPlanes() {
     this.planService.listarPlan().then(data => {
       this.listadoPlanes = data.payload;
-      console.log(JSON.stringify(this.listadoPlanes));
+     // console.log(JSON.stringify(this.listadoPlanes));
     })
   }
 
@@ -41,8 +43,14 @@ export class PlanesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.listarPlanes();
-      console.log("return function process");
+      if(result==='CONFIRM_DLG_YES'){
+        this._snack.openSnackBar('Plan Creado','Cerrar');
+        this.listarPlanes();
+      }else{
+
+        this.listarPlanes();
+      }
+
     });
   }
   openConfigurarPlan(element:any){
@@ -52,9 +60,9 @@ export class PlanesComponent implements OnInit {
       panelClass: 'custom_ConfigPlan'
     });
 
-    dialogRef2.afterClosed().subscribe(result => {
+    dialogRef2.afterClosed().subscribe( (_) => {
       this.listarPlanes();
-      console.log("return function process");
+      
     });
   }
 
@@ -75,8 +83,21 @@ export class PlanesComponent implements OnInit {
     });
 
     dialogRef3.afterClosed().subscribe(result => {
+    // console.log("el form plan que enviamos:"+JSON.stringify(form));
+      let item: Plan = {
+        id: form.id,
+        activo: form.activo, 
+      }; 
       if(result==='CONFIRM_DLG_YES'){
-        console.log("return function process");
+        this.planService.actualizarPlan(item).then(data => {
+          if(data.header.exito){
+            this._snack.openSnackBar(data.header.mensaje,'Cerrar');
+            this.listarPlanes();
+          }
+
+        }); 
+        this.listarPlanes();
+      }else{
         this.listarPlanes();
       }
     });
