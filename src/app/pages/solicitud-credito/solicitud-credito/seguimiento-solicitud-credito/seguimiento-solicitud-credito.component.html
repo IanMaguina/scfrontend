@@ -1,0 +1,104 @@
+<div class="content-dialogGrupo">
+    <div class="Header_POPUPEstrategias">
+        <div class="titledialog_Config">Asignar Consorciados</div>
+    </div>
+
+    <div class="AsignarConsorciados">
+        <!-- tabs to make styles to support responsive... -->
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Seguimiento" >
+                <div class="content-table">
+                    <!-- Table listadoIntegrantes  -->
+                    <table mat-table matTableResponsive [dataSource]="listadoSeguimiento"
+                        class="mat-elevation-z8 tablaConsorciados">
+                    <caption title="Listado de seguimiento"></caption>
+
+                        <!-- Column -->
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef> accion </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.accion?element.accion:'NR')}} </td>
+                        </ng-container>
+
+                        <!-- Column -->
+                        <ng-container matColumnDef="fecha">
+                            <th mat-header-cell *matHeaderCellDef> fecha </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.fecha?element.fecha:'NR')}} </td>
+                        </ng-container>
+
+
+ -->                        <!-- Column -->
+                        <ng-container matColumnDef="responsable">
+                            <th mat-header-cell *matHeaderCellDef> responsable </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.responsable?element.responsable:'NR')}} </td>
+                        </ng-container>
+
+                        <!-- Column -->
+                        <ng-container matColumnDef="motivo">
+                            <th mat-header-cell *matHeaderCellDef> motivo </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{(element.motivo?element.motivo:'NR')}}
+                            </td>
+                        </ng-container>
+
+                       
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                </div>
+
+
+            </mat-tab>
+            <mat-tab label="Flujo">
+                <div class="content-section">
+                    <div class="contenidoForm ">
+
+
+                        <div class="zona_de_adjuntos">
+                            <br>
+                            <table mat-table matTableResponsive [dataSource]="listadoFlujo"
+                                class="mat-elevation-z8 ">
+                                <caption title="listado flujo"></caption>
+
+
+                                <!-- Column -->
+                                <ng-container matColumnDef="completado">
+                                    <th mat-header-cell *matHeaderCellDef> completado</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.completado}} </td>
+                                </ng-container>
+                                <!-- Column -->
+                                <ng-container matColumnDef="estado">
+                                    <th mat-header-cell *matHeaderCellDef>estado</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                                </ng-container>
+                                <!-- Column -->
+                                <ng-container matColumnDef="responsable">
+                                    <th mat-header-cell *matHeaderCellDef> responsable</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.responsable}} </td>
+                                </ng-container>
+                               
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsF"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsF;"></tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+
+    </div>
+    <mat-divider class="divisor"></mat-divider>
+
+    <div class="botonera_Integrantes">
+        <button mat-raised-button class="objeto boton-secundario" type="button"
+            (click)="onNoClick()">Cerrar</button>
+       
+    </div>
+</div>
