@@ -63,10 +63,10 @@ export class CrearGrupoEmpresarialComponent implements OnInit {
   async crearGrupo(form: any) {
     let clienteAgrupacion = await this.mapeoGrupo(form)
     this.grupoEmpresarialService.crearGrupoEmpresarial(clienteAgrupacion).then(data => {
-      console.log("grupos ian-->"+JSON.stringify(data));
+    
       if (data.header.exito) {
         if (data.payload.warning){
-          this.enviarMensajeSnack(data.payload.warning.mensaje);
+          this.enviarMensajeSnack(data.payload.warning.codigo.descripcion);
           this.onNoClick({ payload: { data: data.payload, confirm: 'CONFIRM_DLG_NO' } });  
         }else{
           this.onNoClick({ payload: { data: data.payload, confirm: (data.payload === null ? 'CONFIRM_DLG_NO' : 'CONFIRM_DLG_YES') } });
