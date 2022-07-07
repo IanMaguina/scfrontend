@@ -115,7 +115,7 @@ export class SidebarService {
         { name: 'Planes', url: 'app/configuracion/planes' },
         { name: 'Documentos Valorados', url: 'app/configuracion/tipodocumentovalorado' },
         { name: 'Suplencias', url: 'app/configuracion/suplencias' },
-        { name: 'Asistente de facturacion', url: 'app/configuracion/asistentefacturacion' },
+        { name: 'Asistente de Facturación', url: 'app/configuracion/asistentefacturacion' },
         { name: 'Aprobador adicional', url: 'app/configuracion/aprobadoradicional' },
         { name: 'Tipo de Cambio', url: 'app/configuracion/tipocambio' },
       ]
