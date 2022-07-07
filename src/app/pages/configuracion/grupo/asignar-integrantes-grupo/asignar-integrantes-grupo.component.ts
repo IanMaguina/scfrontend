@@ -62,7 +62,6 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     'razonsocial',
     'ruc',
     'canal',
-    'zonal',
     'grupo_cliente',
     'estado_cliente_agrupacion',
     'id',
