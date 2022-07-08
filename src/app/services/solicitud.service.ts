@@ -154,6 +154,7 @@ export class SolicitudService {
     let numero_documento = null;
     let cliente_codigo_sap = null;
     let sociedad_codigo_sap=null;
+    let origen=null;
     let query = "";
     if (filtros['sociedad_codigo_sap']) {
       sociedad_codigo_sap = filtros['sociedad_codigo_sap'];
@@ -169,6 +170,12 @@ export class SolicitudService {
       cliente_codigo_sap = filtros['cliente_codigo_sap'];
       query = query != "" ? query+"&cliente_codigo_sap=" + cliente_codigo_sap : "cliente_codigo_sap=" + cliente_codigo_sap;
     }
+
+    if (filtros['origen']) {
+      origen = filtros['origen'];
+      query = query != "" ? query+"&origen=" + origen : "origen=" + origen;
+    }
+
    
 /*     let params = new HttpParams()
     .set('numero_documento',filtros.numero_documento)
