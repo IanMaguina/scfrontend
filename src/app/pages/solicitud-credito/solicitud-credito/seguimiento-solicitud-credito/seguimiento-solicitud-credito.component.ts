@@ -40,6 +40,7 @@ export class SeguimientoSolicitudCreditoComponent implements OnInit {
     this.dialogRef.close();
   }
   listarSeguimiento(){
+    console.log("id_solicitud seguimiento es :"+this.id_solicitud);
     this.solicitudService.listarSeguimientoSolicitud(this.id_solicitud).then( data => {
       this.listadoSeguimiento = data.payload;
     })

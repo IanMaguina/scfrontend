@@ -772,9 +772,10 @@ export class SolicitudService {
   }
 
   listarSeguimientoSolicitud(id_solicitud:number): Promise<any> {
+    console.log("service --> /api/seguimiento-solicitud?id_solicitud"+id_solicitud);
     return new Promise(
       (resolve, reject) => {
-        this.resourceService.getResource("/api/seguimiento-solicitud?id_solicitud"+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/seguimiento-solicitud?id_solicitud="+id_solicitud).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {
