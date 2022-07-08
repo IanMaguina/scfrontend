@@ -248,7 +248,7 @@ export class DatosClienteScComponent implements OnInit {
               });
             }
           }else{
-            this.openAlerta("Recurso no existe");            
+            this.openAlerta("Recurso no valido");            
           }
 
           }
