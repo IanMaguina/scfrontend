@@ -27,7 +27,8 @@ export class ResumenRiesgosScComponent implements OnInit {
   }
   listarResumenDino() {
     this.solicitudPlanService.obtenerResumenRiesgos(this.id_solicitud_editar).then(res => {
-      this.listadoResumenDino = res.payload;
+      console.log("resumen riesgo: "+JSON.stringify(res));
+     // this.listadoResumenDino = res.payload;
     });
   }
 
