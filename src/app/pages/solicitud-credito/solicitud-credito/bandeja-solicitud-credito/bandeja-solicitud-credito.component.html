@@ -15,7 +15,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" class="formBandejas">
+            <mat-form-field appearance="fill" class="formBandejas" *ngIf="notGrupo">
                 <mat-label>RUC</mat-label>
                 <input matInput formControlName="numero_documento">
             </mat-form-field>

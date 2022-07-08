@@ -75,6 +75,9 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+  TIPO_CLIENTE_GRUPO_EMPRESARIAL:number = GlobalSettings.TIPO_CLIENTE_GRUPO_EMPRESARIAL;
+
+  notGrupo:boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -101,6 +104,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     console.log("ngOnInit  bandeja de pendientes");
     this.listarSolicitud();
     this.listarEstadosSolicitud();
+    this.validarTipoDocumento();
   }
 
   listarSolicitud() {
@@ -130,10 +134,26 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     await this.solicitudService.listarSolicitudesxFiltros(form).then( data => {
       console.log("solicitudes filtradas:"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
+     // this.limpiar();
     });
   }
-  validarTipoDocumento(){
-    
+  async validarTipoDocumento() {
+    let tipo_cliente = this.formulary.get("tipo_cliente").value.id;
+    if(tipo_cliente == this.TIPO_CLIENTE_GRUPO_EMPRESARIAL ){
+      this.notGrupo = false;
+    }else{
+      this.notGrupo = true;
+    }
+
+  }
+
+  limpiar(){
+     this.formulary.get("tipo_cliente").setValue("");
+     this.formulary.get("numero_documento").setValue("");
+     this.formulary.get("estado").setValue("");
+     this.formulary.get("correlativo").setValue("");
+    this.formulary.get("fecha").setValue("");
+
   }
 
  
