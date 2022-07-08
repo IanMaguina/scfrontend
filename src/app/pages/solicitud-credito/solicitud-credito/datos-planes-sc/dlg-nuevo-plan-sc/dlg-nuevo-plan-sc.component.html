@@ -33,7 +33,7 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Seleccionar</mat-label>
                     <mat-select formControlName="plan_credito" required>
-                        <mat-option *ngFor="let item of listadoPlanesCredito" [value]="item.tipo_plan_credito">
+                        <mat-option *ngFor="let item of listadoPlanesCredito" [value]="item.id">
                             {{ item.tipo_plan_credito.nombre }}
                         </mat-option>
                     </mat-select>
