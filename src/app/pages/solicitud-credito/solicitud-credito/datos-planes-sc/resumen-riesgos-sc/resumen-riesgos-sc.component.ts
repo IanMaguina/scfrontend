@@ -26,17 +26,17 @@ export class ResumenRiesgosScComponent implements OnInit {
     this.listarResumenTotalGrupoPacasmayo();
   }
   listarResumenDino() {
-    this.solicitudPlanService.obtenerResumenRiesgos(this.id_solicitud_editar).then(res => {
+   /*  this.solicitudPlanService.obtenerResumenRiesgos(this.id_solicitud_editar).then(res => {
       console.log("resumen riesgo: "+JSON.stringify(res));
      // this.listadoResumenDino = res.payload;
-    });
+    }); */
   }
 
   listarResumenTotalGrupoPacasmayo() {
 
-    this.solicitudPlanService.obtenerConsolidadoRiesgos(this.id_solicitud_editar).then(res => {
+    /* this.solicitudPlanService.obtenerConsolidadoRiesgos(this.id_solicitud_editar).then(res => {
       this.listadoResumenTotalPacasmayo = res.payload;
-    });
+    }); */
 
   } 
 
