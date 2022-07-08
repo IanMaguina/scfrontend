@@ -104,7 +104,10 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   }
 
   listarSolicitud() {
-    this.solicitudService.listarSolicitudes().then(data => {
+    let item = {
+      id_usuario:this.userInfo.id
+    }
+    this.solicitudService.listarSolicitudesxFiltros(item).then(data => {
       //console.log("solicitudes:"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
     })
