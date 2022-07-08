@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SolicitudService } from '@services/solicitud.service';
+import { SeguimientoSolicitud } from 'src/app/models/seguimiento-solicitud.interface';
 
 @Component({
   selector: 'app-seguimiento-solicitud-credito',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class SeguimientoSolicitudCreditoComponent implements OnInit {
-  listadoSeguimiento:any[]=[];
+  listadoSeguimiento:SeguimientoSolicitud[]=[];
   listadoFlujo:any[]=[]
   displayedColumns:string[]=[
     'accion',
@@ -20,11 +23,25 @@ export class SeguimientoSolicitudCreditoComponent implements OnInit {
      'estado',
      'responsable',
   ];
-  constructor() { }
+
+  id_solicitud:number;
+  constructor(
+    public dialogRef: MatDialogRef<SeguimientoSolicitudCreditoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data,
+    private solicitudService:SolicitudService
+  ) { 
+    this.id_solicitud = data;
+  }
 
   ngOnInit(): void {
+    this.listarSeguimiento();
   }
-  onNoClick(){
-    
+  onNoClick(): void {
+    this.dialogRef.close();
   }
+  listarSeguimiento(){
+    this.solicitudService.listarSeguimientoSolicitud(this.id_solicitud).then( data => {
+      this.listadoSeguimiento = data.payload;
+    })
+  } 
 }

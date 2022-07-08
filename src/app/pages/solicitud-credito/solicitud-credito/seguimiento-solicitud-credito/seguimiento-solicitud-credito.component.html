@@ -1,12 +1,9 @@
-<div class="content-dialogGrupo">
-    <div class="Header_POPUPEstrategias">
-        <div class="titledialog_Config">Asignar Consorciados</div>
-    </div>
-
+<div class="content-dialogGrupo"> 
     <div class="AsignarConsorciados">
         <!-- tabs to make styles to support responsive... -->
         <mat-tab-group mat-align-tabs="start">
             <mat-tab label="Seguimiento" >
+                <br>
                 <div class="content-table">
                     <!-- Table listadoIntegrantes  -->
                     <table mat-table matTableResponsive [dataSource]="listadoSeguimiento"
@@ -17,14 +14,14 @@
                         <ng-container matColumnDef="accion">
                             <th mat-header-cell *matHeaderCellDef> accion </th>
                             <td mat-cell *matCellDef="let element">
-                                {{(element.accion?element.accion:'NR')}} </td>
+                                {{(element.estado?element.estado.nombre:' ')}} </td>
                         </ng-container>
 
                         <!-- Column -->
                         <ng-container matColumnDef="fecha">
                             <th mat-header-cell *matHeaderCellDef> fecha </th>
                             <td mat-cell *matCellDef="let element">
-                                {{(element.fecha?element.fecha:'NR')}} </td>
+                                {{(element.fecha_inicio?element.fecha_inicio:'')}} </td>
                         </ng-container>
 
 
@@ -32,14 +29,14 @@
                         <ng-container matColumnDef="responsable">
                             <th mat-header-cell *matHeaderCellDef> responsable </th>
                             <td mat-cell *matCellDef="let element">
-                                {{(element.responsable?element.responsable:'NR')}} </td>
+                                {{(element.usuario?element.usuario.nombre:'')}} </td>
                         </ng-container>
 
                         <!-- Column -->
                         <ng-container matColumnDef="motivo">
                             <th mat-header-cell *matHeaderCellDef> motivo </th>
                             <td mat-cell *matCellDef="let element">
-                                {{(element.motivo?element.motivo:'NR')}}
+                                {{(element.motivo?element.motivo:' ')}}
                             </td>
                         </ng-container>
 
@@ -53,12 +50,9 @@
 
             </mat-tab>
             <mat-tab label="Flujo">
-                <div class="content-section">
-                    <div class="contenidoForm ">
-
-
-                        <div class="zona_de_adjuntos">
-                            <br>
+                <br>
+                <div class="content-table">
+                   
                             <table mat-table matTableResponsive [dataSource]="listadoFlujo"
                                 class="mat-elevation-z8 ">
                                 <caption title="listado flujo"></caption>
@@ -84,10 +78,6 @@
                                 <tr mat-header-row *matHeaderRowDef="displayedColumnsF"></tr>
                                 <tr mat-row *matRowDef="let row; columns: displayedColumnsF;"></tr>
                             </table>
-
-                        </div>
-                    </div>
-
                 </div>
             </mat-tab>
         </mat-tab-group>

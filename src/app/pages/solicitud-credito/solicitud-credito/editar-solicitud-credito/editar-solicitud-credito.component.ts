@@ -8,6 +8,7 @@ import { AutenticacionService } from '@services/autenticacion.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from 'src/app/shared/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { SeguimientoSolicitudCreditoComponent } from '../seguimiento-solicitud-credito/seguimiento-solicitud-credito.component';
 
 @Component({
   selector: 'app-editar-solicitud-credito',
@@ -117,6 +118,13 @@ export class EditarSolicitudCreditoComponent implements OnInit {
       console.log(msg_exito);
       this.router.navigate(['app/solicitudcredito/bandejaMisPendiendes']);
     });
+  }
+
+  abrirSeguimiento(){
+    this.matDialog.open(SeguimientoSolicitudCreditoComponent, {
+      disableClose: true, 
+      data: this.id_solicitud_editar
+    }); 
   }
 
 }

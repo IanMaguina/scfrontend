@@ -10,6 +10,10 @@
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Rechazar</button>
     &nbsp;
     <button mat-raised-button class="boton-secundario">Anular Solicitud</button>
+    &nbsp;
+    <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="button" (click)="abrirSeguimiento()">
+      <mat-icon>library_books</mat-icon>
+  </button>
   </div>
 </div>
 <mat-divider class="divisorSolicitud"></mat-divider>
