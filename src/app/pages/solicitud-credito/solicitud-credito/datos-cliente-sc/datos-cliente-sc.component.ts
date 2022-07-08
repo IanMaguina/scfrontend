@@ -216,12 +216,14 @@ export class DatosClienteScComponent implements OnInit {
         if (data.rucEmpresa){
           filtro={
             numero_documento: data.rucEmpresa,
-            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap
+            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap,
+            origen:'S'
           }
         }else{
           filtro={
             cliente_codigo_sap: data.clienteCodigoSapEmpresa,
-            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap
+            sociedad_codigo_sap: this.usuario_sociedad_codigo_sap,
+            origen:'S'
           }
         }
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
@@ -246,7 +248,7 @@ export class DatosClienteScComponent implements OnInit {
               });
             }
           }else{
-            this.openAlerta("Recurso no existe");            
+            this.openAlerta("Recurso no valido");            
           }
 
           }
