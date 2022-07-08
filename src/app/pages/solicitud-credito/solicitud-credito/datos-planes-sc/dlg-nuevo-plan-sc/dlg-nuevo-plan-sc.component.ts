@@ -16,6 +16,8 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatTable } from '@angular/material/table';
 import { TipoLinea } from 'src/app/models/tipo-linea.interface';
+import { AutenticacionService } from '@services/autenticacion.service';
+import { Usuario } from 'src/app/models/usuario.interface';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -105,6 +107,8 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   submitted = false;
   carga: boolean = false;
   checkReemplazoPlan: boolean = false;
+  userInfo: any;
+  id_usuario: number = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -116,9 +120,12 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     private lineaProductoService: LineaProductoService,
     private tipoMonedaService: TipoMonedaService,
     private solicitudPlanService: SolicitudPlanService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private autenticacionService: AutenticacionService
 
   ) {
+    this.userInfo = this.autenticacionService.getUserInfo();
+    this.id_usuario=this.userInfo.id;
     this.id_solicitud_editar = data;
     console.log("PENELOPE-->" + JSON.stringify(this.id_solicitud_editar));
     this.formulary = this.formBuilder.group({
@@ -188,7 +195,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
           this.id_empresa = id_empresa;
 
           this.formulary.controls.linea_producto.enable();
-          this.listarLineaProductos(data.empresa.sociedad_codigo_sap, data.empresa.grupo_cliente_codigo_sap)
+          this.listarLineaProductos(this.userInfo.sociedad_codigo_sap, data.empresa.grupo_cliente_codigo_sap)
           return;
         }
 
