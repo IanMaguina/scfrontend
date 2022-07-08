@@ -1,10 +1,11 @@
 <div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6">
-    <br>   
-
-     <table border="1">
-        <caption title="listadoResumenDino"></caption>
+    <br>
+<div *ngFor="let resumen of resumenDino">
+    <br>
+    <table border="1">
+        <caption title="Resumen Riesgo"></caption>
         <tr>
-            <th> </th>
+            <th>{{(resumen.nombre_sociedad_codigo_sap?resumen.nombre_sociedad_codigo_sap:' ')}} </th>
             <th>Linea Credito Actual</th>
             <th>Moneda</th>
             <th>Linea Credito Actual </th>
@@ -12,41 +13,44 @@
             <th>Moneda</th>
             <th>Linea Credito Solicitada S/.</th>
         </tr>
-        <tr *ngFor="let row of listadoResumenDino">
-            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+' '+row.nombre_linea_credito:'NR')}}</td>            <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
+        <tr *ngFor="let row of resumen.detalle" >
+            <td class="pintarCelda(row.estilo)">{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
+                '+row.nombre_linea_credito:'')}}</td>
+
+            <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
             <td>{{(row.moneda_actual?row.moneda_actual:'NR')}}</td>
             <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>
             <td>{{(row.linea_credito_solicitada?row.linea_credito_solicitada:'NR')}}</td>
             <td>{{(row.moneda_solicitada?row.moneda_solicitada:'NR')}}</td>
             <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
-            
-          
+        
         </tr>
-     </table>
- 
- </div> 
+    </table>
+    <br>
+</div>
+
+</div>
 
 
-  <div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6">
+<div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6">
     <br>
     <table border="1">
         <caption title="listadoResumenTotalPacasmayo"></caption>
         <tr>
-            <th>Total  </th>
+            <th>{{(resumenConsolidado.nombre_grupo_sociedad?resumenConsolidado.nombre_grupo_sociedad:' ')}} </th>
             <th>Linea Credito Actual S/.</th>
             <th>Linea Credito Solicitada S/.</th>
             <th>Variación</th>
-            <th>DINO Linea Credito Solicitada S/.</th>
         </tr>
-        <tr *ngFor="let row of listadoResumenTotalPacasmayo">
-            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado:'NR')}}</td>
-            <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>
+        <tr *ngFor="let row of resumenConsolidado.detalle">
+            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
+                '+row.nombre_linea_credito:'')}}</td>
+            <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'-')}}</td>
             <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
             <td>{{(row.variacion?row.variacion:'NR')}}</td>
-            <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
-           
-        </tr>
-     </table> 
 
- 
- </div> 
+        </tr>
+    </table>
+
+
+</div>

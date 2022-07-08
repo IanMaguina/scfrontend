@@ -12,9 +12,8 @@ import { ResumenRiesgo } from 'src/app/models/resumen-riesgo.interface';
 })
 export class ResumenRiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
-  listadoResumenDino: ResumenRiesgo[] = [];
-  listadoResumenDisac: ResumenRiesgo[] = [];
-  listadoResumenTotalPacasmayo: ResumenRiesgoConsolidado[] = [];
+  resumenDino: ResumenRiesgo[]=[];
+  resumenConsolidado: ResumenRiesgoConsolidado={};
 
 
   constructor(
@@ -22,23 +21,41 @@ export class ResumenRiesgosScComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("mi id de solicitud--> "+this.id_solicitud_editar);
     this.listarResumenDino();
     this.listarResumenTotalGrupoPacasmayo();
   }
-  listarResumenDino() {
-   /*  this.solicitudPlanService.obtenerResumenRiesgos(this.id_solicitud_editar).then(res => {
+  async listarResumenDino() {
+    await this.solicitudPlanService.obtenerResumenRiesgos(this.id_solicitud_editar).then(res => {
       console.log("resumen riesgo: "+JSON.stringify(res));
-     // this.listadoResumenDino = res.payload;
-    }); */
+      if(res.header.exito){
+        this.resumenDino = res.payload;
+      }else{
+        this.resumenDino = [];
+      }
+     
+    }); 
   }
 
-  listarResumenTotalGrupoPacasmayo() {
-
-    /* this.solicitudPlanService.obtenerConsolidadoRiesgos(this.id_solicitud_editar).then(res => {
-      this.listadoResumenTotalPacasmayo = res.payload;
-    }); */
+  async listarResumenTotalGrupoPacasmayo() {
+     await this.solicitudPlanService.obtenerConsolidadoRiesgos(this.id_solicitud_editar).then(res => {
+      console.log("consolidado riesgo: "+JSON.stringify(res));
+      if(res.header.exito){
+        this.resumenConsolidado = res.payload[0];
+      }else{
+        this.resumenConsolidado ={};
+      }
+    }); 
 
   } 
+
+  pintarCelda(dato: string):string{
+    let style='';
+    if(dato && dato ==='T'){
+      style = 'color-warning';
+    }
+    return style;
+  }
 
 
 }
