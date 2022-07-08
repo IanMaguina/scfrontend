@@ -12,8 +12,8 @@ import { ResumenRiesgo } from 'src/app/models/resumen-riesgo.interface';
 })
 export class ResumenRiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
-  resumenDino: ResumenRiesgo[]=[];
-  resumenConsolidado: ResumenRiesgoConsolidado={};
+  resumenDino?: ResumenRiesgo[]=[];
+  resumenConsolidado?: ResumenRiesgoConsolidado;
 
 
   constructor(
@@ -42,8 +42,6 @@ export class ResumenRiesgosScComponent implements OnInit {
       console.log("consolidado riesgo: "+JSON.stringify(res));
       if(res.header.exito){
         this.resumenConsolidado = res.payload[0];
-      }else{
-        this.resumenConsolidado ={};
       }
     }); 
 
