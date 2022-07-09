@@ -38,12 +38,12 @@ export class EstrategiasComponent implements OnInit {
   }
 
   openAgregarEstrategiaRolUsuario() {
-    this.openDialog(CrearEstrategiaSociedadComponent,'Se registró la estrategia');
+    this.openDialog(CrearEstrategiaSociedadComponent,'Se registró el Rol del Usuario');
   }
 
   openEditarEstrategiaRolUsuario(element:RolUsuario) {
    console.log("a editar: "+JSON.stringify(element));
-    this.openDialog(EditarEstrategiaSociedadComponent,'Se modificó la estrategia',{ estrategiaRolUsuario: element } );
+    this.openDialog(EditarEstrategiaSociedadComponent,'Se modificó el Rol del Usuario',{ estrategiaRolUsuario: element } );
   }
     
 
@@ -52,9 +52,9 @@ export class EstrategiasComponent implements OnInit {
     let mensaje: string;
 
     if (element.activo) {
-      mensaje = "¿Desea habilitar la estrategia?";
+      mensaje = "¿Desea habilitar el Rol del Usuario?";
     } else {
-      mensaje = "¿Desea deshabilitar la estrategia?";
+      mensaje = "¿Desea deshabilitar el Rol del Usuario?";
     }
     element.mensaje = mensaje;
 
@@ -68,7 +68,7 @@ export class EstrategiasComponent implements OnInit {
         let rolUsuario: RolUsuario = element;
         this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then( (data) =>{
           if(data.header.exito){
-            this.enviarMensajeSnack('Se modificó la actividad de la estrategia');
+            this.enviarMensajeSnack('Se modificó la actividad del rol del Usuario');
             this.listarEstrategiaRolUsuario();
           }else{
             this.listarEstrategiaRolUsuario();

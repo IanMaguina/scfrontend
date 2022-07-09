@@ -13,7 +13,7 @@
 
     <div class="content-table">
         <span class="label-info">
-            <mat-icon>info</mat-icon> Para editar el registro dar doble clic en la sociedad.
+            <mat-icon>info</mat-icon> Para editar el registro dar doble clic en el Rol.
         </span>
         <!-- <mat-form-field appearance="legacy">
         <mat-label>Filtro</mat-label>
@@ -26,15 +26,15 @@
 
             <!-- Column -->
             <ng-container matColumnDef="rol">
-                <th mat-header-cell *matHeaderCellDef> Rol </th>
-                <td mat-cell *matCellDef="let element"> {{element.rol.nombre}} </td>
+                <th class="PointerHand" mat-header-cell *matHeaderCellDef> Rol </th>
+                <td class="PointerHand" mat-cell *matCellDef="let element"
+                (dblclick)="openEditarEstrategiaRolUsuario(element)"> {{element.rol.nombre}} </td>
             </ng-container>
 
             <!-- Column -->
             <ng-container matColumnDef="Sociedad">
-                <th class="PointerHand" mat-header-cell *matHeaderCellDef> Sociedad </th>
-                <td class="PointerHand" mat-cell *matCellDef="let element"
-                    (dblclick)="openEditarEstrategiaRolUsuario(element)"> {{element.sociedad.nombre}} </td>
+                <th mat-header-cell *matHeaderCellDef> Sociedad </th>
+                <td mat-cell *matCellDef="let element" > {{element.sociedad.nombre}} </td>
             </ng-container>
 
             <!-- Column -->
