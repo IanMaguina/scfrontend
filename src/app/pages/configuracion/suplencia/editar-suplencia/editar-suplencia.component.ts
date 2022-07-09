@@ -169,8 +169,9 @@ export class EditarSuplenciaComponent implements OnInit {
     this.suplenciaService.actualizarSuplencia(suplencia).then((result) => {
       if(result.header.exito){
         this.onNoClick('CONFIRM_DLG_YES');
+      }else{
+        this.onNoClick('CONFIRM_DLG_NO');
       }
-      this.onNoClick('CONFIRM_DLG_NO');
     })
 
   }

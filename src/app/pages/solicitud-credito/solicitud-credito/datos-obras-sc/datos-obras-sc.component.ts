@@ -150,6 +150,9 @@ export class DatosObrasScComponent implements OnInit {
     this.solicitudService.actualizarSolicitudObra(solicitudObra).then((data) => {
       if (data.header.exito) {
         this.enviarMensajeSnack("se actualizó la obra correctamente");
+        this.listarObras();
+      }else{
+        this.listarObras();
       }
     })
   }

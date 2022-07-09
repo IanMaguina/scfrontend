@@ -74,6 +74,8 @@ export class EditarAsistenteFacturacionComponent implements OnInit {
     this.asistenteFacturacionService.actualizarAsistenteFacturacion(asistenteFacturacion).then(data => {
       if (data.header.exito) {
         this.onNoClick('CONFIRM_DLG_YES');
+      }else{
+        this.onNoClick('CONFIRM_DLG_NO');
       }
     })
   }

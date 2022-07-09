@@ -93,6 +93,8 @@ export class PlanesComponent implements OnInit {
           if(data.header.exito){
             this._snack.openSnackBar(data.header.mensaje,'Cerrar');
             this.listarPlanes();
+          }else{
+            this.listarPlanes();
           }
 
         }); 

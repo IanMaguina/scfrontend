@@ -84,6 +84,9 @@ export class SuplenciaComponent implements OnInit {
           if(result.header.exito){
             this.enviarMensajeSnack("Se actualizó la suplencia");
             this.listarSuplencias();
+          }else{
+            this.listarSuplencias();
+           
           }
         });
       }else{

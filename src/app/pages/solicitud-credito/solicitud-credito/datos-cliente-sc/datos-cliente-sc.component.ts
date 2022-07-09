@@ -155,7 +155,7 @@ export class DatosClienteScComponent implements OnInit {
       case 1:
         console.log("Grupo Empresarial");
         if ((data.nombreGrupo === "" && data.rucGrupo === "")) {
-          console.log("esta vacio");
+          this.openAlerta('Debe ingresar datos para realizar la búsqueda');
           break;
         }
 
@@ -186,6 +186,7 @@ export class DatosClienteScComponent implements OnInit {
         this.cliente_seleccionado = data.tipo_cliente;
         console.log("CONSORCIO");
         if (data.clienteCodigoSapConsorcio === "" && data.rucConsorcio === "") {
+          this.openAlerta('Debe ingresar datos para realizar la búsqueda');
           break;
         }
         let filtroConsorcio = {}
@@ -208,9 +209,12 @@ export class DatosClienteScComponent implements OnInit {
         break;
       case 3:
         if ((data.clienteCodigoSapEmpresa === "" && data.rucEmpresa === "")) {
-          console.log("esta vacio");
+          this.openAlerta('Debe ingresar datos para realizar la búsqueda');
           break;
         }
+        /* if(this.usuario_sociedad_codigo_sap == null){
+          this.openAlerta('Su usuario necesita estar asignado a una sociedad');
+        } */
 
         let filtro = {}
         if (data.rucEmpresa){
@@ -230,7 +234,8 @@ export class DatosClienteScComponent implements OnInit {
           console.log("empresa Individual-->"+JSON.stringify(result));
           this.cliente_seleccionado = data.tipo_cliente;
           if (result.payload && result.payload.warning) {
-            this.openAlerta(result.payload.warning.mensaje);            
+            this.openAlerta(result.payload.warning.mensaje);
+                      
           } else {
             if (result.payload){
             if (this.id_solicitud_editar === null) {
@@ -251,7 +256,7 @@ export class DatosClienteScComponent implements OnInit {
             this.openAlerta("Recurso no valido");            
           }
 
-          }
+          } 
         })
 
         break;
@@ -264,6 +269,7 @@ export class DatosClienteScComponent implements OnInit {
 
   async listarConsorcioxFiltros(filtro: any) {
     this.solicitudService.listarConsorcioxFiltros(filtro).then((result) => {
+      console.log("listarConsorcioxFiltros-->"+JSON.stringify(result));
       if (!result.payload.warning) {
         if (this.id_solicitud_editar === null) {
           this.crearSolicitud(result.payload).then(async (id) => {

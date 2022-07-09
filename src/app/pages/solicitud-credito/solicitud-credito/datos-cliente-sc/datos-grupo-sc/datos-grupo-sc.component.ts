@@ -108,6 +108,8 @@ export class DatosGrupoScComponent implements OnInit {
     this.solicitudService.actualizarSolicitudCliente(solicitudCliente).then((data)=>{
       if(data.header.exito){
         this.enviarMensajeSnack("Se guardaron los cambios");
+      }else{
+        console.log("Error guardarSeccionGrupo:"+JSON.stringify(data));
       }
     });
   }
