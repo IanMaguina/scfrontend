@@ -30,6 +30,7 @@ import { AppConfigService } from './services/app-config.service';
 import { map } from 'rxjs/operators';
 
 import { MatTableResponsiveModule } from './shared/tables/mat-table-responsive.module';
+import { CerrarSessionComponent } from './auth/cerrar-session/cerrar-session.component';
 
 
 
@@ -65,6 +66,7 @@ export function socialConfigFactory(restService: AppConfigService) {
     AppComponent,
     LoginComponent,
     NopagefoundComponent,
+    CerrarSessionComponent,
 
   ],
   imports: [

@@ -104,8 +104,6 @@ export class DatosPlanesScComponent implements OnInit {
   async listarPlan() {
     if(this.id_solicitud_editar){
     this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(data => {
-
-      console.log("Header Empresas Solicitud: "+JSON.stringify(data));
       this.miClienteSolicitud = this.mapeoAgrupacion(data.payload[0]);
             
     });
