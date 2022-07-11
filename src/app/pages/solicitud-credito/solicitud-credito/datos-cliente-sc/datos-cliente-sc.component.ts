@@ -233,9 +233,8 @@ export class DatosClienteScComponent implements OnInit {
         this.solicitudService.listarEmpresaIndividualxFiltros(filtro).then((result) => {
           console.log("empresa Individual-->"+JSON.stringify(result));
           this.cliente_seleccionado = data.tipo_cliente;
-          if (result.payload && result.payload.warning) {
-            this.openAlerta(result.payload.warning.mensaje);
-                      
+          if (!result.header.exito ) {
+            this.openAlerta(result.header.mensaje);
           } else {
             if (result.payload){
             if (this.id_solicitud_editar === null) {

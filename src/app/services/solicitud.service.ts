@@ -176,18 +176,12 @@ export class SolicitudService {
       query = query != "" ? query+"&origen=" + origen : "origen=" + origen;
     }
 
-   
-/*     let params = new HttpParams()
-    .set('numero_documento',filtros.numero_documento)
-    .set('cliente_codigo_sap', filtros.cliente_codigo_sap)
-    .set('sociedad_codigo_sap', filtros.sociedad_codigo_sap );
- */    
     console.log("link-->" + "/api/cliente-agrupacion/buscar-empresa-individual?" + query);
 
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/empresa/consulta?"+query).toPromise().then((data) => {
-          if (data.header.exito) {
+          if (data) {
             resolve(data);
           } else {
             console.log("no hay usuarios encontrados...");
