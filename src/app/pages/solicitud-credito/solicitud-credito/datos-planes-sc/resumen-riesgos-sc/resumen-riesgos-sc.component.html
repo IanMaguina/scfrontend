@@ -43,7 +43,7 @@
             <th>Variación</th>
         </tr>
         <tr *ngFor="let row of resumenConsolidado.detalle">
-            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
+            <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+' 
                 '+row.nombre_linea_credito:'')}}</td>
             <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'0')}}</td>
             <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'0')}}</td>

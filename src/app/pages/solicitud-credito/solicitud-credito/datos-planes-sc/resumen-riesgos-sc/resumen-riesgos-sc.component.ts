@@ -47,7 +47,7 @@ export class ResumenRiesgosScComponent implements OnInit {
 
   } 
 
-  pintarCelda(dato: string):string{
+   pintarCelda(dato: string):string{
     let style='';
     if(dato && dato ==='T'){
       style = 'color-warning';
