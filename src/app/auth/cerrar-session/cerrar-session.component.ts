@@ -18,7 +18,8 @@ export class CerrarSessionComponent implements OnInit {
   }
 
   logOut(){
-    this.autenticacionService.signout();
-    this.router.navigate(['login']);
+    this.autenticacionService.signout().then( _ => { 
+      this.router.navigate(['login']);
+    });
   }
 }

@@ -10,6 +10,9 @@ import { Solicitud } from 'src/app/models/solicitud.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { DlgNuevoPlanScComponent } from './dlg-nuevo-plan-sc/dlg-nuevo-plan-sc.component';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
+import { SolicitudPlanService } from '@services/solicitud-plan.service';
+import { ResumenRiesgo } from 'src/app/models/resumen-riesgo.interface';
+import { ResumenRiesgoConsolidado } from 'src/app/models/resumen-riesgo-consolidado.interface';
 
 @Component({
   selector: 'app-datos-planes-sc',
@@ -22,19 +25,22 @@ export class DatosPlanesScComponent implements OnInit {
 
   @Input() id_solicitud_editar: number;
   empresaPlan: EmpresaPlan[];
-  miClienteSolicitud : any;
-  userInfo:any;
-  solicitud:Solicitud;
-  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
-  ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
-  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+  miClienteSolicitud: any;
+  userInfo: any;
+  solicitud: Solicitud;
+  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
 
-  listadoRiesgos:SolicitudPlan[]=[];
-  listadoHipotecas:SolicitudPlan[]=[];
+  listadoRiesgos: SolicitudPlan[] = [];
+  listadoHipotecas: SolicitudPlan[] = [];
 
-  esGrupo:boolean=false;
-  esConsorcio:boolean=false;
-  esEmpresa:boolean=false;
+  resumenDino?: ResumenRiesgo[] = [];
+  resumenConsolidado?: ResumenRiesgoConsolidado;
+
+  esGrupo: boolean = false;
+  esConsorcio: boolean = false;
+  esEmpresa: boolean = false;
 
   constructor(
     private matDialog: MatDialog,
@@ -42,6 +48,7 @@ export class DatosPlanesScComponent implements OnInit {
     private planService: PlanService,
     private autenticacionService: AutenticacionService,
     private solicitudService: SolicitudService,
+    private solicitudPlanService: SolicitudPlanService
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
   }
@@ -49,7 +56,7 @@ export class DatosPlanesScComponent implements OnInit {
     if (this.id_solicitud_editar !== null) {
       this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
         this.solicitud = data.payload;
-        this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+        this.ESTADO_SOLICITUD = this.solicitud.id_estado;
       })
     }
 
@@ -68,64 +75,89 @@ export class DatosPlanesScComponent implements OnInit {
         this.enviarMensajeSnack("se agregó el plan correctamente");
         this.listarPlanSolicitudRiesgo();
         this.listarPlanSolicitudHipoteca();
+        this.listarResumenDino();
+        this.listarResumenTotalGrupoPacasmayo();
       }
     });
   }
 
   mapeoAgrupacion(clienteSolicitud: any) {
-    
-    if(clienteSolicitud.id_cliente_agrupacion && clienteSolicitud.numero_documento_cliente_agrupacion!='' ){
+
+    if (clienteSolicitud.id_cliente_agrupacion && clienteSolicitud.numero_documento_cliente_agrupacion != '') {
       //es consorcio
       this.esConsorcio = true;
       let cliente_solicitud: any = {
-        nombre: clienteSolicitud.id_cliente_agrupacion?clienteSolicitud.nombre_cliente_agrupacion : '',
-        documento: clienteSolicitud.id_cliente_agrupacion?clienteSolicitud.numero_documento_cliente_agrupacion : '',
+        nombre: clienteSolicitud.id_cliente_agrupacion ? clienteSolicitud.nombre_cliente_agrupacion : '',
+        documento: clienteSolicitud.id_cliente_agrupacion ? clienteSolicitud.numero_documento_cliente_agrupacion : '',
       }
       return cliente_solicitud;
-    }else if(clienteSolicitud.id_cliente_agrupacion && clienteSolicitud.numero_documento_cliente_agrupacion==''){
+    } else if (clienteSolicitud.id_cliente_agrupacion && clienteSolicitud.numero_documento_cliente_agrupacion == '') {
       //es grupo
       this.esGrupo = true;
       let cliente_solicitud: any = {
-        nombre: clienteSolicitud.id_cliente_agrupacion?clienteSolicitud.nombre_cliente_agrupacion : '',
+        nombre: clienteSolicitud.id_cliente_agrupacion ? clienteSolicitud.nombre_cliente_agrupacion : '',
         documento: '',
       }
       return cliente_solicitud;
-    }else if(clienteSolicitud.id_cliente_agrupacion == null){
+    } else if (clienteSolicitud.id_cliente_agrupacion == null) {
       this.esEmpresa = true;
       let cliente_solicitud: any = {
-        nombre: clienteSolicitud.empresa?clienteSolicitud.empresa.razon_social:'',
-        documento: clienteSolicitud.empresa?clienteSolicitud.empresa.numero_documento:'',
+        nombre: clienteSolicitud.empresa ? clienteSolicitud.empresa.razon_social : '',
+        documento: clienteSolicitud.empresa ? clienteSolicitud.empresa.numero_documento : '',
       }
       return cliente_solicitud;
-    } 
-   
+    }
+
   }
 
   async listarPlan() {
-    if(this.id_solicitud_editar){
-    this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(data => {
-      this.miClienteSolicitud = this.mapeoAgrupacion(data.payload[0]);
-            
+    if (this.id_solicitud_editar) {
+      this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(data => {
+        this.miClienteSolicitud = this.mapeoAgrupacion(data.payload[0]);
+
+      });
+    }
+
+  }
+  listarPlanSolicitudRiesgo() {
+    if (this.id_solicitud_editar) {
+      this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data => {
+        this.listadoRiesgos = data.payload;
+        console.log("listado Plan Riesgo" + JSON.stringify(data.payload));
+      })
+    }
+  }
+
+  listarPlanSolicitudHipoteca() {
+    if (this.id_solicitud_editar) {
+      this.planService.listarPlanSolicitudHipoteca(this.id_solicitud_editar).then(data => {
+        this.listadoHipotecas = data.payload;
+        console.log("listado Plan Riesgo" + JSON.stringify(data.payload));
+      })
+    }
+  }
+
+
+  async listarResumenDino() {
+    await this.solicitudPlanService.obtenerResumenRiesgos(this.id_solicitud_editar).then(res => {
+      console.log("resumen riesgo: " + JSON.stringify(res));
+      if (res.header.exito) {
+        this.resumenDino = res.payload;
+      } else {
+        this.resumenDino = [];
+      }
+
     });
   }
 
-  }
-  listarPlanSolicitudRiesgo(){
-    if(this.id_solicitud_editar){
-    this.planService.listarPlanSolicitudRiesgo(this.id_solicitud_editar).then(data=>{
-      this.listadoRiesgos = data.payload;
-      console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
-    })
-  }
-  }
+  async listarResumenTotalGrupoPacasmayo() {
+    await this.solicitudPlanService.obtenerConsolidadoRiesgos(this.id_solicitud_editar).then(res => {
+      console.log("consolidado riesgo: " + JSON.stringify(res));
+      if (res.header.exito) {
+        this.resumenConsolidado = res.payload[0];
+      }
+    });
 
-  listarPlanSolicitudHipoteca(){
-    if(this.id_solicitud_editar){
-    this.planService.listarPlanSolicitudHipoteca(this.id_solicitud_editar).then(data=>{
-      this.listadoHipotecas = data.payload;
-      console.log("listado Plan Riesgo"+ JSON.stringify(data.payload));
-    })
-  }
   }
 
   enviarMensajeSnack(mensaje: string) {
@@ -135,6 +167,6 @@ export class DatosPlanesScComponent implements OnInit {
       verticalPosition: "top"
     });
   }
-  
+
 
 }

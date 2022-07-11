@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './token.service';
 import { UsuarioService } from './usuario.service';
-import { GoogleLoginProvider,SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider, SocialAuthService } from "angularx-social-login";
 import { CookieService } from 'ngx-cookie';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AutenticacionService {
     private usuarioService: UsuarioService,
     private cookieService: CookieService,
     private socialAuthService: SocialAuthService,
+    private router: Router,
   ) {
 
   }
@@ -28,9 +30,9 @@ export class AutenticacionService {
     return new Promise((resolve, reject) => {
       //Getting access token
       this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
-        this.usuarioService.listarUsuarioPorFiltros({correo:data.email}).then((u) => {
+        this.usuarioService.listarUsuarioPorFiltros({ correo: data.email }).then((u) => {
           this.cookieService.put("_user_session", JSON.stringify(u['payload'][0]));
-          console.log("user info was saved...."+JSON.stringify(u['payload'][0]));
+          console.log("user info was saved...." + JSON.stringify(u['payload'][0]));
           resolve(u['payload'][0]);
 
         })
@@ -44,18 +46,20 @@ export class AutenticacionService {
 
   }
 
-  signout() {
-    this.cookieService.remove("_user_session");
-    this.cookieService.remove("_menu_session");
-    this.socialAuthService.signOut().then().catch(
+  async signout() {
+     this.cookieService.remove("_user_session");
+     this.cookieService.remove("_menu_session");
+    await this.socialAuthService.signOut().then().catch(
       err => {
         console.log("Error al cerrar sesion info..." + err)
       }
     );
-    this.loggedIn = false;
-    this.authService.removeAccessToken();
-    this.authService.removeRefreshToken();
+     this.loggedIn = false;
+     this.authService.removeAccessToken();
+     this.authService.removeRefreshToken();
     this.privileges = null;
+
+    
   }
 
   getUserInfo() {
@@ -76,8 +80,8 @@ export class AutenticacionService {
 
   isLoggedIn() {
     let sessionData = this.cookieService.get("_user_session");
-    console.log('usuario logueado-->'+JSON.stringify(sessionData));
-    if (sessionData){
+    console.log('usuario logueado-->' + JSON.stringify(sessionData));
+    if (sessionData) {
       this.loggedIn = true;
       return true;
     } else {

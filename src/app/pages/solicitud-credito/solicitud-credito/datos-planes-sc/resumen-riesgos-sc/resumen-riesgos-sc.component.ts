@@ -12,8 +12,8 @@ import { ResumenRiesgo } from 'src/app/models/resumen-riesgo.interface';
 })
 export class ResumenRiesgosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
-  resumenDino?: ResumenRiesgo[]=[];
-  resumenConsolidado?: ResumenRiesgoConsolidado;
+  @Input() resumenDino?: ResumenRiesgo[]=[];
+  @Input() resumenConsolidado?: ResumenRiesgoConsolidado;
 
 
   constructor(
