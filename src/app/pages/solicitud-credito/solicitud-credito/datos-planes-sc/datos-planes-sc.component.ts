@@ -22,7 +22,7 @@ export class DatosPlanesScComponent implements OnInit {
 
   @Input() id_solicitud_editar: number;
   empresaPlan: EmpresaPlan[];
-  miGrupo : EmpresaPlan;
+  miClienteSolicitud : any;
   userInfo:any;
   solicitud:Solicitud;
   ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
@@ -31,6 +31,10 @@ export class DatosPlanesScComponent implements OnInit {
 
   listadoRiesgos:SolicitudPlan[]=[];
   listadoHipotecas:SolicitudPlan[]=[];
+
+  esGrupo:boolean=false;
+  esConsorcio:boolean=false;
+  esEmpresa:boolean=false;
 
   constructor(
     private matDialog: MatDialog,
@@ -68,20 +72,42 @@ export class DatosPlanesScComponent implements OnInit {
     });
   }
 
-  mapeoAgrupacion(empresaPlan: any) {
-    let empresa: EmpresaPlan = {
-      nombre_cliente_agrupacion: empresaPlan.nombre_cliente_agrupacion ? empresaPlan.nombre_cliente_agrupacion : 'no registra',
-      numero_documento_cliente_agrupacion: empresaPlan.numero_documento_cliente_agrupacion ? empresaPlan.numero_documento_cliente_agrupacion : 'no registra',
-    }
-
-    return empresa;
+  mapeoAgrupacion(clienteSolicitud: any) {
+    
+    if(clienteSolicitud.id_cliente_agrupacion && clienteSolicitud.numero_documento_cliente_agrupacion!='' ){
+      //es consorcio
+      this.esConsorcio = true;
+      let cliente_solicitud: any = {
+        nombre: clienteSolicitud.id_cliente_agrupacion?clienteSolicitud.nombre_cliente_agrupacion : '',
+        documento: clienteSolicitud.id_cliente_agrupacion?clienteSolicitud.numero_documento_cliente_agrupacion : '',
+      }
+      return cliente_solicitud;
+    }else if(clienteSolicitud.id_cliente_agrupacion && clienteSolicitud.numero_documento_cliente_agrupacion==''){
+      //es grupo
+      this.esGrupo = true;
+      let cliente_solicitud: any = {
+        nombre: clienteSolicitud.id_cliente_agrupacion?clienteSolicitud.nombre_cliente_agrupacion : '',
+        documento: '',
+      }
+      return cliente_solicitud;
+    }else if(clienteSolicitud.id_cliente_agrupacion == null){
+      this.esEmpresa = true;
+      let cliente_solicitud: any = {
+        nombre: clienteSolicitud.empresa?clienteSolicitud.empresa.razon_social:'',
+        documento: clienteSolicitud.empresa?clienteSolicitud.empresa.numero_documento:'',
+      }
+      return cliente_solicitud;
+    } 
+   
   }
 
   async listarPlan() {
     if(this.id_solicitud_editar){
     this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(data => {
-      this.miGrupo = this.mapeoAgrupacion(data.payload[0]);
-      
+
+      console.log("Header Empresas Solicitud: "+JSON.stringify(data));
+      this.miClienteSolicitud = this.mapeoAgrupacion(data.payload[0]);
+            
     });
   }
 

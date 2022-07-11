@@ -1,13 +1,16 @@
 <div class="Planes_Credito">
     <div class="Cabecera_PC">
-        <div class="Datos_PC">
-            <div class="Razon_PC">Razón Social:</div>
-            <div class="Dato_PC">{{ (miGrupo?miGrupo.nombre_cliente_agrupacion:'') }}</div>
+        <div class="Datos_PC" *ngIf="esGrupo">
+            <div class="Razon_PC">Nombre Grupo:</div>
+            <div class="Dato_PC">{{ (miClienteSolicitud?miClienteSolicitud.nombre:'') }}</div>
         </div>
-        <div class="Datos_PC">
+        <div class="Datos_PC" *ngIf="!esGrupo">
+            <div class="Razon_PC">Razón Social:</div>
+            <div class="Dato_PC">{{ (miClienteSolicitud?miClienteSolicitud.nombre:'') }}</div>
+        </div>
+        <div class="Datos_PC" *ngIf="!esGrupo">
             <div class="Razon_PC">RUC:</div>
-            <div class="Dato_PC">{{ (miGrupo?miGrupo.numero_documento_cliente_agrupacion:'') }}</div>
-
+            <div class="Dato_PC">{{ (miClienteSolicitud?miClienteSolicitud.documento:'') }}</div>
         </div>
         <div class="aplicarLC Datos_PC">
             <button mat-flat-button class="boton-principal-light" (click)="openNuevoCredito()"
