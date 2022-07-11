@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService,SocialUser } from "angularx-social-login";
 import { AutenticacionService } from 'src/app/services/autenticacion.service';
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
       }
       this.loggedIn = (user != null);
     });
-
   }
 
   signInWithGoogle(): void {
