@@ -87,7 +87,7 @@
                 <ng-container matColumnDef="grupo_cliente">
                     <th mat-header-cell *matHeaderCellDef> Grupo Cliente </th>
                     <td mat-cell *matCellDef="let element">
-                        {{(element.empresa.grupo_cliente?element.empresa.grupo_cliente.nombre:'NR')}} </td>
+                        {{(element.empresa.grupo_cliente?element.empresa.grupo_cliente.codigo_sap+" - "+element.empresa.grupo_cliente.nombre:'NR')}} </td>
                 </ng-container>
 
                 <!-- Column -->
