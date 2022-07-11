@@ -98,7 +98,10 @@ export class EditarGrupoEmpresarialComponent implements OnInit {
     return clienteAgrupacion;
   }
 
-  onNoClick(msg: any): void {
+  onNoClick(msg: any) {
+    if (msg==='CONFIRM_DLG_NO'){
+      msg= { payload: { data: null, confirm: 'CONFIRM_DLG_NO' } };
+    }
     this.dialogRef.close(msg);
   }
 
