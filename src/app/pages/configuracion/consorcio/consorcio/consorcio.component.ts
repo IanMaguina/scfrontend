@@ -22,7 +22,15 @@ const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.
 export class ConsorcioComponent implements OnInit {
   listadoConsorcios: AgrupacionClienteSolicitud[] = [];
 
-  displayedColumns: string[] = ['razonsocial', 'numero_documento', 'pendiente', 'solicitante', 'estado', 'id'];
+  displayedColumns: string[] = [
+    'razonsocial', 
+    'numero_documento', 
+    'sociedad', 
+    'pendiente', 
+    'solicitante', 
+    'estado', 
+    'id'
+  ];
 
   userInfo: Usuario;
   id_usuario: number = 0;
