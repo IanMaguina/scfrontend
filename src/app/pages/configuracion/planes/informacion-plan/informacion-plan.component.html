@@ -77,7 +77,17 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="Respuesta">&nbsp;</div>
+                <div class="Respuesta">
+                    <table>
+                        <th>&nbsp;</th>
+                        <tr>
+                            <td>
+                                {{(this.listadoInformacionPlan.carta_fianza==='S'?'Si':(this.listadoInformacionPlan.carta_fianza===''?'':'No'))}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
             </div>
 
             <!-- Elemento -->
@@ -276,6 +286,16 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                </div>
+                <div class="Respuesta">
+                    <table>
+                        <th>&nbsp;</th>
+                        <tr>
+                            <td>
+                                {{(this.listadoInformacionPlan.revision_mensual==='S'?'Si':(this.listadoInformacionPlan.revision_mensual===''?'':'No'))}}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
