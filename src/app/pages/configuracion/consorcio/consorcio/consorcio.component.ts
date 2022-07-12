@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { SolicitudService } from '@services/solicitud.service';
 import { AgrupacionClienteSolicitud } from 'src/app/models/agrupacion-cliente-solicitud.interface';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { Usuario } from 'src/app/models/usuario.interface';
@@ -23,12 +25,12 @@ export class ConsorcioComponent implements OnInit {
   listadoConsorcios: AgrupacionClienteSolicitud[] = [];
 
   displayedColumns: string[] = [
-    'razonsocial', 
-    'numero_documento', 
-    'sociedad', 
-    'pendiente', 
-    'solicitante', 
-    'estado', 
+    'razonsocial',
+    'numero_documento',
+    'sociedad',
+    'pendiente',
+    'solicitante',
+    'estado',
     'id'
   ];
 
@@ -37,13 +39,20 @@ export class ConsorcioComponent implements OnInit {
   id_perfilLogueo: number = 0;
   PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
   isPerfilAdmin:boolean=false;
+  formulary:FormGroup;
 
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
     private consorcioService: ConsorcioService,
+    private _formBuilder: FormBuilder,
+    private solicitudService: SolicitudService,
     private autenticacionService: AutenticacionService
-  ) { }
+  ) {
+    this.formulary = this._formBuilder.group({
+      rucConsorcio: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.userInfo = this.autenticacionService.getUserInfo();
@@ -145,6 +154,20 @@ export class ConsorcioComponent implements OnInit {
     if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
       this.isPerfilAdmin = true;
     }
+  }
+
+  listarConsorcioxFiltros() {
+    let rucConsorcio = this.formulary.get('rucConsorcio').value;
+    console.log("rucConsorcio"+JSON.stringify(rucConsorcio));
+    let filtroConsorcio = {
+      numero_documento: rucConsorcio
+    }
+
+    this.solicitudService.listarConsorcioxFiltros(filtroConsorcio).then((data) => {
+      console.log("Listado de Consorcios-->" + JSON.stringify(data))
+      this.listadoConsorcios = data.payload;
+
+    })
   }
 
 

@@ -64,6 +64,9 @@ import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.compo
 import { EditarGrupoEmpresarialComponent } from './grupo/editar-grupo-empresarial/editar-grupo-empresarial.component';
 import { AsociadosNoSobregiroComponent } from './asociados-no-sobregiro/asociados-no-sobregiro/asociados-no-sobregiro.component';
 import { CrearAsociadosNoSobregiroComponent } from './asociados-no-sobregiro/crear-asociados-no-sobregiro/crear-asociados-no-sobregiro.component';
+import { CondicionPagoComponent } from './condicion-pago/condicion-pago/condicion-pago.component';
+import { CrearCondicionPagoComponent } from './condicion-pago/crear-condicion-pago/crear-condicion-pago.component';
+import { EditarCondicionPagoComponent } from './condicion-pago/editar-condicion-pago/editar-condicion-pago.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +112,10 @@ import { CrearAsociadosNoSobregiroComponent } from './asociados-no-sobregiro/cre
     TipoCambioComponent,
     EditarGrupoEmpresarialComponent,
     AsociadosNoSobregiroComponent,
-    CrearAsociadosNoSobregiroComponent
+    CrearAsociadosNoSobregiroComponent,
+    CondicionPagoComponent,
+    CrearCondicionPagoComponent,
+    EditarCondicionPagoComponent
 
   ],
   imports: [
