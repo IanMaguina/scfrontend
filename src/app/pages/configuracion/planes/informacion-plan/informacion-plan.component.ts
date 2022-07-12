@@ -115,8 +115,8 @@ export class InformacionPlanComponent implements OnInit {
   listadoTipoMoneda: any[] = [];
   mostrarTipoMoneda: any = {};
   listadoyesno: any[] = [
-    { id:'S',nombre: 'Si' },
-    { id:'N',nombre: 'No' },
+    { id: 'S', nombre: 'Si' },
+    { id: 'N', nombre: 'No' },
   ]
 
   tipoFlujoAprobacion: TipoFlujoAprobacion;
@@ -163,7 +163,7 @@ export class InformacionPlanComponent implements OnInit {
 
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     console.log("ngOnInit");
     console.log("Data del plan en información-->" + JSON.stringify(this.plan));
     this.tipoFlujoAprobacion = { id: this.plan.tipo_plan_credito.id_tipo_flujo_aprobacion, nombre: "" };
@@ -180,7 +180,7 @@ export class InformacionPlanComponent implements OnInit {
   async listarInformacionPlan() {
     this.planService.editarInformacion(this.plan.id).then(data => {
       console.log("listado informacion de plan-->" + JSON.stringify(data.payload));
-      this.listadoInformacionPlan=data.payload;
+      this.listadoInformacionPlan = data.payload;
       this.llenarCamposTexto();
       this.marcarGrupoCiente();
       this.llenarGrupoCliente();
@@ -202,14 +202,14 @@ export class InformacionPlanComponent implements OnInit {
   async listarGrupoCliente() {
     this.grupoClienteService.listarGrupoCliente().then(data => {
       this.listadoGrupoCliente = data.payload;
-      console.log("listarGrupoCliente-->"+JSON.stringify(this.listadoGrupoCliente));
+      console.log("listarGrupoCliente-->" + JSON.stringify(this.listadoGrupoCliente));
     })
   }
 
   async listarClientes() {
     this.grupoClienteService.listarClientes().then(data => {
       this.listadoClientes = data.payload;
-      console.log("listarClientes--->"+JSON.stringify(this.listadoClientes));
+      console.log("listarClientes--->" + JSON.stringify(this.listadoClientes));
     })
   }
 
@@ -223,14 +223,14 @@ export class InformacionPlanComponent implements OnInit {
   async listarNivelMora() {
     this.nivelMoraService.listar().then(data => {
       this.listadoNivelMora = data.payload;
-      console.log("nivel mora despues-->"+JSON.stringify(this.listadoNivelMora));
+      console.log("nivel mora despues-->" + JSON.stringify(this.listadoNivelMora));
     })
   }
 
   async listarDocumentoValorado() {
     this.documentoValoradoService.listarDocumentosValorados().then(data => {
       this.listadoTipoDocumentoValorado = data.payload;
-      console.log("Tipo DV--->"+JSON.stringify(this.listadoTipoDocumentoValorado));
+      console.log("Tipo DV--->" + JSON.stringify(this.listadoTipoDocumentoValorado));
     })
   }
 
@@ -251,7 +251,7 @@ export class InformacionPlanComponent implements OnInit {
   async listarTipoMoneda() {
     this.tipoMonedaService.listar().then(data => {
       this.listadoTipoMoneda = data.payload;
-      console.log("tipo_moneda--->"+JSON.stringify(this.listadoTipoMoneda));
+      console.log("tipo_moneda--->" + JSON.stringify(this.listadoTipoMoneda));
     })
   }
 
@@ -259,25 +259,25 @@ export class InformacionPlanComponent implements OnInit {
     console.log(JSON.stringify(this.informacionForm['radioConfig']));
   }
 
-  llenarCamposTexto(){
+  llenarCamposTexto() {
     this.informacionForm.get("cartaFianza")?.setValue(this.listadoInformacionPlan.carta_fianza);
     this.informacionForm.get("bolsa")?.setValue(this.listadoInformacionPlan.bolsa);
     this.informacionForm.get("camiones")?.setValue(this.listadoInformacionPlan.camiones);
     this.informacionForm.get("revisionMensual")?.setValue(this.listadoInformacionPlan.revision_mensual);
-  }  
+  }
 
   marcarGrupoCiente() {
     this.informacionForm.get("checkGrupos")?.setValue(false);
-    let campo:any[] = this.listadoInformacionPlan.grupo_cliente
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({codigo_sap:item.grupo_cliente.codigo_sap, nombre: item.grupo_cliente.nombre})
+    let campo: any[] = this.listadoInformacionPlan.grupo_cliente
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ codigo_sap: item.grupo_cliente.codigo_sap, nombre: item.grupo_cliente.nombre })
     })
-    if (devuelve.length>0){
+    if (devuelve.length > 0) {
       this.informacionForm.get("checkGrupos")?.setValue(true);
     }
     this.informacionForm.get("grupoCliente")?.setValue(devuelve);
-  }  
+  }
 
   llenarGrupoCliente() {
     let grupoCliente = this.informacionForm.get("grupoCliente").value;
@@ -287,16 +287,16 @@ export class InformacionPlanComponent implements OnInit {
 
   marcarClientes() {
     this.informacionForm.get("checkClientes")?.setValue(false);
-    let campo:any[] = this.listadoInformacionPlan.lista_cliente;
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({codigo_sap:item.grupo_cliente.codigo_sap, nombre: item.grupo_cliente.nombre})
+    let campo: any[] = this.listadoInformacionPlan.lista_cliente;
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ codigo_sap: item.grupo_cliente.codigo_sap, nombre: item.grupo_cliente.nombre })
     })
-    if (devuelve.length>0){
+    if (devuelve.length > 0) {
       this.informacionForm.get("checkClientes")?.setValue(true);
-    }    
+    }
     this.informacionForm.get("cliente")?.setValue(devuelve);
-  }  
+  }
 
   llenarClientes() {
     let clientes = this.informacionForm.get("cliente").value;
@@ -305,13 +305,13 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarNivelMora() {
-    let campo:any[] = this.listadoInformacionPlan.nivel_mora
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({id:item.nivel_mora.id, nombre: item.nivel_mora.nombre})
+    let campo: any[] = this.listadoInformacionPlan.nivel_mora
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ id: item.nivel_mora.id, nombre: item.nivel_mora.nombre })
     })
     this.informacionForm.get("nivelMora")?.setValue(devuelve);
-  }  
+  }
 
   llenarNivelMora() {
     let nivelMora = this.informacionForm.get("nivelMora").value;
@@ -320,43 +320,48 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarCentroRiesgo() {
-    let campo:any[] = this.listadoInformacionPlan.centro_riesgo;
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({id:item.centro_riesgo.id, nombre: item.centro_riesgo.nombre})
+    let campo: any[] = this.listadoInformacionPlan.centro_riesgo;
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ id: item.centro_riesgo.id, nombre: item.centro_riesgo.nombre })
     })
     this.informacionForm.get("centroRiesgo")?.setValue(devuelve);
-  }  
+  }
 
   llenarCentroRiesgo() {
-    let centroRiesgo = this.informacionForm.get("centroRiesgo").value;
-    console.log(JSON.stringify(centroRiesgo));
-    this.mostrarCentroRiesgo = centroRiesgo;
+    let centroRiesgo:any[] = this.informacionForm.get("centroRiesgo").value;
+    let v=centroRiesgo.findIndex(item => item==null);
+    if (v===0){
+      this.mostrarCentroRiesgo=[];
+      this.informacionForm.get("centroRiesgo")?.setValue([]);
+    }else{
+      this.mostrarCentroRiesgo = centroRiesgo;
+    }
   }
 
   marcarDocumentoValorado() {
-    let campo:any[] =this.listadoInformacionPlan.documento_valorado;
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({id:item.documento_valorado.id, nombre:item.documento_valorado.nombre})
+    let campo: any[] = this.listadoInformacionPlan.documento_valorado;
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ id: item.documento_valorado.id, nombre: item.documento_valorado.nombre })
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
-  }  
+  }
 
   llenarDocumentoValorado() {
     let tipoDocumentoValorado = this.informacionForm.get("tipoDocumentoValorado").value;
-    console.log("ARSA-->"+JSON.stringify(tipoDocumentoValorado));
+    console.log("ARSA-->" + JSON.stringify(tipoDocumentoValorado));
     this.mostrarTipoDocumentoValorado = tipoDocumentoValorado;
   }
 
   marcarRango() {
-    let campo:any[] = this.listadoInformacionPlan.documento_valorado;
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({id:item.id_documento_valorado})
+    let campo: any[] = this.listadoInformacionPlan.documento_valorado;
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ id: item.id_documento_valorado })
     })
     this.informacionForm.get("tipoDocumentoValorado")?.setValue(devuelve);
-  }  
+  }
 
   llenarRango() {
     let rango = this.informacionForm.get("rango").value;
@@ -365,13 +370,13 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarLineaProducto() {
-    let campo:any[] = this.listadoInformacionPlan.linea_producto;
-    let devuelve:any[]=[];
-    campo.forEach(item=>{
-      devuelve.push({codigo_sap:item.linea_producto.codigo_sap,nombre:item.linea_producto.nombre})
+    let campo: any[] = this.listadoInformacionPlan.linea_producto;
+    let devuelve: any[] = [];
+    campo.forEach(item => {
+      devuelve.push({ codigo_sap: item.linea_producto.codigo_sap, nombre: item.linea_producto.nombre })
     })
     this.informacionForm.get("lineaProducto")?.setValue(devuelve);
-  }  
+  }
 
   llenarLineaProducto() {
     let lineaProducto = this.informacionForm.get("lineaProducto").value;
@@ -380,14 +385,14 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   marcarTipoMoneda() {
-    let campo:any = this.listadoInformacionPlan.tipo_moneda;
-    console.log("marcaTipoMoneda--->"+JSON.stringify(campo));
+    let campo: any = this.listadoInformacionPlan.tipo_moneda;
+    console.log("marcaTipoMoneda--->" + JSON.stringify(campo));
     this.informacionForm.get("moneda")?.setValue(campo.id);
-  }  
+  }
 
   llenarTipoMoneda() {
     let moneda = this.informacionForm.get("moneda").value;
-    console.log("llenarTipoMoneda--->"+JSON.stringify(moneda));
+    console.log("llenarTipoMoneda--->" + JSON.stringify(moneda));
     this.mostrarTipoMoneda = moneda;
   }
 
@@ -501,7 +506,7 @@ export class InformacionPlanComponent implements OnInit {
   compareTipoDocumentoValorado(o1: any, o2: any) {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
     return o1.id === o2.id;
-  }  
+  }
 
   compareRango(o1: any, o2: any) {
     //console.log('arsa-->'+JSON.stringify(o1)+'------'+JSON.stringify(o2))
