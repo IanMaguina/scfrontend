@@ -96,7 +96,7 @@ export class GrupoEmpresarialComponent implements OnInit {
 
 
   openAsignarIntegrantesGrupo(data: any) {
-    this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', data)
+    this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', data,'custom_IntegranteGrupo')
   }
 
   toggleGrupoActivo(element: any) {
@@ -126,12 +126,12 @@ export class GrupoEmpresarialComponent implements OnInit {
     });
   }
 
-  openDialog(componente: any, msg: string, width: string, data?: any) {
+  openDialog(componente: any, msg: string, width: string, data?: any, panelClass?: string) {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
       width: width,
       data: data ? data : '',
-      panelClass: 'custom_Config',
+      panelClass: panelClass? panelClass: 'custom_Config',
       autoFocus: false,
     });
 

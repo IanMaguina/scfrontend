@@ -2226,13 +2226,17 @@ u {
     background-color: #05c65c00 !important;
 }
 
+
 .titledialog_IntegrantesGrupos{
     font-size: 16px;
     font-weight: 400;
     color: #ffffff;
     padding-top: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #05C65D !important;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .Title_POPUPConfig {
@@ -2310,6 +2314,34 @@ u {
 .content-dialogConsorcio {
     padding: 24px;
     background-color: transparent;
+}
+
+.content-dialogGrupo{
+    background-color: #04a84e00;
+}
+
+.custom_IntegranteGrupo{
+    background-color: #ffffff00;
+    .mat-dialog-container{
+        background-color: #ffffff00;
+        box-shadow:none !important;
+    }
+}
+
+.NombreGrupo_Dialog{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color:#05C65D;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    border-radius: 0px 5px 0px 0px;
+    .NombreDatosClienteGrupoIntegrantes{
+        display: flex;
+        align-items: center !important;
+    }
 }
 
 /* Nuevo Plan PopUP Condiguración */
@@ -2444,6 +2476,7 @@ u {
     padding-right: 24px;
     padding-left: 24px;
     padding-top: 24px;
+    background-color: white;
 
     .BuscadorAsignarIntegrantesGrupo {
         display: flex;
