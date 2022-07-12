@@ -16,7 +16,7 @@ import { GlobalSettings } from 'src/app/shared/settings';
   providers: [{ provide: CdkStepper }]
 })
 export class EvaluarCreditoComponent implements OnInit {
-  
+
 id_solicitud: string;
 data_solicitud: any;
 id_solicitud_editar: any = 0;
@@ -30,10 +30,9 @@ ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
     private solicitudService:SolicitudService,
     private autenticacionService: AutenticacionService,
 
-    ) { 
+    ) {
       console.log("has llegado a la evaluación ");
       this.id_solicitud = this.activatedRoute.snapshot.params.id;
-
       this.id_solicitud_editar = this.activatedRoute.snapshot.params.id;
 
     }
@@ -47,7 +46,7 @@ ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
         this.ESTADO_SOLICITUD=this.solicitud.id_estado;
         console.log("peru qatar--->" + JSON.stringify(this.solicitud));
       })
-    }    
+    }
   }
 
   send(_event) {

@@ -8,6 +8,11 @@ import { RolUsuario } from 'src/app/models/rol-usuario.interface';
 import { RolUsuarioService } from '@services/rol-usuario.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { Rol } from 'src/app/models/rol.interface';
+import { UsuarioService } from '@services/usuario.service';
+import { SociedadService } from '@services/sociedad.service';
+import { Usuario } from 'src/app/models/usuario.interface';
+import { Sociedad } from 'src/app/models/sociedad.interface';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -16,21 +21,44 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class EstrategiasComponent implements OnInit {
   listadoEstrategiaRolUsuario: RolUsuario[] = [];
+  listadoRoles: Rol[] = [];
+  listadoUsuario: Usuario[] = [];
+  listadoSociedad: Sociedad[] = [];
   estrategiaRolUsuario: RolUsuario = {};
-  displayedColumns: string[] = ['rol','Sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
+  displayedColumns: string[] = ['rol', 'Sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
   dataSource = new MatTableDataSource<RolUsuario>();
 
   constructor(
-    private matDialog: MatDialog, 
-    private rolUsuarioService:RolUsuarioService,
-    private _snack:MatSnackBar,
+    private matDialog: MatDialog,
+    private rolUsuarioService: RolUsuarioService,
+    private usuarioService: UsuarioService,
+    private sociedadService: SociedadService,
+    private _snack: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
     this.listarEstrategiaRolUsuario();
   }
 
-  async listarEstrategiaRolUsuario() { 
+  listarRoles() {
+    this.rolUsuarioService.listarRoles().then(data => {
+      this.listadoRoles = data.payload;
+    });
+  }
+
+  listarSociedades() {
+    this.sociedadService.listarSociedades().then(data => {
+      this.listadoSociedad = data.payload;
+    });
+  }
+
+  listarUsuarios() {
+    this.usuarioService.listarUsuarios().then(data => {
+      this.listadoUsuario = data.payload;
+    });
+  }
+
+  async listarEstrategiaRolUsuario() {
     this.rolUsuarioService.listarEstrategiaRolUsuario().then(data => {
       this.listadoEstrategiaRolUsuario = data.payload;
       this.dataSource.data = this.listadoEstrategiaRolUsuario;
@@ -38,17 +66,17 @@ export class EstrategiasComponent implements OnInit {
   }
 
   openAgregarEstrategiaRolUsuario() {
-    this.openDialog(CrearEstrategiaSociedadComponent,'Se registró el Rol del Usuario');
+    this.openDialog(CrearEstrategiaSociedadComponent, 'Se registró el Rol del Usuario');
   }
 
-  openEditarEstrategiaRolUsuario(element:RolUsuario) {
-   console.log("a editar: "+JSON.stringify(element));
-    this.openDialog(EditarEstrategiaSociedadComponent,'Se modificó el Rol del Usuario',{ estrategiaRolUsuario: element } );
+  openEditarEstrategiaRolUsuario(element: RolUsuario) {
+    console.log("a editar: " + JSON.stringify(element));
+    this.openDialog(EditarEstrategiaSociedadComponent, 'Se modificó el Rol del Usuario', { estrategiaRolUsuario: element });
   }
-    
 
-  async toggleEstrategiaRolUsuario(element:any) {
-    console.log("toggleEstrategiaEstadoPorSociedad: "+JSON.stringify(element));
+
+  async toggleEstrategiaRolUsuario(element: any) {
+    console.log("toggleEstrategiaEstadoPorSociedad: " + JSON.stringify(element));
     let mensaje: string;
 
     if (element.activo) {
@@ -66,19 +94,19 @@ export class EstrategiasComponent implements OnInit {
     dialogRef2.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let rolUsuario: RolUsuario = element;
-        this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then( (data) =>{
-          if(data.header.exito){
+        this.rolUsuarioService.editarEstrategiaRolUsuario(rolUsuario).then((data) => {
+          if (data.header.exito) {
             this.enviarMensajeSnack('Se modificó la actividad del rol del Usuario');
             this.listarEstrategiaRolUsuario();
-          }else{
+          } else {
             this.listarEstrategiaRolUsuario();
           }
         });
-      }else{
+      } else {
         this.listarEstrategiaRolUsuario();
       }
-  });
-}
+    });
+  }
 
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'Cerrar', {
@@ -91,8 +119,8 @@ export class EstrategiasComponent implements OnInit {
   openDialog(componente: any, msg: string, data?: any) {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true,
-      width:'300px',
-      data: data?data:'',      
+      width: '300px',
+      data: data ? data : '',
       panelClass: 'custom_Estrategias',
       autoFocus: false,
     });
@@ -101,7 +129,7 @@ export class EstrategiasComponent implements OnInit {
       if (result === 'CONFIRM_DLG_YES') {
         this.enviarMensajeSnack(msg);
         this.listarEstrategiaRolUsuario();
-      }else{
+      } else {
         this.listarEstrategiaRolUsuario();
 
       }
@@ -109,11 +137,11 @@ export class EstrategiasComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-   // console.log("filtrar: "+JSON.stringify((event.target as HTMLInputElement).value));
+    // console.log("filtrar: "+JSON.stringify((event.target as HTMLInputElement).value));
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-   // console.log("filtrado: "+this.dataSource);
+    // console.log("filtrado: "+this.dataSource);
   }
- 
+
 
 }
