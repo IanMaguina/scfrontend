@@ -10,7 +10,38 @@
 
 <mat-divider class="divisorConfig"></mat-divider>
 
+<div class="Seleccion_TCliente">
+    <form [formGroup]="formulary" (ngSubmit)="filtrarGrupoEmpresarial()">
 
+        <div class="buscar">
+            <mat-form-field class="formInput" appearance="fill">
+                <mat-label>Nombre del grupo</mat-label>
+                <input matInput formControlName="nombreGrupo" placeholder="nombre del grupo">
+            </mat-form-field>
+
+            <span class="formInput">O</span>
+
+            <mat-form-field class="formInput" appearance="fill">
+                <mat-label>RUC de algun integrante</mat-label>
+                <input matInput formControlName="rucGrupo" placeholder="RUC de una empresa del grupo">
+            </mat-form-field>
+
+
+            <div class="formInput">
+                <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="submit">
+                <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+
+    </form>
+</div>
+<br>
 <div class="content-table">
     <table mat-table [dataSource]="listadoGrupos" class="mat-elevation-z8">
         <caption title="Listado Grupos Empresariales y solicitudes"></caption>
@@ -49,8 +80,7 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-flat-button class="boton-secundario"
-                    (click)="openAsignarIntegrantesGrupo(element)">Integrantes</button>
+                <button mat-flat-button class="boton-secundario" (click)="openAsignarIntegrantesGrupo(element)">Integrantes</button>
 
             </td>
         </ng-container>

@@ -11,6 +11,8 @@ import { AutenticacionService } from '@services/autenticacion.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { SolicitudService } from '@services/solicitud.service';
 
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
@@ -24,12 +26,13 @@ export class GrupoEmpresarialComponent implements OnInit {
   listadoGrupos: AgrupacionClienteSolicitud[] = [];
 
   displayedColumns: string[] = [
-    'nombre', 
-    'estado_cliente_agrupacion', 
-    'usuario_creacion', 
-    'estado', 
+    'nombre',
+    'estado_cliente_agrupacion',
+    'usuario_creacion',
+    'estado',
     'id'
   ];
+  formulary: FormGroup;
   userInfo: Usuario;
   id_usuario: number = 0;
   id_perfilLogueo: number = 0;
@@ -38,12 +41,18 @@ export class GrupoEmpresarialComponent implements OnInit {
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
+    private _formBuilder: FormBuilder,
+    private solicitudService: SolicitudService,
     private grupoEmpresarialService: GrupoEmpresarialService,
     private autenticacionService: AutenticacionService
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
     this.id_usuario=this.userInfo.id;
     console.log("mi usuario: "+JSON.stringify(this.userInfo));
+    this.formulary = this._formBuilder.group({
+      nombreGrupo: [''],
+      rucGrupo: [''],
+    });
   }
 
   ngOnInit(): void {
@@ -52,7 +61,7 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   async listarGruposEmpresariales() {
-    await this.grupoEmpresarialService.listarGruposEmpresariales().then(data => { 
+    await this.grupoEmpresarialService.listarGruposEmpresariales().then(data => {
       this.listadoGrupos = data.payload;
     })
   }
@@ -176,5 +185,19 @@ export class GrupoEmpresarialComponent implements OnInit {
       }
     }
     return accionEliminar;
-  }  
+  }
+
+  filtrarGrupoEmpresarial() {
+    let filtroGrupo = {
+      nombre: this.formulary.get('nombreGrupo').value,
+      numero_documento: this.formulary.get('rucGrupo').value
+    }
+    console.log(" filtro--->"+JSON.stringify(filtroGrupo));
+    this.solicitudService.listarGrupoEmpresarialxFiltros(filtroGrupo).then((data) => {
+      console.log("Listado de grupos empresariales-->" + JSON.stringify(data))
+      this.listadoGrupos = data.payload;
+
+    })
+  }
+
 }
