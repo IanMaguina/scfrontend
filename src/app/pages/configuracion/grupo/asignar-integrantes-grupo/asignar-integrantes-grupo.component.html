@@ -1,11 +1,10 @@
 <div class="content-dialogGrupo">
-    <div class="Header_POPUPEstrategias" style="display: block;">
-        <div style="margin:auto" class="titledialog_Config" >Asignar Empresas </div>
-        <div style="float:right;display:inline-flex">
-            <h3>{{nombreGrupo}}</h3><button mat-icon-button (click)="editarGrupo(grupoData)"><mat-icon>edit</mat-icon></button>
-        </div>
+    <div class="Header_Integrantesgrupos">
+        <div class="titledialog_IntegrantesGrupos" >Registro de Grupo Empresarial</div>
     </div>
-
+    <div>
+        {{nombreGrupo}}<button mat-icon-button (click)="editarGrupo(grupoData)"><mat-icon>edit</mat-icon></button>
+    </div>
     <div class="AsignarIntegrantesGrupo">
         <form [formGroup]="asignarEmpresaFormDialog" (ngSubmit)="asignarEmpresaGrupo(asignarEmpresaFormDialog.value)">
 

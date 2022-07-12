@@ -2219,6 +2219,22 @@ u {
     height: 80px;
 }
 
+.Header_Integrantesgrupos {
+    display: flex;
+    justify-items: center;
+    align-content: center;
+    background-color: #05c65c00 !important;
+}
+
+.titledialog_IntegrantesGrupos{
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffff;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    background-color: #05C65D !important;
+}
+
 .Title_POPUPConfig {
     font-size: 16px;
     font-weight: 400;
