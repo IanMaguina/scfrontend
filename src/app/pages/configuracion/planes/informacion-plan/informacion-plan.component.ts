@@ -260,10 +260,10 @@ export class InformacionPlanComponent implements OnInit {
   }
 
   llenarCamposTexto(){
-    this.informacionForm.get("cartaFianza")?.setValue(this.plan.carta_fianza);
-    this.informacionForm.get("bolsa")?.setValue(this.plan.bolsa);
-    this.informacionForm.get("camiones")?.setValue(this.plan.camiones);
-    this.informacionForm.get("revisionMensual")?.setValue(this.plan.revision_mensual);
+    this.informacionForm.get("cartaFianza")?.setValue(this.listadoInformacionPlan.carta_fianza);
+    this.informacionForm.get("bolsa")?.setValue(this.listadoInformacionPlan.bolsa);
+    this.informacionForm.get("camiones")?.setValue(this.listadoInformacionPlan.camiones);
+    this.informacionForm.get("revisionMensual")?.setValue(this.listadoInformacionPlan.revision_mensual);
   }  
 
   marcarGrupoCiente() {
