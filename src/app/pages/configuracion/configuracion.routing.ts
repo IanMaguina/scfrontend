@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
-import { ConfiguracionComponent } from './configuracion.component';
+ 
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
 import { ConsorcioComponent } from './consorcio/consorcio/consorcio.component';
 import { GrupoEmpresarialComponent } from './grupo/grupo-empresarial/grupo-empresarial.component';
@@ -12,6 +12,7 @@ import { AsistenteFacturacionComponent } from './asistenteFacturacion/asistente-
 import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adicional/aprobador-adicional.component';
 import { PagesComponent } from '../pages.component';
 import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.component';
+import { AsociadosNoSobregiroComponent } from './asociados-no-sobregiro/asociados-no-sobregiro/asociados-no-sobregiro.component';
 
 const routes: Routes = [
     {
@@ -28,7 +29,8 @@ const routes: Routes = [
             { path: 'suplencias', component: SuplenciaComponent, data:{titulo: 'Suplencias', ruta: 'Configuración  /  Suplencias'}  },
             { path: 'asistentefacturacion', component: AsistenteFacturacionComponent, data:{titulo: 'Asistente facturacion', ruta: 'Configuración  /  Asistente facturacion'}  },
             { path: 'aprobadoradicional', component: AprobadorAdicionalComponent, data:{titulo: 'Aprobador adicional', ruta: 'Configuración  /  Aprobador adicional'}  },
-            { path: 'tipocambio', component: TipoCambioComponent, data:{titulo: 'Tipo de Cambio', ruta: 'Configuración  / Tipo de Cambio'}  }
+            { path: 'tipocambio', component: TipoCambioComponent, data:{titulo: 'Tipo de Cambio', ruta: 'Configuración  / Tipo de Cambio'}  },
+            { path: 'asociadoNoSobregiro', component: AsociadosNoSobregiroComponent, data:{titulo: 'Asociados que no desean Sobregiro', ruta: 'Configuración  / Asociados que no desean Sobregiro'}  }
         ]
     },
 ];

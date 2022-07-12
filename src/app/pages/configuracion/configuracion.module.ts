@@ -61,8 +61,9 @@ import { MatCardModule } from '@angular/material/card';
 import {MatSortModule} from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.component';
-import { CrearTipoCambioComponent } from './tipo-cambio/crear-tipo-cambio/crear-tipo-cambio.component';
 import { EditarGrupoEmpresarialComponent } from './grupo/editar-grupo-empresarial/editar-grupo-empresarial.component';
+import { AsociadosNoSobregiroComponent } from './asociados-no-sobregiro/asociados-no-sobregiro/asociados-no-sobregiro.component';
+import { CrearAsociadosNoSobregiroComponent } from './asociados-no-sobregiro/crear-asociados-no-sobregiro/crear-asociados-no-sobregiro.component';
 
 @NgModule({
   declarations: [
@@ -106,8 +107,9 @@ import { EditarGrupoEmpresarialComponent } from './grupo/editar-grupo-empresaria
     AprobadorAdicionalComponent,
     CrearAprobadorAdicionalComponent,
     TipoCambioComponent,
-    CrearTipoCambioComponent,
     EditarGrupoEmpresarialComponent,
+    AsociadosNoSobregiroComponent,
+    CrearAsociadosNoSobregiroComponent
 
   ],
   imports: [

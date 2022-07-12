@@ -118,6 +118,7 @@ export class SidebarService {
         { name: 'Asistente de Facturación', url: 'app/configuracion/asistentefacturacion' },
         { name: 'Aprobador adicional', url: 'app/configuracion/aprobadoradicional' },
         { name: 'Tipo de Cambio', url: 'app/configuracion/tipocambio' },
+        { name: 'Asociado que no desea Sobregiro', url: 'app/configuracion/asociadoNoSobregiro' },
       ]
     },
     {
