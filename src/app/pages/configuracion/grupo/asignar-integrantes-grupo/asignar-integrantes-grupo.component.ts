@@ -15,6 +15,7 @@ import { GrupoEmpresarialService } from '@services/grupo-empresarial.service';
 import { ClienteAgrupacion } from 'src/app/models/cliente-agrupacion.interface';
 import { GlobalSettings } from 'src/app/shared/settings';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { EditarGrupoEmpresarialComponent } from './../editar-grupo-empresarial/editar-grupo-empresarial.component';
 
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
@@ -74,6 +75,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   id_usuario: number;
   isAdmin: boolean = false;
   accionEliminar: boolean = true;
+
+  nombreGrupo:any;
+
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -112,6 +116,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   ngOnInit(): void {
     this.listarClienteEmpresa();
     this.listarSociedades();
+
+    this.nombreGrupo = this.grupoData.nombre;
   }
 
   async listarSociedades() {
@@ -321,4 +327,19 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     return accionEliminar;
   }
 
+  async editarGrupo(form: any) {
+    console.log("editar grupo...");
+    let dialogRef = this.matDialog.open(EditarGrupoEmpresarialComponent, {
+      disableClose: true,
+      data: form,
+      panelClass: 'custom_Config',
+      autoFocus: false,
+     });
+
+     dialogRef.afterClosed().subscribe(result => {
+        console.log("result="+ JSON.stringify(result));
+        this.nombreGrupo = result.payload.entity.nombre;
+    });
+    
+  }
 }
