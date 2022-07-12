@@ -29,9 +29,44 @@ export class ConsorcioService {
           }
         );
 
-      } 
+      }
     );
   }
+
+  filtrarConsorcios(filtros:any): Promise<any> {
+    let numero_documento = null;
+
+    let query = "";
+
+    if (filtros['numero_documento']) {
+      numero_documento = filtros['numero_documento'];
+      query = query+"&numero_documento=" + numero_documento;
+
+    }
+
+
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/cliente-agrupacion?id_tipo_cliente=2&activo=true"+query).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay consorcios encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
+
 
   crearConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
     console.log("sending Consorcio..." + JSON.stringify(clienteAgrupacion));

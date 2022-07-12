@@ -163,7 +163,7 @@ export class ConsorcioComponent implements OnInit {
       numero_documento: rucConsorcio
     }
 
-    this.solicitudService.listarConsorcioxFiltros(filtroConsorcio).then((data) => {
+    this.consorcioService.filtrarConsorcios(filtroConsorcio).then((data) => {
       console.log("Listado de Consorcios-->" + JSON.stringify(data))
       this.listadoConsorcios = data.payload;
 
