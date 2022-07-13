@@ -44,7 +44,7 @@
 
                         <mat-form-field appearance="fill">
                             <mat-label>Participación</mat-label>
-                            <input type="number" matInput placeholder="ingrese " formControlName="participacion">
+                            <input type="number" matInput placeholder="ingrese " formControlName="participacion" (focusout)="validarParticipacion(asignarEmpresaFormDialog.value)">
                             <mat-hint>
                                 <mat-error [hidden]="!(formErrors.participacion)">
                                     {{formErrors.participacion}}
