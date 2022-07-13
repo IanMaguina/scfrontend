@@ -33,7 +33,7 @@ const PERFIL_USUARIO: number = GlobalSettings.PERFIL_USUARIO;
 })
 export class AsignarIntegrantesComponent implements OnInit {
   consorcioData: any;
-  asignarEmpresaFormDialog: any;
+  asignarEmpresaFormDialog: FormGroup;
   formErrors = {
 /*     'sociedad': '', */
     'ruc': '',
@@ -111,6 +111,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   isAdmin: boolean = false;
   PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
   id_estado_cliente_agrupacion: number = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
+  total_participacion:number=0;
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -176,7 +177,25 @@ export class AsignarIntegrantesComponent implements OnInit {
     await this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
       console.log("listarClienteEmpresas:" + JSON.stringify(data));
       this.listadoIntegrantes = data.payload;
+      let total:number=0;
+      this.listadoIntegrantes.forEach(item=>{
+        //let parti=item.participacion
+        total=total+parseFloat(item.participacion);
+
+      })
+      this.total_participacion=total;
+      console.log("total_participacion-->"+this.total_participacion);
     })
+
+  }
+
+  validarParticipacion(form){
+    let totalParticipacion:number=form.participacion+this.total_participacion;
+    if (totalParticipacion>100){
+      //window.alert("Revisar participación del consorciado");
+      this.callWarningDialog("Revisar participación del consorciado")
+      this.asignarEmpresaFormDialog.get("participacion").setValue("");
+    }
 
   }
 

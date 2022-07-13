@@ -12,6 +12,7 @@ export interface AgrupacionClienteSolicitud {
     tipo_cliente?: TipoCliente;
     id_tipo_documento_identidad?: number;
     numero_documento?: string;
+    participacion?:string;
     nombre?: string;
     activo?: boolean;
     empresa?: Empresa[];
