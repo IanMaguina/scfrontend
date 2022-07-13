@@ -188,12 +188,13 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   filtrarGrupoEmpresarial() {
+
     let filtroGrupo = {
       nombre: this.formulary.get('nombreGrupo').value,
       numero_documento: this.formulary.get('rucGrupo').value
     }
     console.log(" filtro--->"+JSON.stringify(filtroGrupo));
-    this.solicitudService.listarGrupoEmpresarialxFiltros(filtroGrupo).then((data) => {
+    this.grupoEmpresarialService.filtrarGruposEmpresariales(filtroGrupo).then((data) => {
       console.log("Listado de grupos empresariales-->" + JSON.stringify(data))
       this.listadoGrupos = data.payload;
 
