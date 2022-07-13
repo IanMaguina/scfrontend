@@ -35,7 +35,44 @@ export class GrupoEmpresarialService {
       }
     );
   }
-  
+
+  filtrarGruposEmpresariales(filtros:any): Promise<any> {
+    let numero_documento = null;
+    let nombre = null;
+    let query = "";
+
+    if (filtros['nombre']) {
+      nombre = filtros['nombre'];
+      query ="nombre=" + nombre ;
+    }
+
+    if (filtros['numero_documento']) {
+      numero_documento = filtros['numero_documento'];
+      query = query != "" ? query+"&numero_documento=" + numero_documento : "numero_documento=" + numero_documento;
+    }
+
+
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-grupo?"+query).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay usuarios encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
   getGrupoEmpresarial(id_grupo:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
@@ -134,5 +171,5 @@ export class GrupoEmpresarialService {
   }
 
 
-  
+
 }
