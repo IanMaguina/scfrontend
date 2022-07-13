@@ -36,10 +36,11 @@ export class GrupoEmpresarialService {
     );
   }
 
-  filtrarGruposEmpresariales(filtros:any): Promise<any> {
+  filtrarGruposEmpresariales(filtros?:any): Promise<any> {
     let numero_documento = null;
     let nombre = null;
     let query = "";
+    if(filtros) {
 
     if (filtros['nombre']) {
       nombre = filtros['nombre'];
@@ -50,8 +51,9 @@ export class GrupoEmpresarialService {
       numero_documento = filtros['numero_documento'];
       query = query != "" ? query+"&numero_documento=" + numero_documento : "numero_documento=" + numero_documento;
     }
+  }
 
-
+    console.log("link-->" + JSON.stringify(query));
     return new Promise(
       (resolve, reject) => {
         this.resourceService.getResource("/api/cliente-agrupacion/buscar-grupo?"+query).toPromise().then((data) => {

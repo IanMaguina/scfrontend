@@ -61,7 +61,7 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   async listarGruposEmpresariales() {
-    await this.grupoEmpresarialService.listarGruposEmpresariales().then(data => {
+    await this.grupoEmpresarialService.filtrarGruposEmpresariales().then(data => {
       this.listadoGrupos = data.payload;
     })
   }
