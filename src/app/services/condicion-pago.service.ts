@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, pluck } from 'rxjs/operators';
-import { ClientSap, CondicionPago } from '../pages/solicitud-condicion-pago/interfaces';
+import { CondicionPago } from '../pages/solicitud-condicion-pago/interfaces';
 
 import config from 'src/assets/config.json';
 import { AutenticacionService } from '@services/autenticacion.service';
-import { AppConfigService } from './app-config.service';
 
 @Injectable()
 
@@ -19,13 +18,8 @@ export class CondicionPagoService {
 
   constructor(
     private http: HttpClient,
-    private readonly autenticacionService: AutenticacionService,
-    private appConfig: AppConfigService
-  ) { 
-    var vl_appConfig = this.appConfig.getConfig();
-    this.api = vl_appConfig.BASE_API_URL;
-
-  }
+    private readonly autenticacionService: AutenticacionService
+  ) {}
 
   public getSociety(): Observable<any> {
     const url: string = `${this.api}/api/sociedad`;

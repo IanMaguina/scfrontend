@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Condición de Pago Regular</h1>
+<form [formGroup]="formularioConfiguracionCondicionPagoRegular" (ngSubmit)="onAgregarNuevaCondicionPagoRegular()">
+<div mat-dialog-content class="dialog-content">
+        <mat-form-field appearance="fill">
+            <mat-label>Sociedad</mat-label>
+            <mat-select formControlName="sociedad">
+                <mat-option *ngFor="let sociedad of sociedad$ | async" [value]="sociedad.codigo_sap">{{
+                    "("+sociedad.codigo_sap+")" + " - " + sociedad.nombre }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="validateFormControl('sociedad')">{{ sociedadErrorMsg }}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+            <mat-label>Grupo Cliente</mat-label>
+            <mat-select formControlName="grupo_cliente">
+                <mat-option *ngFor="let grupoCLiente of grupoCLiente$ | async" [value]="grupoCLiente.codigo_sap">{{ grupoCLiente.nombre }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="validateFormControl('grupo_cliente')">{{ grupo_clienteErrorMsg }}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+            <mat-label>Línea de Productos</mat-label>
+            <mat-select formControlName="linea_producto">
+                <mat-option *ngFor="let lineaProducto of lineaProducto$ | async" [value]="lineaProducto.codigo_sap">{{ lineaProducto.nombre }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="validateFormControl('linea_producto')">{{ linea_productoErrorMsg }}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+            <mat-label>Condicion de Pago Regular</mat-label>
+                <input matInput formControlName="condicion_pago_regular" type="text">
+                <mat-error *ngIf="validateFormControl('condicion_pago_regular')">{{ condicionPagoRegularErrorMsg }}</mat-error>
+        </mat-form-field>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button mat-dialog-close class="boton-secundario" type="button">Cancelar</button>
+    <button mat-raised-button [disabled]="!formularioConfiguracionCondicionPagoRegular.valid" class="boton-principal-light" type="submit">Agregar</button>
+</div>
+</form>

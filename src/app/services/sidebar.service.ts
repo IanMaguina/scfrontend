@@ -119,6 +119,7 @@ export class SidebarService {
         { name: 'Aprobador adicional', url: 'app/configuracion/aprobadoradicional' },
         { name: 'Tipo de Cambio', url: 'app/configuracion/tipocambio' },
         { name: 'Asociado que no desea Sobregiro', url: 'app/configuracion/asociadoNoSobregiro' },
+        { name: 'Condición Pago Regular', url: 'app/configuracion/condicion-pago-regular' },
       ]
     },
     {

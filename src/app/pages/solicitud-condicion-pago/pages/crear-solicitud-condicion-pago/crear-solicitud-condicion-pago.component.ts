@@ -176,7 +176,8 @@ export class CrearSolicitudCondicionPagoComponent implements OnInit {
 
     const params = new HttpParams()
       .set('sociedad_codigo_sap', sociedad_codigo_sap)
-      .set('grupo_cliente_codigo_sap', grupo_cliente_codigo_sap);
+      .set('grupo_cliente_codigo_sap', grupo_cliente_codigo_sap)
+      .set('activo', true);
 
     return this.condicionPagoService.getConditionPayment(params).pipe(
       tap((request) => {

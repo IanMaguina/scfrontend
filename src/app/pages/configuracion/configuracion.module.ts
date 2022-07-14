@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import localeEs from '@angular/common/locales/es-PE';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -23,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatTableResponsiveModule } from 'src/app/shared/tables/mat-table-responsive.module';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; // <-- #2 import module
 
 /* componentes */
 import { EstrategiasComponent } from './estrategias/estrategias/estrategias.component';
@@ -58,15 +60,23 @@ import { EditarAsistenteFacturacionComponent } from './asistenteFacturacion/edit
 import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adicional/aprobador-adicional.component';
 import { CrearAprobadorAdicionalComponent } from './aprobadorAdicional/crear-aprobador-adicional/crear-aprobador-adicional.component';
 import { MatCardModule } from '@angular/material/card';
-import {MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.component';
 import { EditarGrupoEmpresarialComponent } from './grupo/editar-grupo-empresarial/editar-grupo-empresarial.component';
 import { AsociadosNoSobregiroComponent } from './asociados-no-sobregiro/asociados-no-sobregiro/asociados-no-sobregiro.component';
 import { CrearAsociadosNoSobregiroComponent } from './asociados-no-sobregiro/crear-asociados-no-sobregiro/crear-asociados-no-sobregiro.component';
-import { CondicionPagoComponent } from './condicion-pago/condicion-pago/condicion-pago.component';
-import { CrearCondicionPagoComponent } from './condicion-pago/crear-condicion-pago/crear-condicion-pago.component';
-import { EditarCondicionPagoComponent } from './condicion-pago/editar-condicion-pago/editar-condicion-pago.component';
+import { CondicionPagoComponent } from './condicion-pago/pages/condicion-pago/condicion-pago.component';
+import { CrearCondicionPagoComponent } from './condicion-pago/pages/crear-condicion-pago/crear-condicion-pago.component';
+import { EditarCondicionPagoComponent } from './condicion-pago/pages/editar-condicion-pago/editar-condicion-pago.component';
+import { TablaConfiguracionBandejaCondicionPagoRegularComponent } from './condicion-pago/components/tabla-configuracion-bandeja-condicion-pago-regular/tabla-configuracion-bandeja-condicion-pago-regular.component';
+import { FormularioConfiguracionBandejaCondicionPagoRegularComponent } from './condicion-pago/components/formulario-configuracion-bandeja-condicion-pago-regular/formulario-configuracion-bandeja-condicion-pago-regular.component';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { CondicionPagoRegularService } from '@services/condicion-pago-regular.service';
+import { PopUPService } from '@services/pop-up.service';
+import { getSpanishPaginatorIntl } from 'src/app/shared/language/spanish-paginator-intl';
+
+registerLocaleData(localeEs, 'es-PE');
 
 @NgModule({
   declarations: [
@@ -115,7 +125,9 @@ import { EditarCondicionPagoComponent } from './condicion-pago/editar-condicion-
     CrearAsociadosNoSobregiroComponent,
     CondicionPagoComponent,
     CrearCondicionPagoComponent,
-    EditarCondicionPagoComponent
+    EditarCondicionPagoComponent,
+    TablaConfiguracionBandejaCondicionPagoRegularComponent,
+    FormularioConfiguracionBandejaCondicionPagoRegularComponent
 
   ],
   imports: [
@@ -142,13 +154,21 @@ import { EditarCondicionPagoComponent } from './condicion-pago/editar-condicion-
     MatRippleModule,
     DragDropModule,
     MatTableResponsiveModule,
-    MatCardModule, 
+    MatCardModule,
     MatSortModule,
-    A11yModule,
+    MatPaginatorModule,
+    RxReactiveFormsModule,
+    A11yModule
   ],
   exports: [
     ConfiguracionComponent,
-    
+
+  ],
+  providers: [
+    CondicionPagoRegularService,
+    PopUPService,
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
+    { provide: LOCALE_ID, useValue: 'es-PE' }
   ]
 })
 export class ConfiguracionModule { }
