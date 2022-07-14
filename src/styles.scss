@@ -2544,13 +2544,16 @@ u {
 .AsignarConsorciados {
     display: grid;
     grid-template-columns: 100%;
-   
-    .mat-tab-label{
+
+    .mat-tab-label {
         opacity: 100;
     }
-    .mat-tab-nav-bar, .mat-tab-header{
-border-bottom:0px;
+
+    .mat-tab-nav-bar,
+    .mat-tab-header {
+        border-bottom: 0px;
     }
+
     .BuscadorConsorciados {
         padding: 15px;
         display: flex;
@@ -2580,7 +2583,7 @@ border-bottom:0px;
     padding: 15px;
 }
 
-.Botonera_Consorcio{
+.Botonera_Consorcio {
     background-color: white;
 }
 
@@ -2735,4 +2738,40 @@ border-bottom:0px;
 
 .centrar {
     align-self: center;
+}
+
+.Header_RR {
+    height: 70px;
+
+    .Header_R5 {
+        background-color: #04C55C;
+        color: white;
+    }
+
+    .Header_R6 {
+        background-color: #04C55C;
+        color: white;
+    }
+
+    .Header_R7 {
+        background-color: #04C55C;
+        color: white;
+    }
+    .Header_RRWhite{
+        background-color: white;
+    }
+}
+.Row_RRWhite{
+    height:50px;
+    background-color: white;
+}
+
+.list-item{
+    height: 70px;
+}
+.list-item2{
+    height: 70px;
+}
+.list-item3{
+    height: 70px;
 }
