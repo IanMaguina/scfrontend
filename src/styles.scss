@@ -911,6 +911,13 @@ th.mat-header-cell {
     margin-bottom: 15px !important;
 }
 
+.ConsorcioFiltros {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding-bottom: 15px;
+}
+
 /*Adjuntos y Plantillas*/
 
 .Agregar {
@@ -998,7 +1005,7 @@ th.mat-header-cell {
     font-size: 15px;
 }
 
-.mat-tab-label:focus:not(.mat-tab-disabled){
+.mat-tab-label:focus:not(.mat-tab-disabled) {
     background-color: #04C55C !important;
     opacity: 100;
 }
@@ -2227,7 +2234,7 @@ u {
 }
 
 
-.titledialog_IntegrantesGrupos{
+.titledialog_IntegrantesGrupos {
     font-size: 16px;
     font-weight: 400;
     color: #ffffff;
@@ -2276,21 +2283,25 @@ u {
 .tipodeCambio {
     display: flex;
     flex-direction: column;
-    padding-top: 15px; 
+    padding-top: 15px;
     gap: 10px;
+
     .labelTcambio {
         font-weight: bold;
-    } 
+    }
 
 }
+
 .tipodecambiotable {
     width: auto !important;
-   th{
+
+    th {
         padding: 10px !important;
-      }
-      td{
+    }
+
+    td {
         padding: 10px !important;
-      }
+    }
 }
 
 .contenidoForm_Config {
@@ -2316,31 +2327,66 @@ u {
     background-color: transparent;
 }
 
-.content-dialogGrupo{
+.content-dialogGrupo {
     background-color: #04a84e00;
 }
 
-.custom_IntegranteGrupo{
-    background-color: #ffffff00;
-    .mat-dialog-container{
+.custom_ConsorcioDialog {
+    background-color: #04a84e00;
+
+    .mat-dialog-container {
         background-color: #ffffff00;
-        box-shadow:none !important;
+        box-shadow: none !important;
     }
 }
 
-.NombreGrupo_Dialog{
-    display:flex;
+.custom_IntegranteGrupo {
+    background-color: #ffffff00;
+
+    .mat-dialog-container {
+        background-color: #ffffff00;
+        box-shadow: none !important;
+    }
+}
+
+.NombreGrupo_Dialog {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color:#05C65D;
+    background-color: #05C65D;
     padding-left: 20px;
     padding-right: 20px;
     color: white;
     border-radius: 0px 5px 0px 0px;
-    .NombreDatosClienteGrupoIntegrantes{
+
+    .NombreDatosClienteGrupoIntegrantes {
         display: flex;
         align-items: center !important;
+    }
+}
+
+
+.NombreConsorcio_Dialog {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #05C65D;
+    padding: 15px;
+    color: white;
+    border-radius: 0px 0px 0px 0px;
+
+    .NombreDatosClienteConsorciados {
+        display: flex;
+        align-items: center !important;
+    }
+
+    .DatosConsorcio {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 45px;
     }
 }
 
@@ -2498,6 +2544,7 @@ u {
 .AsignarConsorciados {
     display: grid;
     grid-template-columns: 100%;
+   
 
     .BuscadorConsorciados {
         padding: 15px;
@@ -2508,19 +2555,31 @@ u {
         gap: 10px;
     }
 
-    .botonera {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: flex-end;
-    }
-
     .content-table {
         padding-left: 15px;
         width: 90%;
     }
+
+    .mat-tab-body-wrapper {
+        background-color: white;
+    }
 }
+
+.botonera_Consorciados {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: flex-end;
+    background-color: white;
+    padding: 15px;
+}
+
+.Botonera_Consorcio{
+    background-color: white;
+}
+
+
 
 .FormBuscarCP {
     padding-top: 13px;
@@ -2669,6 +2728,6 @@ u {
     justify-content: center;
 }
 
-.centrar{
+.centrar {
     align-self: center;
 }

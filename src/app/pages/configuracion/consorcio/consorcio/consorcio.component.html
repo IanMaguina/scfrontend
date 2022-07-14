@@ -6,29 +6,23 @@
         <button mat-flat-button class="boton-principal-light" (click)="openAgregarConsorcio()">Agregar</button>
     </div>
 </div>
-<div class="Seleccion_TCliente">
+<mat-divider class="divisorConfig"></mat-divider>
+
+
     <form [formGroup]="formulary" (ngSubmit)="listarConsorcioxFiltros()">
-        <div class="buscar">
-
-
-            <mat-form-field class="formInput" appearance="fill">
+        <div class="ConsorcioFiltros">
+            <mat-form-field class="" appearance="fill">
                 <mat-label>RUC</mat-label>
                 <input matInput formControlName="rucConsorcio" placeholder="RUC del Consorcio">
             </mat-form-field>
 
-            <div class="formInput">
+            <div class="">
                 <button mat-mini-fab aria-label="Buscar" color="white" class="boton-buscar" type="submit">
-          <mat-icon>search</mat-icon>
-        </button>
+                    <mat-icon>search</mat-icon>
+                </button>
             </div>
         </div>
-
-
     </form>
-</div>
-<br>
-<mat-divider class="divisorConfig"></mat-divider>
-
 
 
 <div class="content-table">
@@ -70,7 +64,8 @@
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Activo </th>
             <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleConsorcioActivo(element)" [disabled]="!isAdmin"></mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="element.activo" (ngModelChange)="toggleConsorcioActivo(element)"
+                    [disabled]="!isAdmin"></mat-slide-toggle>
             </td>
         </ng-container>
 
@@ -78,7 +73,8 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-flat-button class="boton-secundario" (click)="openAsignarIntegrantes(element)">Integrantes</button>
+                <button mat-flat-button class="boton-secundario"
+                    (click)="openAsignarIntegrantes(element)">Integrantes</button>
             </td>
         </ng-container>
 
