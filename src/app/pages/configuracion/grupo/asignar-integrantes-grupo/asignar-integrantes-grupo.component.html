@@ -4,7 +4,7 @@
     </div>
     <div class="NombreGrupo_Dialog">
         <div class="NombreDatosClienteGrupoIntegrantes">Dato del Cliente</div>
-        <div>Nombre del Grupo: &nbsp;&nbsp;{{nombreGrupo}}<button mat-icon-button (click)="editarGrupo(grupoData)"><mat-icon>edit</mat-icon></button></div>
+        <div>Nombre del Grupo: &nbsp;&nbsp;{{grupoData.nombre}}<button mat-icon-button (click)="editarGrupo(grupoData)"><mat-icon>edit</mat-icon></button></div>
     </div>
     <div class="AsignarIntegrantesGrupo">
         <form [formGroup]="asignarEmpresaFormDialog" (ngSubmit)="asignarEmpresaGrupo(asignarEmpresaFormDialog.value)">
