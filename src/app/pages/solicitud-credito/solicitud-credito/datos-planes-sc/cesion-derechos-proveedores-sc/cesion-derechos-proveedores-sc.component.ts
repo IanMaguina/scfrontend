@@ -16,6 +16,7 @@ export class CesionDerechosProveedoresScComponent implements OnInit {
     'grupo_cliente',
     'linea_credito_actual',
     'moneda_actual',
+    'tipo_linea',
     'vigencia',
     'documento_valorado_actual',
   ];

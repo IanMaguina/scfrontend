@@ -125,7 +125,7 @@
                         <mat-label>Seleccionar</mat-label>
                         <mat-select formControlName="centroRiesgo" multiple required
                             (selectionChange)="llenarCentroRiesgo()" [compareWith]="compareCentroRiesgo">
-                            <mat-option [value]="" >No Aplica</mat-option>
+                            <mat-option [value]="0" >No Aplica</mat-option>
                             <mat-option *ngFor="let centroRiesgo of listadoCentroRiesgo" [value]="centroRiesgo">{{
                                 centroRiesgo.nombre }}
                             </mat-option>

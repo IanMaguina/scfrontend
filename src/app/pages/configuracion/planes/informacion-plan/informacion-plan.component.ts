@@ -330,10 +330,10 @@ export class InformacionPlanComponent implements OnInit {
 
   llenarCentroRiesgo() {
     let centroRiesgo:any[] = this.informacionForm.get("centroRiesgo").value;
-    let v=centroRiesgo.findIndex(item => item==null);
+    let v=centroRiesgo.findIndex(item => item=="0");
     if (v===0){
       this.mostrarCentroRiesgo=[];
-      this.informacionForm.get("centroRiesgo")?.setValue([]);
+      this.informacionForm.get("centroRiesgo")?.setValue([0]);
     }else{
       this.mostrarCentroRiesgo = centroRiesgo;
     }
