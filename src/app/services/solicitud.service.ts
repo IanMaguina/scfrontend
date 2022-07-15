@@ -598,11 +598,11 @@ export class SolicitudService {
         });
       });
   }
-  listarSolicitudCliente(id_solicitud:string): Promise<any> {
+  listarSolicitudCliente(id_solicitud:any): Promise<any> {
     return new Promise(
       (resolve, reject) => {
         //this.resourceService.getResource("/api/solicitud/"+id_solicitud+"/solicitud-principal-cliente").toPromise().then((data) => {
-        this.resourceService.getResource("/api/solicitud-cliente/?id_solicitud="+id_solicitud).toPromise().then((data) => {
+        this.resourceService.getResource("/api/solicitud-cliente?id_solicitud="+id_solicitud).toPromise().then((data) => {
           if (data.header.exito) {
             resolve(data);
           } else {

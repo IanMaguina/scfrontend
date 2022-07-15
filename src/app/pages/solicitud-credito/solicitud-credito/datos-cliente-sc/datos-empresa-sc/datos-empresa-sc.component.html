@@ -42,7 +42,7 @@
             <div class="dato">
                 <mat-form-field appearance="fill">
                     <mat-label>Seleccionar</mat-label>
-                    <mat-select formControlName="id_zonal" required>
+                    <mat-select formControlName="zonal_codigo_sap" required>
                         <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal.codigo_sap">{{ zonal.nombre }}
                         </mat-option>
                     </mat-select>
