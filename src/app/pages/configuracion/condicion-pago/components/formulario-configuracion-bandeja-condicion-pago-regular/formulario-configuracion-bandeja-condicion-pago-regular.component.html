@@ -1,0 +1,34 @@
+<form [formGroup]="formularioConfiguracionCondicionPagoRegular" (ngSubmit)="onBuscarCondicionPagoRegular()"> 
+    <div class="buscarBandejas">
+
+        <mat-form-field appearance="fill" class="formBandejas">
+            <mat-label>Sociedad</mat-label>
+            <mat-select formControlName="sociedad" multiple>
+                <mat-option *ngFor="let sociedad of sociedad$ | async" [value]="sociedad.codigo_sap">{{
+                    "("+sociedad.codigo_sap+")" + " - " + sociedad.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="formBandejas">
+            <mat-label>Grupo Cliente</mat-label>
+            <mat-select formControlName="grupo_cliente" multiple>
+                <mat-option *ngFor="let grupoCLiente of grupoCLiente$ | async" [value]="grupoCLiente.codigo_sap">{{ grupoCLiente.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="formBandejas">
+            <mat-label>Línea de Productos</mat-label>
+            <mat-select formControlName="linea_producto" multiple>
+                <mat-option *ngFor="let lineaProducto of lineaProducto$ | async" [value]="lineaProducto.codigo_sap">{{ lineaProducto.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="formBandejas">
+            <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="submit">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </div>
+</form>
+
+

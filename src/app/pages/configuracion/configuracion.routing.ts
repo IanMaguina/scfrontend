@@ -13,6 +13,7 @@ import { AprobadorAdicionalComponent } from './aprobadorAdicional/aprobador-adic
 import { PagesComponent } from '../pages.component';
 import { TipoCambioComponent } from './tipo-cambio/tipo-cambio/tipo-cambio.component';
 import { AsociadosNoSobregiroComponent } from './asociados-no-sobregiro/asociados-no-sobregiro/asociados-no-sobregiro.component';
+import { CondicionPagoComponent } from './condicion-pago/pages/condicion-pago/condicion-pago.component';
 
 const routes: Routes = [
     {
@@ -30,7 +31,8 @@ const routes: Routes = [
             { path: 'asistentefacturacion', component: AsistenteFacturacionComponent, data:{titulo: 'Asistente facturacion', ruta: 'Configuración  /  Asistente facturacion'}  },
             { path: 'aprobadoradicional', component: AprobadorAdicionalComponent, data:{titulo: 'Aprobador adicional', ruta: 'Configuración  /  Aprobador adicional'}  },
             { path: 'tipocambio', component: TipoCambioComponent, data:{titulo: 'Tipo de Cambio', ruta: 'Configuración  / Tipo de Cambio'}  },
-            { path: 'asociadoNoSobregiro', component: AsociadosNoSobregiroComponent, data:{titulo: 'Asociados que no desean Sobregiro', ruta: 'Configuración  / Asociados que no desean Sobregiro'}  }
+            { path: 'asociadoNoSobregiro', component: AsociadosNoSobregiroComponent, data:{titulo: 'Asociados que no desean Sobregiro', ruta: 'Configuración  / Asociados que no desean Sobregiro'}  },
+            { path: 'condicion-pago-regular', component: CondicionPagoComponent, data:{titulo: 'Condición pago regular', ruta: 'Configuración  / Condición pago regular'}  }
         ]
     },
 ];

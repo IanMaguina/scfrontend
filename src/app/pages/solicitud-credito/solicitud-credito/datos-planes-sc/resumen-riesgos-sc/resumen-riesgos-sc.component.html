@@ -1,22 +1,21 @@
-<div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6" *ngIf="resumenDino.length > 0">
+<div class="content-table" *ngIf="resumenDino.length > 0">
     <br>
 <div *ngFor="let resumen of resumenDino" >
     <br>
-    <table border="1">
+    <table border="0">
         <caption title="Resumen Riesgo"></caption>
-        <tr>
-            <th>{{(resumen?resumen.nombre_sociedad_codigo_sap:' ')}} </th>
-            <th>Linea Credito Actual</th>
-            <th>Moneda</th>
-            <th>Linea Credito Actual </th>
-            <th>Linea Credito Solicitada</th>
-            <th>Moneda</th>
-            <th>Linea Credito Solicitada S/.</th>
+        <tr class="Header_RR">
+            <th class="Header_RRWhite">{{(resumen?resumen.nombre_sociedad_codigo_sap:' ')}} </th>
+            <th class="Header_RRWhite">Línea de <br> Crédito Actual</th>
+            <th class="Header_RRWhite">Moneda</th>
+            <th class="Header_RRWhite">Línea de <br> Crédito Actual </th>
+            <th class="Header_R5">Línea de Crédito <br>Solicitada</th>
+            <th class="Header_R6">Moneda</th>
+            <th class="Header_R7">Línea de Crédito <br>Solicitada S/.</th>
         </tr>
-        <tr *ngFor="let row of resumen.detalle" >
-            <td class="pintarCelda(row.estilo)">{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
+        <tr *ngFor="let row of resumen.detalle">
+            <td [ngClass]="resumenRiesgo.ClassName"> {{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
                 '+row.nombre_linea_credito:'')}}</td>
-
             <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
             <td>{{(row.moneda_actual?row.moneda_actual:'NR')}}</td>
             <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>

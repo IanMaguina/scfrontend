@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Condición de Pago Regular</h1>
+<div mat-dialog-content class="dialog-content">
+    <p>Sociedad<span>{{ data.params.sociedad }}</span></p>
+
+    <p>Grupo Cliente<span>{{ data.params.grupo_cliente }}</span></p>
+
+    <p>Lineas de Productos <span>{{ data.params.linea_producto }}</span></p>
+
+    <p>Condición de Pago Regular:</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Condicion de Pago Regular</mat-label>
+        <input matInput type="text" [formControl]="formControl">
+        <mat-error *ngIf="validateFormControl()">{{ condicionPagoRegularErrorMsg }}</mat-error>
+    </mat-form-field>
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button mat-dialog-close class="boton-secundario" type="button">Cancelar</button>
+    <button mat-raised-button class="boton-principal-light" [disabled]="!formControl.valid" type="button"
+        (click)="onActualizarCondicionPagoRegular()">Actualizar</button>
+</div>

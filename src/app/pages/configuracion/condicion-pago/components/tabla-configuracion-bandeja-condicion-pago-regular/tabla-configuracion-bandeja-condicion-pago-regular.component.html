@@ -1,0 +1,46 @@
+<div class="content-table">
+
+    <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8">
+        <caption title="Tabla configuración de bandeja de condicion de pago regular"></caption>
+
+        <ng-container matColumnDef="sociedad">
+            <th mat-header-cell *matHeaderCellDef> Sociedad</th>
+            <td mat-cell *matCellDef="let element"><u>{{ element.sociedad.codigo_sap + "-" + element.sociedad.nombre }} </u></td>
+        </ng-container>
+
+        <ng-container matColumnDef="grupo_cliente">
+            <th mat-header-cell *matHeaderCellDef> Grupo Cliente</th>
+            <td mat-cell *matCellDef="let element"><u>{{element.grupo_cliente.nombre}} </u></td>
+        </ng-container>
+
+        <ng-container matColumnDef="linea_producto">
+            <th mat-header-cell *matHeaderCellDef> Lineas de Productos</th>
+            <td mat-cell *matCellDef="let element"><u>{{element.linea_producto.nombre}} </u></td>
+        </ng-container>
+
+        <ng-container matColumnDef="condicion_pago_regular">
+            <th mat-header-cell *matHeaderCellDef> Condición de Pago Regular</th>
+            <td mat-cell *matCellDef="let element"><u>{{element.valor}} </u></td>
+        </ng-container>
+
+        <ng-container matColumnDef="activo">
+            <th mat-header-cell *matHeaderCellDef> Activo</th>
+            <td mat-cell *matCellDef="let element"><u>
+                <mat-slide-toggle 
+                [checked]="element.activo === true" 
+                (change)="onCambiarEstadoCondicionPagoRegular(element.id, $event)"></mat-slide-toggle></u></td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell class="Columna_NoData" *matFooterCellDef [attr.colspan]="displayedColumns.length">
+              No se encontrarón Condiciones de Pago Regulares
+            </mat-footer-cell>
+          </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="onEditarCondicionPagoRegular(row)"></tr>
+        <tr mat-footer-row *matFooterRowDef="['noData']" [hidden]="dataSource && dataSource?.data?.length > 0"></tr>
+    </table>
+    <mat-paginator [hidden]="!dataSource?.data?.length" [pageSizeOptions]="[5,10,20,50,100,500]" showFirstLastButtons></mat-paginator>
+</div>

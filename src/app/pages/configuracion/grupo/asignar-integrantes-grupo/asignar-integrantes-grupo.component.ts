@@ -75,9 +75,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   id_usuario: number;
   isAdmin: boolean = false;
   accionEliminar: boolean = true;
-
-  nombreGrupo:any;
-
+  
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -115,9 +113,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarClienteEmpresa();
-    this.listarSociedades();
-
-    this.nombreGrupo = this.grupoData.nombre;
+    this.listarSociedades();   
   }
 
   async listarSociedades() {
@@ -338,7 +334,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(result => {
         console.log("result="+ JSON.stringify(result));
-        this.nombreGrupo = result.payload.entity.nombre;
+        this.grupoData.nombre = result.payload.entity.nombre;
     });
     
   }
