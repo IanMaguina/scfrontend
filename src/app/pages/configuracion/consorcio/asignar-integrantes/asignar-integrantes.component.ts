@@ -18,6 +18,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { GlobalSettings } from 'src/app/shared/settings';
 
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE;
@@ -112,6 +113,9 @@ export class AsignarIntegrantesComponent implements OnInit {
   PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
   id_estado_cliente_agrupacion: number = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
   total_participacion:number=0;
+
+  mostrarSolicitudAprobacion:boolean =false;
+
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -162,7 +166,23 @@ export class AsignarIntegrantesComponent implements OnInit {
   ngOnInit(): void {
     console.log("ngOnInit");
     this.listarSociedades();
-    this.listarClienteEmpresa();
+    this.listarClienteEmpresa().then(r=>{
+      if (this.userInfo.id_perfil != PERFIL_ADMINISTRADOR ) {
+
+        if (this.id_estado_cliente_agrupacion == ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR){
+          this.mostrarSolicitudAprobacion = true;
+        }else{
+          
+          this.listadoIntegrantes.forEach(e=>{
+             if (e.estado_cliente_agrupacion.id == ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR ){
+                this.mostrarSolicitudAprobacion = true;
+             }
+          });
+  
+        }        
+  
+      }
+    });
     this.listarAdjuntos();
   }
 
@@ -252,6 +272,22 @@ export class AsignarIntegrantesComponent implements OnInit {
     });
   }
 
+  solicitarAprobacion(){
+    let item: ClienteAgrupacion = {
+      id_usuario: this.id_usuario,
+      id: this.id_cliente_agrupacion,
+      id_estado_cliente_agrupacion: this.id_estado_cliente_agrupacion
+    }
+
+    console.log("envia solicitud de aprobacion...");
+
+    this.consorcioService.solicitarAprobacionConsorcio(item).then(data => {
+      this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el consorcio');
+      this.onNoClick('CONFIRM_DLG_YES');
+    })
+  
+  }
+
   AprobarConsorcio() {
     let item: ClienteAgrupacion = {
       id_usuario: this.id_usuario,
@@ -311,6 +347,13 @@ export class AsignarIntegrantesComponent implements OnInit {
       else
         accionEliminar = true;
     }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+
+    }
     if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO) {
       if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
         accionEliminar = false;
@@ -342,6 +385,15 @@ export class AsignarIntegrantesComponent implements OnInit {
       else
         accionEliminar = 'delete';
     }
+
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'delete';
+
+    }
+
     if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO) {
       if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
         accionEliminar = '';

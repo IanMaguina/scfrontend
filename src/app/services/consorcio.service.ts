@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { ClienteAgrupacion } from '../models/cliente-agrupacion.interface';
+import { AutenticacionService } from './autenticacion.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsorcioService {
   constructor(
-    private resourceService: ResourceService
+    private resourceService: ResourceService,
+    private autenticacionService: AutenticacionService
   ) {
   }
 
@@ -31,6 +33,52 @@ export class ConsorcioService {
 
       }
     );
+  }
+
+  buscarConsorcios(): Promise<any> {
+
+    let query = "";
+
+    const id_tipo_cliente = 2;
+
+    const id_usuario = this.autenticacionService.getUserInfo().id;
+
+    query = "id_tipo_cliente="+id_tipo_cliente+"&id_usuario=" + id_usuario ;
+
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/buscar-consorcios?"+query).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay consorcios encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
+  solicitarAprobacionConsorcio(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("enviando solicitud aprobacion consorcio..." + JSON.stringify(clienteAgrupacion));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/cliente-agrupacion/"+clienteAgrupacion.id+"/solicitar-aprobacion",clienteAgrupacion).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
   }
 
   filtrarConsorcios(filtros:any): Promise<any> {

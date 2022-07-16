@@ -17,6 +17,7 @@ export interface ClienteAgrupacion{
     pertenece_sociedad?:boolean;
     id_usuario?:number;
     participacion?:number;
-    sociedad_codigo_sap?:string 
+    sociedad_codigo_sap?:string ;
+    id_estado_cliente_agrupacion?:number
 }
 

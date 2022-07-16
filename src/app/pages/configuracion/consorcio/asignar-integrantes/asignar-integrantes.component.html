@@ -235,6 +235,7 @@
     
     <button mat-raised-button class="objeto boton-secundario" type="button"
         (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
+    <button mat-flat-button class="boton-secundario" (click)="solicitarAprobacion()" *ngIf="mostrarSolicitudAprobacion">Solicitar</button>        
     <button mat-flat-button class="boton-warn" (click)="RechazarConsorcio()" *ngIf="isAdmin">Rechazar</button>
     <button mat-flat-button class="boton-principal-light" (click)="AprobarConsorcio()" *ngIf="isAdmin">Aprobar</button>
 </div>
