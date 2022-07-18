@@ -40,7 +40,8 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="objeto formElementoPlano " *ngIf="obj.get('pertenece_sociedad').value">
+                <!--                <div class="objeto formElementoPlano " *ngIf="obj.get('pertenece_sociedad').value"> -->
+                <div class="objeto formElementoPlano ">
                     <div class="label">Oficina de Venta:</div>
                     <div class="dato">
                         <mat-form-field class="input_forms" appearance="fill">
@@ -52,7 +53,8 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="objeto formElementoPlano" *ngIf="obj.get('pertenece_sociedad').value">
+                <!--                <div class="objeto formElementoPlano " *ngIf="obj.get('pertenece_sociedad').value"> -->
+                <div class="objeto formElementoPlano ">
                     <div class="label">Teléfono:</div>
                     <div class="dato">
                         <mat-form-field class="input_forms" appearance="fill">
@@ -61,7 +63,8 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="objeto formElementoPlano" *ngIf="obj.get('pertenece_sociedad').value">
+                <!--                <div class="objeto formElementoPlano " *ngIf="obj.get('pertenece_sociedad').value"> -->
+                <div class="objeto formElementoPlano ">
                     <div class="label">Correo Electrónico:</div>
                     <div class="dato">
                         <mat-form-field class="input_forms" appearance="fill">
@@ -71,7 +74,8 @@
                     </div>
                 </div>
 
-                <div class="objeto_right" *ngIf="obj.get('pertenece_sociedad').value">
+                <!--                 <div class="objeto_right" *ngIf="obj.get('pertenece_sociedad').value"> -->
+                <div class="objeto_right">
                     <button mat-flat-button class="boton-secundario botonera-superior " type="button" (click)="guardarSeccionGrupo(formularyForm.value['empresasArray'][i])" [disabled]="formularyForm.get('empresasArray').value[i].invalid">Guardar</button>
 
                 </div>

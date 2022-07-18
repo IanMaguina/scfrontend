@@ -28,7 +28,7 @@ export class RiesgosScComponent implements OnInit {
     'tipo_linea',
     'vigencia',
     'plan_control',
-   /*  'id' */
+    'id'
   ]
   constructor(
     private planService:PlanService,
@@ -37,9 +37,9 @@ export class RiesgosScComponent implements OnInit {
 
      }
 
-  ngOnInit(): void {   
-  
-      this.listarPlanSolicitudRiesgo(); 
+  ngOnInit(): void {
+
+      this.listarPlanSolicitudRiesgo();
 
   }
 
