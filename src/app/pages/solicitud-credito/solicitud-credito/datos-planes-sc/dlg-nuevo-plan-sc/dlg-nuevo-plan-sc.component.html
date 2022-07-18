@@ -42,8 +42,7 @@
 
                     <mat-checkbox class="Subtitle_NPC_Reemplazo" formControlName="reemplazo">Reemplazo de planes
                     </mat-checkbox>
-                    <mat-icon class="icon_help" matTooltip="Marcar solo si se reemplazará uno o más planes actual(es) por uno nuevo."
-                        matTooltipClass="TooltipReemplazo">help</mat-icon>
+                    <mat-icon class="icon_help" matTooltip="Marcar solo si se reemplazará uno o más planes actual(es) por uno nuevo." matTooltipClass="TooltipReemplazo">help</mat-icon>
 
                 </div>
             </div>
@@ -87,13 +86,27 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+
+            <div class="objetoNuevoPlan " *ngIf="formulary.get('vigencia').value.id===FECHA_VIGENCIA_TEMPORAL">
+                <div class="Title_NPC">Fecha:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="fecha_vigencia">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+
+                </mat-form-field>
+            </div>
+
+
+
+
             <div class="objetoNuevoPlan content7">
                 <div class="Title_NPC">Productos a comprar:</div>
                 <div class="Subtitle_NPC">*Pueden ser más de uno</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Línea de Productos</mat-label>
-                    <mat-select formControlName="linea_producto" multiple
-                        (selectionChange)="llenarLineaProductoGrilla()">
+                    <mat-select formControlName="linea_producto" multiple (selectionChange)="llenarLineaProductoGrilla()">
                         <mat-option *ngFor="let linea_producto of listadoLineaProducto" [value]="linea_producto">
                             {{ linea_producto.nombre }}
                         </mat-option>
@@ -138,10 +151,8 @@
                 <div class="Subtitle_NPC">*Pueden ser más de uno</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Documentos Valorados</mat-label>
-                    <mat-select formControlName="documento_valorado" multiple
-                        (selectionChange)="llenarDocumentoValoradoGrilla()">
-                        <mat-option *ngFor="let documento_valorado of listadoDocumentosValorados"
-                            [value]="documento_valorado">
+                    <mat-select formControlName="documento_valorado" multiple (selectionChange)="llenarDocumentoValoradoGrilla()">
+                        <mat-option *ngFor="let documento_valorado of listadoDocumentosValorados" [value]="documento_valorado">
                             {{ documento_valorado.nombre }}
                         </mat-option>
                     </mat-select>
@@ -162,7 +173,7 @@
                         <ng-container matColumnDef="importe">
                             <th mat-header-cell *matHeaderCellDef> Importe </th>
                             <td mat-cell *matCellDef="let element" [formGroup]="element">
-                                <mat-form-field appearance="outline" >
+                                <mat-form-field appearance="outline">
                                     <input type="number" matInput formControlName="importe" (focusout)="validarImporte(element)">
                                 </mat-form-field>
                             </td>
@@ -181,8 +192,7 @@
                 <div class="Title_NPC">Información Adicional (Motivo de solicitud de crédito):</div>
                 <mat-form-field class="info_NPC" appearance="fill">
                     <mat-label>Ingresar...</mat-label>
-                    <textarea matInput placeholder="Ingrese Información adicional"
-                        formControlName="informacion_adicional" required> </textarea>
+                    <textarea matInput placeholder="Ingrese Información adicional" formControlName="informacion_adicional" required> </textarea>
                     <mat-hint>
                         <mat-error [hidden]="!(formErrors.informacion_adicional)">
                             {{formErrors.informacion_adicional}}
@@ -194,8 +204,7 @@
 
             <div class="objetoBoton content10">
 
-                <button mat-raised-button class="boton-secundario_popup"
-                    (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
+                <button mat-raised-button class="boton-secundario_popup" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
                 <button mat-raised-button class="boton-principal_popup" type="submit">Aplicar</button>
             </div>
         </form>
