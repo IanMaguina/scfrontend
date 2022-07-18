@@ -36,15 +36,15 @@ export class AsignarIntegrantesComponent implements OnInit {
   consorcioData: any;
   asignarEmpresaFormDialog: FormGroup;
   formErrors = {
-/*     'sociedad': '', */
+     'sociedad': '', 
     'ruc': '',
     'razon_social': '',
     'participacion': '',
   }
   validationMessages = {
-/*     'sociedad': {
+     'sociedad': {
       'required': 'Sociedad es requerida.'
-    }, */
+    }, 
     'ruc': {
       'required': 'el Número de documento es requerido.',
     },
@@ -90,8 +90,8 @@ export class AsignarIntegrantesComponent implements OnInit {
   listadoIntegrantes: AgrupacionClienteSolicitud[] = [];
 
   displayedColumns: string[] = [
-/*     'sociedad',
-    'grupo_cliente', */
+     'sociedad',
+    //'grupo_cliente', 
     'razonsocial',
     'ruc',
 /*     'canal', */
@@ -145,7 +145,7 @@ export class AsignarIntegrantesComponent implements OnInit {
 
     /*  */
     this.asignarEmpresaFormDialog = this.formBuilder.group({
-/*       sociedad: ['', Validators.required], */
+      sociedad: [''], 
       ruc: ['', Validators.required],
       razon_social: [''],
       participacion: ['', Validators.required],
@@ -222,6 +222,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   asignarEmpresaConsorcio(form: any) {
     let clienteEmpresa: any = {
       id_cliente_agrupacion: this.id_cliente_agrupacion,
+      socieda_codigo_sap:form.sociedad.codigo_sap,
       numero_documento: form.ruc,
       razon_social:form.razon_social,
       id_usuario: this.id_usuario,
