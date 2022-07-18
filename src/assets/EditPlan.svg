@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="58" height="58" viewBox="0 0 58 58">
+  <defs>
+    <filter id="Rectángulo_1735" x="0" y="0" width="58" height="58" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect id="Rectángulo_1721" data-name="Rectángulo 1721" width="22" height="22"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_1221" data-name="Grupo 1221" transform="translate(-1810.5 -581)">
+    <g transform="matrix(1, 0, 0, 1, 1810.5, 581)" filter="url(#Rectángulo_1735)">
+      <rect id="Rectángulo_1735-2" data-name="Rectángulo 1735" width="40" height="40" rx="10" transform="translate(9 6)" fill="#cfcfcf" opacity="0.58"/>
+    </g>
+    <g id="Grupo_892" data-name="Grupo 892" transform="translate(1828.5 596)" opacity="0.58">
+      <g id="Grupo_878" data-name="Grupo 878" clip-path="url(#clip-path)">
+        <path id="Trazado_141" data-name="Trazado 141" d="M21.591,3.14,18.859.409a1.4,1.4,0,0,0-1.977,0L1.523,15.768a.485.485,0,0,0-.127.223l-1.381,5.4a.487.487,0,0,0,.592.592l5.4-1.381a.483.483,0,0,0,.223-.127L21.591,5.118h0a1.4,1.4,0,0,0,0-1.978m-15.7,16.3L2.556,16.112,14.287,4.381l3.332,3.332Zm-2.323.78L1.776,18.435l.351-1.374,2.812,2.812ZM1.5,19.531l.973.973-1.307.334ZM18.308,7.024,14.976,3.692l.666-.666,3.332,3.332ZM20.9,4.43l-1.239,1.24L16.33,2.337,17.57,1.1a.426.426,0,0,1,.6,0L20.9,3.829a.425.425,0,0,1,0,.6" transform="translate(0 0)"/>
+      </g>
+    </g>
+  </g>
+</svg>
