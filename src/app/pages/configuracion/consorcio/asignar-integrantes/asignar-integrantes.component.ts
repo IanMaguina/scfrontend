@@ -222,7 +222,7 @@ export class AsignarIntegrantesComponent implements OnInit {
   asignarEmpresaConsorcio(form: any) {
     let clienteEmpresa: any = {
       id_cliente_agrupacion: this.id_cliente_agrupacion,
-      socieda_codigo_sap:form.sociedad.codigo_sap,
+      sociedad_codigo_sap:form.sociedad.codigo_sap,
       numero_documento: form.ruc,
       razon_social:form.razon_social,
       id_usuario: this.id_usuario,
