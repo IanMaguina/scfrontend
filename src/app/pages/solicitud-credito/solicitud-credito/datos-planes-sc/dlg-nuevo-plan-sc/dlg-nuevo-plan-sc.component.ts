@@ -31,6 +31,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   private grupo_cliente_codigo_sap!: string;
   private id_cliente_agrupacion!: number;
   private id_empresa!: number;
+  private id_plan!: number;
   private destroy$ = new Subject<unknown>();
 
   displayedColumnsLineaProducto: string[] = ['codigo_sap', 'nombre'];
@@ -137,7 +138,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       plan_credito: [''],
       importe: [''],
       vigencia: [''],
-      linea_producto: [{ value: '', disabled: true }],
+      linea_producto: [''],
       documento_valorado: [''],
       documentoValoradoArray: this.formBuilder.array([]),
       informacion_adicional: [''],
@@ -148,9 +149,9 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.listarPlan();
     this.listarPlanEmpresa();
     this.onChangelistarPlanEmpresa();
+    this.onChangelistarLineaProducto();
     this.listarDocumentosValorados();
     this.listarMoneda();
     this.listarTipoLinea();
@@ -161,12 +162,17 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  cargarPlanes(form:any){
+    console.log(form.empresa);
 
-  listarPlan() {
-    this.planService.listarPlan().then(data => {
+  } 
+
+  listarPlanxGrupoCliente(grupo_cliente_codigo_sap:any) {
+    this.planService.listarPlanxGrupoCliente(grupo_cliente_codigo_sap).then(data => {
       this.listadoPlanesCredito = data.payload;
     })
   }
+  
   listarTipoLinea() {
     this.solicitudPlanService.listarTipoLinea(this.id_solicitud_editar).then(data => {
       this.listadoTipoLinea = data.payload;
@@ -193,22 +199,37 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
           this.grupo_cliente_codigo_sap = data.empresa.grupo_cliente_codigo_sap;
           this.id_cliente_agrupacion = id_cliente_agrupacion;
           this.id_empresa = id_empresa;
-
-          this.formulary.controls.linea_producto.enable();
-          this.listarLineaProductos(this.userInfo.sociedad_codigo_sap, data.empresa.grupo_cliente_codigo_sap)
+          //this.formulary.controls.linea_producto.enable();
+          this.listarPlanxGrupoCliente(data.empresa.grupo_cliente_codigo_sap);
+          //this.listarLineaProductos(this.userInfo.sociedad_codigo_sap, data.empresa.grupo_cliente_codigo_sap)
           return;
         }
 
-        this.formulary.controls.linea_producto.disable();
+        //this.formulary.controls.linea_producto.disable();
 
       }),
       takeUntil(this.destroy$)
     ).subscribe();
   }
 
-  listarLineaProductos(sociedad: string, grupo_cliente: string) {
-    this.lineaProductoService.listarCondicionPago(sociedad, grupo_cliente)
-      .then((data) => this.listadoLineaProducto = data);
+  private onChangelistarLineaProducto() {
+    this.formulary.get('plan_credito')?.valueChanges.pipe(
+      tap((data) => {
+        console.log("hhhh--->"+JSON.stringify(data));
+          this.id_plan=data.id;
+          this.listarLineaProductos(data.id,this.userInfo.sociedad_codigo_sap, this.grupo_cliente_codigo_sap)
+          this.listarDocumentosValorados();
+        //this.formulary.controls.linea_producto.disable();
+
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe();
+  }
+
+  listarLineaProductos(id:number,sociedad: string, grupo_cliente: string) {
+    this.lineaProductoService.listarCondicionPagoxPlan(id,sociedad, grupo_cliente)
+      .then((data) => {this.listadoLineaProducto = data.payload;
+      console.log("YYYYY--->"+JSON.stringify(data))});
   }
 
   async mapeoLineaProducto(data: SolicitudPlanCondicionPagoDTO) {
@@ -243,7 +264,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   //fin
   /* comienza Doc valorado */
   listarDocumentosValorados() {
-    this.documentoValoradoService.listarDocumentosValorados().then(data => {
+    this.documentoValoradoService.listarLineaProductoxPlan(this.id_plan).then(data => {
       this.listadoDocumentosValorados = data.payload;
     })
   }

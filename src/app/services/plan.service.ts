@@ -55,6 +55,30 @@ export class PlanService {
     );
   }
 
+  listarPlanxGrupoCliente(grupo_cliente_codigo_sap:any): Promise<any> {
+    console.log("grupo_cliente_codigo_sap--->"+grupo_cliente_codigo_sap);
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan/grupo-cliente/"+grupo_cliente_codigo_sap).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay planes encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
+
+  
   editarPlan(id_plan: any): Promise<any> {
     return new Promise(
       (resolve, reject) => {

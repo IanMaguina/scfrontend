@@ -33,6 +33,28 @@ export class LineaProductoService {
     );
   }
 
+  listarCondicionPagoxPlan(id_plan:any,sociedad_codigo_sap:any,grupo_cliente_codigo_sap:any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/plan/condicion-pago?id_plan="+id_plan+"&sociedad_codigo_sap="+sociedad_codigo_sap+"&grupo_cliente_codigo_sap="+grupo_cliente_codigo_sap).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay planes encontrados...");
+            resolve([]);
+          }
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
+  
   listarCondicionPago(sociedad_codigo_sap:string,grupo_cliente_codigo_sap:string): Promise<lineaCondicionPago[]> {
     return new Promise(
       (resolve, reject) => {
