@@ -16,7 +16,8 @@ export class SolicitudClienteDTO {
     zonal_codigo_sap?:string;
     correo?:string;
     telefono?:string;
-  
+    pertenece_sociedad?:boolean;
+
     static asFormGroup(grupo: SolicitudClienteDTO): FormGroup {
       return new FormGroup({
         sociedad: new FormControl(grupo.sociedad),
@@ -31,7 +32,7 @@ export class SolicitudClienteDTO {
         zonal_codigo_sap: new FormControl(grupo.zonal_codigo_sap),
         correo: new FormControl(grupo.correo),
         telefono: new FormControl(grupo.telefono),
+        pertenece_sociedad: new FormControl(grupo.pertenece_sociedad),
       });
     }
   }
-  

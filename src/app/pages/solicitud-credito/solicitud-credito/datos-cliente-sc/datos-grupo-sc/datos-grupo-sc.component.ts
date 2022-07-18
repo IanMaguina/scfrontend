@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DatosGrupoScComponent implements OnInit {
   @Input() clienteData: ClienteDatos;
   @Input() id_solicitud: number;
-  
+
   displayedColumns: string[] = [
     'sociedad_codigo_sap',
     'numero_documento',
@@ -82,6 +82,8 @@ export class DatosGrupoScComponent implements OnInit {
     if (this.id_solicitud) {
       this.solicitudService.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud }).then(async res => {
         this.clienteData = res.payload;
+
+        console.log("solicitud - cliente-->" + JSON.stringify(this.clienteData));
         this.formularyForm.setControl('empresasArray', this.mapear(this.clienteData.solicitud_cliente));
         console.log("desde datos grupo-->" + JSON.stringify(this.formularyForm.get('empresasArray').value[0]));
       })
