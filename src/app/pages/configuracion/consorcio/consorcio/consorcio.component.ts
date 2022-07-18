@@ -62,7 +62,8 @@ export class ConsorcioComponent implements OnInit {
   }
 
   async listarConsorcios() {
-    this.consorcioService.listarConsorcios().then(data => {
+    //this.consorcioService.listarConsorcios().then(data => {
+    this.consorcioService.buscarConsorcios().then(data => { 
       this.listadoConsorcios = data.payload;
     })
   }

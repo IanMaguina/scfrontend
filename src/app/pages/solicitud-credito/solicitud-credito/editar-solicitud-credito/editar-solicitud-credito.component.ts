@@ -123,7 +123,8 @@ export class EditarSolicitudCreditoComponent implements OnInit {
   abrirSeguimiento(){
     this.matDialog.open(SeguimientoSolicitudCreditoComponent, {
       disableClose: true, 
-      data: this.id_solicitud_editar
+      data: this.id_solicitud_editar,
+      panelClass: "config_Seguimiento"
     }); 
   }
 

@@ -2,7 +2,7 @@
     <br>
 <div *ngFor="let resumen of resumenDino" >
     <br>
-    <table border="0">
+    <table class="ResumenRiesgo">
         <caption title="Resumen Riesgo"></caption>
         <tr class="Header_RR">
             <th class="Header_RRWhite">{{(resumen?resumen.nombre_sociedad_codigo_sap:' ')}} </th>
@@ -13,8 +13,8 @@
             <th class="Header_R6">Moneda</th>
             <th class="Header_R7">Línea de Crédito <br>Solicitada S/.</th>
         </tr>
-        <tr *ngFor="let row of resumen.detalle">
-            <td [ngClass]="resumenRiesgo.ClassName"> {{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
+        <tr *ngFor="let row of resumen.detalle" class="Tabla_Row {{row.estilo}}" >
+            <td> {{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
                 '+row.nombre_linea_credito:'')}}</td>
             <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
             <td>{{(row.moneda_actual?row.moneda_actual:'NR')}}</td>
@@ -28,20 +28,17 @@
     <br>
 </div>
 
-</div>
-
-
-<div class="content-table col-s-12 col-m-12 col-xl-5 col-l-6" *ngIf="resumenConsolidado">
+<div class="content-table" *ngIf="resumenConsolidado">
     <br>
-    <table border="1" >
+    <table class="ResumenRiesgo">
         <caption title="listadoResumenTotalPacasmayo"></caption>
-        <tr>
+        <tr class="Header_RR">
             <th>{{(resumenConsolidado.nombre_grupo_sociedad?resumenConsolidado.nombre_grupo_sociedad:' ')}} </th>
             <th>Linea Credito Actual S/.</th>
-            <th>Linea Credito Solicitada S/.</th>
-            <th>Variación</th>
+            <th class="Header_R6">Linea Credito <br>Solicitada S/.</th>
+            <th >Variación</th>
         </tr>
-        <tr *ngFor="let row of resumenConsolidado.detalle">
+        <tr *ngFor="let row of resumenConsolidado.detalle" class="Tabla_Row {{row.estilo}}" >
             <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+' 
                 '+row.nombre_linea_credito:'')}}</td>
             <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'0')}}</td>

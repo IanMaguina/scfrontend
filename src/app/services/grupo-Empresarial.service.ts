@@ -53,6 +53,10 @@ export class GrupoEmpresarialService {
     }
   }
 
+    const id_usuario = this.autenticacionService.getUserInfo().id;
+
+    query = query != "" ? query+"&id_usuario=" + id_usuario : "id_usuario=" + id_usuario;
+
     console.log("link-->" + JSON.stringify(query));
     return new Promise(
       (resolve, reject) => {
@@ -139,6 +143,22 @@ export class GrupoEmpresarialService {
           console.log("error status=" + error.status + ", msg=" + error.message);
           reject(error);
         });
+      });
+  }
+
+  
+  solicitarAprobacionGrupoEmpresarial(clienteAgrupacion: ClienteAgrupacion): Promise<any> {
+    console.log("enviando solicitud aprobacion GrupoEmpresarial..." + JSON.stringify(clienteAgrupacion));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/cliente-agrupacion/"+clienteAgrupacion.id+"/solicitar-aprobacion",clienteAgrupacion).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
       });
   }
 

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service'
 import { ClienteEmpresa } from '../models/cliente-empresa.interface';
+import { AutenticacionService } from './autenticacion.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteEmpresaService {
   constructor(
-    private resourceService: ResourceService
+    private resourceService: ResourceService,
+    private autenticacionService: AutenticacionService
   ) {
   }
 
@@ -18,6 +20,35 @@ export class ClienteEmpresaService {
         this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa?activo=true").toPromise().then((data) => {
          // console.log("empresas del grupo: "+JSON.stringify(data));
           resolve(data);
+        }
+        ).catch(
+          (error) => {
+            console.log("error status=" + error.status + ", msg=" + error.message);
+            reject(error);
+          }
+        );
+
+      }
+    );
+  }
+
+  buscarClienteAgrupacionEmpresas(id_cliente_agrupacion:any): Promise<any> {
+    let query = "";
+
+    const id_usuario = this.autenticacionService.getUserInfo().id;
+
+    query = "id_cliente_agrupacion="+id_cliente_agrupacion+"&id_usuario=" + id_usuario ;
+
+    console.log("link-->" + JSON.stringify(query));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.getResource("/api/cliente-agrupacion/"+id_cliente_agrupacion+"/empresa/buscar?"+query).toPromise().then((data) => {
+          if (data.header.exito) {
+            resolve(data);
+          } else {
+            console.log("no hay empresas encontradas...");
+            resolve([]);
+          }
         }
         ).catch(
           (error) => {

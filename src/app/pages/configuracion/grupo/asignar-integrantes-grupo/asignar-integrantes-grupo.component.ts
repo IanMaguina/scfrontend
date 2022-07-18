@@ -17,6 +17,7 @@ import { GlobalSettings } from 'src/app/shared/settings';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { EditarGrupoEmpresarialComponent } from './../editar-grupo-empresarial/editar-grupo-empresarial.component';
 
+const ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_APROBADO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO;
 const ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE = GlobalSettings.ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_EXISTENTE;
@@ -76,6 +77,8 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   isAdmin: boolean = false;
   accionEliminar: boolean = true;
   
+  mostrarSolicitudAprobacion:boolean =false;
+
   constructor(
     public dialogRef: MatDialogRef<AsignarIntegrantesGrupoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -112,8 +115,40 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listarClienteEmpresa();
+    this.listarClienteEmpresa().then(r=>{
+      if (this.userInfo.id_perfil != PERFIL_ADMINISTRADOR ) {
+
+        if (this.id_estado_cliente_agrupacion == ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR){
+          this.mostrarSolicitudAprobacion = true;
+        }else{          
+          this.listadoIntegrantes.forEach(e=>{             
+             if (e.estado_cliente_agrupacion.id == ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR ){                
+                this.mostrarSolicitudAprobacion = true;
+             }
+          });
+
+        }        
+
+    }
+    });
     this.listarSociedades();   
+
+    
+  }
+
+  solicitarAprobacion(){
+    let item: ClienteAgrupacion = {
+      id_usuario: this.id_usuario,
+      id: this.id_cliente_agrupacion,
+      id_estado_cliente_agrupacion: this.id_estado_cliente_agrupacion
+    }
+
+    console.log("envia solicitud de aprobacion...");
+
+    this.grupoEmpresarialService.solicitarAprobacionGrupoEmpresarial(item).then(data => {
+      this.enviarMensajeSnack('Se aprobaron los cambios solicitados en el grupo');
+      this.onNoClick('CONFIRM_DLG_YES');
+    })
   }
 
   async listarSociedades() {
@@ -122,8 +157,9 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
     })
   }
 
-  listarClienteEmpresa() {
-    this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
+  async listarClienteEmpresa() {
+    //this.clienteEmpresaService.listarClienteAgrupacionEmpresa(this.id_cliente_agrupacion).then(data => {
+    await this.clienteEmpresaService.buscarClienteAgrupacionEmpresas(this.id_cliente_agrupacion).then(data => {      
       this.listadoIntegrantes = data.payload;
       console.log("listarClienteEmpresa--->" + JSON.stringify(this.listadoIntegrantes));
     })
@@ -269,6 +305,13 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       else
         accionEliminar = true;
     }
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = false;
+      else
+        accionEliminar = true;
+
+    }
     if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO) {
       if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
         accionEliminar = false;
@@ -300,6 +343,15 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
       else
         accionEliminar = 'delete';
     }
+
+    if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_BORRADOR) {
+      if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
+        accionEliminar = '';
+      else
+        accionEliminar = 'delete';
+
+    }
+
     if (element.id_estado_cliente_agrupacion === ESTADO_SOLICITUD_GRUPO_CONSORCIO_PENDIENTE_ACTIVAR_NUEVO) {
       if (this.userInfo.id_perfil === PERFIL_ADMINISTRADOR)
         accionEliminar = '';
