@@ -149,8 +149,6 @@ export class DatosClienteScComponent implements OnInit {
     data.usuario_sociedad_codigo_sap=this.usuario_sociedad_codigo_sap;
 
     console.log('openBuscarCoincidentes--->' + JSON.stringify(data));
-    
-    //data.tipo_cliente = this.cliente_pre_seleccionado;
     switch (data.tipo_cliente) {
       case 1:
         console.log("Grupo Empresarial");
@@ -158,7 +156,6 @@ export class DatosClienteScComponent implements OnInit {
           this.openAlerta('Debe ingresar datos para realizar la búsqueda');
           break;
         }
-
         const dialogRef1 = this.matDialog.open(GruposCoincidentesDialogComponent, {
           disableClose: true,
           data: data
