@@ -1,8 +1,7 @@
 <div class="expansion-body" *ngIf="clienteData  && clienteData.solicitud_cliente">
     <form [formGroup]="formularyForm">
         <div formArrayName="empresasArray">
-            <div class="objetoEmpresa objeto formElementoPlano" *ngFor="let obj of empresasArray.controls;let i=index"
-                [formGroupName]="i">
+            <div class="objetoEmpresa objeto formElementoPlano" *ngFor="let obj of empresasArray.controls;let i=index" [formGroupName]="i">
 
                 <div class="objeto formElementoPlano ">
                     <div class="label">Sociedad:</div>
@@ -23,17 +22,16 @@
                 </div>
                 <div class="objeto formElementoPlano ">
                     <div class="label">Canal Comercial:</div>
-                    <div class="dato">{{(obj.get('tipo_canal').value && obj.get('tipo_canal').value['nombre']?
-                        obj.get('tipo_canal').value['nombre']:'')}}</div>
-                </div>
-                <div class="objeto formElementoPlano ">
-                    <div class="label">Grupo Cliente:</div>
-                    <div class="dato">{{(obj.get('grupo_cliente').value &&
-                        obj.get('grupo_cliente').value['nombre']?obj.get('grupo_cliente').value['nombre']:'')}}
+                    <div class="dato">{{(obj.get('tipo_canal').value && obj.get('tipo_canal').value['nombre']? obj.get('tipo_canal').value['nombre']:'')}}
                     </div>
                 </div>
                 <div class="objeto formElementoPlano ">
-                    <div class="label">Sustento Comercial:</div>
+                    <div class="label">Grupo Cliente:</div>
+                    <div class="dato">{{(obj.get('grupo_cliente').value && obj.get('grupo_cliente').value['nombre']?obj.get('grupo_cliente').value['nombre']:'')}}
+                    </div>
+                </div>
+                <div class="objeto formElementoPlano " *ngIf="obj.get('pertenece_sociedad').value">
+                    <div class="label">Sustento Comercial: </div>
                     <div class="dato">
                         <mat-form-field class="input_forms" appearance="fill">
                             <mat-label>Sustento Comercial</mat-label>
@@ -41,44 +39,41 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="objeto formElementoPlano ">
+                <div class="objeto formElementoPlano " *ngIf="obj.get('pertenece_sociedad').value">
                     <div class="label">Oficina de Venta:</div>
                     <div class="dato">
-                    <mat-form-field class="input_forms" appearance="fill">
-                        <mat-label>Oficina de Venta</mat-label>
-                        <mat-select formControlName="zonal_codigo_sap" required>
-                            <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal.codigo_sap">{{ zonal.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                        <mat-form-field class="input_forms" appearance="fill">
+                            <mat-label>Oficina de Venta</mat-label>
+                            <mat-select formControlName="zonal_codigo_sap" required>
+                                <mat-option *ngFor="let zonal of listadoZonales" [value]="zonal.codigo_sap">{{ zonal.nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
-                <div class="objeto formElementoPlano">
+                <div class="objeto formElementoPlano" *ngIf="obj.get('pertenece_sociedad').value">
                     <div class="label">Teléfono:</div>
                     <div class="dato">
-                    <mat-form-field class="input_forms" appearance="fill">
-                        <mat-label>Teléfono</mat-label>
-                        <input matInput formControlName="telefono">
-                    </mat-form-field>
+                        <mat-form-field class="input_forms" appearance="fill">
+                            <mat-label>Teléfono</mat-label>
+                            <input matInput formControlName="telefono">
+                        </mat-form-field>
+                    </div>
                 </div>
-                </div>
-                <div class="objeto formElementoPlano">
+                <div class="objeto formElementoPlano" *ngIf="obj.get('pertenece_sociedad').value">
                     <div class="label">Correo Electrónico:</div>
                     <div class="dato">
-                    <mat-form-field class="input_forms" appearance="fill">
-                        <mat-label>Correo Electrónico</mat-label>
-                        <input matInput formControlName="correo">
-                    </mat-form-field>
+                        <mat-form-field class="input_forms" appearance="fill">
+                            <mat-label>Correo Electrónico</mat-label>
+                            <input matInput formControlName="correo">
+                        </mat-form-field>
+                    </div>
                 </div>
-                </div>
-                <div class="objeto_right" >
-                    <button mat-flat-button class="boton-secundario botonera-superior " type="button"
-                        (click)="guardarSeccionGrupo(formularyForm.value['empresasArray'][i])"
-                        [disabled]="formularyForm.invalid">Guardar</button>
+                <div class="objeto_right" *ngIf="obj.get('pertenece_sociedad').value">
+                    <button mat-flat-button class="boton-secundario botonera-superior " type="button" (click)="guardarSeccionGrupo(formularyForm.value['empresasArray'][i])" [disabled]="formularyForm.invalid">Guardar</button>
                 </div>
 
             </div>
         </div>
     </form>
 </div>
-
