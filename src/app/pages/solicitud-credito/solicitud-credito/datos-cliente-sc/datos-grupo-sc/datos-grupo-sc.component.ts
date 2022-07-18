@@ -73,7 +73,7 @@ export class DatosGrupoScComponent implements OnInit {
       empresasArray: this.formBuilder.array([])
     })
     this.formularyForm.valueChanges.subscribe(() => {
-      this.formErrors = this.formValidatorService.handleFormChanges(this.formularyForm, this.formErrors, this.validationMessages, this.submitted);
+      this.formErrors = this.formValidatorService.handleFormChanges(this.formularyForm.get('empresasArray'), this.formErrors, this.validationMessages, this.submitted);
     })
   }
 
@@ -83,7 +83,7 @@ export class DatosGrupoScComponent implements OnInit {
       this.solicitudService.listarGrupoEmpresarialxSolicitud({ id_solicitud: this.id_solicitud }).then(async res => {
         this.clienteData = res.payload;
         this.formularyForm.setControl('empresasArray', this.mapear(this.clienteData.solicitud_cliente));
-        console.log("desde datos grupo-->" + JSON.stringify(this.formularyForm.get('empresasArray').value));
+        console.log("desde datos grupo-->" + JSON.stringify(this.formularyForm.get('empresasArray').value[0]));
       })
     }
   }

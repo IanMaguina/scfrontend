@@ -1,3 +1,4 @@
+import { SolicitudService } from './../../../../../services/solicitud.service';
 import { SolicitudPlanCondicionPagoDTO } from './../../../../../dto/solicitud-plan-condicion-pago.dto';
 import { SolicitudPlanService } from './../../../../../services/solicitud-plan.service';
 import { Component, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
@@ -62,7 +63,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   PICO_DEMANDA = GlobalSettings.PICO_DEMANDA;
   DOCUMENTO_VALORADO_EN_CURSO = GlobalSettings.DOCUMENTO_VALORADO_EN_CURSO;
   FECHA_VIGENCIA_TEMPORAL = GlobalSettings.FECHA_VIGENCIA_TEMPORAL;
-
+  TIPO_CLIENTE_EMPRESA_INDIVIDUAL= GlobalSettings.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
   formulary: FormGroup;
 
   formErrors = {
@@ -110,6 +111,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   checkReemplazoPlan: boolean = false;
   userInfo: any;
   id_usuario: number = 0;
+  id_tipo_cliente:number=0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -122,11 +124,13 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     private tipoMonedaService: TipoMonedaService,
     private solicitudPlanService: SolicitudPlanService,
     private matDialog: MatDialog,
-    private autenticacionService: AutenticacionService
+    private autenticacionService: AutenticacionService,
+    private solicitudService:SolicitudService
 
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
-    this.id_usuario=this.userInfo.id;
+    console.log("user-->" + JSON.stringify(this.userInfo));
+    this.id_usuario = this.userInfo.id;
     this.id_solicitud_editar = data;
     console.log("PENELOPE-->" + JSON.stringify(this.id_solicitud_editar));
     this.formulary = this.formBuilder.group({
@@ -149,10 +153,11 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //this.obtenerCliente();
     this.listarPlanEmpresa();
     this.onChangelistarPlanEmpresa();
     this.onChangelistarLineaProducto();
-    this.listarDocumentosValorados();
+    //this.listarDocumentosValorados();
     this.listarMoneda();
     this.listarTipoLinea();
   }
@@ -162,17 +167,17 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  cargarPlanes(form:any){
+  cargarPlanes(form: any) {
     console.log(form.empresa);
 
-  } 
+  }
 
-  listarPlanxGrupoCliente(grupo_cliente_codigo_sap:any) {
+  async listarPlanxGrupoCliente(grupo_cliente_codigo_sap: any) {
     this.planService.listarPlanxGrupoCliente(grupo_cliente_codigo_sap).then(data => {
       this.listadoPlanesCredito = data.payload;
     })
   }
-  
+
   listarTipoLinea() {
     this.solicitudPlanService.listarTipoLinea(this.id_solicitud_editar).then(data => {
       this.listadoTipoLinea = data.payload;
@@ -180,7 +185,16 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   }
 
   private listarPlanEmpresa() {
-    this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(({ payload }) => this.listadoPlanesCreditoEmpresa = payload)
+    this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(async ({ payload }) => {
+      console.log("listarPlanEmpresa--->" + JSON.stringify(payload));
+      this.listadoPlanesCreditoEmpresa = payload.filter(item => item.empresa.sociedad_codigo_sap == this.userInfo.sociedad.sociedad_codigo_sap);
+
+      if (this.listadoPlanesCreditoEmpresa[0].solicitud.id_tipo_cliente===this.TIPO_CLIENTE_EMPRESA_INDIVIDUAL){
+        this.id_tipo_cliente=this.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
+        this.formulary.get('empresa').setValue(this.listadoPlanesCreditoEmpresa[0]);
+        await this.listarPlanxGrupoCliente(this.listadoPlanesCreditoEmpresa[0].empresa.grupo_cliente_codigo_sap);
+      }      
+    })
   }
 
   private onChangelistarPlanEmpresa() {
@@ -188,7 +202,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       tap((data) => {
 
         if (data) {
-          console.log("listado-->"+JSON.stringify(data))
+          console.log("listado-->" + JSON.stringify(data))
 
           this.lineaProductosArray.controls = [];
 
@@ -215,10 +229,10 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   private onChangelistarLineaProducto() {
     this.formulary.get('plan_credito')?.valueChanges.pipe(
       tap((data) => {
-        console.log("hhhh--->"+JSON.stringify(data));
-          this.id_plan=data.id;
-          this.listarLineaProductos(data.id,this.userInfo.sociedad_codigo_sap, this.grupo_cliente_codigo_sap)
-          this.listarDocumentosValorados();
+        console.log("hhhh--->" + JSON.stringify(data));
+        this.id_plan = data.id;
+        this.listarLineaProductos(data.id, this.userInfo.sociedad_codigo_sap, this.grupo_cliente_codigo_sap)
+        this.listarDocumentosValorados();
         //this.formulary.controls.linea_producto.disable();
 
       }),
@@ -226,10 +240,12 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  listarLineaProductos(id:number,sociedad: string, grupo_cliente: string) {
-    this.lineaProductoService.listarCondicionPagoxPlan(id,sociedad, grupo_cliente)
-      .then((data) => {this.listadoLineaProducto = data.payload;
-      console.log("YYYYY--->"+JSON.stringify(data))});
+  listarLineaProductos(id: number, sociedad: string, grupo_cliente: string) {
+    this.lineaProductoService.listarCondicionPagoxPlan(id, sociedad, grupo_cliente)
+      .then((data) => {
+        this.listadoLineaProducto = data.payload;
+        console.log("YYYYY--->" + JSON.stringify(data))
+      });
   }
 
   async mapeoLineaProducto(data: SolicitudPlanCondicionPagoDTO) {
@@ -347,7 +363,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   async agregar(form: any) {
     const params = this.destructuringAssigment(form);
     this.solicitudPlanService.crear(params).then(data => {
-      if(data.header.exito){
+      if (data.header.exito) {
         this.onNoClick('CONFIRM_DLG_YES');
       }
     })

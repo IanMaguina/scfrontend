@@ -1,6 +1,7 @@
 <div class="expansion-body" *ngIf="clienteData  && clienteData.solicitud_cliente">
     <form [formGroup]="formularyForm">
-        <div formArrayName="empresasArray">
+        {{empresasArray.length}}
+        <div formArrayName="empresasArray" >
             <div class="objetoEmpresa objeto formElementoPlano" *ngFor="let obj of empresasArray.controls;let i=index"
                 [formGroupName]="i">
 
@@ -74,9 +75,8 @@
                 <div class="objeto_right" >
                     <button mat-flat-button class="boton-secundario botonera-superior " type="button"
                         (click)="guardarSeccionGrupo(formularyForm.value['empresasArray'][i])"
-                        [disabled]="formularyForm.invalid">Guardar</button>
+                        [disabled]="formularyForm.get('empresasArray').value[i].invalid">Guardar</button>
                 </div>
-
             </div>
         </div>
     </form>
