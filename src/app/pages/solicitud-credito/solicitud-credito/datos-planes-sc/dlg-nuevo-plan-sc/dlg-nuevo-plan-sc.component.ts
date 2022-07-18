@@ -19,6 +19,7 @@ import { MatTable } from '@angular/material/table';
 import { TipoLinea } from 'src/app/models/tipo-linea.interface';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.interface';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -63,7 +64,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   PICO_DEMANDA = GlobalSettings.PICO_DEMANDA;
   DOCUMENTO_VALORADO_EN_CURSO = GlobalSettings.DOCUMENTO_VALORADO_EN_CURSO;
   FECHA_VIGENCIA_TEMPORAL = GlobalSettings.FECHA_VIGENCIA_TEMPORAL;
-  TIPO_CLIENTE_EMPRESA_INDIVIDUAL= GlobalSettings.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
+  TIPO_CLIENTE_EMPRESA_INDIVIDUAL = GlobalSettings.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
   formulary: FormGroup;
 
   formErrors = {
@@ -111,7 +112,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   checkReemplazoPlan: boolean = false;
   userInfo: any;
   id_usuario: number = 0;
-  id_tipo_cliente:number=0;
+  id_tipo_cliente: number = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -125,7 +126,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     private solicitudPlanService: SolicitudPlanService,
     private matDialog: MatDialog,
     private autenticacionService: AutenticacionService,
-    private solicitudService:SolicitudService
+    private solicitudService: SolicitudService
 
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
@@ -189,11 +190,29 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       console.log("listarPlanEmpresa--->" + JSON.stringify(payload));
       this.listadoPlanesCreditoEmpresa = payload.filter(item => item.empresa.sociedad_codigo_sap == this.userInfo.sociedad.sociedad_codigo_sap);
 
-      if (this.listadoPlanesCreditoEmpresa[0].solicitud.id_tipo_cliente===this.TIPO_CLIENTE_EMPRESA_INDIVIDUAL){
-        this.id_tipo_cliente=this.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
+      if (this.listadoPlanesCreditoEmpresa[0].solicitud.id_tipo_cliente === this.TIPO_CLIENTE_EMPRESA_INDIVIDUAL) {
+        this.id_tipo_cliente = this.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
         this.formulary.get('empresa').setValue(this.listadoPlanesCreditoEmpresa[0]);
         await this.listarPlanxGrupoCliente(this.listadoPlanesCreditoEmpresa[0].empresa.grupo_cliente_codigo_sap);
-      }      
+      }
+    })
+  }
+
+  validarImporte(element: any) {
+    let suma = 0;
+    this.documentoValoradoArray.controls.forEach((i) => {
+      suma = suma + i.get('importe').value;
+      if (suma > this.formulary.get('importe').value) {
+        const dialogRef2 = this.matDialog.open(ErrorDialogComponent, {
+          disableClose: true,
+          width: "400px",
+          data: "Revisar Importes"
+        });
+        /* en realidad no habria return, pero por si acaso, borrar si es necesario */
+        dialogRef2.afterClosed().subscribe(result => {
+        });
+
+      }
     })
   }
 
@@ -303,6 +322,9 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     console.log("cbo DV data -->" + JSON.stringify(documentoValorado));
     this.mostrarListadoDocumentoValoradoGrilla = documentoValorado;
     this.formulary.setControl('documentoValoradoArray', this.mapearDocumentoValorado(documentoValorado));
+    if (this.documentoValoradoArray.controls.length === 1) {
+      this.documentoValoradoArray.controls[0].get('importe').setValue(this.formulary.get("importe").value);
+    }
   }
 
   mapearDocumentoValorado(lista: SolicitudPlanDocumentoValoradoDTO[]): FormArray {
@@ -314,8 +336,6 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     return this.formulary.get('documentoValoradoArray') as FormArray;
   }
   /* D valorados */
-
-
 
   listarMoneda() {
     this.tipoMonedaService.listar().then(data => {
