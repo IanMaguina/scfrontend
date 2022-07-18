@@ -202,7 +202,7 @@ export class AsignarIntegrantesGrupoComponent implements OnInit {
         }
       } else {
         let mensaje: string = "Empresa no registrada";
-        if (data.payload.tiene_cliente) {
+        if (data.payload?.tiene_cliente) {
           let gc = data.payload.cliente.cliente_agrupacion.nombre
           mensaje = "Empresa ya fue asignada al Grupo / Consorcio " + gc;
         }
