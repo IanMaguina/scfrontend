@@ -986,6 +986,72 @@ th.mat-header-cell {
     }
 }
 
+.Adjuntos_LC{
+    width: 767px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    align-items: center;
+
+    .mat-form-field-infix {
+        align-self: center;
+        border: 0px;
+    }
+}
+
+.TablaAdjuntos{
+    width: auto;
+    th {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    td {
+       padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+}
+.OpcionesEstadosFinancieros{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.Subtitulo{
+    padding-bottom: 15px;
+}
+
+.Adjuntos_EstadosFinancieros{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+    .BotonEstadosFinancierosGuardar{
+        
+        justify-content: flex-end;
+    }
+    padding-bottom: 15px;
+}
+
+.Opcion4EstadosFinancieros{
+    .mat-radio-label{
+    display: flex !important;
+    align-content: flex-start;
+    align-items: flex-start;
+    
+}
+.mat-radio-label-content{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+}
+
 .mat-tab-label-active {
     width: 300px !important;
     background-color: #05C65D !important;
@@ -1727,16 +1793,9 @@ u {
 
 .Dialog_NuevoPlan {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
-    grid-template-areas:
-        "a b"
-        "c d"
-        "e f"
-        "g g"
-        "h h"
-        "i i"
-        ". j";
+ 
     row-gap: 10px;
 
 }
@@ -1744,17 +1803,7 @@ u {
 @media screen and (max-width: 700px) {
     .Dialog_NuevoPlan {
         grid-template-columns: 1fr;
-        grid-template-areas:
-            "a"
-            "b"
-            "c"
-            "d"
-            "e"
-            "f"
-            "g"
-            "h"
-            "i"
-            "j";
+  
     }
 }
 
@@ -1795,8 +1844,10 @@ u {
 }
 
 .content10 {
-    justify-self: end;
-    grid-area: j;
+    display: flex;
+    justify-self: flex-end;
+    padding-bottom: 15px;
+   
 }
 
 .Title_NPC {
