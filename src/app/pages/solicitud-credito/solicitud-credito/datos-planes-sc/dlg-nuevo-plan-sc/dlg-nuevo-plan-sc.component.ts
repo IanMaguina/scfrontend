@@ -65,6 +65,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   DOCUMENTO_VALORADO_EN_CURSO = GlobalSettings.DOCUMENTO_VALORADO_EN_CURSO;
   FECHA_VIGENCIA_TEMPORAL = GlobalSettings.FECHA_VIGENCIA_TEMPORAL;
   TIPO_CLIENTE_EMPRESA_INDIVIDUAL = GlobalSettings.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
+  TIPO_CLIENTE_CONSORCIO = GlobalSettings.TIPO_CLIENTE_CONSORCIO;
   formulary: FormGroup;
 
   formErrors = {
