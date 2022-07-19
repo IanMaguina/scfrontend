@@ -20,6 +20,7 @@ import { TipoLinea } from 'src/app/models/tipo-linea.interface';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { Solicitud } from 'src/app/models/solicitud.interface';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -114,7 +115,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   userInfo: any;
   id_usuario: number = 0;
   id_tipo_cliente: number = 0;
-
+  solicitud: Solicitud;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
@@ -163,6 +164,8 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     //this.listarDocumentosValorados();
     this.listarMoneda();
     this.listarTipoLinea();
+    this.obtenerSolicitud();
+   
   }
 
   ngOnDestroy(): void {
@@ -415,5 +418,11 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     });
 
   }
-
+  obtenerSolicitud() {
+    this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
+      console.log("datos cliente--->" + JSON.stringify(data));
+      this.solicitud = data.payload;
+      this.id_tipo_cliente = data.payload.id_tipo_cliente;
+    })
+  }
 }
