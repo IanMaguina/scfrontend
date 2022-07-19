@@ -10,7 +10,7 @@ import { AppConfigService } from './app-config.service';
 
 export class CondicionPagoRegularService {
 
-  private readonly api: string = "";//GlobalSettings.BASE_API_URL;
+  private api: string = "";//GlobalSettings.BASE_API_URL;
 
   //private readonly api: string = config.BASE_API_URL;
   private _eventBuscarCondicionPagoRegularSubject = new ReplaySubject<HttpParams>(1);
