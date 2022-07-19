@@ -23,7 +23,7 @@ export class CondicionPagoService {
     private readonly autenticacionService: AutenticacionService,
     private appConfig: AppConfigService
   ) {
-    var vl_appConfig = this.appConfig.getConfig();
+    let vl_appConfig = this.appConfig.getConfig();
     this.api = vl_appConfig.BASE_API_URL;
 
   }
