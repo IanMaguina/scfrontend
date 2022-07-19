@@ -4,16 +4,23 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 import config from 'src/assets/config.json';
+import { AppConfigService } from './app-config.service';
 
 @Injectable()
 
 export class CondicionPagoRegularService {
 
-  private readonly api: string = config.BASE_API_URL;
+  private readonly api: string = "";//GlobalSettings.BASE_API_URL;
+
+  //private readonly api: string = config.BASE_API_URL;
   private _eventBuscarCondicionPagoRegularSubject = new ReplaySubject<HttpParams>(1);
   public eventBuscarCondicionPagoRegular$ = this._eventBuscarCondicionPagoRegularSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private appConfig: AppConfigService) { 
+      var vl_appConfig = this.appConfig.getConfig();
+      this.api = vl_appConfig.BASE_API_URL;
+    }
 
   public getSociedad(): Observable<any[]> {
     const url: string = `${this.api}/api/sociedad`;
