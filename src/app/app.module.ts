@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 /* utils */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +32,7 @@ import { map } from 'rxjs/operators';
 import { MatTableResponsiveModule } from './shared/tables/mat-table-responsive.module';
 import { CerrarSessionComponent } from './auth/cerrar-session/cerrar-session.component';
 import { LoadInterceptorService } from './interceptors/load-interceptor.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -87,6 +88,8 @@ export function socialConfigFactory(restService: AppConfigService) {
     SocialLoginModule,
     CookieModule.forRoot(),
     MatTableResponsiveModule,
+    NgxSpinnerModule,
+
   ],
   exports: [MatTableResponsiveModule
   ],
@@ -112,6 +115,7 @@ export function socialConfigFactory(restService: AppConfigService) {
       }
     ],
   ],
+  schemas: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
