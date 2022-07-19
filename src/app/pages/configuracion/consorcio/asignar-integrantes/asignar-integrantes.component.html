@@ -6,8 +6,8 @@
             <div class="NombreConsorcio_Dialog">
                 <div class="NombreDatosClienteConsorciados">Dato del Cliente</div>
                 <div class="DatosConsorcio">
-                    <div>Razón Social:&nbsp;&nbsp; RZ</div>
-                    <div>RUC:&nbsp;&nbsp; RUC</div>
+                    <div>Razón Social:&nbsp;&nbsp; {{this.consorcioData.nombre}}</div>
+                    <div>RUC:&nbsp;&nbsp; {{this.consorcioData.numero_documento}}</div>
                 </div>
             </div>
             <form [formGroup]="asignarEmpresaFormDialog"
