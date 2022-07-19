@@ -2,7 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 /* utils */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { AppRoutingModule } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
@@ -31,6 +31,7 @@ import { map } from 'rxjs/operators';
 
 import { MatTableResponsiveModule } from './shared/tables/mat-table-responsive.module';
 import { CerrarSessionComponent } from './auth/cerrar-session/cerrar-session.component';
+import { LoadInterceptorService } from './interceptors/load-interceptor.service';
 
 
 
@@ -61,7 +62,7 @@ export function socialConfigFactory(restService: AppConfigService) {
 };
 
 @NgModule({
-  
+
   declarations: [
     AppComponent,
     LoginComponent,
@@ -103,6 +104,11 @@ export function socialConfigFactory(restService: AppConfigService) {
         provide: 'SocialAuthServiceConfig',
         useFactory: socialConfigFactory,
         deps: [AppConfigService]
+      },
+      {
+        provide:HTTP_INTERCEPTORS,
+        useClass: LoadInterceptorService,
+        multi: true,
       }
     ],
   ],
