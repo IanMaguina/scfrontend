@@ -15,7 +15,8 @@
                 <div class="BuscadorConsorciados">
                     <mat-form-field appearance="fill">
                         <mat-label>Sociedad</mat-label>
-                        <mat-select formControlName="sociedad" >
+                        <mat-select formControlName="sociedad">
+                            <mat-option [value]=null>Sin sociedad</mat-option> 
                             <mat-option *ngFor="let sociedad of listadoSociedades" [value]="sociedad">
                                 {{ sociedad.nombre }}
                             </mat-option>
