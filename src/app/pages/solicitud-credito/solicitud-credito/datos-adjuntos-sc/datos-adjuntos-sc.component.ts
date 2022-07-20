@@ -66,15 +66,16 @@ obtenerSolicitud(){
       })
   }
 
-  openDialog(componente: any, msg_exito: string, data?: any) {
+  async openDialog(componente: any, msg_exito: string, data?: any) {
     let dialogRef = this.matDialog.open(componente, {
       disableClose: true, 
       data: data?data:''
     });
 
-    dialogRef.afterClosed().subscribe(_ => {
+    dialogRef.afterClosed().subscribe(async _ => {
       console.log(msg_exito);
-      this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
+     /*  await this.router.navigate(['/']); */
+     await this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
     });
   }
 
