@@ -3,7 +3,6 @@
     <span>Solicitud de Crédito</span>
   </div>
   <div>
-
     <button mat-raised-button class="boton-secundario" (click)="rechazar()"
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Devolver</button>
     &nbsp;
@@ -20,7 +19,7 @@
   </div>
 </div>
 
-<div class="body-dialog" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
+<div class="body-dialog">
   <mat-horizontal-stepper linear #stepper>
     <mat-step [stepControl]="firstForm">
       <div class="content-stepper">

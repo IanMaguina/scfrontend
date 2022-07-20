@@ -1,55 +1,55 @@
 <div class="titledocumento">
-    Solicitud: {{id_solicitud}} 
+    Solicitud: {{id_solicitud}}
     <button mat-raised-button class="botonera-superior boton-secundario">Anular Solicitud</button>
     <br><br>
     <mat-divider></mat-divider>
     <br>
-    
+
 </div>
-<div >
-    <div >
-        Grupo Empresarial:<!--  {{ data_solicitud.cliente.nombre }} -->
+<div>
+    <div>
+        Grupo Empresarial:
+        <!--  {{ data_solicitud.cliente.nombre }} -->
     </div>
-   
-   
-    <div >
+
+
+    <div>
         <!-- debe ser la fecha en que se solicita  -->
-        Fecha Solicitud: <!-- {{ data_solicitud.fecha_creacion }} -->
+        Fecha Solicitud:
+        <!-- {{ data_solicitud.fecha_creacion }} -->
     </div>
-    <div >
-        Estado: 
+    <div>
+        Estado:
     </div>
 </div>
 <br>
-    <br>
-    <div >
-        <mat-tab-group mat-align-tabs="start">
-            <mat-tab label="Datos de Cliente" >
-                    <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)" ></app-datos-cliente-sc>
-                    Datos del Cliente
-            </mat-tab>
-            <mat-tab label="Solicitud de Crédito" >
-                <div>
-                    Solicitud de crédito
-                </div>
-            </mat-tab>
-            <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion">
-                    <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
-            </mat-tab>
-            <mat-tab label="Resumen de Evaluación " >
-                
-                    
-                
-            </mat-tab>
-            <mat-tab label="Datos de Obra" >
-                <div >
-                    obras
-                </div>
-            </mat-tab>
-            <mat-tab label="Adjuntos" >
-                <div >
-                    adjuntos
-                </div>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
+<br>
+<div>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Datos de Cliente">
+            <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)">
+            </app-datos-cliente-sc>
+            Datos del Cliente
+        </mat-tab>
+        <mat-tab label="Solicitud de Crédito">
+            <div>
+                <app-datos-planes-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-planes-sc>
+            </div>
+        </mat-tab>
+        <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
+            <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
+        </mat-tab>
+        <mat-tab label="Resumen de Evaluación" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
+        </mat-tab>
+        <mat-tab label="Datos de Obra">
+            <div>
+                <app-datos-obras-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-obras-sc>
+            </div>
+        </mat-tab>
+        <mat-tab label="Adjuntos">
+            <div>
+                <app-datos-adjuntos-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-adjuntos-sc>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
