@@ -144,7 +144,7 @@
                             Referencias Comerciales (Proveedores)
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar"></app-referencias-comerciales-sc>
+                    <app-referencias-comerciales-sc [id_solicitud]="id_solicitud_editar" [id_estado_solicitud]="ESTADO_SOLICITUD"></app-referencias-comerciales-sc>
                 </mat-expansion-panel>
     
                 <!-- Principales Clientes -->
@@ -154,7 +154,7 @@
                             Principales Clientes
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar"></app-principales-clientes-sc>
+                    <app-principales-clientes-sc [id_solicitud]="id_solicitud_editar" [id_estado_solicitud]="ESTADO_SOLICITUD"></app-principales-clientes-sc>
                 </mat-expansion-panel>
     
                 <!-- Empresas Relacionadas -->
@@ -164,7 +164,7 @@
                             Empresas Relacionadas
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar"></app-empresas-relacionadas-sc>
+                    <app-empresas-relacionadas-sc [id_solicitud]="id_solicitud_editar" [id_estado_solicitud]="ESTADO_SOLICITUD"></app-empresas-relacionadas-sc>
                 </mat-expansion-panel>
     
                 <!-- <mat-expansion-panel (opened)="panelOpenState = true"
