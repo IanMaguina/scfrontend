@@ -25,32 +25,32 @@ export class CondicionPagoRegularService {
     }
 
   public getSociedad(): Observable<any[]> {
-    const url: string = `${this.api}/api/sociedad`;
+    const url: string = this.api+"/api/sociedad";
     return this.http.get<any[]>(url).pipe(pluck('payload'));
   }
 
   public getGrupoCliente(): Observable<any[]> {
-    const url: string = `${this.api}/api/grupo-cliente`;
+    const url: string = this.api+"/api/grupo-cliente";
     return this.http.get<any[]>(url).pipe(pluck('payload'));
   }
 
   public getLineaProducto(): Observable<any[]> {
-    const url: string = `${this.api}/api/linea-producto`;
+    const url: string = this.api+"/api/linea-producto";
     return this.http.get<any[]>(url).pipe(pluck('payload'));
   }
 
   public getSearhCondicionPago(params?: HttpParams): Observable<any[]> {
-    const url: string = `${this.api}/api/condicion-pago/buscar`;
+    const url: string = this.api+"/api/condicion-pago/buscar";
     return this.http.get<any[]>(url,{ params }).pipe(pluck('payload'));
   }
 
   public addCondicionPagoRegular(params: Object): Observable<any> {
-    const url: string = `${this.api}/api/condicion-pago`;
+    const url: string = this.api+"/api/condicion-pago";
     return this.http.post<any>(url, params );
   }
 
   public updateCondicionPagoRegular(id:number,params: Object): Observable<any> {
-    const url: string = `${this.api}/api/condicion-pago/${id}`;
+    const url: string = this.api+"/api/condicion-pago/"+id;
     return this.http.put<any>(url, params );
   }
 
