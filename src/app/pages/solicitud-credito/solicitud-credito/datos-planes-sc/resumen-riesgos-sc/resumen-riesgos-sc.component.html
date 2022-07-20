@@ -16,12 +16,12 @@
         <tr *ngFor="let row of resumen.detalle" class="Tabla_Row {{row.estilo}}" >
             <td> {{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+'
                 '+row.nombre_linea_credito:'')}}</td>
-            <td>{{(row.linea_credito_actual?row.linea_credito_actual:'NR')}}</td>
-            <td>{{(row.moneda_actual?row.moneda_actual:'NR')}}</td>
-            <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:'NR')}}</td>
-            <td>{{(row.linea_credito_solicitada?row.linea_credito_solicitada:'NR')}}</td>
-            <td>{{(row.moneda_solicitada?row.moneda_solicitada:'NR')}}</td>
-            <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:'NR')}}</td>
+            <td>{{(row.linea_credito_actual?row.linea_credito_actual:' ')}}</td>
+            <td>{{(row.moneda_actual?row.moneda_actual:' ')}}</td>
+            <td>{{(row.linea_credito_actual_soles?row.linea_credito_actual_soles:' ')}}</td>
+            <td>{{(row.linea_credito_solicitada?row.linea_credito_solicitada:' ')}}</td>
+            <td>{{(row.moneda_solicitada?row.moneda_solicitada:' ')}}</td>
+            <td>{{(row.linea_credito_solicitada_soles?row.linea_credito_solicitada_soles:' ')}}</td>
         
         </tr>
     </table>
