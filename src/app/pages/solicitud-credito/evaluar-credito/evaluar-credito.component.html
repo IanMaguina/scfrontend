@@ -36,10 +36,10 @@
                 <app-datos-planes-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-planes-sc>
             </div>
         </mat-tab>
-        <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
+        <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">
             <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
         </mat-tab>
-        <mat-tab label="Resumen de Evaluación" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">
+        <mat-tab label="Resumen de Evaluación" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">
         </mat-tab>
         <mat-tab label="Datos de Obra">
             <div>

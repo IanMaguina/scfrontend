@@ -25,6 +25,7 @@ solicitud: Solicitud;
 ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
 ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
 ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+ESTADO_SOLICITUD_EN_EVALUACION:number=GlobalSettings.ESTADO_SOLICITUD_EN_EVALUACION;
   constructor(
     private activatedRoute: ActivatedRoute,
     private solicitudService:SolicitudService,
