@@ -9,7 +9,9 @@ import config from 'src/assets/config.json';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { AppConfigService } from './app-config.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class CondicionPagoService {
 

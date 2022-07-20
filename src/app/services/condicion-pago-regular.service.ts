@@ -6,7 +6,9 @@ import { pluck } from 'rxjs/operators';
 import config from 'src/assets/config.json';
 import { AppConfigService } from './app-config.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class CondicionPagoRegularService {
 
