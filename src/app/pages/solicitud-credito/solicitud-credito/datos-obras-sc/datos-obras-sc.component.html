@@ -118,6 +118,12 @@
                                         (click)="actualizarSolicitudObra(formulary.value['obrasArray'][i])"
                                         [disabled]="formulary.invalid">Guardar</button>
                                 </div>
+                                &nbsp;
+                                <div class="objeto formElementoPlano">
+                                    <button mat-flat-button class="boton-secundario" type="button"
+                                        (click)="eliminarSolicitudObra(formulary.value['obrasArray'][i])"
+                                        >Eliminar</button>
+                                </div>
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>

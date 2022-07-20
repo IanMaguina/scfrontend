@@ -135,12 +135,14 @@ export class DatosObrasScComponent implements OnInit {
     return obraSolicitud;
   }
 
-  eliminarSolicitudObra(id_solicitud_obra: number) {
-    this.solicitudService.eliminarSolicitudObra(id_solicitud_obra).then((data) => {
+  eliminarSolicitudObra(solicitudObra: any) {
+    //console.log("solicitud obra "+ JSON.stringify(solicitudObra));
+    this.solicitudService.eliminarSolicitudObra(solicitudObra.id).then((data) => {
       if (data.header.exito) {
         this.enviarMensajeSnack("se eliminó la obra correctamente");
+        this.listarObras();
       }
-    });
+    }); 
   }
 
   //actualizar obra
