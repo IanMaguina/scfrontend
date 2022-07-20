@@ -25,33 +25,33 @@ export class CondicionPagoRegularService {
     }
 
   public getSociedad(): Observable<any[]> {
-    const url: string = `${this.api}/api/sociedad`;
-    return this.http.get<any[]>(url).pipe(pluck('payload'));
+    const url: string = this.api+"/api/sociedad";
+    return this.http.get<any[]>(this.api+"/api/sociedad").pipe(pluck('payload'));
   }
 
   public getGrupoCliente(): Observable<any[]> {
-    const url: string = `${this.api}/api/grupo-cliente`;
-    return this.http.get<any[]>(url).pipe(pluck('payload'));
+    const url: string = this.api+"/api/grupo-cliente";
+    return this.http.get<any[]>(this.api+"/api/grupo-cliente").pipe(pluck('payload'));
   }
 
   public getLineaProducto(): Observable<any[]> {
-    const url: string = `${this.api}/api/linea-producto`;
-    return this.http.get<any[]>(url).pipe(pluck('payload'));
+    const url: string = this.api+"/api/linea-producto";
+    return this.http.get<any[]>(this.api+"/api/linea-producto").pipe(pluck('payload'));
   }
 
   public getSearhCondicionPago(params?: HttpParams): Observable<any[]> {
-    const url: string = `${this.api}/api/condicion-pago/buscar`;
-    return this.http.get<any[]>(url,{ params }).pipe(pluck('payload'));
+    const url: string = this.api+"/api/condicion-pago/buscar";
+    return this.http.get<any[]>(this.api+"/api/condicion-pago/buscar",{ params }).pipe(pluck('payload'));
   }
 
   public addCondicionPagoRegular(params: Object): Observable<any> {
-    const url: string = `${this.api}/api/condicion-pago`;
-    return this.http.post<any>(url, params );
+    const url: string = this.api+"/api/condicion-pago";
+    return this.http.post<any>(this.api+"/api/condicion-pago", params );
   }
 
   public updateCondicionPagoRegular(id:number,params: Object): Observable<any> {
-    const url: string = `${this.api}/api/condicion-pago/${id}`;
-    return this.http.put<any>(url, params );
+    const url: string = this.api+"/api/condicion-pago/"+id;
+    return this.http.put<any>(this.api+"/api/condicion-pago/"+id, params );
   }
 
   public eventBuscarCondicionPagoRegular(params: HttpParams) {
