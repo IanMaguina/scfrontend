@@ -370,6 +370,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       "grupo_cliente_codigo_sap": this.grupo_cliente_codigo_sap,
       "id_cliente_agrupacion": this.id_cliente_agrupacion,
       "id_empresa": this.id_empresa,
+      "id_tipo_vigencia": form.vigencia.id,
       "fecha_vigencia": (form.fecha_vigencia===''?null:form.fecha_vigencia),
       "id_tipo_moneda": form.moneda.id,
       "importe": form.importe,
