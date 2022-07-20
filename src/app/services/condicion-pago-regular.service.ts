@@ -41,7 +41,7 @@ export class CondicionPagoRegularService {
 
   public getSearhCondicionPago(params?: HttpParams): Observable<any[]> {
     const url: string = this.api+"/api/condicion-pago/buscar";
-    return this.http.get<any[]>(this.api+"/api/condicion-pago/buscarArsa",{ params }).pipe(pluck('payload'));
+    return this.http.get<any[]>(this.api+"/api/condicion-pago/buscar",{ params }).pipe(pluck('payload'));
   }
 
   public addCondicionPagoRegular(params: Object): Observable<any> {
