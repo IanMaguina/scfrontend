@@ -2892,7 +2892,9 @@ u {
 }
 
 .Tabla_Riesgos{
-    width:auto;
+    display: inline-block;
+    width: 100%;
+    overflow-x: auto;
     th {
         padding: 15px !important;
     }
