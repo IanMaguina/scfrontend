@@ -36,7 +36,7 @@
             <th>{{(resumenConsolidado.nombre_grupo_sociedad?resumenConsolidado.nombre_grupo_sociedad:' ')}} </th>
             <th>Linea Credito Actual s/</th>
             <th class="Header_R6">Linea Credito <br>Solicitada s/</th>
-            <th >Variación</th>
+            <th >Variación %</th>
         </tr>
         <tr *ngFor="let row of resumenConsolidado.detalle" class="Tabla_Row {{row.estilo}}" >
             <td>{{(row.nombre_tipo_documento_valorado?row.nombre_tipo_documento_valorado+' 

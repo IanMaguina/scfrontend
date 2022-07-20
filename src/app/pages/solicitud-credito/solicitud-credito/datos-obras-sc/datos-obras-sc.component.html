@@ -134,7 +134,7 @@
 
     </div>
     <mat-divider></mat-divider>
-    <div class="botonera-step ">
+    <div class="botonera-step " *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
         <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
         <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
     </div>

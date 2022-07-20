@@ -1,42 +1,70 @@
-<div class="titledocumento">
-    Solicitud: {{id_solicitud}}
-    <button mat-raised-button class="botonera-superior boton-secundario">Anular Solicitud</button>
-    <br><br>
-    <mat-divider></mat-divider>
-    <br>
-
-</div>
-<div>
-    <div>
-        Grupo Empresarial:
-        <!--  {{ data_solicitud.cliente.nombre }} -->
+<div class="botonera-superiorPosSolicitante">
+    <div class="titlesectionSolicitud">
+        <button class="boton-secundario BotonSeguimiento" mat-raised-button>
+            <mat-icon>undo</mat-icon>
+        </button>
+        <span>Solicitud: {{id_solicitud}}</span>
     </div>
+    <div class="Botones_Gap">
+        <button mat-raised-button class="boton-secundario" (click)="rechazar()"
+            *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Devolver</button>
 
+        <button mat-raised-button class="boton-principal_popup" (click)="aprobar()"
+            *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Enviar a evaluación</button>
 
-    <div>
-        <!-- debe ser la fecha en que se solicita  -->
-        Fecha Solicitud:
-        <!-- {{ data_solicitud.fecha_creacion }} -->
-    </div>
-    <div>
-        Estado:
     </div>
 </div>
-<br>
-<br>
+
+<mat-divider class="divisorConfig"></mat-divider>
+
+<div class="DatosSubtitulo">
+    <div class="DatosSolicitud">
+        <div>
+            Grupo Empresarial: información
+        </div>
+        <div>
+            Razón Social: información
+            <!--  {{ data_solicitud.cliente.nombre }} -->
+        </div>
+        <div>
+            RUC: información
+        </div>
+    </div>
+
+    <div class="DatosSolicitud">
+        <div>
+            <!-- debe ser la fecha en que se solicita  -->
+            Fecha Solicitud: 00/00/0000
+            <!-- {{ data_solicitud.fecha_creacion }} -->
+        </div>
+        <div>
+
+            Estado: -Estado-
+
+            <button class="boton-secundario BotonSeguimiento" *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE"
+                mat-raised-button (click)="abrirSeguimiento()">
+                <mat-icon>article</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
 <div>
     <mat-tab-group mat-align-tabs="start">
         <mat-tab label="Datos de Cliente">
             <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)">
             </app-datos-cliente-sc>
-            Datos del Cliente
         </mat-tab>
         <mat-tab label="Solicitud de Crédito">
             <div>
                 <app-datos-planes-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-planes-sc>
             </div>
         </mat-tab>
-        <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">
+        <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion"
+            *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">
             <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
         </mat-tab>
         <mat-tab label="Resumen de Evaluación" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">

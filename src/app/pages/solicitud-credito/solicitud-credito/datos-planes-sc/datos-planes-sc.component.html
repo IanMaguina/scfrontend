@@ -1,5 +1,5 @@
-<div class="Planes_Credito">
-    <div class="Cabecera_PC">
+<div class="Planes_Credito" >
+    <div class="Cabecera_PC" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
         <div class="Datos_PC" *ngIf="esGrupo">
             <div class="Razon_PC">Nombre Grupo:</div>
             <div class="Dato_PC">{{ (miClienteSolicitud?miClienteSolicitud.nombre:'') }}</div>
@@ -75,8 +75,8 @@
         </ng-container>
     </div>
 
-    <mat-divider></mat-divider>
-    <div class="botonera-step">
+    <mat-divider *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE"></mat-divider >
+    <div class="botonera-step" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
         <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
         <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
     </div>
