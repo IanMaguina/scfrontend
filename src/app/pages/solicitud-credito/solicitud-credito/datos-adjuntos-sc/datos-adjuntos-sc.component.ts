@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SolicitudLineaCreditoService } from '@services/solicitud-linea-credito.service';
+import { SolicitudService } from '@services/solicitud.service';
 import { SuccessDialogComponent } from 'src/app/shared/success-dialog/success-dialog.component';
 
 
@@ -17,12 +18,13 @@ export class DatosAdjuntosScComponent implements OnInit {
   @Output() onFourthFormGroup: EventEmitter<any> = new EventEmitter();
   @Input() id_solicitud_editar: number;
   fourthFormGroup: FormGroup;
-
+  correlativo?:string='';
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
     private router: Router,
-    private solicitudLineaCreditoService: SolicitudLineaCreditoService
+    private solicitudLineaCreditoService: SolicitudLineaCreditoService,
+    private solicitudService: SolicitudService
   ) {
     this.fourthFormGroup = this._formBuilder.group({
       fourthCtrl: ['', Validators.required],
@@ -31,15 +33,32 @@ export class DatosAdjuntosScComponent implements OnInit {
 
   ngOnInit(): void {
   }
+obtenerSolicitud(){
+  this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+    this.correlativo = data.payload.correlativo;
+  });
+}
 
   public enviarRevision() {
-    this.solicitudLineaCreditoService.enviarRevision(this.id_solicitud_editar)
-      .then(resp => {
-        console.log(resp);
-        let data = {
-          mensaje : "Su solicitud ha sido enviada al revisor con éxito !!!",
-        }
-        this.openDialog(SuccessDialogComponent,"se envió a revisión", data);
+    this.solicitudLineaCreditoService.enviarRevision(this.id_solicitud_editar).then(resp => {
+       // console.log(resp.payload.correlativo);
+       let data:any;
+       if(resp.header.exito){
+        this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+          this.correlativo = data.payload.correlativo;
+         data = {
+            mensaje : "Su solicitud ha sido enviada al revisor con éxito !!!",
+            detalle: `N° de Solicitud:  ${this.correlativo}`,
+            adicional:"*Puedes hacerle seguimiento en tu bandeja de pendientes"
+          }
+          this.openDialog(SuccessDialogComponent,"se envió a revisión", data);
+        
+        
+        });
+        
+       }else{
+         console.log('no se envió a revisión');
+       }
 
       })
       .catch(function (error: HttpErrorResponse) {
@@ -55,7 +74,7 @@ export class DatosAdjuntosScComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(_ => {
       console.log(msg_exito);
-      this.router.navigate(['app/solicitudcredito/bandejaMisPendiendes']);
+      this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
     });
   }
 
