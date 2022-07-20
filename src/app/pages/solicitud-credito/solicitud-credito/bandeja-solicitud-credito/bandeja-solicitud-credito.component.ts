@@ -124,8 +124,16 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   }
 
   editarSolicitud(element: any) {
-    console.log(JSON.stringify(element));
-    this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+    console.log("editarSolicitud--->"+JSON.stringify(element));
+    if (element.id_estado===10){
+      this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+    }
+    if (element.id_estado===20){
+      this.router.navigate(['app/solicitudcredito/revisarSolicitudCredito', element.id]);
+    }    
+    if (element.id_estado===40){
+      this.router.navigate(['app/solicitudcredito/evaluarSolicitudCredito', element.id]);
+    }        
   }
 
   async buscarSolicitudes(form: any) {
