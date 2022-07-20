@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="objeto">
+        <div class="objeto" *ngIf="id_estado_solicitud===ESTADO_SOLICITUD_EN_SOLICITANTE">
             <button mat-flat-button class="boton-secundario" type="submit"
                 [disabled]="formulary.invalid">Guardar</button>
         </div>
