@@ -135,6 +135,7 @@ export class EditarSolicitudCreditoComponent implements OnInit {
     this.solicitudService.eliminarSolicitud(this.id_solicitud_editar).then((data)=>{
       if(data.header.exito){
         this._snack.openSnackBar(`Se anuló la solicitud: ${this.id_solicitud_editar}`,'Cerrar');
+        this.router.navigate(['app/solicitudcredito/bandejaMisPendiendes']);
       }
     })
   }
