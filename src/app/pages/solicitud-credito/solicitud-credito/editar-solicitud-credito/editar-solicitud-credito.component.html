@@ -3,22 +3,24 @@
     <span>Solicitud de Crédito</span>
   </div>
   <div>
-    <button mat-raised-button class="boton-secundario" (click)="aprobar()"
-      *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Aprobar</button>
-    &nbsp;
+
     <button mat-raised-button class="boton-secundario" (click)="rechazar()"
-      *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Rechazar</button>
+      *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Devolver</button>
     &nbsp;
-    <button mat-raised-button class="boton-secundario" type="button" (click)="anularSolicitud()">Anular Solicitud</button>
+    <button mat-raised-button class="boton-principal_popup" (click)="aprobar()"
+      *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Enviar a evaluación</button>
+
+    <button mat-raised-button class="boton-secundario" type="button" (click)="anularSolicitud()"
+      *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Anular Solicitud</button>
     &nbsp;
-    <button mat-mini-fab color="white" aria-label="Buscar" class="boton-buscar" type="button" (click)="abrirSeguimiento()">
+    <button *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE" mat-mini-fab color="white" aria-label="Buscar"
+      class="boton-secundario" type="button" (click)="abrirSeguimiento()">
       <mat-icon>library_books</mat-icon>
-  </button>
+    </button>
   </div>
 </div>
-<mat-divider class="divisorSolicitud"></mat-divider>
 
-<div class="body-dialog">
+<div class="body-dialog" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
   <mat-horizontal-stepper linear #stepper>
     <mat-step [stepControl]="firstForm">
       <div class="content-stepper">
