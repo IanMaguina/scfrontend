@@ -18,7 +18,7 @@ export class DatosAdjuntosScComponent implements OnInit {
   @Output() onFourthFormGroup: EventEmitter<any> = new EventEmitter();
   @Input() id_solicitud_editar: number;
   fourthFormGroup: FormGroup;
-  correlativo?:string='';
+  correlativo?: string = '';
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
@@ -33,34 +33,31 @@ export class DatosAdjuntosScComponent implements OnInit {
 
   ngOnInit(): void {
   }
-obtenerSolicitud(){
-  this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
-    this.correlativo = data.payload.correlativo;
-  });
-}
+  obtenerSolicitud() {
+    this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+      this.correlativo = data.payload.correlativo;
+    });
+  }
 
   public enviarRevision() {
     this.solicitudLineaCreditoService.enviarRevision(this.id_solicitud_editar).then(resp => {
-       // console.log(resp.payload.correlativo);
-       let data:any;
-       if(resp.header.exito){
-        this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
-          this.correlativo = data.payload.correlativo;
-         data = {
-            mensaje : "Su solicitud ha sido enviada al revisor con éxito!",
-            detalle: `N° de Solicitud:  ${this.correlativo}`,
-            adicional: '*Puedes hacerle seguimiento en tu bandeja de "Consultas"'
-          }
-          this.openDialog(SuccessDialogComponent,"se envió a revisión", data);
-        
-        
-        });
-        
-       }else{
-         console.log('no se envió a revisión');
-       }
+      console.log("Correlativo ian : " + resp.payload);
+      let data: any;
+      if (resp.header.exito) {
+        this.correlativo = resp.payload.correlativo;
+        data = {
+          mensaje: "Su solicitud ha sido enviada al revisor con éxito!",
+          detalle: `N° de Solicitud:  ${this.correlativo}`,
+          adicional: '*Puedes hacerle seguimiento en tu bandeja de "Consultas"'
+        }
+        this.openDialog(SuccessDialogComponent, "se envió a revisión", data);
+       
 
-      })
+      } else {
+        console.log('no se envió a revisión');
+      }
+
+    })
       .catch(function (error: HttpErrorResponse) {
         console.log(error);
       })
@@ -68,14 +65,14 @@ obtenerSolicitud(){
 
   async openDialog(componente: any, msg_exito: string, data?: any) {
     let dialogRef = this.matDialog.open(componente, {
-      disableClose: true, 
-      data: data?data:''
+      disableClose: true,
+      data: data ? data : ''
     });
 
     dialogRef.afterClosed().subscribe(async _ => {
       console.log(msg_exito);
-     /*  await this.router.navigate(['/']); */
-     await this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
+      /*  await this.router.navigate(['/']); */
+      await this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
     });
   }
 
