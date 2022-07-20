@@ -29,7 +29,8 @@
                 <div class="">
                     <mat-accordion>
                         <!--  Lista de Obras -->
-                        <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION" *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
+                        <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION"
+                            *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <div class="label">ID Obra:</div>
@@ -37,6 +38,13 @@
                                         {{obra.get('obra_codigo_isicom').value}}</div>
                                     <div class="label">Nombre Obra:</div>
                                     <div style="padding-right: 10px;" class="">{{obra.get('nombre_obra').value}}
+                                    </div>
+                                    &nbsp;
+                                    <div class="objeto formElementoPlano">
+                                        <button mat-icon-button
+                                            (click)="eliminarSolicitudObra(formulary.value['obrasArray'][i])">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
                                     </div>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
@@ -118,12 +126,7 @@
                                         (click)="actualizarSolicitudObra(formulary.value['obrasArray'][i])"
                                         [disabled]="formulary.invalid">Guardar</button>
                                 </div>
-                                &nbsp;
-                                <div class="objeto formElementoPlano">
-                                    <button mat-flat-button class="boton-secundario" type="button"
-                                        (click)="eliminarSolicitudObra(formulary.value['obrasArray'][i])"
-                                        >Eliminar</button>
-                                </div>
+
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
