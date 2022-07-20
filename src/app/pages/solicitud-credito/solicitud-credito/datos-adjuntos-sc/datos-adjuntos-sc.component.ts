@@ -47,9 +47,9 @@ obtenerSolicitud(){
         this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
           this.correlativo = data.payload.correlativo;
          data = {
-            mensaje : "Su solicitud ha sido enviada al revisor con éxito !!!",
+            mensaje : "Su solicitud ha sido enviada al revisor con éxito!",
             detalle: `N° de Solicitud:  ${this.correlativo}`,
-            adicional:"*Puedes hacerle seguimiento en tu bandeja de pendientes"
+            adicional: '*Puedes hacerle seguimiento en tu bandeja de "Consultas"'
           }
           this.openDialog(SuccessDialogComponent,"se envió a revisión", data);
         
