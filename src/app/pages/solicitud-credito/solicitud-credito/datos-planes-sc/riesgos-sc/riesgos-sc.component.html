@@ -80,7 +80,7 @@
         <!-- Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
-            <td class="botonAccion" mat-cell *matCellDef="let element">
+            <td class="botonAccion" mmat-raised-button mat-cell *matCellDef="let element">
                 <img (click)="editarPlan(element)" src="./assets/EditPlan.svg">
             </td>
         </ng-container>

@@ -482,7 +482,7 @@ export class DlgModificarPlanScComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
 
-        console.log("se agregó el plan correctamente");
+        console.log("se agregÃ³ el plan correctamente");
       }
     });
 

@@ -1,11 +1,11 @@
 <div class="NuevoPlan-CreditoPOPUP">
     <div class="Header_POPUPNPC">
-        <div class="titledialog_NPC color-title">Editar Plan de CrÈdito</div>
+        <div class="titledialog_NPC color-title">Editar Plan de Cr√©dito</div>
     </div>
     <div class="contenidoForm_NPC">
         <form class="Dialog_NuevoPlan" [formGroup]="formulary" (ngSubmit)="actualizar(formulary.value)">
             <div class="objetoNuevoPlan">
-                <div class="Title_NPC">Tipo de LÌnea:</div>
+                <div class="Title_NPC">Tipo de L√≠nea:</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Seleccionar</mat-label>
                     <mat-select formControlName="tipo_linea" (selectionChange)="seteoTipoLinea()" [compareWith]="comparaObjectos" required>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="objetoNuevoPlan">
-                <div class="Title_NPC">Plan de CrÈdito:</div>
+                <div class="Title_NPC">Plan de Cr√©dito:</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Seleccionar</mat-label>
                     <mat-select formControlName="plan_credito" required>
@@ -54,14 +54,14 @@
 
                     <mat-checkbox class="Subtitle_NPC_Reemplazo" formControlName="reemplazo">Reemplazo de planes
                     </mat-checkbox>
-                    <mat-icon class="icon_help" matTooltip="Marcar solo si se reemplazar· uno o m·s planes actual(es) por uno nuevo." matTooltipClass="TooltipReemplazo">help</mat-icon>
+                    <mat-icon class="icon_help" matTooltip="Marcar solo si se reemplazar uno o m√°s planes actual(es) por uno nuevo." matTooltipClass="TooltipReemplazo">help</mat-icon>
 
                 </div>
             </div>         
 
 
             <div class="objetoNuevoPlan">
-                <div class="Title_NPC">Importe de CrÈdito Solicitado:</div>
+                <div class="Title_NPC">Importe de Cr√©dito Solicitado:</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Ingresar</mat-label>
                     <input type="number" matInput placeholder="Ingrese importe" formControlName="importe" required>
@@ -103,9 +103,9 @@
 
             <div class="objetoNuevoPlan">
                 <div class="Title_NPC">Productos a comprar:</div>
-                <div class="Subtitle_NPC">*Pueden ser m·s de uno</div>
+                <div class="Subtitle_NPC">*Pueden ser m√°s de uno</div>
                 <mat-form-field appearance="fill">
-                    <mat-label>LÌnea de Productos</mat-label>
+                    <mat-label>L√≠nea de Productos</mat-label>
                     <mat-select formControlName="linea_producto" multiple [compareWith]="comparaObjectos" (selectionChange)="llenarLineaProductoGrilla()">
                         <mat-option *ngFor="let linea_producto of listadoLineaProducto" [value]="linea_producto">
                             {{ linea_producto.nombre }}
@@ -117,7 +117,7 @@
                     <table mat-table [dataSource]="lineaProductosArray.controls" class="tableforms mat-elevation-z8">
 
                         <ng-container matColumnDef="codigo_sap">
-                            <th mat-header-cell *matHeaderCellDef> CÛdigo SAP </th>
+                            <th mat-header-cell *matHeaderCellDef> C√≥digo SAP </th>
                             <td mat-cell *matCellDef="let element"> {{ element.get('codigo_sap').value}}</td>
                         </ng-container>
 
@@ -136,19 +136,19 @@
                     </table>
 
                     <div class="tableforms">
-                        <button mat-raised-button (click)="solicitarNuevaCondicionPago()">Nueva CondiciÛn</button>
+                        <button mat-raised-button (click)="solicitarNuevaCondicionPago()">Nueva Condici√≥n</button>
                     </div>
                 </div>
             </div>
 
             <ng-container matColumnDef="codigo_sap">
-                <th mat-header-cell *matHeaderCellDef> CÛdigo SAP </th>
+                <th mat-header-cell *matHeaderCellDef> C√≥digo SAP </th>
                 <td mat-cell *matCellDef="let element"> {{ element.get('linea_producto').value}}</td>
             </ng-container>
 
             <div class="objetoNuevoPlan">
                 <div class="Title_NPC">Documentos Valorados:</div>
-                <div class="Subtitle_NPC">*Pueden ser m·s de uno</div>
+                <div class="Subtitle_NPC">*Pueden ser m√°s de uno</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Documentos Valorados</mat-label>
                     <mat-select formControlName="documento_valorado" multiple [compareWith]="comparaObjectos" (selectionChange)="llenarDocumentoValoradoGrilla()">
@@ -189,10 +189,10 @@
 
 
             <div class="objetoNuevoPlan">
-                <div class="Title_NPC">InformaciÛn Adicional (Motivo de solicitud de crÈdito):</div>
+                <div class="Title_NPC">Informaci√≥n Adicional (Motivo de solicitud de cr√©dito):</div>
                 <mat-form-field class="info_NPC" appearance="fill">
                     <mat-label>Ingresar...</mat-label>
-                    <textarea matInput placeholder="Ingrese InformaciÛn adicional" formControlName="informacion_adicional" required> </textarea>
+                    <textarea matInput placeholder="Ingrese Informaci√≥n adicional" formControlName="informacion_adicional" required> </textarea>
                     <mat-hint>
                         <mat-error [hidden]="!(formErrors.informacion_adicional)">
                             {{formErrors.informacion_adicional}}

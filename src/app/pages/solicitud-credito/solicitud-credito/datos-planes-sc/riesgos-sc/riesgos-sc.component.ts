@@ -68,9 +68,10 @@ export class RiesgosScComponent implements OnInit {
       autoFocus: false,
     });
 
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
-        this.enviarMensajeSnack("Se actualizó solicitud");
+        this.enviarMensajeSnack("Se actualizÃ³ solicitud");
         this.listarPlanSolicitudRiesgo();
       } else {
         this.listarPlanSolicitudRiesgo();
