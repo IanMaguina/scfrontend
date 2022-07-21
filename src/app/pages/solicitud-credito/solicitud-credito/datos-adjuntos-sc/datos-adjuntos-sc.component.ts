@@ -23,9 +23,10 @@ export class DatosAdjuntosScComponent implements OnInit {
   correlativo?: string = '';
   
   solicitud: Solicitud;
-  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD: number;
   ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+  ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR: number = GlobalSettings.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR;
 
 
   constructor(
