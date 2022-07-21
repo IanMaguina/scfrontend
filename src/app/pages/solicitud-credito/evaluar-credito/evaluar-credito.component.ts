@@ -38,6 +38,9 @@ export class EvaluarCreditoComponent implements OnInit {
   miClienteSolicitud: any;
   fecha_creacion?:string;
   estado?:string;
+
+  motivo_rechazo:string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private solicitudService: SolicitudService,
@@ -65,6 +68,17 @@ export class EvaluarCreditoComponent implements OnInit {
         this.fecha_creacion = (this.solicitud.fecha_creacion?this.solicitud.fecha_creacion:'');
         this.estado = (this.solicitud.estado?this.solicitud.estado.nombre:'');
         console.log("Solicitud data imm--->" + JSON.stringify(this.solicitud));
+
+        this.solicitudService.listarSeguimientoSolicitud(this.id_solicitud_editar).then( data => {
+          console.log("data seguimiento="+JSON.stringify(data));
+          const items_seguimiento = data.payload;
+
+          const lastone = items_seguimiento.find(o=>!o.fecha_fin);
+          if (lastone){                            
+              this.motivo_rechazo = lastone.motivo_rechazo;
+          }
+
+        })
 
         this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(res => {
           this.miClienteSolicitud = this.mapeoAgrupacion(res.payload[0], this.id_tipo_cliente);
