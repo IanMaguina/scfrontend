@@ -10,6 +10,7 @@ import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { GlobalSettings } from 'src/app/shared/settings';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-datos-obras-sc',
@@ -164,11 +165,57 @@ export class DatosObrasScComponent implements OnInit {
     });
 
   }
+  
+  validaFechas(solicitudObra){
+
+    const da1 = Date.parse(solicitudObra.fecha_inicio_atencion);
+    const da2 = Date.parse(solicitudObra.fecha_fin_atencion);
+    
+    const do1 = Date.parse(solicitudObra.fecha_inicio_obra);
+    const do2 = Date.parse(solicitudObra.fecha_fin_obra);
+
+    console.log("da1="+da1);
+    console.log("da2="+da2);    
+
+    if (!da1){
+       return  "Fecha de inicio de atencion es invalida.";
+    }
+
+    if (!da2){
+      return "Fecha de fin de atencion es invalida.";
+    }
+
+    if (da1 < do1 || da1 > do2){
+       console.log("fecha de inicio de atencion invalida...");
+       
+       return "Fecha de inicio de atencion es invalida.";
+    } else
+
+          if (da2 > do2 || da2 < do1){
+            console.log("fecha de fin de atención invalida...");
+            return "Fecha de fin de atención es invalida.";
+          }
+
+    return;
+  }
 
   //actualizar obra
   async actualizarSolicitudObra(form: any) {
     console.log(JSON.stringify(form));
     let solicitudObra: SolicitudClienteObraDTO = await this.mapeoObra(form)
+
+    console.log("solicitudObra="+ JSON.stringify(solicitudObra));
+
+    const msg = this.validaFechas(solicitudObra)
+
+    if (msg){
+        this.callErrorDialog(msg);
+        return;
+    }
+
+    console.log("no hay error......");
+    return ;
+
     this.solicitudService.actualizarSolicitudObra(solicitudObra).then((data) => {
       if (data.header.exito) {
         this.enviarMensajeSnack("se actualizó la obra correctamente");
@@ -177,6 +224,14 @@ export class DatosObrasScComponent implements OnInit {
         this.listarObras();
       }
     })
+  }
+
+  callErrorDialog(mensaje: string) {
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: mensaje,
+    });
   }
 
   enviarMensajeSnack(mensaje: string) {
