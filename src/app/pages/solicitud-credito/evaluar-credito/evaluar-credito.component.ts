@@ -35,6 +35,8 @@ export class EvaluarCreditoComponent implements OnInit {
   TIPO_CLIENTE_GRUPO_EMPRESARIAL: number = GlobalSettings.TIPO_CLIENTE_GRUPO_EMPRESARIAL;
   TIPO_CLIENTE_CONSORCIO: number = GlobalSettings.TIPO_CLIENTE_CONSORCIO;
   miClienteSolicitud: any;
+  fecha_creacion?:string;
+  estado?:string;
   constructor(
     private activatedRoute: ActivatedRoute,
     private solicitudService: SolicitudService,
@@ -58,6 +60,8 @@ export class EvaluarCreditoComponent implements OnInit {
         this.solicitud = data.payload;
         this.ESTADO_SOLICITUD = this.solicitud.id_estado;
         this.id_tipo_cliente = this.solicitud.id_tipo_cliente;
+        this.fecha_creacion = (this.solicitud.fecha_creacion?this.solicitud.fecha_creacion:'');
+        this.estado = (this.solicitud.estado?this.solicitud.estado.nombre:'');
         console.log("Solicitud data imm--->" + JSON.stringify(this.solicitud));
 
         this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(res => {

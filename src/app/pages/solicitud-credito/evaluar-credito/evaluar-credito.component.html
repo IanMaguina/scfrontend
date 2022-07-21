@@ -34,12 +34,12 @@
     <div class="DatosSolicitud">
         <div>
             <!-- debe ser la fecha en que se solicita  -->
-            Fecha Solicitud: {{ solicitud.fecha_creacion | date: 'dd/MM/yyyy' }}
+            Fecha Solicitud: {{ fecha_creacion | date: 'dd/MM/yyyy' }}
             <!-- {{ data_solicitud.fecha_creacion }} -->
         </div>
         <div>
 
-            <span style="padding-right: 15px;">Estado: {{ solicitud.estado.nombre }}</span>
+            <span style="padding-right: 15px;">Estado: {{ estado }}</span>
 
             <button class="boton-secundario BotonSeguimiento" *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE"
                 mat-raised-button (click)="abrirSeguimiento()">
