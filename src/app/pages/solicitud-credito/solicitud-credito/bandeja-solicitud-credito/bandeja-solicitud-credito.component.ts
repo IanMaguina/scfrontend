@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivationEnd, Router } from '@angular/router';
 import { AutenticacionService } from '@services/autenticacion.service';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Solicitud } from 'src/app/models/solicitud.interface';
 import { TipoCliente } from 'src/app/models/tipo-cliente.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -14,7 +16,7 @@ import { GlobalSettings } from 'src/app/shared/settings';
   styles: [
   ]
 })
-export class BandejaSolicitudCreditoComponent implements OnInit {
+export class BandejaSolicitudCreditoComponent implements OnInit, OnDestroy {
   listadoSolicitudes: Solicitud[] = [];
   listadotipoCliente: TipoCliente[] = [
     {
@@ -86,7 +88,9 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   TIPO_CLIENTE_GRUPO_EMPRESARIAL: number = GlobalSettings.TIPO_CLIENTE_GRUPO_EMPRESARIAL;
 
   notGrupo: boolean = false;
-
+  esConsulta: boolean = false;
+  title: string;
+  public rutaSubs$: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
@@ -95,6 +99,15 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     private router: Router,
 
   ) {
+    this.rutaSubs$ = this.getArgumentosRuta()
+      .subscribe(({ titulo, acceso }) => {
+        this.title = titulo;
+        if (acceso === 'general') {
+          this.esConsulta = true;
+          this.listarSolicitud();
+        }
+      });
+
     this.userInfo = this.autenticacionService.getUserInfo();
     this.formulary = this.formBuilder.group({
       tipo_cliente: ['',],
@@ -114,13 +127,29 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     this.listarEstadosSolicitud();
     this.validarTipoDocumento();
   }
+  ngOnDestroy(): void {
+    this.rutaSubs$.unsubscribe();
+  }
+  getArgumentosRuta() {
+    return this.router.events
+      .pipe(
+        filter(event => event instanceof ActivationEnd),
+        filter((event: ActivationEnd) => event.snapshot.firstChild === null),
+        map((event: ActivationEnd) => event.snapshot.data),
+      );
+  }
 
   listarSolicitud() {
-    let item = {
-      id_usuario: this.userInfo.id
+    let item;
+    if(!this.esConsulta){
+      item = {
+        id_usuario: this.userInfo.id
+      }
+    }else{
+      item = {};
     }
     this.solicitudService.listarSolicitudesxFiltros(item).then(data => {
-      console.log("solicitudes-------->"+JSON.stringify(data));
+      console.log("solicitudes-------->" + JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
     })
   }
@@ -139,7 +168,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
         break;
       case this.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR:
         this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
-        break; 
+        break;
       case this.ESTADO_SOLICITUD_EN_REVISION:
         //this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
         this.router.navigate(['app/solicitudcredito/revisarSolicitudCredito', element.id]);
@@ -152,7 +181,10 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
 
   async buscarSolicitudes(form: any) {
     this.listadoSolicitudes = [];
-    form.id_usuario = this.userInfo.id;
+    if(!this.esConsulta){
+      form.id_usuario = this.userInfo.id; 
+    }
+   
     await this.solicitudService.listarSolicitudesxFiltros(form).then(data => {
       console.log("solicitudes filtradas:" + JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
