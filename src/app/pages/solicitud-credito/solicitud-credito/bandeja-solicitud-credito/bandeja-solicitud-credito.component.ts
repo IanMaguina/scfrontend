@@ -38,6 +38,12 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     'correlativo',
     'numero_documento',
     'cliente',
+    'razon_social',
+    'grupo_cliente',
+    'canal_comercial',
+    'importe',
+    'documento_valorado',
+    'tipo_plan',
     'fecha_creacion',
     'usuario'
   ];
@@ -113,7 +119,7 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
       id_usuario: this.userInfo.id
     }
     this.solicitudService.listarSolicitudesxFiltros(item).then(data => {
-      //console.log("solicitudes:"+JSON.stringify(data));
+      console.log("solicitudes-------->"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
     })
   }
