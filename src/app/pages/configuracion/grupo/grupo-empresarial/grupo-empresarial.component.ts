@@ -29,7 +29,7 @@ export class GrupoEmpresarialComponent implements OnInit {
     'nombre',
     'estado_cliente_agrupacion',
     'usuario_creacion',
-    'estado',
+   /*  'estado', */
     'id'
   ];
   formulary: FormGroup;
@@ -199,6 +199,28 @@ export class GrupoEmpresarialComponent implements OnInit {
       this.listadoGrupos = data.payload;
 
     })
+  }
+
+  eliminar(form:any){
+    let data= {
+      mensaje: 'Está seguro de eliminar el grupo?'
+    }
+    let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true, 
+      data: data
+    });
+  
+    dialogRef1.afterClosed().subscribe(res => {
+      if(res === 'CONFIRM_DLG_YES'){
+        
+        let clienteAgrupacion: ClienteAgrupacion = form;
+        clienteAgrupacion.id_usuario=this.id_usuario;
+        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(()=>{
+          this.listarGruposEmpresariales();
+        });
+      }
+      
+    });
   }
 
 }

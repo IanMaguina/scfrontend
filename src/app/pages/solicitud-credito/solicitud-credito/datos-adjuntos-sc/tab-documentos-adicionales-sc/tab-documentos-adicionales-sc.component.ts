@@ -5,6 +5,8 @@ import { tap } from 'rxjs/operators';
 import { SolicitudAdjuntoService } from '@services/solicitud-adjunto.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Adjunto } from 'src/app/models/adjunto.interface';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tab-documentos-adicionales-sc',
@@ -21,12 +23,14 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
   displayedColumns:string[]=[
     'informacion_adicional',
     'adjunto',
+    'id',
   ];
   listadoDocumentosAdicionales:Adjunto[];
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _snack: MatSnackBar,
+    private matDialog: MatDialog,
     private readonly solicitudAdjuntoService: SolicitudAdjuntoService) { }
 
   ngOnInit(): void {
@@ -110,6 +114,22 @@ export class TabDocumentosAdicionalesScComponent implements OnInit {
     });
   }
 
+  eliminar(){
+    let data= {
+      mensaje: 'Está seguro de eliminar el documento adicional?'
+    }
+    let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true, 
+      data: data
+    });
 
+    dialogRef1.afterClosed().subscribe(res => {
+      if(res === 'CONFIRM_DLG_YES'){
+        console.log(`No se están aeliminando documentos: implementar servicio`);
+        //eliminar
+      }
+      
+    });
+  }
 
 }

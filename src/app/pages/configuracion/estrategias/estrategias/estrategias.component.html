@@ -11,6 +11,38 @@
 
     <mat-divider class="divisorConfig"></mat-divider>
 
+
+    <form [formGroup]="formulary" (ngSubmit)="filtrarRolUsuario()">
+        <div class="ConsorcioFiltros">
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar</mat-label>
+                <mat-select formControlName="rol"   >
+                    <mat-option *ngFor="let rol of listadoRoles" [value]="rol">
+                        {{rol.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar</mat-label>
+                <mat-select formControlName="sociedad"    >
+                    <mat-option *ngFor="let sociedad of listadoSociedad" [value]="sociedad">
+                        {{sociedad.codigo_sap+' - '+sociedad.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+
+            <div class="">
+                <button mat-mini-fab aria-label="Buscar" color="white" class="boton-buscar" type="submit">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    
+
+
     <div class="content-table">
         <span class="label-info">
             <mat-icon>info</mat-icon> Para editar el registro dar doble clic en el Rol.

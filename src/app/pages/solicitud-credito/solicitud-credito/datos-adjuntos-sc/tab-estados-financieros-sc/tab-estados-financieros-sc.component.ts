@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Adjunto } from 'src/app/models/adjunto.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-tab-estados-financieros-sc',
@@ -19,6 +21,7 @@ export class TabEstadosFinancierosScComponent implements OnInit {
   displayedColumns:string[]=[
     'informacion_adicional',
     'adjunto',
+    'id',
   ];
   private file_list: Array<string> = [];
   private idRequest: number = 0;
@@ -32,6 +35,7 @@ export class TabEstadosFinancierosScComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private matDialog: MatDialog,
     private _snack: MatSnackBar,
     private readonly solicitudAdjuntoService: SolicitudAdjuntoService) { }
 
@@ -120,6 +124,24 @@ export class TabEstadosFinancierosScComponent implements OnInit {
     duration: 3600,
     horizontalPosition: "end",
     verticalPosition: "top"
+  });
+}
+
+eliminar(){
+  let data= {
+    mensaje: 'Está seguro de eliminar el estado financiero?'
+  }
+  let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
+    disableClose: true, 
+    data: data
+  });
+
+  dialogRef1.afterClosed().subscribe(res => {
+    if(res === 'CONFIRM_DLG_YES'){
+      console.log(`No se están eliminando estados financieros: implementar servicio`);
+      //eliminar
+    }
+    
   });
 }
 

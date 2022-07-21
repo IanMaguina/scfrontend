@@ -13,6 +13,7 @@ import { UsuarioService } from '@services/usuario.service';
 import { SociedadService } from '@services/sociedad.service';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -27,17 +28,26 @@ export class EstrategiasComponent implements OnInit {
   estrategiaRolUsuario: RolUsuario = {};
   displayedColumns: string[] = ['rol', 'Sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
   dataSource = new MatTableDataSource<RolUsuario>();
+  formulary:FormGroup;
 
   constructor(
     private matDialog: MatDialog,
     private rolUsuarioService: RolUsuarioService,
     private usuarioService: UsuarioService,
+    private _formBuilder: FormBuilder,
     private sociedadService: SociedadService,
     private _snack: MatSnackBar,
-  ) { }
+  ) {
+    this.formulary = this._formBuilder.group({
+      rol: [''],
+      sociedad: [''],
+    });
+   }
 
   ngOnInit(): void {
     this.listarEstrategiaRolUsuario();
+    this.listarRoles();
+    this.listarSociedades();
   }
 
   listarRoles() {
@@ -48,7 +58,8 @@ export class EstrategiasComponent implements OnInit {
 
   listarSociedades() {
     this.sociedadService.listarSociedades().then(data => {
-      this.listadoSociedad = data.payload;
+      console.table(data);
+      this.listadoSociedad = data;
     });
   }
 
@@ -141,6 +152,28 @@ export class EstrategiasComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     // console.log("filtrado: "+this.dataSource);
+  }
+
+  filtrarRolUsuario(){
+    let sociedad = this.formulary.get('sociedad').value;
+    let rol = this.formulary.get('rol').value;
+
+    let item = {
+      sociedad_codigo_sap: sociedad.codigo_sap,
+      id_rol: rol.id,
+    }
+    this.rolUsuarioService.listarEstrategiaFiltros(item).then(data => {
+      this.listadoEstrategiaRolUsuario = data.payload;
+      this.dataSource.data = this.listadoEstrategiaRolUsuario;
+      this.limpiarFiltros();
+    })
+
+
+  }
+
+  limpiarFiltros(){
+    this.formulary.get('sociedad').setValue('');
+    this.formulary.get('rol').setValue('');
   }
 
 

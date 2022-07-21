@@ -91,6 +91,7 @@ export class RolUsuarioService {
       }
     );
   }
+  
   listarEstrategiaFiltros(filtros:any): Promise<any> {
     let id_usuario = null;
     let id_rol = null;

@@ -32,8 +32,8 @@ export class ConsorcioComponent implements OnInit {
     'grupo_cliente',
     'tipo_canal',
     'pendiente',
-    'solicitante',
-    'estado',
+    'solicitante',/* 
+    'estado', */
     'id'
   ];
 
@@ -172,6 +172,29 @@ export class ConsorcioComponent implements OnInit {
       this.listadoConsorcios = data.payload;
 
     })
+  }
+
+
+  eliminar(form:any){
+    let data= {
+      mensaje: 'Está seguro de eliminar el grupo?'
+    }
+    let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true, 
+      data: data
+    });
+  
+    dialogRef1.afterClosed().subscribe(res => {
+      if(res === 'CONFIRM_DLG_YES'){
+        
+        let clienteAgrupacion: ClienteAgrupacion = form;
+        clienteAgrupacion.id_usuario=this.id_usuario;
+        this.consorcioService.eliminarConsorcio(clienteAgrupacion).then(()=>{
+          this.listarConsorcios();
+        });
+      }
+      
+    });
   }
 
 
