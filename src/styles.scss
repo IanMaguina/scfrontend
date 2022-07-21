@@ -494,7 +494,20 @@ body {
     min-width: 40px !important
 }
 
+.Bandeja_Pendientes{
+    
+    width: 100%;
+    overflow-x: scroll;
 
+    th {
+        width: 150px !important;
+        padding: 10px !important;
+    }
+
+    td {
+        padding: 10px !important;
+    }
+}
 .botonera-ModuloConfig {
     display: flex;
     flex-direction: row;
