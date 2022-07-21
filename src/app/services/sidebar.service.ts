@@ -23,7 +23,7 @@ export class SidebarService {
       children: [
         { name: 'Nueva Solicitud', url: 'app/solicitudcredito/nuevaSolicitudCredito' },
         { name: 'Bandeja de Pendientes', url: 'app/solicitudcredito/bandejaMisPendientes' },
-        { name: 'Consultas', url: '/' },
+        { name: 'Consultas', url: 'app/solicitudcredito/consultaSolicitudCredito' },
         { name: 'Solicitud de Grupo', url: 'app/solicitudcredito/crearSolicitudGrupo' }, 
         { name: 'Solicitud de Consorcio', url: 'app/solicitudcredito/crearSolicitudConsorcio' }, 
        
