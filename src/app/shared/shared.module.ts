@@ -29,6 +29,7 @@ import { RouterModule } from '@angular/router';
 import { SideNavService } from './sidebar/side-nav.service';
 import { AlertPopUpComponent } from './pop-up/alert-pop-up/alert-pop-up.component';
 import { ConfirmPopUpComponent } from './pop-up/confirm-pop-up/confirm-pop-up.component';
+import { MotivoDialogComponent } from './motivo-dialog/motivo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ConfirmPopUpComponent } from './pop-up/confirm-pop-up/confirm-pop-up.co
     ErrorDialogComponent,
     SuccessDialogComponent,
     AlertPopUpComponent,
-    ConfirmPopUpComponent
+    ConfirmPopUpComponent,
+    MotivoDialogComponent
   ],
   imports: [
     CommonModule,
@@ -70,7 +72,8 @@ import { ConfirmPopUpComponent } from './pop-up/confirm-pop-up/confirm-pop-up.co
     MatListModule,
     RouterModule,
     AlertPopUpComponent,
-    ConfirmPopUpComponent
+    ConfirmPopUpComponent,
+    MotivoDialogComponent
   ],
 
   providers:[

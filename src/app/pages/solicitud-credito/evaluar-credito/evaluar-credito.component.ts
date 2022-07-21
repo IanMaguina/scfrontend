@@ -1,6 +1,6 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { PlanService } from '@services/plan.service';
@@ -11,6 +11,7 @@ import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.c
 import { GlobalSettings } from 'src/app/shared/settings';
 import { SuccessDialogComponent } from 'src/app/shared/success-dialog/success-dialog.component';
 import { SeguimientoSolicitudCreditoComponent } from '../solicitud-credito/seguimiento-solicitud-credito/seguimiento-solicitud-credito.component';
+import { MotivoDialogComponent } from 'src/app/shared/motivo-dialog/motivo-dialog.component';
 
 @Component({
   selector: 'app-evaluar-credito',
@@ -44,7 +45,8 @@ export class EvaluarCreditoComponent implements OnInit {
     private router: Router,
     private matDialog: MatDialog,
     private planService: PlanService,
-    private _snack: SnackBarService,
+    private _snack: SnackBarService,     
+    
   ) {
     console.log("has llegado a la evaluación ");
     this.id_solicitud = this.activatedRoute.snapshot.params.id;
@@ -80,18 +82,40 @@ export class EvaluarCreditoComponent implements OnInit {
   rechazar() {
     let v = { id_usuario: this.userInfo.id };
     console.log(this.id_solicitud_editar + "----" + JSON.stringify(v));
-    this.solicitudService.rechazar(this.id_solicitud_editar, { id_usuario: this.userInfo.id }).then(res => {
-      console.log("resultado-->" + JSON.stringify(res));
-      if (res.header.exito) {
-        let data = {
-          mensaje: "Su solicitud ha sido rechazada correctamente",
-        }
-        this.openDialog(SuccessDialogComponent, "se rechazó la solicitud correctamente", data);
-      } else {
-        let mensaje: "Ocurrió un error durante el rechazo !";
-        this.openDialog(ErrorDialogComponent, "no se rechazó la solicitud", mensaje);
-      }
+
+    console.log("evaluar.....");
+
+    var element = {mensaje:""};
+
+    element.mensaje = "";
+    
+    const dialogRef3 = this.matDialog.open(MotivoDialogComponent, {
+      disableClose: true,
+      width: "400px",
+      data: element
     });
+
+    dialogRef3.afterClosed().subscribe(result => {
+      console.log("result="+ JSON.stringify(result));
+      if (result.motivo) {
+
+        this.solicitudService.rechazar(this.id_solicitud_editar, { id_usuario: this.userInfo.id , motivo:result.motivo}).then(res => {
+          console.log("resultado-->" + JSON.stringify(res));
+          if (res.header.exito) {
+            let data = {
+              mensaje: "Su solicitud ha sido rechazada correctamente",
+            }
+            this.openDialog(SuccessDialogComponent, "se rechazó la solicitud correctamente", data);
+          } else {
+            let mensaje: "Ocurrió un error durante el rechazo !";
+            this.openDialog(ErrorDialogComponent, "no se rechazó la solicitud", mensaje);
+          }
+        });
+
+        
+      }
+    }); 
+    
   }
 
   aprobar() {
