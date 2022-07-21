@@ -3,7 +3,7 @@
         <button class="boton-secundario BotonSeguimiento" mat-raised-button type="button" (click)="retroceder()">
             <mat-icon>undo</mat-icon>
         </button>
-        <span>Solicitud: {{id_solicitud}}</span>
+        <span>Crédito Solicitado: N° {{id_solicitud}}</span>
     </div>
     <div class="Botones_Gap">
         <button mat-raised-button class="boton-secundario" (click)="rechazar()"
@@ -39,7 +39,7 @@
         </div>
         <div>
 
-            Estado: {{ solicitud.estado.nombre }}
+            <span style="padding-right: 15px;">Estado: {{ solicitud.estado.nombre }}</span>
 
             <button class="boton-secundario BotonSeguimiento" *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE"
                 mat-raised-button (click)="abrirSeguimiento()">

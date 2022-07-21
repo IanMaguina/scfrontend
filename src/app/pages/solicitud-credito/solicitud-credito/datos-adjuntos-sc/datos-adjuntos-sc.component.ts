@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SolicitudLineaCreditoService } from '@services/solicitud-linea-credito.service';
 import { SolicitudService } from '@services/solicitud.service';
+import { Solicitud } from 'src/app/models/solicitud.interface';
+import { GlobalSettings } from 'src/app/shared/settings';
 import { SuccessDialogComponent } from 'src/app/shared/success-dialog/success-dialog.component';
 
 
@@ -19,6 +21,13 @@ export class DatosAdjuntosScComponent implements OnInit {
   @Input() id_solicitud_editar: number;
   fourthFormGroup: FormGroup;
   correlativo?: string = '';
+  
+  solicitud: Solicitud;
+  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+
+
   constructor(
     private _formBuilder: FormBuilder,
     private matDialog: MatDialog,
@@ -32,10 +41,18 @@ export class DatosAdjuntosScComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.id_solicitud_editar !== null) {
+      this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
+        this.solicitud = data.payload;
+        this.ESTADO_SOLICITUD = this.solicitud.id_estado;
+      })
   }
+}
   obtenerSolicitud() {
     this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
       this.correlativo = data.payload.correlativo;
+
+
     });
   }
 
