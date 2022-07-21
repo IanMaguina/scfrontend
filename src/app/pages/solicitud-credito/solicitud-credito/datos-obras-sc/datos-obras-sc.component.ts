@@ -212,10 +212,7 @@ export class DatosObrasScComponent implements OnInit {
         this.callErrorDialog(msg);
         return;
     }
-
-    console.log("no hay error......");
-    return ;
-
+    
     this.solicitudService.actualizarSolicitudObra(solicitudObra).then((data) => {
       if (data.header.exito) {
         this.enviarMensajeSnack("se actualizó la obra correctamente");
