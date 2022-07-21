@@ -9,9 +9,12 @@
     <button mat-raised-button class="boton-principal_popup" (click)="aprobar()"
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Enviar a evaluación</button>
 
-    <button mat-raised-button class="boton-secundario" type="button" (click)="anularSolicitud()"
+    <button mat-raised-button class="boton-secundario" type="button" (click)="eliminarSolicitud()"
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Anular Solicitud</button>
     &nbsp;
+    <button mat-raised-button class="boton-secundario" type="button" (click)="anularSolicitud()"
+      *ngIf="ESTADO_SOLICITUD!=ESTADO_SOLICITUD_EN_SOLICITANTE">Anular Solicitud</button>
+   
     <button *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE" mat-mini-fab color="white" aria-label="Buscar"
       class="boton-secundario" type="button" (click)="abrirSeguimiento()">
       <mat-icon>library_books</mat-icon>

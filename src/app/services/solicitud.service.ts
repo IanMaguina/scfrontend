@@ -694,7 +694,6 @@ export class SolicitudService {
       const fecha_formato = this.datepipe.transform(filtros['fecha'],'yyyy-MM-dd');
       fecha_creacion_ano_mes_dia = fecha_formato;
       query = query != "" ? query+"&fecha_creacion_ano_mes_dia=" + fecha_creacion_ano_mes_dia: "fecha_creacion_ano_mes_dia=" + fecha_creacion_ano_mes_dia;
-     
     }
 
      if (filtros['numero_documento']) {

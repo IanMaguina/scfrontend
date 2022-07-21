@@ -143,8 +143,31 @@ export class EditarSolicitudCreditoComponent implements OnInit {
 
     dialogRef1.afterClosed().subscribe(res => {
       if(res === 'CONFIRM_DLG_YES'){
-        this.solicitudService.eliminarSolicitud(this.id_solicitud_editar).then((data)=>{
-          if(data.header.exito){
+        console.log(`No se están anulando las solicitudes`);
+       /*  this.solicitudService.eliminarSolicitud(this.id_solicitud_editar).then((response)=>{
+          if(response.header.exito){
+            this._snack.openSnackBar(`Se anuló la solicitud: ${this.id_solicitud_editar}`,'Cerrar');
+            this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
+          }
+        }) */
+      }
+      
+    });
+  }
+
+  eliminarSolicitud(){
+    let data= {
+      mensaje: 'Está seguro de eliminar la Solicitud?'
+    }
+    let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true, 
+      data: data
+    });
+
+    dialogRef1.afterClosed().subscribe(res => {
+      if(res === 'CONFIRM_DLG_YES'){
+        this.solicitudService.eliminarSolicitud(this.id_solicitud_editar).then((response)=>{
+          if(response.header.exito){
             this._snack.openSnackBar(`Se anuló la solicitud: ${this.id_solicitud_editar}`,'Cerrar');
             this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
           }
@@ -152,9 +175,6 @@ export class EditarSolicitudCreditoComponent implements OnInit {
       }
       
     });
-
-
-    
   }
 
 }
