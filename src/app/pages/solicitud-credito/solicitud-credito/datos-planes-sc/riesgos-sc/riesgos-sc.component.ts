@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanService } from '@services/plan.service';
 import { SolicitudPlan } from 'src/app/models/solicitud-plan.interface';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DlgModificarPlanScComponent } from '../dlg-modificar-plan-sc/dlg-modificar-plan-sc.component';
 
 @Component({
   selector: 'app-riesgos-sc',
@@ -33,6 +34,7 @@ export class RiesgosScComponent implements OnInit {
   constructor(
     private planService:PlanService,
     private _snack:MatSnackBar,
+    private matDialog: MatDialog,
     ) {
 
      }
@@ -52,9 +54,32 @@ export class RiesgosScComponent implements OnInit {
   }
   }
 
-  editarPlan() {
+  editarPlan(element) {
     console.log("editarPlan");
+    this.openEditar(element);
   }
+
+
+  openEditar(data?: any) {
+    let dialogRef = this.matDialog.open(DlgModificarPlanScComponent, {
+      disableClose: true,
+      data: data ? data : '',
+      panelClass: 'custom_EditarSolicitudPlan',
+      autoFocus: false,
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'CONFIRM_DLG_YES') {
+        this.enviarMensajeSnack("Se actualizó solicitud");
+        this.listarPlanSolicitudRiesgo();
+      } else {
+        this.listarPlanSolicitudRiesgo();
+      }
+    });
+  }
+
+
 
   enviarMensajeSnack(mensaje: string) {
     this._snack.open(mensaje, 'cerrar', {

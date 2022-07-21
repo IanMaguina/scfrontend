@@ -1,55 +1,83 @@
-<div class="titledocumento">
-    Solicitud: {{id_solicitud}} 
-    <button mat-raised-button class="botonera-superior boton-secundario">Anular Solicitud</button>
-    <br><br>
-    <mat-divider></mat-divider>
-    <br>
-    
-</div>
-<div >
-    <div >
-        Grupo Empresarial:<!--  {{ data_solicitud.cliente.nombre }} -->
+<div class="botonera-superiorPosSolicitante">
+    <div class="titlesectionSolicitud">
+        <button class="boton-secundario BotonSeguimiento" mat-raised-button type="button" (click)="retroceder()">
+            <mat-icon>undo</mat-icon>
+        </button>
+        <span>Crédito Solicitado: N° {{id_solicitud}}</span>
     </div>
-   
-   
-    <div >
-        <!-- debe ser la fecha en que se solicita  -->
-        Fecha Solicitud: <!-- {{ data_solicitud.fecha_creacion }} -->
-    </div>
-    <div >
-        Estado: 
+    <div class="Botones_Gap">
+        <button mat-raised-button class="boton-secundario" (click)="rechazar()"
+            *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Devolver</button>
+
+        <button mat-raised-button class="boton-principal_popup" (click)="aprobar()"
+            *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Enviar a evaluación</button>
+
     </div>
 </div>
-<br>
-    <br>
-    <div >
-        <mat-tab-group mat-align-tabs="start">
-            <mat-tab label="Datos de Cliente" >
-                    <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)" ></app-datos-cliente-sc>
-                    Datos del Cliente
-            </mat-tab>
-            <mat-tab label="Solicitud de Crédito" >
-                <div>
-                    Solicitud de crédito
-                </div>
-            </mat-tab>
-            <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion">
-                    <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
-            </mat-tab>
-            <mat-tab label="Resumen de Evaluación " >
-                
-                    
-                
-            </mat-tab>
-            <mat-tab label="Datos de Obra" >
-                <div >
-                    obras
-                </div>
-            </mat-tab>
-            <mat-tab label="Adjuntos" >
-                <div >
-                    adjuntos
-                </div>
-            </mat-tab>
-        </mat-tab-group>
+
+<mat-divider class="divisorConfig"></mat-divider>
+
+<div class="DatosSubtitulo">
+    <div class="DatosSolicitud">
+        <div *ngIf="id_tipo_cliente===TIPO_CLIENTE_GRUPO_EMPRESARIAL">
+            Grupo Empresarial: {{ (miClienteSolicitud?miClienteSolicitud.nombre:'') }}
+        </div>
+
+        <div *ngIf="id_tipo_cliente!=TIPO_CLIENTE_GRUPO_EMPRESARIAL">
+            Razón Social: {{ (miClienteSolicitud?miClienteSolicitud.nombre:'') }}
+        </div>
+        <div *ngIf="id_tipo_cliente!=TIPO_CLIENTE_GRUPO_EMPRESARIAL">
+            RUC: {{ (miClienteSolicitud?miClienteSolicitud.documento:'') }}
+        </div>
     </div>
+
+    <div class="DatosSolicitud">
+        <div>
+            <!-- debe ser la fecha en que se solicita  -->
+            Fecha Solicitud: {{ fecha_creacion | date: 'dd/MM/yyyy' }}
+            <!-- {{ data_solicitud.fecha_creacion }} -->
+        </div>
+        <div>
+
+            <span style="padding-right: 15px;">Estado: {{ estado }}</span>
+
+            <button class="boton-secundario BotonSeguimiento" *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE"
+                mat-raised-button (click)="abrirSeguimiento()">
+                <mat-icon>article</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Datos de Cliente">
+            <app-datos-cliente-sc [id_solicitud_editar]="id_solicitud_editar" (id_solicitud_hija)="send($event)">
+            </app-datos-cliente-sc>
+        </mat-tab>
+        <mat-tab label="Solicitud de Crédito">
+            <div>
+                <app-datos-planes-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-planes-sc>
+            </div>
+        </mat-tab>
+        <mat-tab label="Sustento de Evaluación" class="sustentoevaluacion"
+            *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">
+            <app-sustento-evaluacion-ec [id_solicitud]="id_solicitud"></app-sustento-evaluacion-ec>
+        </mat-tab>
+        <mat-tab label="Resumen de Evaluación" *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_EVALUACION">
+        </mat-tab>
+        <mat-tab label="Datos de Obra">
+            <div>
+                <app-datos-obras-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-obras-sc>
+            </div>
+        </mat-tab>
+        <mat-tab label="Adjuntos">
+            <div>
+                <app-datos-adjuntos-sc [id_solicitud_editar]="id_solicitud_editar"></app-datos-adjuntos-sc>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

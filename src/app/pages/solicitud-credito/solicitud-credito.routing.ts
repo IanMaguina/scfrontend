@@ -21,7 +21,8 @@ const routes: Routes = [
       { path: 'crearSolicitudGrupo', component: GrupoEmpresarialComponent, data: { titulo: 'Solicitud de Grupo', ruta: 'Solicitud de Crédito  /  Solicitud de Grupo', acceso:'solicitante' } },
       { path: 'crearSolicitudConsorcio', component: ConsorcioComponent, data: { titulo: 'Solicitud de Consorcio', ruta: 'Solicitud de Crédito  /  Solicitud de Consorcio', acceso: 'solicitante' } },
       { path: 'bandejaMisPendientes', component: BandejaSolicitudCreditoComponent, data: { titulo: 'Bandeja de Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Pendientes' } },
-      { path: 'evaluarSolicitud/:id', component: EvaluarCreditoComponent, data: { titulo: 'Evaluación de Crédito', ruta: 'Evaluación de Crédito' } },
+      { path: 'evaluarSolicitudCredito/:id', component: EvaluarCreditoComponent, data: { titulo: 'Evaluación de Crédito', ruta: 'Evaluación de Crédito' } },
+      { path: 'revisarSolicitudCredito/:id', component: EvaluarCreditoComponent, data: { titulo: 'Revisión de Crédito', ruta: 'Revisión de Crédito' } },
      /*  { path: 'bandejaGruposPendiendes', component: GrupoEmpresarialComponent, data: { titulo: 'Bandeja de Grupos Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Grupos Pendientes', acceso:'aprobador' } },
       { path: 'bandejaConsorciosPendiendes', component: ConsorcioComponent, data: { titulo: 'Bandeja de Consorcios Pendientes', ruta: 'Solicitud de Crédito  /  Bandeja de Consorcios Pendientes', acceso:'aprobador' } },
  */

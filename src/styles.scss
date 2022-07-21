@@ -431,6 +431,83 @@ body {
     }
 }
 
+.botonera-superiorPosSolicitante{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 20px;
+
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .titlesectionSolicitud {
+        font-size: 20pt;
+        color: #B4B4B4;
+        line-height: 30px;
+        align-self: center;
+        display:flex;
+        gap:10px;
+        align-items: center;
+    }
+}
+
+.Botones_Gap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.DatosObra_Acordeon{
+    display: flex;
+    align-items: center;
+}
+
+.DatosSubtitulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+  
+    flex-wrap: wrap;
+    gap: 20px;
+    
+
+    .DatosSolicitud {
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        align-items: center;
+        padding-right: 14px;
+    }
+}
+
+.BotonSeguimiento{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    height: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important
+}
+
+.Bandeja_Pendientes{
+    
+    width: 100%;
+    overflow-x: scroll;
+
+    th {
+        width: 150px !important;
+        padding: 10px !important;
+    }
+
+    td {
+        padding: 10px !important;
+    }
+}
 .botonera-ModuloConfig {
     display: flex;
     flex-direction: row;
@@ -516,7 +593,7 @@ body {
 .acordeonPlanesCredito {
     padding-top: 20px;
     padding-right: 20px;
-    width: 100%;
+    width: 98.5%;
 }
 
 
@@ -983,6 +1060,77 @@ th.mat-header-cell {
     .mat-form-field-infix {
         align-self: center;
         border: 0px;
+    }
+}
+
+.Adjuntos_LC {
+    width: 767px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    align-items: center;
+
+    .mat-form-field-infix {
+        align-self: center;
+        border: 0px;
+    }
+}
+
+.TablaAdjuntos {
+    width: auto;
+
+    th {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    td {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+}
+
+.OpcionesEstadosFinancieros {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.Subtitulo {
+    padding-bottom: 15px;
+}
+
+.Adjuntos_EstadosFinancieros {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .BotonEstadosFinancierosGuardar {
+
+        justify-content: flex-end;
+    }
+
+    padding-bottom: 15px;
+}
+
+.Opcion4EstadosFinancieros {
+    .mat-radio-label {
+        display: flex !important;
+        align-content: flex-start;
+        align-items: flex-start;
+
+    }
+
+    .mat-radio-label-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
     }
 }
 
@@ -1724,19 +1872,21 @@ u {
 
 
 /* Nuevo Plan de Crédito */
+.custom_EditarSolicitudPlan{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 10px;
+    .mat-dialog-container{
+        padding: 0px;
+    }
 
+}
 .Dialog_NuevoPlan {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
-    grid-template-areas:
-        "a b"
-        "c d"
-        "e f"
-        "g g"
-        "h h"
-        "i i"
-        ". j";
+
     row-gap: 10px;
 
 }
@@ -1744,17 +1894,7 @@ u {
 @media screen and (max-width: 700px) {
     .Dialog_NuevoPlan {
         grid-template-columns: 1fr;
-        grid-template-areas:
-            "a"
-            "b"
-            "c"
-            "d"
-            "e"
-            "f"
-            "g"
-            "h"
-            "i"
-            "j";
+
     }
 }
 
@@ -1795,8 +1935,10 @@ u {
 }
 
 .content10 {
-    justify-self: end;
-    grid-area: j;
+    display: flex;
+    justify-self: flex-end;
+    padding-bottom: 15px;
+
 }
 
 .Title_NPC {
@@ -2840,8 +2982,11 @@ u {
     width: 50%;
 }
 
-.Tabla_Riesgos{
-    width:auto;
+.Tabla_Riesgos {
+    display: inline-block;
+    width: 100%;
+    overflow-x: auto;
+
     th {
         padding: 15px !important;
     }
@@ -2851,22 +2996,24 @@ u {
     }
 }
 
-.HeaderSeparado{
+.HeaderSeparado {
     display: flex;
     align-items: center;
-    .DivisorLC{
+
+    .DivisorLC {
         border-top-color: white;
         border: 4px;
-        height: 50px;   
+        height: 50px;
     }
-    .HeaderSeparadoTexto{
+
+    .HeaderSeparadoTexto {
         padding-left: 5px;
         padding-right: 5px;
     }
 }
 
-.botonAccion{
-    display:flex;
+.botonAccion {
+    display: flex;
     align-items: center;
     justify-content: center;
 }

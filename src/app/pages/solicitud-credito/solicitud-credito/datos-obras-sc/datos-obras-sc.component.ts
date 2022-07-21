@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { SolicitudClienteObraDTO } from 'src/app/dto/solicitud-cliente-obra.dto';
@@ -7,6 +8,7 @@ import { Obra } from 'src/app/models/obra.interface';
 import { Solicitud } from 'src/app/models/solicitud.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
@@ -53,6 +55,7 @@ export class DatosObrasScComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
     private _snack: MatSnackBar,
+    private matDialog: MatDialog,
     private solicitudService: SolicitudService,
     private autenticacionService: AutenticacionService
 
@@ -135,12 +138,31 @@ export class DatosObrasScComponent implements OnInit {
     return obraSolicitud;
   }
 
-  eliminarSolicitudObra(id_solicitud_obra: number) {
-    this.solicitudService.eliminarSolicitudObra(id_solicitud_obra).then((data) => {
-      if (data.header.exito) {
-        this.enviarMensajeSnack("se eliminó la obra correctamente");
-      }
+  eliminarSolicitudObra(solicitudObra: any) {
+    console.log("solicitud obra "+ JSON.stringify(solicitudObra));
+    let data = {
+      mensaje:'Está seguro de eliminar la obra?'
+    }
+
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      width:"300px",
+      data:data,
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === 'CONFIRM_DLG_YES'){
+        this.solicitudService.eliminarSolicitudObra(solicitudObra.id).then((res) => {
+          if (res.header.exito) {
+            this.enviarMensajeSnack("se eliminó la obra correctamente");
+            this.listarObras();
+          }
+        }); 
+      }else{
+        this.listarObras();
+      } 
+    });
+
   }
 
   //actualizar obra

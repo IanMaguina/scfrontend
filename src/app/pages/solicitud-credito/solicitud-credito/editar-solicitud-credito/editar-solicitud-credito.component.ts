@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from 'src/app/shared/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { SeguimientoSolicitudCreditoComponent } from '../seguimiento-solicitud-credito/seguimiento-solicitud-credito.component';
+import { SnackBarService } from '@services/snack-bar.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-editar-solicitud-credito',
@@ -40,6 +42,8 @@ export class EditarSolicitudCreditoComponent implements OnInit {
     private router: Router,
     private autenticacionService: AutenticacionService,
     private solicitudService: SolicitudService,
+    private _snack: SnackBarService,
+
   ) {
     console.log(this.activatedRoute.snapshot.params.id)
     this.id_solicitud_editar = this.activatedRoute.snapshot.params.id;
@@ -116,7 +120,7 @@ export class EditarSolicitudCreditoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(_ => {
       console.log(msg_exito);
-      this.router.navigate(['app/solicitudcredito/bandejaMisPendiendes']);
+      this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
     });
   }
 
@@ -126,6 +130,31 @@ export class EditarSolicitudCreditoComponent implements OnInit {
       data: this.id_solicitud_editar,
       panelClass: "config_Seguimiento"
     }); 
+  }
+
+  anularSolicitud(){
+    let data= {
+      mensaje: 'Está seguro de anular la Solicitud?'
+    }
+    let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true, 
+      data: data
+    });
+
+    dialogRef1.afterClosed().subscribe(res => {
+      if(res === 'CONFIRM_DLG_YES'){
+        this.solicitudService.eliminarSolicitud(this.id_solicitud_editar).then((data)=>{
+          if(data.header.exito){
+            this._snack.openSnackBar(`Se anuló la solicitud: ${this.id_solicitud_editar}`,'Cerrar');
+            this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
+          }
+        })
+      }
+      
+    });
+
+
+    
   }
 
 }

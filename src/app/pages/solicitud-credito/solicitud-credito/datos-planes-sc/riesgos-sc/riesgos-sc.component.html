@@ -1,6 +1,6 @@
 <div class="content-table">
     <br>
-    <table mat-table matTableResponsive [dataSource]="listadoRiesgos" class="mat-elevation-z8 Tabla_Riesgos">
+    <table mat-table matTableResponsive [dataSource]="listadoRiesgos" class=" Tabla_Riesgos">
         <caption title="listado de plan riesgo"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
@@ -67,7 +67,7 @@
         <!-- Column -->
         <ng-container matColumnDef="vigencia">
             <th mat-header-cell *matHeaderCellDef>Vigencia</th>
-            <td mat-cell *matCellDef="let element"> {{element.fecha_vigencia}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.tipo_vigencia.id!=3?element.tipo_vigencia.nombre:'' }} {{element.fecha_vigencia | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="plan_control">
@@ -80,7 +80,7 @@
         <!-- Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
-            <td class="botonAccion" mat-cell *matCellDef="let element">
+            <td class="botonAccion" mmat-raised-button mat-cell *matCellDef="let element">
                 <img (click)="editarPlan(element)" src="./assets/EditPlan.svg">
             </td>
         </ng-container>

@@ -73,7 +73,7 @@
 
 
 <div class="content-table">
-    <table mat-table matTableResponsive [dataSource]="listadoSolicitudes" class="mat-elevation-z8 ">
+    <table mat-table matTableResponsive [dataSource]="listadoSolicitudes" class="mat-elevation-z8 Bandeja_Pendientes">
         <caption title="bandeja de solicitud de creditos"></caption>
 
         <!-- Column -->
@@ -86,20 +86,56 @@
         <ng-container matColumnDef="correlativo">
             <th mat-header-cell *matHeaderCellDef> Correlativo</th>
             <td mat-cell *matCellDef="let element">
-                {{element.correlativo}} </td>
+                {{(element.correlativo?element.correlativo:'-')}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="numero_documento">
             <th mat-header-cell *matHeaderCellDef> RUC</th>
             <td mat-cell *matCellDef="let element">
-                {{element.cliente.numero_documento}} </td>
+                {{(element.cliente?.numero_documento?element.cliente?.numero_documento:(element.planes[0]?.empresa?.numero_documento?element.planes[0]?.empresa?.numero_documento:'-'))}} </td>
         </ng-container>
         <!-- Column -->
         <ng-container matColumnDef="cliente">
+            <th mat-header-cell *matHeaderCellDef> Grupo Empresarial</th>
+            <td mat-cell *matCellDef="let element">
+                {{(element.cliente?.nombre?element.cliente?.nombre:"-")}} </td>
+        </ng-container>
+        <!-- Column -->
+        <ng-container matColumnDef="razon_social">
             <th mat-header-cell *matHeaderCellDef> Razón Social</th>
             <td mat-cell *matCellDef="let element">
-                {{element.cliente.nombre}} </td>
+                {{(element.cliente?.razon_social?element.cliente?.razon_social:(element.planes[0]?.empresa?.razon_social?element.planes[0]?.empresa?.razon_social:'-')) }} </td>
         </ng-container>
+        <!-- Column -->
+        <ng-container matColumnDef="grupo_cliente">
+            <th mat-header-cell *matHeaderCellDef> Grupo Cliente</th>
+            <td mat-cell *matCellDef="let element">
+                {{(element.cliente?.grupo_cliente?.codigo_sap?element.cliente?.grupo_cliente?.codigo_sap:'')+'-'+ (element.cliente?.grupo_cliente?.nombre?element.cliente?.grupo_cliente?.nombre:'')}} </td>
+        </ng-container>
+        <!-- Column -->
+        <ng-container matColumnDef="canal_comercial">
+            <th mat-header-cell *matHeaderCellDef> Canal Comercial</th>
+            <td mat-cell *matCellDef="let element">
+                {{(element.cliente?.id_tipo_canal?element.cliente?.id_tipo_canal:'-') }} </td>
+        </ng-container>
+        <!-- Column -->
+        <ng-container matColumnDef="importe">
+            <th mat-header-cell *matHeaderCellDef> Linea de Credito Solicitada</th>
+            <td mat-cell *matCellDef="let element">
+                {{(element.planes[0]?.importe?element.planes[0]?.importe:'-') }} </td>
+        </ng-container>   
+        <!-- Column -->
+        <ng-container matColumnDef="documento_valorado">
+            <th mat-header-cell *matHeaderCellDef> Documento Valorado</th>
+            <td mat-cell *matCellDef="let element">
+                {{(element.planes[0]?.documento_valorado_propuesto?element.planes[0]?.documento_valorado_propuesto:'-') }} </td>
+        </ng-container>           
+        <!-- Column -->
+        <ng-container matColumnDef="tipo_plan">
+            <th mat-header-cell *matHeaderCellDef> Tipo de Plan</th>
+            <td mat-cell *matCellDef="let element">
+                {{(element.planes[0]?.plan?.tipo_plan_credito?.nombre?element.planes[0]?.plan?.tipo_plan_credito?.nombre:'-') }} </td>
+        </ng-container>                     
         <!-- Column -->
         <ng-container matColumnDef="fecha_creacion">
             <th mat-header-cell *matHeaderCellDef> Fecha solicitud</th>

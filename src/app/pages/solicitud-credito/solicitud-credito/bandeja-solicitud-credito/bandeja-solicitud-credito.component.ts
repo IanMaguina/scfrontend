@@ -18,16 +18,16 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   listadoSolicitudes: Solicitud[] = [];
   listadotipoCliente: TipoCliente[] = [
     {
-      id:1, 
-      nombre:'Grupo Empresarial'
+      id: 1,
+      nombre: 'Grupo Empresarial'
     },
     {
-      id:2, 
-      nombre:'Consorcio'
+      id: 2,
+      nombre: 'Consorcio'
     },
     {
-      id:3, 
-      nombre:'Empresa Individual'
+      id: 3,
+      nombre: 'Empresa Individual'
     },
   ];
 
@@ -38,6 +38,12 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
     'correlativo',
     'numero_documento',
     'cliente',
+    'razon_social',
+    'grupo_cliente',
+    'canal_comercial',
+    'importe',
+    'documento_valorado',
+    'tipo_plan',
     'fecha_creacion',
     'usuario'
   ];
@@ -72,12 +78,14 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
   submitted = false;
   carga: boolean = false;
   userInfo: any;
-  ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
-  ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
-  ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
-  TIPO_CLIENTE_GRUPO_EMPRESARIAL:number = GlobalSettings.TIPO_CLIENTE_GRUPO_EMPRESARIAL;
+  ESTADO_SOLICITUD: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_SOLICITANTE: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+  ESTADO_SOLICITUD_EN_EVALUACION: number = GlobalSettings.ESTADO_SOLICITUD_EN_EVALUACION;
+  ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR: number = GlobalSettings.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR;
+  TIPO_CLIENTE_GRUPO_EMPRESARIAL: number = GlobalSettings.TIPO_CLIENTE_GRUPO_EMPRESARIAL;
 
-  notGrupo:boolean = false;
+  notGrupo: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -109,52 +117,66 @@ export class BandejaSolicitudCreditoComponent implements OnInit {
 
   listarSolicitud() {
     let item = {
-      id_usuario:this.userInfo.id
+      id_usuario: this.userInfo.id
     }
     this.solicitudService.listarSolicitudesxFiltros(item).then(data => {
-      //console.log("solicitudes:"+JSON.stringify(data));
+      console.log("solicitudes-------->"+JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
     })
   }
 
-  listarEstadosSolicitud(){
+  listarEstadosSolicitud() {
     this.solicitudService.listarEstadosSolicitud().then(data => {
-        this.listadoEstadosSolicitud = data.payload;
+      this.listadoEstadosSolicitud = data.payload;
     });
   }
 
   editarSolicitud(element: any) {
-    console.log(JSON.stringify(element));
-    this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+    console.log("editarSolicitud--->" + JSON.stringify(element));
+    switch (element.id_estado) {
+      case this.ESTADO_SOLICITUD_EN_SOLICITANTE:
+        this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+        break;
+     /*  case this.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR:
+        this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+        break; */
+      case this.ESTADO_SOLICITUD_EN_REVISION:
+        //this.router.navigate(['app/solicitudcredito/editarSolicitudCredito', element.id]);
+        this.router.navigate(['app/solicitudcredito/revisarSolicitudCredito', element.id]);
+        break;
+      case this.ESTADO_SOLICITUD_EN_EVALUACION:
+        this.router.navigate(['app/solicitudcredito/evaluarSolicitudCredito', element.id]);
+        break;
+    }
   }
 
   async buscarSolicitudes(form: any) {
     this.listadoSolicitudes = [];
-    form.id_usuario=this.userInfo.id;
-    await this.solicitudService.listarSolicitudesxFiltros(form).then( data => {
-      console.log("solicitudes filtradas:"+JSON.stringify(data));
+    form.id_usuario = this.userInfo.id;
+    await this.solicitudService.listarSolicitudesxFiltros(form).then(data => {
+      console.log("solicitudes filtradas:" + JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
-     // this.limpiar();
+      // this.limpiar();
     });
   }
   async validarTipoDocumento() {
     let tipo_cliente = this.formulary.get("tipo_cliente").value.id;
-    if(tipo_cliente == this.TIPO_CLIENTE_GRUPO_EMPRESARIAL ){
+    if (tipo_cliente == this.TIPO_CLIENTE_GRUPO_EMPRESARIAL) {
       this.notGrupo = false;
-    }else{
+    } else {
       this.notGrupo = true;
     }
 
   }
 
-  limpiar(){
-     this.formulary.get("tipo_cliente").setValue("");
-     this.formulary.get("numero_documento").setValue("");
-     this.formulary.get("estado").setValue("");
-     this.formulary.get("correlativo").setValue("");
+  limpiar() {
+    this.formulary.get("tipo_cliente").setValue("");
+    this.formulary.get("numero_documento").setValue("");
+    this.formulary.get("estado").setValue("");
+    this.formulary.get("correlativo").setValue("");
     this.formulary.get("fecha").setValue("");
 
   }
 
- 
+
 }

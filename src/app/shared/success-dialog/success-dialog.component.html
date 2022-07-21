@@ -9,7 +9,9 @@
         <div class="contenidoForm">
 
             <div class="">
-                <div class="mensaje">{{mensaje}}</div>
+                <div class="mensaje">{{mensaje}}</div><br>
+                <div class="mensaje" *ngIf="detalle!=''">{{detalle}}</div><br>
+                <div class="mensaje" *ngIf="adicional!=''">{{adicional}}</div>
             </div>
             <mat-divider class="objetoSimple"></mat-divider>
           

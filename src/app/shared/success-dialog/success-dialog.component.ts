@@ -9,11 +9,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class SuccessDialogComponent implements OnInit {
 
   mensaje:string;
+  detalle:string;
+  adicional:string;
   constructor(
     public dialogRef: MatDialogRef<SuccessDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
     this.mensaje = data.mensaje;
+    this.detalle = (data.detalle?data.detalle:'');
+    this.adicional = (data.adicional?data.adicional:'');
   }
 
   ngOnInit(): void {

@@ -15,9 +15,9 @@
                         Agregar
                     </button>
 
-                    <button mat-flat-button aria-label="Buscar" class="boton-secundario_popup">
+                    <!-- <button mat-flat-button aria-label="Buscar" class="boton-secundario_popup" type="button" (click)="quitarObra()">
                         <span>Quitar</span>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </form>
@@ -29,15 +29,25 @@
                 <div class="">
                     <mat-accordion>
                         <!--  Lista de Obras -->
-                        <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION" *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
+                        <mat-expansion-panel [expanded]="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION"
+                            *ngFor="let obra of obrasArray.controls;let i=index" [formGroupName]="i">
                             <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    <div class="label">ID Obra:</div>
-                                    <div style="padding-right: 10px;" class="">
-                                        {{obra.get('obra_codigo_isicom').value}}</div>
-                                    <div class="label">Nombre Obra:</div>
-                                    <div style="padding-right: 10px;" class="">{{obra.get('nombre_obra').value}}
+                                <mat-panel-title class="DatosObra_Acordeon">
+                                    
+                                        <div class="label">ID Obra:</div>
+                                        <div style="padding-right: 10px;" class="">
+                                            {{obra.get('obra_codigo_isicom').value}}</div>
+                                        <div class="label">Nombre Obra:</div>
+                                        <div style="padding-right: 10px;" class="">{{obra.get('nombre_obra').value}}
+                                        </div>
+                                    
+                                    <div class="objeto formElementoPlano">
+                                        <button mat-icon-button
+                                            (click)="eliminarSolicitudObra(formulary.value['obrasArray'][i])">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
                                     </div>
+
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
 
@@ -70,7 +80,7 @@
                                     <div class="label">Fecha Inicio de Atenciones:</div>
                                     <div class="dato">
                                         <mat-form-field appearance="fill">
-                                            <mat-label>Seleccioanr Fecha</mat-label>
+                                            <mat-label>Seleccionar Fecha</mat-label>
                                             <input matInput [matDatepicker]="picker1"
                                                 formControlName="fecha_inicio_atencion">
                                             <mat-datepicker-toggle matSuffix [for]="picker1">
@@ -118,6 +128,7 @@
                                         (click)="actualizarSolicitudObra(formulary.value['obrasArray'][i])"
                                         [disabled]="formulary.invalid">Guardar</button>
                                 </div>
+
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
@@ -127,8 +138,8 @@
 
 
     </div>
-    <mat-divider></mat-divider>
-    <div class="botonera-step ">
+    <mat-divider *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE"></mat-divider>
+    <div class="botonera-step " *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">
         <button mat-raised-button class="boton-secundario" matStepperPrevious>Anterior</button>&nbsp;
         <button mat-raised-button class="boton-principal-light " matStepperNext>Siguiente</button>
     </div>

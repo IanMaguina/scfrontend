@@ -20,6 +20,7 @@ import { TipoLinea } from 'src/app/models/tipo-linea.interface';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { Solicitud } from 'src/app/models/solicitud.interface';
 
 @Component({
   selector: 'app-dlg-nuevo-plan-sc',
@@ -65,6 +66,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   DOCUMENTO_VALORADO_EN_CURSO = GlobalSettings.DOCUMENTO_VALORADO_EN_CURSO;
   FECHA_VIGENCIA_TEMPORAL = GlobalSettings.FECHA_VIGENCIA_TEMPORAL;
   TIPO_CLIENTE_EMPRESA_INDIVIDUAL = GlobalSettings.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
+  TIPO_CLIENTE_CONSORCIO = GlobalSettings.TIPO_CLIENTE_CONSORCIO;
   formulary: FormGroup;
 
   formErrors = {
@@ -113,7 +115,7 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
   userInfo: any;
   id_usuario: number = 0;
   id_tipo_cliente: number = 0;
-
+  solicitud: Solicitud;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DlgNuevoPlanScComponent>,
@@ -162,6 +164,8 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     //this.listarDocumentosValorados();
     this.listarMoneda();
     this.listarTipoLinea();
+    this.obtenerSolicitud();
+   
   }
 
   ngOnDestroy(): void {
@@ -366,7 +370,8 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
       "grupo_cliente_codigo_sap": this.grupo_cliente_codigo_sap,
       "id_cliente_agrupacion": this.id_cliente_agrupacion,
       "id_empresa": this.id_empresa,
-      "fecha_vigencia": form.fecha_vigencia,
+      "id_tipo_vigencia": form.vigencia.id,
+      "fecha_vigencia": (form.fecha_vigencia===''?null:form.fecha_vigencia),
       "id_tipo_moneda": form.moneda.id,
       "importe": form.importe,
       "fecha_inicio": null,
@@ -414,5 +419,11 @@ export class DlgNuevoPlanScComponent implements OnInit, OnDestroy {
     });
 
   }
-
+  obtenerSolicitud() {
+    this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then((data) => {
+      console.log("datos cliente--->" + JSON.stringify(data));
+      this.solicitud = data.payload;
+      this.id_tipo_cliente = data.payload.id_tipo_cliente;
+    })
+  }
 }

@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SolicitudPrincipalCliente } from 'src/app/models/solicitud-principal-cliente.interface';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-principales-clientes-sc',
@@ -13,6 +14,8 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 })
 export class PrincipalesClientesScComponent implements OnInit {
   @Input() id_solicitud: number;
+  @Input() id_estado_solicitud: number;
+
   formulary: FormGroup;
   displayedColumns: string[] = [
     'razon_social',
@@ -45,6 +48,10 @@ export class PrincipalesClientesScComponent implements OnInit {
   //Submitted form
   submitted = false;
   carga: boolean = false;
+
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+  ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _formValidatorService: FormValidatorService,
