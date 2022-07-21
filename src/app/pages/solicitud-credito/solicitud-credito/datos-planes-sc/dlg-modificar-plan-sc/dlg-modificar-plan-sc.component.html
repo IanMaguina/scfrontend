@@ -1,1 +1,211 @@
-<p>dlg-modificar-plan-sc works!</p>
+<div class="NuevoPlan-CreditoPOPUP">
+    <div class="Header_POPUPNPC">
+        <div class="titledialog_NPC color-title">Editar Plan de Crédito</div>
+    </div>
+    <div class="contenidoForm_NPC">
+        <form class="Dialog_NuevoPlan" [formGroup]="formulary" (ngSubmit)="actualizar(formulary.value)">
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Tipo de Línea:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="tipo_linea" (selectionChange)="seteoTipoLinea()" [compareWith]="comparaObjectos" required>
+                        <mat-option *ngFor="let tipo_linea of listadoTipoLinea" [value]="tipo_linea">
+                            {{ tipo_linea.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Tipo de Moneda:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="moneda" [compareWith]="comparaObjectos" required>
+                        <mat-option *ngFor="let moneda of listadoMoneda" [value]="moneda">
+                            {{ moneda.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="objetoNuevoPlan" *ngIf="id_tipo_cliente !== TIPO_CLIENTE_EMPRESA_INDIVIDUAL && id_tipo_cliente !== TIPO_CLIENTE_CONSORCIO">
+                <div class="Title_NPC">Empresa:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="empresa" (selectionChange)="cargarPlanes(formulary.value)" [compareWith]="comparaObjectos" required>
+                        <mat-option *ngFor="let item of listadoPlanesCreditoEmpresa" [value]="item">
+                            {{ item.empresa.razon_social }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Plan de Crédito:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="plan_credito" required>
+                        <mat-option *ngFor="let item of listadoPlanesCredito" [value]="item">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="ReemplazoPlanHelp">
+
+                    <mat-checkbox class="Subtitle_NPC_Reemplazo" formControlName="reemplazo">Reemplazo de planes
+                    </mat-checkbox>
+                    <mat-icon class="icon_help" matTooltip="Marcar solo si se reemplazará uno o más planes actual(es) por uno nuevo." matTooltipClass="TooltipReemplazo">help</mat-icon>
+
+                </div>
+            </div>         
+
+
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Importe de Crédito Solicitado:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Ingresar</mat-label>
+                    <input type="number" matInput placeholder="Ingrese importe" formControlName="importe" required>
+                    <mat-hint>
+                        <mat-error [hidden]="!(formErrors.importe)">
+                            {{formErrors.importe}}
+                        </mat-error>
+                    </mat-hint>
+
+                </mat-form-field>
+            </div>
+
+
+            <div class="objetoNuevoPlan" *ngIf="formulary.get('tipo_linea').value.id===LINEA_TEMPORAL">
+                <div class="Title_NPC">Vigencia:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <mat-select formControlName="vigencia"  [compareWith]="comparaObjectos" required>
+                        <mat-option *ngFor="let vigencia of listadoVigencias" [value]="vigencia">
+                            {{ vigencia.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="objetoNuevoPlan " *ngIf="formulary.get('vigencia').value.id===FECHA_VIGENCIA_TEMPORAL">
+                <div class="Title_NPC">Fecha:</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="fecha_vigencia">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+
+                </mat-form-field>
+            </div>
+
+
+
+
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Productos a comprar:</div>
+                <div class="Subtitle_NPC">*Pueden ser más de uno</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Línea de Productos</mat-label>
+                    <mat-select formControlName="linea_producto" multiple [compareWith]="comparaObjectos" (selectionChange)="llenarLineaProductoGrilla()">
+                        <mat-option *ngFor="let linea_producto of listadoLineaProducto" [value]="linea_producto">
+                            {{ linea_producto.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="" formArrayName="lineaProductosArray">
+                    <table mat-table [dataSource]="lineaProductosArray.controls" class="tableforms mat-elevation-z8">
+
+                        <ng-container matColumnDef="codigo_sap">
+                            <th mat-header-cell *matHeaderCellDef> Código SAP </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('codigo_sap').value}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef> Linea Producto </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('nombre').value}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="valor_nuevo">
+                                <th mat-header-cell *matHeaderCellDef> Nuevo valor </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.get('valor_nuevo').value}} </td>
+                            </ng-container> -->
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsLineaProducto"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsLineaProducto;"></tr>
+                    </table>
+
+                    <div class="tableforms">
+                        <button mat-raised-button (click)="solicitarNuevaCondicionPago()">Nueva Condición</button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container matColumnDef="codigo_sap">
+                <th mat-header-cell *matHeaderCellDef> Código SAP </th>
+                <td mat-cell *matCellDef="let element"> {{ element.get('linea_producto').value}}</td>
+            </ng-container>
+
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Documentos Valorados:</div>
+                <div class="Subtitle_NPC">*Pueden ser más de uno</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Documentos Valorados</mat-label>
+                    <mat-select formControlName="documento_valorado" multiple [compareWith]="comparaObjectos" (selectionChange)="llenarDocumentoValoradoGrilla()">
+                        <mat-option *ngFor="let documento_valorado of listadoDocumentosValorados" [value]="documento_valorado">
+                            {{ documento_valorado.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div formArrayName="documentoValoradoArray">
+                    <table mat-table [dataSource]="documentoValoradoArray.controls" class="tableforms mat-elevation-z8">
+
+                        <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef> Documento Valorado </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.get('nombre').value}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="importe">
+                            <th mat-header-cell *matHeaderCellDef> Importe </th>
+                            <td mat-cell *matCellDef="let element" [formGroup]="element">
+                                <mat-form-field appearance="outline">
+                                    <input type="number" matInput formControlName="importe" (focusout)="validarImporte(element)">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumentoValorado"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsDocumentoValorado;"></tr>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+            <div class="objetoNuevoPlan">
+                <div class="Title_NPC">Información Adicional (Motivo de solicitud de crédito):</div>
+                <mat-form-field class="info_NPC" appearance="fill">
+                    <mat-label>Ingresar...</mat-label>
+                    <textarea matInput placeholder="Ingrese Información adicional" formControlName="informacion_adicional" required> </textarea>
+                    <mat-hint>
+                        <mat-error [hidden]="!(formErrors.informacion_adicional)">
+                            {{formErrors.informacion_adicional}}
+                        </mat-error>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+
+            <div class="content10">
+                <button type="button" mat-raised-button class="boton-secundario_popup" (click)="onNoClick('CONFIRM_DLG_NO')">Cerrar</button>
+                <button mat-raised-button class="boton-principal_popup" type="submit">Aplicar</button>
+            </div>
+        </form>
+    </div>
+</div>
