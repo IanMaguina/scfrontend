@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AprobadorAdicional } from 'src/app/models/aprobador-adicional.interface';
 import { AprobadorAdicionalService } from 'src/app/services/aprobador-adicional.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { GlobalSettings } from 'src/app/shared/settings';
 import { CrearAprobadorAdicionalComponent } from '../crear-aprobador-adicional/crear-aprobador-adicional.component';
 
 @Component({
@@ -16,6 +17,10 @@ export class AprobadorAdicionalComponent implements OnInit {
   listadoAprobadoresAdicionales:AprobadorAdicional[] = [];
   displayedColumns: string[] = ['usuario', 'activo'];
 
+  //para la paginacion por pipes
+  itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+  page: number = 0;
+  totalRegister: number = 0;
 
   constructor(
     private matDialog: MatDialog,
@@ -31,15 +36,16 @@ export class AprobadorAdicionalComponent implements OnInit {
   }
 
   async listarAprobadorAdicionales(){
+    this.page = 0;
     this.aprobadorAdicionalService.listarAprobadoresAdicionales().then(data => {
       this.listadoAprobadoresAdicionales = data.payload;
+      this.totalRegister = this.listadoAprobadoresAdicionales.length;
     })
   }
   
   openAgregarAprobadorAdicional(){
     this.openDialog(CrearAprobadorAdicionalComponent,"Se agregó al Aprobador correctamente",'300px','', );
 
-    
   }
 
   onchangeActividad(element:any){
@@ -95,6 +101,16 @@ export class AprobadorAdicionalComponent implements OnInit {
         this.listarAprobadorAdicionales();
       }
     });
+  }
+
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+
+      this.page -= this.itemPerPage;
+    }
   }
 
 }

@@ -20,7 +20,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource();
 
-
+ 
   constructor(
     private matDialog: MatDialog,
     private usuarioService: UsuarioService,
@@ -38,10 +38,10 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   async listarUsuarios() {
+    
     this.usuarioService.listarUsuariosTodos().then(data => {
       this.listadoUsuarios = data.payload;
       this.dataSource.data = this.listadoUsuarios;
-
       console.log("usuarios listados: " + JSON.stringify(data.payload));
 
     })
@@ -128,4 +128,5 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     }
   }
 
+  
 }

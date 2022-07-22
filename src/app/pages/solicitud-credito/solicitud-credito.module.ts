@@ -69,6 +69,7 @@ import { ComportamientoPagoEcComponent } from './evaluar-credito/sustento-evalua
 import { IndicadoresFinancierosEcComponent } from './evaluar-credito/sustento-evaluacion-ec/indicadores-financieros-ec/indicadores-financieros-ec.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SeguimientoSolicitudCreditoComponent } from './solicitud-credito/seguimiento-solicitud-credito/seguimiento-solicitud-credito.component';
+import { PaginarBandejaPipe } from 'src/app/pipes/paginar-bandeja.pipe';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { SeguimientoSolicitudCreditoComponent } from './solicitud-credito/seguim
     FacturacionEcComponent,
     ComportamientoPagoEcComponent,
     IndicadoresFinancierosEcComponent,
-    SeguimientoSolicitudCreditoComponent
+    SeguimientoSolicitudCreditoComponent,
+    PaginarBandejaPipe,
   ],
   imports: [
     RouterModule,

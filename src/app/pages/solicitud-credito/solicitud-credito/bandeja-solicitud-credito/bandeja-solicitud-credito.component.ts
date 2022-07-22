@@ -91,6 +91,11 @@ export class BandejaSolicitudCreditoComponent implements OnInit, OnDestroy {
   esConsulta: boolean = false;
   title: string;
   public rutaSubs$: Subscription;
+
+  //para la paginacion por pipes
+  itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+  page: number = 0;
+  totalRegister: number = 0;
   constructor(
     private formBuilder: FormBuilder,
     private formValidatorService: FormValidatorService,
@@ -140,17 +145,19 @@ export class BandejaSolicitudCreditoComponent implements OnInit, OnDestroy {
   }
 
   listarSolicitud() {
+    this.page = 0;
     let item;
-    if(!this.esConsulta){
+    if (!this.esConsulta) {
       item = {
         id_usuario: this.userInfo.id
       }
-    }else{
+    } else {
       item = {};
     }
     this.solicitudService.listarSolicitudesxFiltros(item).then(data => {
       console.log("solicitudes-------->" + JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
+      this.totalRegister = this.listadoSolicitudes.length;
     })
   }
 
@@ -180,14 +187,16 @@ export class BandejaSolicitudCreditoComponent implements OnInit, OnDestroy {
   }
 
   async buscarSolicitudes(form: any) {
+    this.page=0;
     this.listadoSolicitudes = [];
-    if(!this.esConsulta){
-      form.id_usuario = this.userInfo.id; 
+    if (!this.esConsulta) {
+      form.id_usuario = this.userInfo.id;
     }
-   
+
     await this.solicitudService.listarSolicitudesxFiltros(form).then(data => {
       console.log("solicitudes filtradas:" + JSON.stringify(data));
       this.listadoSolicitudes = data.payload;
+      this.totalRegister = this.listadoSolicitudes.length;
       // this.limpiar();
     });
   }
@@ -210,5 +219,12 @@ export class BandejaSolicitudCreditoComponent implements OnInit, OnDestroy {
 
   }
 
-
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+      this.page -= this.itemPerPage;
+    }
+  }
 }

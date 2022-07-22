@@ -6,6 +6,7 @@ import { SnackBarService } from '@services/snack-bar.service';
 import { SociedadService } from '@services/sociedad.service';
 import { AsociadoNoSobregiro } from 'src/app/models/asociado-no-sobregiro.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-asociados-no-sobregiro',
@@ -35,6 +36,10 @@ export class AsociadosNoSobregiroComponent implements OnInit {
   };
 
   submitted = false;
+   //para la paginacion por pipes
+   itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+   page: number = 0;
+   totalRegister: number = 0;
   constructor(
     private sociedadService:SociedadService,
     private _snack:SnackBarService,
@@ -65,8 +70,10 @@ export class AsociadosNoSobregiroComponent implements OnInit {
   }
   
 /*   listarAsociadosNoSobregiro(){
+this.page =0;
     this.asociadoNoSobregiroService.listarAsociadosNoSobregiro().then(data => {
       this.listadoAsociadoNoSobregiro = data.payload;
+      this.totalRegister = this.listadoAsociadoNoSobregiro.lenght;
     })
   } */
 
@@ -90,6 +97,16 @@ export class AsociadosNoSobregiroComponent implements OnInit {
     })*/
 
   } 
+
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+
+      this.page -= this.itemPerPage;
+    }
+  }
 
 
 }

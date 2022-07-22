@@ -43,7 +43,7 @@
 </div>
 <div class="content-table">
     <!--  <span class="label-info"><mat-icon>info</mat-icon> Para cambiar el valor actual agregar un nuevo tipo de cambio</span> -->
-    <table mat-table [dataSource]="listadoAsociadoNoSobregiro" class="mat-elevation-z8 tipodecambiotable">
+    <table mat-table [dataSource]="listadoAsociadoNoSobregiro | paginator:page" class="mat-elevation-z8 tipodecambiotable">
         <caption title="listadoAsociadoNoSobregiro"></caption>
         <!-- Column -->
         <ng-container matColumnDef="cliente_codigo_sap">
@@ -76,4 +76,13 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div class="derecha">
+        <span color="accent" class="labelPager"> {{page}} a {{(page + itemPerPage > totalRegister)? totalRegister :
+            page + itemPerPage }} de {{totalRegister}} registros</span>
+            &nbsp;&nbsp;
+        <button mat-raised-button class="boton-secundario" (click)="prevPage()">Anterior</button>
+        &nbsp;
+        <button mat-raised-button class="boton-secundario" (click)="nextPage()"
+            [disabled]="(page+itemPerPage>totalRegister)">Siguiente</button>
+    </div>
 </div>

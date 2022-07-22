@@ -14,6 +14,7 @@ import { SociedadService } from '@services/sociedad.service';
 import { Usuario } from 'src/app/models/usuario.interface';
 import { Sociedad } from 'src/app/models/sociedad.interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { GlobalSettings } from 'src/app/shared/settings';
 @Component({
   selector: 'app-estrategias',
   templateUrl: './estrategias.component.html',
@@ -27,8 +28,12 @@ export class EstrategiasComponent implements OnInit {
   listadoSociedad: Sociedad[] = [];
   estrategiaRolUsuario: RolUsuario = {};
   displayedColumns: string[] = ['rol', 'Sociedad', 'grupo_cliente', 'usuario', 'usuario_revisor', 'activo'];
-  dataSource = new MatTableDataSource<RolUsuario>();
+  
   formulary:FormGroup;
+  //para la paginacion por pipes
+  itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+  page: number = 0;
+  totalRegister: number = 0;
 
   constructor(
     private matDialog: MatDialog,
@@ -70,9 +75,10 @@ export class EstrategiasComponent implements OnInit {
   }
 
   async listarEstrategiaRolUsuario() {
+    this.page = 0;
     this.rolUsuarioService.listarEstrategiaRolUsuario().then(data => {
       this.listadoEstrategiaRolUsuario = data.payload;
-      this.dataSource.data = this.listadoEstrategiaRolUsuario;
+      this.totalRegister = this.listadoEstrategiaRolUsuario.length;
     })
   }
 
@@ -147,14 +153,10 @@ export class EstrategiasComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
-    // console.log("filtrar: "+JSON.stringify((event.target as HTMLInputElement).value));
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    // console.log("filtrado: "+this.dataSource);
-  }
+ 
 
   filtrarRolUsuario(){
+    this.page = 0;
     let sociedad = this.formulary.get('sociedad').value;
     let rol = this.formulary.get('rol').value;
 
@@ -163,8 +165,8 @@ export class EstrategiasComponent implements OnInit {
       id_rol: rol.id,
     }
     this.rolUsuarioService.listarEstrategiaFiltros(item).then(data => {
-      this.listadoEstrategiaRolUsuario = data.payload;
-      this.dataSource.data = this.listadoEstrategiaRolUsuario;
+      this.listadoEstrategiaRolUsuario = data.payload; 
+      this.totalRegister = this.listadoEstrategiaRolUsuario.length;
       this.limpiarFiltros();
     })
 
@@ -174,6 +176,16 @@ export class EstrategiasComponent implements OnInit {
   limpiarFiltros(){
     this.formulary.get('sociedad').setValue('');
     this.formulary.get('rol').setValue('');
+  }
+
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+
+      this.page -= this.itemPerPage;
+    }
   }
 
 

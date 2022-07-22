@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsistenteFacturacion } from 'src/app/models/asistente-facturacion.interface';
 import { AsistenteFacturacionService } from 'src/app/services/asistente-facturacion.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { GlobalSettings } from 'src/app/shared/settings';
 import { CrearAsistenteFacturacionComponent } from '../crear-asistente-facturacion/crear-asistente-facturacion.component';
 import { EditarAsistenteFacturacionComponent } from '../editar-asistente-facturacion/editar-asistente-facturacion.component';
 
@@ -14,9 +15,14 @@ import { EditarAsistenteFacturacionComponent } from '../editar-asistente-factura
   ]
 })
 export class AsistenteFacturacionComponent implements OnInit {
-  listadoAsistentesFacturacion: AsistenteFacturacion[];
+  listadoAsistentesFacturacion: AsistenteFacturacion[] = [];
 
   displayedColumnsSociedad: string[] = ['usuario', 'zonal', 'activo'];
+  //para la paginacion por pipes
+  itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+  page: number = 0;
+  totalRegister: number = 0;
+
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -29,8 +35,10 @@ export class AsistenteFacturacionComponent implements OnInit {
     this.listarAsistentesFacturacion();
   }
   async listarAsistentesFacturacion() {
+    this.page =0;
     await this.asistenteFacturacionService.listarAsistentesFacturacion().then((data) => {
       this.listadoAsistentesFacturacion = data.payload;
+      this.totalRegister = this.listadoAsistentesFacturacion.length;
     });
   }
   openAgregarAsistenteFacturacion() {
@@ -104,6 +112,15 @@ export class AsistenteFacturacionComponent implements OnInit {
       horizontalPosition: "end",
       verticalPosition: "top"
     });
+  }
+
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+      this.page -= this.itemPerPage;
+    }
   }
 
 

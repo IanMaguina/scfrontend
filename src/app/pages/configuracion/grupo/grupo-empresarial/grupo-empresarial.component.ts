@@ -29,15 +29,19 @@ export class GrupoEmpresarialComponent implements OnInit {
     'nombre',
     'estado_cliente_agrupacion',
     'usuario_creacion',
-   /*  'estado', */
+    /*  'estado', */
     'id'
   ];
   formulary: FormGroup;
   userInfo: Usuario;
   id_usuario: number = 0;
   id_perfilLogueo: number = 0;
-  PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
-  isPerfilAdmin:boolean=false;
+  PERFIL_ADMINISTRADOR: number = GlobalSettings.PERFIL_ADMINISTRADOR;
+  isPerfilAdmin: boolean = false;
+  //para la paginacion por pipes
+  itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+  page: number = 0;
+  totalRegister: number = 0;
   constructor(
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
@@ -47,8 +51,8 @@ export class GrupoEmpresarialComponent implements OnInit {
     private autenticacionService: AutenticacionService
   ) {
     this.userInfo = this.autenticacionService.getUserInfo();
-    this.id_usuario=this.userInfo.id;
-    console.log("mi usuario: "+JSON.stringify(this.userInfo));
+    this.id_usuario = this.userInfo.id;
+    console.log("mi usuario: " + JSON.stringify(this.userInfo));
     this.formulary = this._formBuilder.group({
       nombreGrupo: [''],
       rucGrupo: [''],
@@ -61,8 +65,10 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   async listarGruposEmpresariales() {
+    this.page = 0;
     await this.grupoEmpresarialService.filtrarGruposEmpresariales().then(data => {
       this.listadoGrupos = data.payload;
+      this.totalRegister = this.listadoGrupos.length;
     })
   }
 
@@ -76,7 +82,7 @@ export class GrupoEmpresarialComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.payload.confirm === 'CONFIRM_DLG_YES') {
-          this.openAsignarIntegrantesGrupo(result.payload.data);
+        this.openAsignarIntegrantesGrupo(result.payload.data);
       } else {
         this.listarGruposEmpresariales();
 
@@ -94,7 +100,7 @@ export class GrupoEmpresarialComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.payload.confirm === 'CONFIRM_DLG_YES') {
-          this.openAsignarIntegrantesGrupo(result.payload.data);
+        this.openAsignarIntegrantesGrupo(result.payload.data);
       } else {
         this.listarGruposEmpresariales();
 
@@ -105,7 +111,7 @@ export class GrupoEmpresarialComponent implements OnInit {
 
 
   openAsignarIntegrantesGrupo(data: any) {
-    this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', data,'custom_IntegranteGrupo')
+    this.openDialog(AsignarIntegrantesGrupoComponent, 'no', '80%', data, 'custom_IntegranteGrupo')
   }
 
   toggleGrupoActivo(element: any) {
@@ -127,8 +133,8 @@ export class GrupoEmpresarialComponent implements OnInit {
     dialogRef3.afterClosed().subscribe(result => {
       if (result === 'CONFIRM_DLG_YES') {
         let clienteAgrupacion: ClienteAgrupacion = element;
-        clienteAgrupacion.id_usuario=this.id_usuario;
-        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(()=>{
+        clienteAgrupacion.id_usuario = this.id_usuario;
+        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(() => {
           this.listarGruposEmpresariales();
         });
       }
@@ -140,7 +146,7 @@ export class GrupoEmpresarialComponent implements OnInit {
       disableClose: true,
       width: width,
       data: data ? data : '',
-      panelClass: panelClass? panelClass: 'custom_Config',
+      panelClass: panelClass ? panelClass : 'custom_Config',
       autoFocus: false,
     });
 
@@ -149,7 +155,7 @@ export class GrupoEmpresarialComponent implements OnInit {
         if (msg != 'no') {
           this.enviarMensajeSnack(msg);
           this.listarGruposEmpresariales();
-        }else{
+        } else {
           this.listarGruposEmpresariales();
         }
       } else {
@@ -167,8 +173,8 @@ export class GrupoEmpresarialComponent implements OnInit {
     });
   }
 
-  isAdmin(){
-    if(this.id_perfilLogueo===this.PERFIL_ADMINISTRADOR){
+  isAdmin() {
+    if (this.id_perfilLogueo === this.PERFIL_ADMINISTRADOR) {
       this.isPerfilAdmin = true;
     }
   }
@@ -188,39 +194,49 @@ export class GrupoEmpresarialComponent implements OnInit {
   }
 
   filtrarGrupoEmpresarial() {
+    this.page = 0;
 
     let filtroGrupo = {
       nombre: this.formulary.get('nombreGrupo').value,
       numero_documento: this.formulary.get('rucGrupo').value
     }
-    console.log(" filtro--->"+JSON.stringify(filtroGrupo));
+    console.log(" filtro--->" + JSON.stringify(filtroGrupo));
     this.grupoEmpresarialService.filtrarGruposEmpresariales(filtroGrupo).then((data) => {
       console.log("Listado de grupos empresariales-->" + JSON.stringify(data))
       this.listadoGrupos = data.payload;
-
+      this.totalRegister = this.listadoGrupos.length;
     })
   }
 
-  eliminar(form:any){
-    let data= {
+  eliminar(form: any) {
+    let data = {
       mensaje: 'Está seguro de eliminar el grupo?'
     }
     let dialogRef1 = this.matDialog.open(ConfirmDialogComponent, {
-      disableClose: true, 
+      disableClose: true,
       data: data
     });
-  
+
     dialogRef1.afterClosed().subscribe(res => {
-      if(res === 'CONFIRM_DLG_YES'){
-        
+      if (res === 'CONFIRM_DLG_YES') {
+
         let clienteAgrupacion: ClienteAgrupacion = form;
-        clienteAgrupacion.id_usuario=this.id_usuario;
-        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(()=>{
+        clienteAgrupacion.id_usuario = this.id_usuario;
+        this.grupoEmpresarialService.eliminarGrupoEmpresarial(clienteAgrupacion).then(() => {
           this.listarGruposEmpresariales();
         });
       }
-      
+
     });
+  }
+
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+      this.page -= this.itemPerPage;
+    }
   }
 
 }

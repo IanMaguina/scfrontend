@@ -37,6 +37,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
+
+
 export function initConfig(appConfig: AppConfigService) {
   return () => appConfig.loadConfig();
 }
@@ -69,6 +71,7 @@ export function socialConfigFactory(restService: AppConfigService) {
     LoginComponent,
     NopagefoundComponent,
     CerrarSessionComponent,
+  
 
   ],
   imports: [

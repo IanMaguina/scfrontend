@@ -47,12 +47,9 @@
         <span class="label-info">
             <mat-icon>info</mat-icon> Para editar el registro dar doble clic en el Rol.
         </span>
-        <!-- <mat-form-field appearance="legacy">
-        <mat-label>Filtro</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="ingrese el dato a buscar" #input>
-    </mat-form-field>
-    <br> -->
-        <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8">
+       
+    <br>
+        <table mat-table matTableResponsive [dataSource]="listadoEstrategiaRolUsuario | paginator:page" class="mat-elevation-z8">
             <caption title="listado de estrategias rol usuario"></caption>
             <!-- Table estrategias - por sociedad -->
 
@@ -101,5 +98,13 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
+        <div class="derecha">
+            <span color="accent" class="labelPager"> {{page}} a {{(page + itemPerPage > totalRegister)? totalRegister :
+                page + itemPerPage }} de {{totalRegister}} registros</span>
+                &nbsp;&nbsp;
+            <button mat-raised-button class="boton-secundario" (click)="prevPage()">Anterior</button>
+            &nbsp;
+            <button mat-raised-button class="boton-secundario" (click)="nextPage()"
+                [disabled]="(page+itemPerPage>totalRegister)">Siguiente</button>
+        </div>
     </div>

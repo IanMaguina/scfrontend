@@ -43,6 +43,10 @@ export class ConsorcioComponent implements OnInit {
   PERFIL_ADMINISTRADOR:number = GlobalSettings.PERFIL_ADMINISTRADOR;
   isPerfilAdmin:boolean=false;
   formulary:FormGroup;
+//para la paginacion por pipes
+itemPerPage = GlobalSettings.CANTIDAD_FILAS;
+page: number = 0;
+totalRegister: number = 0;
 
   constructor(
     private matDialog: MatDialog,
@@ -65,9 +69,10 @@ export class ConsorcioComponent implements OnInit {
   }
 
   async listarConsorcios() {
-    //this.consorcioService.listarConsorcios().then(data => {
+    this.page =0;
     this.consorcioService.buscarConsorcios().then(data => { 
       this.listadoConsorcios = data.payload;
+      this.totalRegister = this.listadoConsorcios.length;
     })
   }
 
@@ -161,6 +166,7 @@ export class ConsorcioComponent implements OnInit {
   }
 
   listarConsorcioxFiltros() {
+    this.page =0;
     let rucConsorcio = this.formulary.get('rucConsorcio').value;
     console.log("rucConsorcio"+JSON.stringify(rucConsorcio));
     let filtroConsorcio = {
@@ -170,10 +176,9 @@ export class ConsorcioComponent implements OnInit {
     this.consorcioService.filtrarConsorcios(filtroConsorcio).then((data) => {
       console.log("Listado de Consorcios-->" + JSON.stringify(data))
       this.listadoConsorcios = data.payload;
-
+      this.totalRegister = this.listadoConsorcios.length;
     })
   }
-
 
   eliminar(form:any){
     let data= {
@@ -195,6 +200,15 @@ export class ConsorcioComponent implements OnInit {
       }
       
     });
+  }
+
+  nextPage() {
+    this.page += this.itemPerPage;
+  }
+  prevPage() {
+    if (this.page > 0) {
+      this.page -= this.itemPerPage;
+    }
   }
 
 

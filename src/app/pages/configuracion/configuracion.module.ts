@@ -75,6 +75,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { CondicionPagoRegularService } from '@services/condicion-pago-regular.service';
 import { PopUPService } from '@services/pop-up.service';
 import { getSpanishPaginatorIntl } from 'src/app/shared/language/spanish-paginator-intl';
+import { PaginatorPipe } from 'src/app/pipes/paginator.pipe';
 
 registerLocaleData(localeEs, 'es-PE');
 
@@ -127,7 +128,9 @@ registerLocaleData(localeEs, 'es-PE');
     CrearCondicionPagoComponent,
     EditarCondicionPagoComponent,
     TablaConfiguracionBandejaCondicionPagoRegularComponent,
-    FormularioConfiguracionBandejaCondicionPagoRegularComponent
+    FormularioConfiguracionBandejaCondicionPagoRegularComponent,
+
+    PaginatorPipe,
 
   ],
   imports: [

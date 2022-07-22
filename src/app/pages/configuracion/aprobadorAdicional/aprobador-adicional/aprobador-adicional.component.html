@@ -10,8 +10,8 @@
 
 <mat-divider class="divisorConfig"></mat-divider>
 
-<div class="content-table">
-    <table mat-table matTableResponsive [dataSource]="listadoAprobadoresAdicionales" class="tablaAprobador mat-elevation-z8" >
+<div class="content-table tablaAprobador">
+    <table mat-table matTableResponsive [dataSource]="listadoAprobadoresAdicionales | paginator:page" class="tablaAprobador mat-elevation-z8" >
         <caption title="tablaListadoAprobadores"></caption>
         <!-- Table estrategias - por sociedad -->
         <!-- Column -->
@@ -32,5 +32,14 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div class="derecha">
+        <span color="accent" class="labelPager"> {{page}} a {{(page + itemPerPage > totalRegister)? totalRegister :
+            page + itemPerPage }} de {{totalRegister}} registros</span>
+        &nbsp; &nbsp;
+        <button mat-raised-button class="boton-secundario" (click)="prevPage()">Anterior</button>
+        &nbsp;
+        <button mat-raised-button class="boton-secundario" (click)="nextPage()"
+            [disabled]="(page+itemPerPage>totalRegister)">Siguiente</button>
+    </div>
 
 </div> 

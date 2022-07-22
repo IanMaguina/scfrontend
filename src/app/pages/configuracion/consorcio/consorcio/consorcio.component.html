@@ -27,7 +27,7 @@
 
 <div class="content-table">
 
-    <table mat-table matTableResponsive [dataSource]="listadoConsorcios" class="mat-elevation-z8">
+    <table mat-table matTableResponsive [dataSource]="listadoConsorcios | paginator:page" class="mat-elevation-z8">
         <caption title="lista de consorcios"></caption>
 
         <!-- Column -->
@@ -102,5 +102,14 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div class="derecha">
+        <span color="accent" class="labelPager"> {{page}} a {{(page + itemPerPage > totalRegister)? totalRegister :
+            page + itemPerPage }} de {{totalRegister}} registros</span>
+            &nbsp;&nbsp;
+        <button mat-raised-button class="boton-secundario" (click)="prevPage()">Anterior</button>
+        &nbsp;
+        <button mat-raised-button class="boton-secundario" (click)="nextPage()"
+            [disabled]="(page+itemPerPage>totalRegister)">Siguiente</button>
+    </div>
 
 </div>

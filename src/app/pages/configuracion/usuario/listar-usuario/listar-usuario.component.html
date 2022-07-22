@@ -19,16 +19,17 @@
         </mat-form-field>
         <br>
         <br>
-        <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="announceSortChange($event)" >
+        <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8" matSort
+            (matSortChange)="announceSortChange($event)">
             <caption title="listado de usuarios"></caption>
 
             <!-- Column -->
             <ng-container matColumnDef="nombre">
-                <th class="PointerHand" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nombre"> Nombre </th>
+                <th class="PointerHand" mat-header-cell *matHeaderCellDef mat-sort-header
+                    sortActionDescription="Sort by nombre"> Nombre </th>
                 <td class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarUsuario(element)"><u>
                         {{element.nombre}} </u> </td>
             </ng-container>
-
 
             <!-- Column -->
             <ng-container matColumnDef="perfil">
@@ -41,7 +42,6 @@
                 <td class="ColumnWidths" mat-cell *matCellDef="let element"> {{element.correo}} </td>
             </ng-container>
 
-
             <ng-container matColumnDef="id">
                 <th class="ColumnWidths" mat-header-cell *matHeaderCellDef> Activo </th>
                 <td class="ColumnWidths" mat-cell *matCellDef="let element">
@@ -53,6 +53,6 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        
+
     </div>
 </div>
