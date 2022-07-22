@@ -13,20 +13,14 @@
         <span class="label-info">
             <mat-icon>info</mat-icon>Para editar el registro dar doble clic en el nombre del usuario.
         </span>
-        <mat-form-field style="width: 100%;" appearance="fill">
-            <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese el dato que desee buscar" #input>
-        </mat-form-field>
+
         <br>
-        <br>
-        <table mat-table matTableResponsive [dataSource]="dataSource" class="mat-elevation-z8" matSort
-            (matSortChange)="announceSortChange($event)">
+        <table mat-table matTableResponsive [dataSource]="listadoUsuarios | paginator:page" class="mat-elevation-z8">
             <caption title="listado de usuarios"></caption>
 
             <!-- Column -->
             <ng-container matColumnDef="nombre">
-                <th class="PointerHand" mat-header-cell *matHeaderCellDef mat-sort-header
-                    sortActionDescription="Sort by nombre"> Nombre </th>
+                <th class="PointerHand" mat-header-cell *matHeaderCellDef > Nombre </th>
                 <td class="PointerHand" mat-cell *matCellDef="let element" (dblclick)="openEditarUsuario(element)"><u>
                         {{element.nombre}} </u> </td>
             </ng-container>
@@ -53,6 +47,14 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
+        <div class="derecha">
+            <span color="accent" class="labelPager"> {{page}} a {{(page + itemPerPage > totalRegister)? totalRegister :
+                page + itemPerPage }} de {{totalRegister}} registros</span>
+            &nbsp;&nbsp;
+            <button mat-raised-button class="boton-secundario" (click)="prevPage()">Anterior</button>
+            &nbsp;
+            <button mat-raised-button class="boton-secundario" (click)="nextPage()"
+                [disabled]="(page+itemPerPage>totalRegister)">Siguiente</button>
+        </div>
     </div>
 </div>

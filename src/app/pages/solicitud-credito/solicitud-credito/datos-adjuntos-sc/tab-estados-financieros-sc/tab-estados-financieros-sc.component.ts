@@ -127,7 +127,7 @@ export class TabEstadosFinancierosScComponent implements OnInit {
   });
 }
 
-eliminar(){
+eliminar(element:any){
   let data= {
     mensaje: 'Está seguro de eliminar el estado financiero?'
   }
@@ -138,8 +138,12 @@ eliminar(){
 
   dialogRef1.afterClosed().subscribe(res => {
     if(res === 'CONFIRM_DLG_YES'){
-      console.log(`No se están eliminando estados financieros: implementar servicio`);
-      //eliminar
+      this.solicitudAdjuntoService.eliminar(element.id).then(response =>{
+        if(response.header.exito){
+          this.enviarMensajeSnack('Se eliminó el adjunto');
+          this.listarAdjuntos();
+        }
+      })
     }
     
   });
