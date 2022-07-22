@@ -138,7 +138,7 @@ eliminar(element:any){
 
   dialogRef1.afterClosed().subscribe(res => {
     if(res === 'CONFIRM_DLG_YES'){
-      this.solicitudAdjuntoService.eliminar(element.id).then(response =>{
+      this.solicitudAdjuntoService.eliminarAdjunto(element.id).then(response =>{
         if(response.header.exito){
           this.enviarMensajeSnack('Se eliminó el adjunto');
           this.listarAdjuntos();
