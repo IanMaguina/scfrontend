@@ -1,23 +1,29 @@
 <div class="botonera-superior">
   <div class="titlesectionSolicitud">
-    <span>Solicitud de Crédito</span>
-    <h3 *ngIf="motivo_rechazo"><b>Motivo Devolución</b>: {{ motivo_rechazo }}</h3>
+    <span>Solicitud de Crédito:</span><span *ngIf="motivo_rechazo"> N°{{Correlativo}}</span>
+    <span class="MensajeNotifiación" *ngIf="motivo_rechazo">
+
+      <mat-icon class="warning_pop">warning</mat-icon>
+        <h3><b>Motivo Devolución
+      </b>: {{ motivo_rechazo }}</h3>
+
+    </span>
   </div>
-  <div>
+  <div class="Botones_Gap">
     <button mat-raised-button class="boton-secundario" (click)="rechazar()"
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Devolver</button>
-    &nbsp;
+
     <button mat-raised-button class="boton-principal_popup" (click)="aprobar()"
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_REVISION">Enviar a evaluación</button>
 
     <button mat-raised-button class="boton-secundario" type="button" (click)="eliminarSolicitud()"
       *ngIf="ESTADO_SOLICITUD==ESTADO_SOLICITUD_EN_SOLICITANTE">Anular Solicitud</button>
-    &nbsp;
-    <button mat-raised-button class="boton-secundario" type="button" (click)="anularSolicitud()"
-      *ngIf="ESTADO_SOLICITUD!=ESTADO_SOLICITUD_EN_SOLICITANTE">Anular Solicitud</button>
-   
-    <button *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE" mat-mini-fab color="white" aria-label="Buscar"
-      class="boton-secundario" type="button" (click)="abrirSeguimiento()">
+    <div>
+      <button mat-raised-button class="boton-secundario" type="button" (click)="anularSolicitud()"
+        *ngIf="ESTADO_SOLICITUD!=ESTADO_SOLICITUD_EN_SOLICITANTE">Anular Solicitud</button>
+    </div>
+    <button *ngIf="ESTADO_SOLICITUD!==ESTADO_SOLICITUD_EN_SOLICITANTE" mat-raised-button
+      class="boton-secundario BotonSeguimiento" type="button" (click)="abrirSeguimiento()">
       <mat-icon>library_books</mat-icon>
     </button>
   </div>

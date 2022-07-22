@@ -1,13 +1,19 @@
-<div class="DialogConfig">   
-    <div class="titledialog color-secundario">
-        <span>Motivo</span>
+<div class="DialogMotivoDevolucion">
+    <div>
+        <mat-icon class="warning_pop IconWarning">warning</mat-icon>
     </div>
-    <div class="body-dialog">
+    <div class="titledialog color-secundario">
+        <span>Estas apunto de devolver la solicitud</span>
+    </div>
+    
+    <div class="BodyDialogDevolucion">
+        <div><b>Ingresa el motivo de la devolución</b></div>
+        <div style="color: red;">*Campo Obligatorio</div>
         <div class="contenidoForm">
             <form class="example-form">
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Ingrese motivo</mat-label>
-                    <textarea matInput [formControl] = "motivoFormControl"></textarea>
+                <mat-form-field isDisabled class="example-full-width" appearance="fill">
+                    <mat-label>Escriba aquí el motivo...</mat-label>
+                    <textarea matInput [formControl]="motivoFormControl"></textarea>
                 </mat-form-field>
 
                 <mat-divider class="divisorConfig"></mat-divider>
@@ -16,9 +22,7 @@
                     <button mat-raised-button class="color-secundario" type="button"
                         (click)="onNoClick('CONFIRM_DLG_NO')">Cancelar</button> &nbsp;
                     <button mat-raised-button class="boton-principal-light" type="button"
-
-                         [disabled]="motivoFormControl.hasError('required')"
-
+                        [disabled]="motivoFormControl.hasError('required')"
                         (click)="onNoClick('CONFIRM_DLG_YES')">Aceptar</button>
                 </div>
             </form>
