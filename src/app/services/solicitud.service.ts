@@ -245,6 +245,23 @@ export class SolicitudService {
       });
   }
 
+  anularSolicitud(id_solicitud: number,body:any): Promise<any> {
+    console.log("anular solicitud..." + JSON.stringify(id_solicitud)+", "+JSON.stringify(body));
+        
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.postResource("/api/solicitud/"+id_solicitud+"/anular",body).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+
+      });
+  }
+
   eliminarSolicitud(id: number): Promise<any> {
     console.log("deletting Solicitud ..." + JSON.stringify(id));
     return new Promise(

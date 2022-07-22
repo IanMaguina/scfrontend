@@ -38,7 +38,8 @@ export class EditarSolicitudCreditoComponent implements OnInit {
   ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR: number = GlobalSettings.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR;
 
   motivo_rechazo:string;
-  
+  correlativo:string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private matDialog: MatDialog,
@@ -57,6 +58,8 @@ export class EditarSolicitudCreditoComponent implements OnInit {
     if (this.id_solicitud_editar !== null) {
       this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
         this.solicitud = data.payload;
+        console.log("solicitud="+JSON.stringify(this.solicitud));
+        this.correlativo = this.solicitud.correlativo;
         this.ESTADO_SOLICITUD=this.solicitud.id_estado;
 
         if (this.ESTADO_SOLICITUD==this.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR){
@@ -160,13 +163,22 @@ export class EditarSolicitudCreditoComponent implements OnInit {
 
     dialogRef1.afterClosed().subscribe(res => {
       if(res === 'CONFIRM_DLG_YES'){
-        console.log(`No se están anulando las solicitudes`);
-       /*  this.solicitudService.eliminarSolicitud(this.id_solicitud_editar).then((response)=>{
-          if(response.header.exito){
-            this._snack.openSnackBar(`Se anuló la solicitud: ${this.id_solicitud_editar}`,'Cerrar');
-            this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
-          }
-        }) */
+         //console.log(`No se están anulando las solicitudes`);
+         if (this.solicitud.id_estado == this.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR){
+
+            console.log("se anula solicitud...");
+            this.solicitudService.anularSolicitud(this.id_solicitud_editar,{ id_usuario: this.userInfo.id }).then((response)=>{
+              if(response.header.exito){
+                this._snack.openSnackBar(`Se anuló la solicitud: ${this.id_solicitud_editar}`,'Cerrar');
+                this.router.navigate(['app/solicitudcredito/bandejaMisPendientes']);
+              }
+            }) 
+
+         }else if (this.solicitud.id_estado == this.ESTADO_SOLICITUD_EN_SOLICITANTE){
+            // Eliminar 
+
+         }
+         
       }
       
     });
