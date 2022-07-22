@@ -35,7 +35,10 @@ export class EditarSolicitudCreditoComponent implements OnInit {
   ESTADO_SOLICITUD:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_SOLICITANTE:number=GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION:number=GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
+  ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR: number = GlobalSettings.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR;
 
+  motivo_rechazo:string;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private matDialog: MatDialog,
@@ -55,6 +58,20 @@ export class EditarSolicitudCreditoComponent implements OnInit {
       this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(data => {
         this.solicitud = data.payload;
         this.ESTADO_SOLICITUD=this.solicitud.id_estado;
+
+        if (this.ESTADO_SOLICITUD==this.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR){
+          this.solicitudService.listarSeguimientoSolicitud(this.id_solicitud_editar).then( data => {
+            console.log("data seguimiento="+JSON.stringify(data));
+            const items_seguimiento = data.payload;
+
+            const lastone = items_seguimiento.find(o=>!o.fecha_fin);
+            if (lastone){                            
+                this.motivo_rechazo = lastone.motivo_rechazo;
+            }
+
+          })
+        }
+
       })
     }
   }

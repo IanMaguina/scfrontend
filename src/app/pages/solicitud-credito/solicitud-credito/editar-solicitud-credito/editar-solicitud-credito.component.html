@@ -1,6 +1,7 @@
 <div class="botonera-superior">
   <div class="titlesectionSolicitud">
     <span>Solicitud de Crédito</span>
+    <h3 *ngIf="motivo_rechazo"><b>Motivo Devolución</b>: {{ motivo_rechazo }}</h3>
   </div>
   <div>
     <button mat-raised-button class="boton-secundario" (click)="rechazar()"
