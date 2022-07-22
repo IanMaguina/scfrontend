@@ -42,7 +42,7 @@
       <div class="content-stepper">
         <ng-template matStepLabel>Adjuntos y Plantillas</ng-template>
         <mat-divider class="divisorInfoSolicitud"></mat-divider>
-        <app-datos-adjuntos-sc (onFourthFormGroup)="onFourthFormGroupEvent($event)"></app-datos-adjuntos-sc>
+        <app-datos-adjuntos-sc [id_solicitud_editar]="id_solicitud_editar" (onFourthFormGroup)="onFourthFormGroupEvent($event)"></app-datos-adjuntos-sc>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
