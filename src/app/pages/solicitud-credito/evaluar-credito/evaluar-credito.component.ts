@@ -31,6 +31,8 @@ export class EvaluarCreditoComponent implements OnInit {
   ESTADO_SOLICITUD_EN_SOLICITANTE: number = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
   ESTADO_SOLICITUD_EN_REVISION: number = GlobalSettings.ESTADO_SOLICITUD_EN_REVISION;
   ESTADO_SOLICITUD_EN_EVALUACION: number = GlobalSettings.ESTADO_SOLICITUD_EN_EVALUACION;
+  ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR: number = GlobalSettings.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR;
+
   id_tipo_cliente?: number;
   TIPO_CLIENTE_EMPRESA_INDIVIDUAL: number = GlobalSettings.TIPO_CLIENTE_EMPRESA_INDIVIDUAL;
   TIPO_CLIENTE_GRUPO_EMPRESARIAL: number = GlobalSettings.TIPO_CLIENTE_GRUPO_EMPRESARIAL;
@@ -69,16 +71,18 @@ export class EvaluarCreditoComponent implements OnInit {
         this.estado = (this.solicitud.estado?this.solicitud.estado.nombre:'');
         console.log("Solicitud data imm--->" + JSON.stringify(this.solicitud));
 
-        this.solicitudService.listarSeguimientoSolicitud(this.id_solicitud_editar).then( data => {
-          console.log("data seguimiento="+JSON.stringify(data));
-          const items_seguimiento = data.payload;
+        if (this.ESTADO_SOLICITUD==this.ESTADO_SOLICITUD_DEVUELTO_POR_REVISOR){
+          this.solicitudService.listarSeguimientoSolicitud(this.id_solicitud_editar).then( data => {
+            console.log("data seguimiento="+JSON.stringify(data));
+            const items_seguimiento = data.payload;
 
-          const lastone = items_seguimiento.find(o=>!o.fecha_fin);
-          if (lastone){                            
-              this.motivo_rechazo = lastone.motivo_rechazo;
-          }
+            const lastone = items_seguimiento.find(o=>!o.fecha_fin);
+            if (lastone){                            
+                this.motivo_rechazo = lastone.motivo_rechazo;
+            }
 
-        })
+          })
+        }
 
         this.planService.listarPlanEmpresa(this.id_solicitud_editar).then(res => {
           this.miClienteSolicitud = this.mapeoAgrupacion(res.payload[0], this.id_tipo_cliente);
