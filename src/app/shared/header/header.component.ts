@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AutenticacionService } from '@services/autenticacion.service';
 import { SideNavService } from '../sidebar/side-nav.service';
 
@@ -8,15 +9,18 @@ import { SideNavService } from '../sidebar/side-nav.service';
   styles: [
   ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent{
 
   @Output() sidenavToggle = new EventEmitter<void>();
-
+  userInfo?: any;
+  nombre?:string='';
   constructor(
     private sidenav: SideNavService,
+    private router: Router,
     private autenticacionService: AutenticacionService,) 
     { 
-
+      this.userInfo = this.autenticacionService.getUserInfo();
+     
   }
 
 
@@ -25,7 +29,5 @@ onToggleSidenav(){
 }
 
 
-  ngOnInit(): void {
-  
-  }
+ 
 }

@@ -7,5 +7,5 @@
    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
      <mat-icon>person</mat-icon>
    </button>
-   <span class="color-principal">NombrePersona</span>
+   <span class="color-principal" *ngIf="userInfo">{{ ( userInfo?userInfo.nombre:'') }}</span>
  </mat-toolbar>
