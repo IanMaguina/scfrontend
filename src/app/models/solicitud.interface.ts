@@ -27,5 +27,7 @@ export interface Solicitud{
     fecha_modificacion?:string,
     crear_correlativo?:boolean,
     id_sub_estado?:number,
+    id_tipo_motivo_financiero?:number,
+    motivo_financiero?:string
     
 }
