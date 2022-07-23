@@ -9,25 +9,22 @@ import { SideNavService } from '../sidebar/side-nav.service';
   styles: [
   ]
 })
-export class HeaderComponent{
+export class HeaderComponent {
 
   @Output() sidenavToggle = new EventEmitter<void>();
   userInfo?: any;
-  nombre?:string='';
+  nombre?: string = '';
   constructor(
-    private sidenav: SideNavService,
-    private router: Router,
-    private autenticacionService: AutenticacionService,) 
-    { 
-      this.userInfo = this.autenticacionService.getUserInfo();
-     
+    
+    private autenticacionService: AutenticacionService,) {
+    this.userInfo = this.autenticacionService.getUserInfo();
   }
 
 
-onToggleSidenav(){
-  this.sidenavToggle.emit();
-}
+  onToggleSidenav() {
+    this.sidenavToggle.emit();
+  }
 
 
- 
+
 }
