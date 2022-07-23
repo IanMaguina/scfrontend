@@ -229,6 +229,20 @@ export class SolicitudService {
       });
   }
 
+  actualizarMotivoFinancieroSolicitud(id_solicitud, solicitud: Solicitud): Promise<any> {
+    console.log("/api/solicitud/"+id_solicitud+"/motivo-financiero solicitud -->"+JSON.stringify(solicitud));
+    return new Promise(
+      (resolve, reject) => {
+        this.resourceService.putResource("/api/solicitud/" + id_solicitud+"/motivo-financiero",solicitud).toPromise().then((data) => {
+          console.log("response data=" + JSON.stringify(data));
+          resolve(data);
+        }).catch((error) => {
+          console.log("error status=" + error.status + ", msg=" + error.message);
+          reject(error);
+        });
+      });
+  }
+
   crearSolicitudPrincipalCliente(solicitud: Solicitud): Promise<any> {
     console.log("adding SolicitudPrincipalCliente..." + JSON.stringify(solicitud));
     return new Promise(

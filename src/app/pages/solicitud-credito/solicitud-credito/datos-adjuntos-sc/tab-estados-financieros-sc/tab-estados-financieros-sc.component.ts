@@ -7,6 +7,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Adjunto } from 'src/app/models/adjunto.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { TipoMotivoFinancieroService } from '@services/tipo-motivo-financiero.service';
+import { SolicitudService } from '@services/solicitud.service';
+import { Solicitud } from 'src/app/models/solicitud.interface';
+import { AutenticacionService } from '@services/autenticacion.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { GlobalSettings } from 'src/app/shared/settings';
 
 @Component({
   selector: 'app-tab-estados-financieros-sc',
@@ -32,20 +38,75 @@ export class TabEstadosFinancierosScComponent implements OnInit {
   motivofinancieros: number = 2;
   estadosfinancieros = new FormControl('auto');
 
+  motivo_financiero: any;
+  motivo_descripcion:string;
+  motivos:any;
+
+  userInfo:any;
+
+  ESTADO_SOLICITUD_EN_SOLICITANTE = GlobalSettings.ESTADO_SOLICITUD_EN_SOLICITANTE;
+
+  editable:boolean=false;
+
+  id_motivo_otros = 4;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private matDialog: MatDialog,
     private _snack: MatSnackBar,
+    private tipoMotivoFinancieroService :TipoMotivoFinancieroService,
+    private solicitudService: SolicitudService,
+    private autenticacionService:AutenticacionService,
     private readonly solicitudAdjuntoService: SolicitudAdjuntoService) { }
 
-  ngOnInit(): void {
-    console.log("id editar adjuntos: "+this.id_solicitud_editar);
+  async ngOnInit() {
+    console.log("id editar adjuntos: "+this.id_solicitud_editar);   
+
     this.createForm();
     this.getIdRequest();
     this.listarAdjuntos();
+    await this.listaMotivos();
+
+    this.solicitudService.obtenerSolicitud(this.id_solicitud_editar).then(s=>{
+
+      //console.log("ssssssssss ="+ JSON.stringify(s));
+
+      this.editable = s.payload && s.payload.id_estado===this.ESTADO_SOLICITUD_EN_SOLICITANTE?true:false;
+
+      if (s.payload && s.payload.id_tipo_motivo_financiero){
+        this.estadosfinancieros.setValue(this.motivofinancieros);
+
+        console.log("s.payload.id_tipo_motivo_financiero="+s.payload.id_tipo_motivo_financiero);
+
+        this.motivo_financiero = this.motivos.find(m=>m.id===s.payload.id_tipo_motivo_financiero);
+
+        this.motivo_descripcion = s.payload.motivo_financiero;
+
+      }
+
+});
+
+    this.userInfo = this.autenticacionService.getUserInfo();
+
+    console.log("tipo=1111 "+ JSON.stringify(this.estadosfinancieros.value === this.motivofinancieros));
   }
 
+
+  validaMotivo(event){
+      console.log("motivo seleccionado = "+ JSON.stringify(event.value));
+      if (event.value && event.value.id!=this.id_motivo_otros){
+        this.motivo_descripcion = '';
+      }
+  }
+
+  async listaMotivos(){
+     const items = await this.tipoMotivoFinancieroService.listar();
+     if (items){
+        this.motivos = items.payload;
+        console.log("motivos..."+JSON.stringify(this.motivos));
+     }
+  }
 
   public onInputFileChange(fileList: FileList): void {
     this.file_store = fileList;
@@ -57,6 +118,37 @@ export class TabEstadosFinancierosScComponent implements OnInit {
     }
 
     this.formFinancialState.controls['file'].patchValue("");
+
+  }
+
+  guardarMotivo(){
+
+      console.log("guardar motivo..."+ this.id_solicitud_editar +", "+ JSON.stringify(this.motivo_financiero));
+      console.log("motivo descripcion="+this.motivo_descripcion);
+
+      const motivo_desc = this.motivo_financiero.id==4?this.motivo_descripcion:'';
+
+      const solicitud:Solicitud = {id_usuario: this.userInfo.id, id_tipo_motivo_financiero: this.motivo_financiero.id, motivo_financiero:motivo_desc}
+
+      this.solicitudService.actualizarMotivoFinancieroSolicitud(this.id_solicitud_editar,solicitud).then(async data => {
+        console.log("se actualizo la solicitud-->" + JSON.stringify(data));
+        if (data.header.exito) {
+          if (data.payload && data.payload.warning) {
+            this.openAlerta(data.payload.warning.mensaje);              
+          } else {
+            this.enviarMensajeSnack("Se actualizo la solicitud.");
+          }
+        }
+      });
+
+  }
+
+
+  openAlerta(mensaje: string) {
+    this.matDialog.open(ErrorDialogComponent, {
+      disableClose: true,
+      data: mensaje
+    });
 
   }
 
