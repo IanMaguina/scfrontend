@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output} from '@angular/core';
+import { AutenticacionService } from '@services/autenticacion.service';
 
 @Component({
   selector: 'app-pages',
@@ -11,6 +12,11 @@ export class PagesComponent {
   title = 'scfrontend';
   funcion:boolean = false;
   
+  constructor(
+    private autenticacionService: AutenticacionService
+  ){
+    
+  }
 
   hideSidebar() {
     this.funcion = true;
